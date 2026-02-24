@@ -67,17 +67,21 @@
     });
   });
 
-  // Project selector / filter
-  const projectCards = document.querySelectorAll('.project-card');
+  // Project selector
   const caseStudies = document.querySelectorAll('.case-study');
   const filterBtn = document.querySelector('.filter-btn[data-filter="all"]');
   const workSection = document.getElementById('work');
 
+  function scrollToEl(el) {
+    if (!el) return;
+    const navHeight = nav.offsetHeight;
+    const pos = el.getBoundingClientRect().top + window.scrollY - navHeight - 24;
+    window.scrollTo({ top: pos, behavior: 'smooth' });
+  }
+
   function showAll() {
-    caseStudies.forEach((cs) => {
-      cs.classList.remove('hidden');
-    });
-    projectCards.forEach((c) => c.classList.remove('active'));
+    caseStudies.forEach((cs) => cs.classList.remove('hidden'));
+    document.querySelectorAll('.project-card').forEach((c) => c.classList.remove('active'));
     if (filterBtn) filterBtn.classList.add('active');
     observeReveals();
   }
@@ -90,39 +94,35 @@
         cs.classList.add('hidden');
       }
     });
-    projectCards.forEach((c) => {
-      c.classList.toggle('active', c.dataset.project === projectId);
+    document.querySelectorAll('.project-card').forEach((c) => {
+      if (c.dataset.project === projectId) {
+        c.classList.add('active');
+      } else {
+        c.classList.remove('active');
+      }
     });
     if (filterBtn) filterBtn.classList.remove('active');
     observeReveals();
 
     setTimeout(() => {
-      const target = document.getElementById(projectId);
-      if (target) {
-        const navHeight = nav.offsetHeight;
-        const pos = target.getBoundingClientRect().top + window.scrollY - navHeight - 20;
-        window.scrollTo({ top: pos, behavior: 'smooth' });
-      }
-    }, 100);
+      scrollToEl(document.getElementById(projectId));
+    }, 50);
   }
 
-  projectCards.forEach((card) => {
-    card.addEventListener('click', () => {
-      const projectId = card.dataset.project;
+  // Attach click handlers to project cards
+  document.getElementById('projectCards').addEventListener('click', (e) => {
+    const card = e.target.closest('.project-card');
+    if (!card) return;
+    const projectId = card.dataset.project;
+    if (projectId) {
       showProject(projectId);
-    });
+    }
   });
 
   if (filterBtn) {
     filterBtn.addEventListener('click', () => {
       showAll();
-      setTimeout(() => {
-        if (workSection) {
-          const navHeight = nav.offsetHeight;
-          const pos = workSection.getBoundingClientRect().top + window.scrollY - navHeight - 20;
-          window.scrollTo({ top: pos, behavior: 'smooth' });
-        }
-      }, 100);
+      setTimeout(() => scrollToEl(workSection), 50);
     });
   }
 
@@ -131,22 +131,16 @@
     link.addEventListener('click', (e) => {
       e.preventDefault();
       showAll();
-      const projectsSection = document.getElementById('projects');
-      if (projectsSection) {
-        const navHeight = nav.offsetHeight;
-        const pos = projectsSection.getBoundingClientRect().top + window.scrollY - navHeight - 20;
-        window.scrollTo({ top: pos, behavior: 'smooth' });
-      }
+      scrollToEl(document.getElementById('projects'));
     });
   });
 
-  // Staggered reveal
+  // Staggered reveal for grouped elements (not project cards)
   const staggerGroups = [
     '.solution-grid .solution-card',
     '.principles-grid .principle',
     '.impact-grid .impact-card',
     '.ama-features .ama-feature',
-    '.project-cards .project-card',
   ];
 
   staggerGroups.forEach((selector) => {

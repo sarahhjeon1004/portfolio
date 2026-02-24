@@ -25,7 +25,7 @@
   --amber-light: #fffbeb;
   --amber-text: #b45309;
   --max-width: 1080px;
-  --section-gap: 140px;
+  --section-gap: 100px;
   --radius: 16px;
   --radius-sm: 10px;
 }
@@ -434,84 +434,79 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
    Project Selector
    ============================================ */
 .project-selector {
+  padding: 64px 0;
   background: var(--gray-50);
   border-top: 1px solid var(--gray-200);
-  border-bottom: 1px solid var(--gray-200);
+}
+
+.selector-heading {
+  font-family: var(--font);
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  margin-bottom: 4px;
+}
+
+.selector-sub {
+  font-size: 15px;
+  color: var(--gray-500);
+  margin-bottom: 28px;
 }
 
 .project-cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin-bottom: 24px;
+  gap: 14px;
+  margin-bottom: 20px;
 }
 
 .project-card {
   text-align: left;
-  padding: 32px 28px;
+  padding: 24px 22px;
   background: var(--white);
   border: 2px solid var(--gray-200);
-  border-radius: var(--radius);
+  border-radius: 12px;
   cursor: pointer;
-  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
   position: relative;
   overflow: hidden;
-}
-
-.project-card::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: var(--blue);
-  transform: scaleX(0);
-  transition: transform 0.3s ease;
+  font-family: var(--font);
 }
 
 .project-card:hover {
-  border-color: var(--gray-300);
+  border-color: var(--gray-400);
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
-}
-
-.project-card:hover::after {
-  transform: scaleX(1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
 }
 
 .project-card.active {
   border-color: var(--blue);
-  box-shadow: 0 0 0 1px var(--blue);
-}
-
-.project-card.active::after {
-  transform: scaleX(1);
+  background: var(--blue-light);
 }
 
 .project-card-num {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
   color: var(--gray-300);
   display: block;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
   letter-spacing: 0.05em;
 }
 
 .project-card-title {
   font-family: var(--font);
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
   letter-spacing: -0.02em;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   color: var(--gray-900);
 }
 
 .project-card-desc {
-  font-size: 14px;
+  font-size: 13px;
   color: var(--gray-500);
   line-height: 1.5;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 .project-card-tag {
@@ -521,7 +516,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   text-transform: uppercase;
   letter-spacing: 1px;
   color: var(--gray-400);
-  padding: 4px 10px;
+  padding: 3px 8px;
   background: var(--gray-100);
   border-radius: 4px;
 }
@@ -531,14 +526,16 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 }
 
 .filter-btn {
+  font-family: var(--font);
   font-size: 13px;
   font-weight: 600;
   color: var(--gray-500);
   padding: 8px 20px;
   border: 1px solid var(--gray-200);
   border-radius: 100px;
-  transition: all 0.2s;
+  transition: all 0.15s;
   background: var(--white);
+  cursor: pointer;
 }
 
 .filter-btn:hover,
@@ -551,6 +548,9 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 @media (max-width: 768px) {
   .project-cards {
     grid-template-columns: 1fr;
+  }
+  .project-selector {
+    padding: 48px 0;
   }
 }
 
