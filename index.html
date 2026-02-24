@@ -172,7 +172,8 @@
   <!-- Work -->
   <section class="section work" id="work">
     <div class="container">
-      <!-- Case Study 1: Impact HQ -->
+
+      <!-- ==================== Case Study 1: Impact HQ ==================== -->
       <article class="case-study" id="impact-hq" data-case="impact-hq">
         <div class="cs-header reveal">
           <div class="cs-number">01</div>
@@ -183,19 +184,41 @@
           </div>
           <h3 class="cs-title">Impact HQ</h3>
           <p class="cs-subtitle">
-            A visibility layer for 50+ team members — KPI framework, AI writing coach,
-            and leadership reporting that made research impact measurable without adding burden.
+            53 people doing great work with no consistent way to show it.
+            I built the visibility system that changed that — from discovery through rollout.
           </p>
         </div>
 
         <div class="cs-body">
+          <!-- My Role -->
           <div class="cs-block reveal">
-            <div class="cs-block-label">The Problem</div>
+            <div class="cs-block-label">My Role</div>
             <div class="cs-block-content">
               <p>
-                Work was happening everywhere across PSET XD — 53 active contributors, 22 reporting
-                cycles — but there was no consistent way to see what was landing and what was blocked.
-                Leadership needed a concise, reliable view of impact. Not more metrics. Not more meetings.
+                I owned this end-to-end: ran discovery research (usability survey + stakeholder interviews),
+                designed the KPI framework, built the Airtable schema and automations, wrote the AI coach
+                prompts, redesigned the leadership reports, and led the phased rollout. I collaborated with
+                leadership on digest direction and with senior researchers on calibration and stage-awareness,
+                but the system design, build, and implementation were mine.
+              </p>
+              <p>
+                <strong>Timeline:</strong> 6–8 weeks end-to-end.
+                <strong>Tools:</strong> Airtable, Slack, AI prompt engineering.
+                <strong>Scope:</strong> 53 active contributors across research, service design, and design ops.
+              </p>
+            </div>
+          </div>
+
+          <!-- The Situation -->
+          <div class="cs-block reveal">
+            <div class="cs-block-label">The Situation</div>
+            <div class="cs-block-content">
+              <p>
+                PSET XD had 53 active contributors shipping work across 22 bi-weekly reporting cycles —
+                but leadership had no consistent way to see what was landing and what was blocked. Every
+                two weeks, leadership was reading 40–50 individual reports just to figure out the big
+                picture. Meanwhile, 60–70% of contributors were confused about what "impact" even meant,
+                and only 30–40% were satisfied with the submission process.
               </p>
               <div class="stat-row">
                 <div class="stat">
@@ -203,157 +226,191 @@
                   <span class="stat-label">Active contributors</span>
                 </div>
                 <div class="stat">
-                  <span class="stat-value">~19%</span>
-                  <span class="stat-label">Never submitted</span>
-                </div>
-                <div class="stat">
                   <span class="stat-value">60-70%</span>
                   <span class="stat-label">Confused about "impact"</span>
+                </div>
+                <div class="stat">
+                  <span class="stat-value">40-50</span>
+                  <span class="stat-label">Reports leadership read every 2 weeks</span>
                 </div>
               </div>
               <figure class="cs-image reveal">
                 <img src="images/slide-why-ihq-matters.png" alt="Why Impact HQ Matters" loading="lazy">
-                <figcaption>The transformation: from scattered processes and duplicate tools to strategic alignment and a single source of truth.</figcaption>
+                <figcaption>The core problem: scattered processes, duplicate tools, and no single source of truth for research impact</figcaption>
               </figure>
             </div>
           </div>
 
+          <!-- Discovery -->
+          <div class="cs-block reveal">
+            <div class="cs-block-label">What I Found in Discovery</div>
+            <div class="cs-block-content">
+              <p>
+                I ran a usability survey (70% response rate — 37 of 53 people) and conducted interviews
+                with 5 stakeholders: leadership, researchers, and power users. The findings shaped every
+                decision I made:
+              </p>
+              <div class="problem-list">
+                <div class="problem-item">
+                  <span class="problem-icon">&times;</span>
+                  <span>~19% of contributors had never submitted — not because they had nothing to share, but because the process felt unclear</span>
+                </div>
+                <div class="problem-item">
+                  <span class="problem-icon">&times;</span>
+                  <span>~80% wanted access to their past submissions, but couldn't find them</span>
+                </div>
+                <div class="problem-item">
+                  <span class="problem-icon">&times;</span>
+                  <span>Researchers said: "You want me to re-enter what I already wrote up in a doc?"</span>
+                </div>
+                <div class="problem-item">
+                  <span class="problem-icon">&times;</span>
+                  <span>Leadership wanted a concise digest — not a dashboard, not more metrics, not more meetings</span>
+                </div>
+              </div>
+              <div class="cs-gallery reveal">
+                <figure class="gallery-item">
+                  <img src="images/slide-how-we-got-here.png" alt="Discovery to build timeline" loading="lazy">
+                  <figcaption>The four-phase approach: Discovery, Stakeholder Input, Refinement, Audit &amp; Build</figcaption>
+                </figure>
+                <figure class="gallery-item">
+                  <img src="images/interview-guide.png" alt="Interview guide" loading="lazy">
+                  <figcaption>Semi-structured interview guide covering usability, process, communication, and impact clarity</figcaption>
+                </figure>
+              </div>
+            </div>
+          </div>
+
+          <!-- What I Built -->
           <div class="cs-block reveal">
             <div class="cs-block-label">What I Built</div>
             <div class="cs-block-content">
               <div class="solution-grid">
                 <div class="solution-card">
-                  <div class="solution-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
-                  </div>
                   <h5>Submission Framework</h5>
-                  <p>Structured into Impact, Highlight, and Challenge — each with clear purpose and golden examples.</p>
+                  <p>Three structured types — Impact, Highlight, and Challenge — each with golden examples and "no pressure" messaging. Form takes under 5 minutes.</p>
                 </div>
                 <div class="solution-card">
-                  <div class="solution-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-                  </div>
                   <h5>AI Writing Coach</h5>
-                  <p>Stage-aware prompts that move from activity to outcome framing. Polish, not inflation.</p>
+                  <p>Stage-aware prompts that help move writing from activity to outcome framing. For strong submissions: polish and structure, not "add more impact." Guardrails against inflation.</p>
                 </div>
                 <div class="solution-card">
-                  <div class="solution-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
-                  </div>
-                  <h5>KPI Framework</h5>
-                  <p>Airtable + shared schema for 50+ people. Monthly leadership digests. One source of truth.</p>
+                  <h5>Leadership Digest</h5>
+                  <p>Replaced 40–50 individual reports with a concise top 3–5 per person. Added Blockers, Top Highlights, and AI-generated executive summaries.</p>
                 </div>
                 <div class="solution-card">
-                  <div class="solution-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-                  </div>
                   <h5>Dashboard Redesign</h5>
-                  <p>Removed per-person charts. Added Blockers, Top Highlights, and AI-generated summaries.</p>
+                  <p>Removed per-person charts, counts, and averages that created comparison pressure. Reframed around themes, blockers, and celebrations.</p>
                 </div>
               </div>
               <div class="cs-gallery reveal">
                 <figure class="gallery-item">
                   <img src="images/ihq-form.png" alt="Impact HQ submission form" loading="lazy">
-                  <figcaption>The submission form — Highlights, Challenges, and Details fields</figcaption>
+                  <figcaption>The submission form — Highlights, Challenges, and Details. Under 5 minutes to complete.</figcaption>
                 </figure>
                 <figure class="gallery-item">
-                  <img src="images/ai-coach-prompt.png" alt="AI Writing Coach prompt" loading="lazy">
-                  <figcaption>AI coach prompt — stage-aware assessment with guardrails</figcaption>
+                  <img src="images/ai-coach-prompt.png" alt="AI Writing Coach" loading="lazy">
+                  <figcaption>AI coach — stage-aware assessment that validates strong submissions without over-coaching</figcaption>
                 </figure>
               </div>
               <div class="cs-gallery reveal">
                 <figure class="gallery-item">
                   <img src="images/slide-solution-experience.png" alt="Solution experience" loading="lazy">
-                  <figcaption>Submission types mapped to the Airtable form</figcaption>
+                  <figcaption>Submission types mapped to the Airtable form — Impact, Highlight, and Challenge</figcaption>
                 </figure>
                 <figure class="gallery-item">
                   <img src="images/ihq-reports.png" alt="Impact HQ reports" loading="lazy">
-                  <figcaption>22+ bi-weekly reporting cycles in the system</figcaption>
+                  <figcaption>264 impact submissions across 22 bi-weekly reporting cycles</figcaption>
                 </figure>
               </div>
             </div>
           </div>
 
+          <!-- Challenges I Navigated -->
           <div class="cs-block reveal">
-            <div class="cs-block-label">Process</div>
+            <div class="cs-block-label">Challenges I Navigated</div>
             <div class="cs-block-content">
-              <div class="process-flow">
-                <div class="process-step">
-                  <span class="process-num">1</span>
+              <div class="learnings-row">
+                <div class="learning">
+                  <span class="learning-num">1</span>
                   <div>
-                    <h5>Discovery</h5>
-                    <p>Usability survey (70% response). Interviews with 5 leaders, researchers, power users.</p>
+                    <strong>AI inflation risk</strong>
+                    <p>Stakeholders worried the AI coach would inflate submissions. I worked with senior researchers to set guardrails — polish and structure, not push. Credibility over impressiveness.</p>
                   </div>
                 </div>
-                <div class="process-step">
-                  <span class="process-num">2</span>
+                <div class="learning">
+                  <span class="learning-num">2</span>
                   <div>
-                    <h5>Stakeholder Input</h5>
-                    <p>Leadership wanted a digest, not a dashboard. AI rewrite + summarize shaped by Connie, Valerie, Michelle.</p>
+                    <strong>"Challenge" category pushback</strong>
+                    <p>People were uncomfortable flagging blockers. I reframed it as "what signal can we send so the org can help" — leadership ended up using it for tooling gaps and staffing bottlenecks.</p>
                   </div>
                 </div>
-                <div class="process-step">
-                  <span class="process-num">3</span>
+                <div class="learning">
+                  <span class="learning-num">3</span>
                   <div>
-                    <h5>Audit &amp; Build</h5>
-                    <p>Full system audit — submission flow, report design, dashboard, schema.</p>
+                    <strong>Adoption resistance</strong>
+                    <p>The most resistant researcher became one of the most consistent contributors once I reframed submissions as "your portfolio" — not a performance metric.</p>
                   </div>
                 </div>
-                <div class="process-step">
-                  <span class="process-num">4</span>
-                  <div>
-                    <h5>Phased Rollout</h5>
-                    <p>Phase 1: submission + AI coach + reports. Phase 2: leadership dashboard + impact categorization.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="cs-gallery reveal">
-                <figure class="gallery-item">
-                  <img src="images/slide-how-we-got-here.png" alt="4-phase timeline" loading="lazy">
-                  <figcaption>Discovery, Stakeholder Input, Refinement, Audit &amp; Build</figcaption>
-                </figure>
-                <figure class="gallery-item">
-                  <img src="images/interview-guide.png" alt="Interview guide" loading="lazy">
-                  <figcaption>Semi-structured interview guide for power users</figcaption>
-                </figure>
               </div>
             </div>
           </div>
 
+          <!-- Results -->
           <div class="cs-block reveal">
-            <div class="cs-block-label">Impact</div>
+            <div class="cs-block-label">Results</div>
             <div class="cs-block-content">
               <div class="impact-grid">
-                <div class="impact-card">
-                  <span class="impact-value">50+</span>
-                  <span class="impact-label">People in one visibility system</span>
-                </div>
                 <div class="impact-card">
                   <span class="impact-value">264</span>
                   <span class="impact-label">Impact submissions across 22 cycles</span>
                 </div>
                 <div class="impact-card">
-                  <span class="impact-value">~81%</span>
-                  <span class="impact-label">Participation rate</span>
+                  <span class="impact-value">81%</span>
+                  <span class="impact-label">Participation rate (up from ~81% baseline)</span>
                 </div>
                 <div class="impact-card">
-                  <span class="impact-value">&darr;</span>
-                  <span class="impact-label">Shorter digest cycles, less chasing</span>
+                  <span class="impact-value">&lt;5 min</span>
+                  <span class="impact-label">Form completion time</span>
+                </div>
+                <div class="impact-card">
+                  <span class="impact-value">2-3 hrs</span>
+                  <span class="impact-label">Weekly maintenance (system runs itself)</span>
                 </div>
               </div>
               <div class="impact-quotes">
-                <div class="impact-insight">Actionable digests replaced ad hoc updates</div>
-                <div class="impact-insight">AI coach improved clarity and consistency</div>
-                <div class="impact-insight">Teams celebrating each other's work</div>
-                <div class="impact-insight">Comparison pressure removed entirely</div>
+                <div class="impact-insight">Leadership reads a concise digest instead of 40–50 reports</div>
+                <div class="impact-insight">Comparison pressure removed — no per-person metrics</div>
+                <div class="impact-insight">Teams started celebrating each other's work</div>
+                <div class="impact-insight">38% became consistent contributors across cycles</div>
               </div>
+            </div>
+          </div>
+
+          <!-- Reflections -->
+          <div class="cs-block reveal">
+            <div class="cs-block-label">Reflections</div>
+            <div class="cs-block-content">
+              <p>
+                <strong>What I learned:</strong> Start stakeholder alignment before designing. The system
+                succeeded because leadership, researchers, and design ops all shaped it — not because I
+                designed it in isolation. Golden examples from day one would have accelerated adoption.
+                And auditing the existing system first saved me from rebuilding things that already worked.
+              </p>
+              <p>
+                <strong>What I'd do differently:</strong> I would have done user research on the form itself
+                before building v1 — validated what "low-friction" actually means to researchers. I'd launch
+                with a simpler form and the "portfolio" framing from the start, rather than discovering that
+                framing partway through. And I'd define collaboration roles earlier to avoid scope ambiguity
+                with design ops.
+              </p>
             </div>
           </div>
         </div>
         <a href="#projects" class="back-to-projects">&larr; Back to all projects</a>
       </article>
 
-      <!-- Case Study 2: Research Intake Pipeline -->
+      <!-- ==================== Case Study 2: Research Intake Pipeline ==================== -->
       <article class="case-study" id="research-intake" data-case="research-intake">
         <div class="cs-header reveal">
           <div class="cs-number">02</div>
@@ -364,19 +421,38 @@
           </div>
           <h3 class="cs-title">Research Intake Pipeline</h3>
           <p class="cs-subtitle">
-            From Confluence chaos to a self-governing Airtable pipeline — where the requestor
-            makes the case and the system prioritizes.
+            40+ competing research requests, no front door, and 45-minute triage debates.
+            I built a system where data decides priority — not politics.
           </p>
         </div>
 
         <div class="cs-body">
+          <!-- My Role -->
           <div class="cs-block reveal">
-            <div class="cs-block-label">The Problem</div>
+            <div class="cs-block-label">My Role</div>
             <div class="cs-block-content">
               <p>
-                No front door for research. PMs and designers submitted requests through
-                Slack DMs, emails, or copy-pasted Confluence templates. Requests got lost,
-                duplicated, or forgotten.
+                I owned this from discovery through both iterations. I ran interviews with researchers,
+                designers, and PMs to map pain points. I designed and built both versions — the intake
+                form (v1), and the self-scoring prioritization framework (v2). I built the Airtable
+                schema, automations, and triage playbook, and launched at all-hands.
+              </p>
+              <p>
+                <strong>Timeline:</strong> v1 shipped in ~2 weeks. v2 followed a few weeks later.
+                <strong>Tools:</strong> Airtable (form, Kanban backlog, automations).
+              </p>
+            </div>
+          </div>
+
+          <!-- The Situation -->
+          <div class="cs-block reveal">
+            <div class="cs-block-label">The Situation</div>
+            <div class="cs-block-content">
+              <p>
+                There was no front door for research. PMs submitted requests through Slack DMs. Designers
+                copy-pasted Confluence templates. Requests got lost, duplicated, or forgotten. Researchers
+                had 40+ competing requests and no framework to prioritize or push back. Triage meetings
+                devolved into 45-minute debates because every request felt equally "urgent."
               </p>
               <div class="quote-cards">
                 <blockquote>
@@ -394,14 +470,20 @@
               </div>
               <figure class="cs-image reveal">
                 <img src="images/confluence-form.png" alt="Old Confluence form" loading="lazy">
-                <figcaption>The old way: Confluence template with manual copy-pasting and page labels</figcaption>
+                <figcaption>The old way: a Confluence template with manual copy-pasting, metadata tables, and page labels</figcaption>
               </figure>
             </div>
           </div>
 
+          <!-- v1 -->
           <div class="cs-block reveal">
-            <div class="cs-block-label">v1 — One Front Door</div>
+            <div class="cs-block-label">v1 — Solving Submission (2 weeks)</div>
             <div class="cs-block-content">
+              <p>
+                I started with the simplest version of the fix: one Airtable form that auto-populates
+                the team backlog. I launched it at all-hands and adoption was immediate — requests
+                stopped getting lost in Slack overnight.
+              </p>
               <div class="version-card">
                 <div class="version-flow">
                   <div class="flow-node">Airtable Form</div>
@@ -409,47 +491,52 @@
                   <div class="flow-node">Team Backlog</div>
                 </div>
                 <p>
-                  Built a simple Airtable intake form that auto-populates the team backlog.
-                  Strong adoption after all-hands launch.
+                  100% of requests were now centralized. Zero lost requests. But researchers were
+                  still overwhelmed — everything was in one place, and everything still felt urgent.
                 </p>
                 <div class="version-but">
-                  But researchers were still overwhelmed. Solved submission — not prioritization.
+                  v1 solved submission but not prioritization. I was transparent about that, and showing
+                  the plan for v2 built more trust than if v1 had been perfect.
                 </div>
               </div>
               <figure class="cs-image reveal">
                 <img src="images/v1-form.png" alt="v1 intake form" loading="lazy">
-                <figcaption>v1: Airtable intake form with project name, research type, timeline, and priority</figcaption>
+                <figcaption>v1: Airtable intake form with project name, research type, timeline, and priority fields</figcaption>
               </figure>
             </div>
           </div>
 
+          <!-- v2 -->
           <div class="cs-block reveal">
-            <div class="cs-block-label">v2 — The Requestor Makes the Case</div>
+            <div class="cs-block-label">v2 — Solving Prioritization</div>
             <div class="cs-block-content">
               <p>
-                Instead of researchers justifying why something shouldn't happen,
-                the requestor justifies why it should.
+                The key insight: instead of researchers justifying why something <em>shouldn't</em>
+                happen, make the requestor justify why it <em>should</em>. I designed a self-scoring
+                framework where requestors rate their own request on four dimensions with written
+                rationale. The backlog auto-sorts by composite score — and data arbitrates triage
+                instead of opinion.
               </p>
               <div class="scoring-framework">
                 <div class="score-item">
                   <span class="score-name">Business Impact</span>
-                  <span class="score-range">1 – 5 + rationale</span>
+                  <span class="score-range">1 – 5 + written rationale</span>
                 </div>
                 <div class="score-item">
                   <span class="score-name">User Impact</span>
-                  <span class="score-range">1 – 5 + rationale</span>
+                  <span class="score-range">1 – 5 + written rationale</span>
                 </div>
                 <div class="score-item">
                   <span class="score-name">Risk if Skipped</span>
-                  <span class="score-range">1 – 5 + rationale</span>
+                  <span class="score-range">1 – 5 + written rationale</span>
                 </div>
                 <div class="score-item">
                   <span class="score-name">Urgency</span>
-                  <span class="score-range">1 – 5 + rationale</span>
+                  <span class="score-range">1 – 5 + written rationale</span>
                 </div>
               </div>
               <div class="version-flow v2-flow">
-                <div class="flow-node">Form + Scoring</div>
+                <div class="flow-node">Form + Self-scoring</div>
                 <div class="flow-connector">&rarr;</div>
                 <div class="flow-node">Auto-sorted Backlog</div>
                 <div class="flow-connector">&rarr;</div>
@@ -457,13 +544,10 @@
                 <div class="flow-connector">&rarr;</div>
                 <div class="flow-node">Assigned</div>
               </div>
-              <p class="v2-insight">
-                Low-value requests become self-evident. No manager needed — the system prioritizes.
-              </p>
               <div class="cs-gallery reveal">
                 <figure class="gallery-item">
                   <img src="images/v2-form-2.png" alt="v2 intake form with scoring" loading="lazy">
-                  <figcaption>v2: Requestor scores Business Impact, User Impact, Risk, and Urgency</figcaption>
+                  <figcaption>v2: Requestors score Business Impact, User Impact, Risk, and Urgency with rationale</figcaption>
                 </figure>
                 <figure class="gallery-item">
                   <img src="images/backlog-kanban.png" alt="Kanban backlog" loading="lazy">
@@ -477,8 +561,39 @@
             </div>
           </div>
 
+          <!-- Challenges I Navigated -->
           <div class="cs-block reveal">
-            <div class="cs-block-label">Impact</div>
+            <div class="cs-block-label">Challenges I Navigated</div>
+            <div class="cs-block-content">
+              <div class="learnings-row">
+                <div class="learning">
+                  <span class="learning-num">1</span>
+                  <div>
+                    <strong>PMs pushed back on self-scoring</strong>
+                    <p>"Why do I have to justify my own request?" But once they saw well-scored requests move faster, the complaint disappeared. The system became self-reinforcing.</p>
+                  </div>
+                </div>
+                <div class="learning">
+                  <span class="learning-num">2</span>
+                  <div>
+                    <strong>Gaming the scores</strong>
+                    <p>Some requestors inflated their ratings. I added written rationale as a requirement and guidance examples for what a 3 vs. 5 looks like. The triage team pattern-matched inflated scores easily.</p>
+                  </div>
+                </div>
+                <div class="learning">
+                  <span class="learning-num">3</span>
+                  <div>
+                    <strong>No research manager</strong>
+                    <p>There was no one with positional authority to say "no." I embedded governance into the tool — the framework does the work of prioritization, not a person.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Results -->
+          <div class="cs-block reveal">
+            <div class="cs-block-label">Results</div>
             <div class="cs-block-content">
               <div class="impact-grid">
                 <div class="impact-card">
@@ -490,44 +605,52 @@
                   <span class="impact-label">Lost requests</span>
                 </div>
                 <div class="impact-card">
-                  <span class="impact-value">&darr;</span>
-                  <span class="impact-label">Triage time (debates to data)</span>
+                  <span class="impact-value">45 &rarr; 10 min</span>
+                  <span class="impact-label">Triage meeting time</span>
                 </div>
                 <div class="impact-card">
-                  <span class="impact-value">&check;</span>
-                  <span class="impact-label">Researchers focused on high-impact</span>
+                  <span class="impact-value">348</span>
+                  <span class="impact-label">Projects completed (FY24–26)</span>
                 </div>
               </div>
-              <div class="learnings-row">
-                <div class="learning">
-                  <span class="learning-num">1</span>
-                  <div>
-                    <strong>Solve the system, not the symptom</strong>
-                    <p>v1 fixed submission — v2 fixed prioritization</p>
-                  </div>
-                </div>
-                <div class="learning">
-                  <span class="learning-num">2</span>
-                  <div>
-                    <strong>Embed governance in the tool</strong>
-                    <p>No manager needed when the framework does the work</p>
-                  </div>
-                </div>
-                <div class="learning">
-                  <span class="learning-num">3</span>
-                  <div>
-                    <strong>Ship fast, learn in public</strong>
-                    <p>v1 built the trust that made v2 possible</p>
-                  </div>
-                </div>
+              <div class="impact-quotes">
+                <div class="impact-insight">Triage shifted from opinion-based debates to data-driven reviews</div>
+                <div class="impact-insight">Researchers can push back with data, not personal opinion</div>
+                <div class="impact-insight">Low-value requests become self-evident before triage</div>
+                <div class="impact-insight">Requestors link existing research before asking for new work</div>
               </div>
+              <blockquote class="standalone-quote reveal">
+                <p>"For the first time, I can show a PM why their request isn't the top priority without it being my personal opinion."</p>
+                <cite>— Researcher</cite>
+              </blockquote>
+            </div>
+          </div>
+
+          <!-- Reflections -->
+          <div class="cs-block reveal">
+            <div class="cs-block-label">Reflections</div>
+            <div class="cs-block-content">
+              <p>
+                <strong>What I learned:</strong> Solve the system, not the symptom. v1 fixed submission —
+                but that only moved the bottleneck to prioritization. Shipping v1 fast built the trust that
+                made v2 possible. Being transparent about what isn't working builds more credibility than
+                trying to make v1 perfect.
+              </p>
+              <p>
+                <strong>What I'd do differently:</strong> I'd embed the scoring framework from day one
+                instead of shipping a simpler v1 first. The two-phase approach built trust, but it also
+                meant researchers dealt with an unsolved prioritization problem for weeks. I'd also add
+                an automatic feedback loop — right now requestors don't know where their request stands
+                unless they check the backlog. A Slack notification when status changes would close
+                that gap.
+              </p>
             </div>
           </div>
         </div>
         <a href="#projects" class="back-to-projects">&larr; Back to all projects</a>
       </article>
 
-      <!-- Case Study 3: Ask Me Anything -->
+      <!-- ==================== Case Study 3: Ask Me Anything ==================== -->
       <article class="case-study" id="ask-me-anything" data-case="ask-me-anything">
         <div class="cs-header reveal">
           <div class="cs-number">03</div>
@@ -538,32 +661,49 @@
           </div>
           <h3 class="cs-title">Ask Me Anything</h3>
           <p class="cs-subtitle">
-            An AI-powered platform that searches across Dovetail, Prism, and internal
-            repositories — so anyone can ask a question about what we know and get an
-            answer in seconds.
+            Decades of research locked in silos that don't talk to each other.
+            I'm building the AI-powered system that makes it all searchable — for everyone.
           </p>
         </div>
 
         <div class="cs-body">
+          <!-- My Role -->
+          <div class="cs-block reveal">
+            <div class="cs-block-label">My Role</div>
+            <div class="cs-block-content">
+              <p>
+                I initiated and am driving this project. I wrote the project brief, design spec, and
+                technical reference. I built the MCP server with Dovetail API integration and designed
+                the UI modeled after enterprise research platforms like Stravito. During a hackathon,
+                I partnered with an engineer to prototype the initial AI-powered search experience —
+                Ask Me Anything is the evolution of that prototype.
+              </p>
+              <p>
+                <strong>Status:</strong> Prototype in active development — seeking team members (engineers, designers).
+                <strong>Tools:</strong> Dovetail API, MCP, Slack Bot API, Confluence API, Node.js/TypeScript.
+              </p>
+              <p>
+                This project directly supports my team's strategic direction: <em>"Exploring how emerging
+                AI tools can support research synthesis, documentation, and operational efficiency —
+                helping elevate the maturity of our practice."</em>
+              </p>
+            </div>
+          </div>
+
           <!-- Why This Exists -->
           <div class="cs-block reveal">
             <div class="cs-block-label">Why This Exists</div>
             <div class="cs-block-content">
               <p>
-                Autodesk has decades of deep, valuable research — and almost nobody can find it.
-                Usability studies live in Dovetail, archived research in Prism, customer data in PDMS,
-                sentiment in UPF Hub. Each holds part of the picture, but they don't talk to each other.
-              </p>
-              <p>
-                The research practice has been trying to unlock these repositories for years. Not everyone
-                has Dovetail access. PMs, designers, engineers, and leadership are locked out of qualitative
-                data entirely. Teams regularly commission new studies on topics that have already been studied
-                — because there's no way to know what already exists.
+                Autodesk has decades of valuable research — and almost nobody can find it. Usability
+                studies live in Dovetail. Archived research is in Prism. Customer data sits in PDMS.
+                Sentiment lives in UPF Hub. Each holds part of the picture, but they don't talk to
+                each other. The research practice has been trying to unlock these repositories for years.
               </p>
               <div class="problem-list">
                 <div class="problem-item">
                   <span class="problem-icon">&times;</span>
-                  <span>Research locked behind tool access — PMs, engineers, leadership can't search qualitative data</span>
+                  <span>PMs, engineers, and leadership are locked out of qualitative data — they don't have Dovetail access</span>
                 </div>
                 <div class="problem-item">
                   <span class="problem-icon">&times;</span>
@@ -571,15 +711,11 @@
                 </div>
                 <div class="problem-item">
                   <span class="problem-icon">&times;</span>
-                  <span>Teams commissioning new research on already-studied topics — wasting time and budget</span>
+                  <span>Teams commission new research on already-studied topics because there's no way to know what exists</span>
                 </div>
                 <div class="problem-item">
                   <span class="problem-icon">&times;</span>
-                  <span>Quantitative signals (UPF Hub) and qualitative signals (Dovetail/Prism) completely disconnected</span>
-                </div>
-                <div class="problem-item">
-                  <span class="problem-icon">&times;</span>
-                  <span>AI makes this solvable now — semantic search and LLMs can unify what manual effort never could</span>
+                  <span>UPF Hub shows the "what" — Dovetail/Prism show the "why" — and there's no way to connect them</span>
                 </div>
               </div>
             </div>
@@ -590,9 +726,8 @@
             <div class="cs-block-label">Who It's For</div>
             <div class="cs-block-content">
               <p>
-                The platform is designed for every role that touches research — not just researchers.
-                Each persona has different questions, different access levels, and different workflows.
-                The system adapts to all of them.
+                Each role has different questions, different access levels, and different workflows.
+                The platform adapts to all of them with role-based quick starts and persona-aware search.
               </p>
               <div class="persona-grid">
                 <div class="persona-card">
@@ -623,100 +758,67 @@
             </div>
           </div>
 
-          <!-- What I Built -->
+          <!-- What I'm Building -->
           <div class="cs-block reveal">
-            <div class="cs-block-label">What I Built</div>
+            <div class="cs-block-label">What I'm Building</div>
             <div class="cs-block-content">
               <p>
-                A research intelligence platform that brings search, quotes, pain points,
-                feature requests, and dashboards into the tools people already use —
-                Slack, Confluence, and a Chrome extension. 2,450+ research items across 5 connected
-                sources, searchable in seconds.
+                A research intelligence platform that unifies Dovetail (342+ items), Prism (1,200+ studies),
+                PDMS (89 items), and Analytics (56 dashboards) into one searchable interface. AI summarizes
+                findings across sources, cites originals, and delivers answers through Slack, Confluence,
+                and a Chrome extension — so people get research where they already work.
               </p>
               <figure class="cs-image reveal">
                 <img src="images/ama-home.png" alt="Ask Me Anything home page" loading="lazy">
                 <figcaption>Home page with natural language search, role-based quick-start cards, and platform-wide stats</figcaption>
               </figure>
-              <div class="ama-features">
-                <div class="ama-feature">
-                  <div class="ama-feature-header">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                    <h5>Cross-source Search</h5>
-                  </div>
-                  <p>AI-generated summaries from Dovetail, Analytics, UPF Hub, and Prism with numbered citations and links to original sources.</p>
-                </div>
-                <div class="ama-feature">
-                  <div class="ama-feature-header">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-                    <h5>Research Library &amp; Quote Library</h5>
-                  </div>
-                  <p>342 projects and 124 customer quotes browsable by type, product, audience, sentiment, and source.</p>
-                </div>
-                <div class="ama-feature">
-                  <div class="ama-feature-header">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
-                    <h5>Pain Points &amp; Feature Requests</h5>
-                  </div>
-                  <p>Customer issues aggregated by severity and feature requests ranked by mention frequency across all sources.</p>
-                </div>
-              </div>
               <div class="cs-gallery reveal">
                 <figure class="gallery-item">
                   <img src="images/ama-search.png" alt="AI-powered search results" loading="lazy">
-                  <figcaption>Search results with AI summary — findings across Dovetail, Analytics, and UPF Hub with source citations</figcaption>
+                  <figcaption>AI-powered search — summaries across Dovetail, Analytics, and UPF Hub with numbered source citations</figcaption>
                 </figure>
                 <figure class="gallery-item">
                   <img src="images/ama-library.png" alt="Research Library" loading="lazy">
-                  <figcaption>Research Library — 342 projects with collection chips, view counts, and full-text search</figcaption>
+                  <figcaption>Research Library — 342 projects with filters, view counts, and full-text search</figcaption>
                 </figure>
               </div>
               <div class="cs-gallery reveal">
                 <figure class="gallery-item">
                   <img src="images/ama-pain-points.png" alt="Pain Points" loading="lazy">
-                  <figcaption>Pain Points — 32 customer issues aggregated across 18 studies, sorted by severity</figcaption>
+                  <figcaption>Pain Points — customer issues aggregated by severity across 18 studies</figcaption>
                 </figure>
                 <figure class="gallery-item">
                   <img src="images/ama-dashboard-top.png" alt="Research Dashboard" loading="lazy">
-                  <figcaption>Dashboard — themes, sentiment trends, coverage by product, and identified research gaps</figcaption>
+                  <figcaption>Dashboard — themes, sentiment trends, coverage by product, and identified gaps</figcaption>
                 </figure>
               </div>
             </div>
           </div>
 
-          <!-- Integrations -->
+          <!-- Meeting People Where They Work -->
           <div class="cs-block reveal">
             <div class="cs-block-label">Meeting People Where They Work</div>
             <div class="cs-block-content">
               <p>
-                The platform extends beyond the web app into the tools teams use every day —
-                so you don't have to leave your workflow to get answers.
+                The platform extends into daily workflows — because the biggest barrier to research
+                adoption isn't quality, it's accessibility.
               </p>
               <div class="cs-gallery reveal">
                 <figure class="gallery-item">
                   <img src="images/ama-slack.png" alt="Slack bot" loading="lazy">
-                  <figcaption>Slack bot — type /ama in any channel to get research findings with source links</figcaption>
+                  <figcaption>Slack bot — type /ama to get research findings with source links, in any channel</figcaption>
                 </figure>
-                <figure class="gallery-item">
-                  <img src="images/ama-alerts.png" alt="Topic alerts" loading="lazy">
-                  <figcaption>Topic Alerts — watch any topic and get Slack notifications when new research matches</figcaption>
-                </figure>
-              </div>
-              <div class="cs-gallery reveal">
                 <figure class="gallery-item">
                   <img src="images/ama-confluence.png" alt="Confluence sidebar" loading="lazy">
-                  <figcaption>Confluence sidebar with contextual research, project briefs, and related studies</figcaption>
-                </figure>
-                <figure class="gallery-item">
-                  <img src="images/ama-extension.png" alt="Chrome extension" loading="lazy">
-                  <figcaption>Chrome Extension — auto-detects page context and surfaces related research on Jira, Confluence, and Google Docs</figcaption>
+                  <figcaption>Confluence sidebar — contextual research surfaces automatically alongside project docs</figcaption>
                 </figure>
               </div>
             </div>
           </div>
 
-          <!-- Expected Impact -->
+          <!-- Target Impact -->
           <div class="cs-block reveal">
-            <div class="cs-block-label">Expected Impact</div>
+            <div class="cs-block-label">Target Impact</div>
             <div class="cs-block-content">
               <div class="impact-grid">
                 <div class="impact-card">
@@ -728,20 +830,36 @@
                   <span class="impact-label">Connected sources</span>
                 </div>
                 <div class="impact-card">
-                  <span class="impact-value">89%</span>
-                  <span class="impact-label">Found what they needed</span>
-                </div>
-                <div class="impact-card">
                   <span class="impact-value">hrs &rarr; min</span>
                   <span class="impact-label">Research discovery time</span>
                 </div>
+                <div class="impact-card">
+                  <span class="impact-value">All roles</span>
+                  <span class="impact-label">Access democratized</span>
+                </div>
               </div>
-              <div class="impact-quotes">
-                <div class="impact-insight">Democratized access — PMs, engineers, leadership all get research</div>
-                <div class="impact-insight">Eliminated duplicate research across teams</div>
-                <div class="impact-insight">Connected quantitative and qualitative signals</div>
-                <div class="impact-insight">Research-backed decisions in seconds, not hours</div>
-              </div>
+            </div>
+          </div>
+
+          <!-- Reflections -->
+          <div class="cs-block reveal">
+            <div class="cs-block-label">Reflections</div>
+            <div class="cs-block-content">
+              <p>
+                <strong>What I've learned so far:</strong> Building on open protocols (MCP) instead
+                of proprietary UIs avoids vendor lock-in and gives us flexibility as the AI landscape
+                changes. The biggest unlock isn't the technology — it's meeting people in their existing
+                tools (Slack, Confluence) instead of asking them to learn a new platform. AI workshops
+                with researchers showed me that synthesis support is the highest-value use case, not
+                just search.
+              </p>
+              <p>
+                <strong>What I'm watching for:</strong> The risk is building a tool that's technically
+                impressive but doesn't change behavior. I need to validate early with real usage data —
+                are people actually making decisions differently because of this, or just searching for
+                fun? I'd also want to measure whether duplicate research requests actually decrease
+                after rollout, not just assume they will.
+              </p>
             </div>
           </div>
         </div>

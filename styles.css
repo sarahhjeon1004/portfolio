@@ -843,6 +843,31 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   color: var(--gray-400);
 }
 
+/* Standalone quote */
+.standalone-quote {
+  margin-top: 20px;
+  padding: 20px 24px;
+  background: var(--gray-50);
+  border-left: 2px solid var(--gray-900);
+  border-radius: var(--radius-sm);
+}
+
+.standalone-quote p {
+  font-family: var(--font);
+  font-size: 16px !important;
+  font-weight: 500;
+  color: var(--gray-900) !important;
+  line-height: 1.5 !important;
+  margin-bottom: 8px !important;
+  max-width: none !important;
+}
+
+.standalone-quote cite {
+  font-style: normal;
+  font-size: 13px;
+  color: var(--gray-400);
+}
+
 /* Version cards */
 .version-card {
   background: var(--gray-50);
