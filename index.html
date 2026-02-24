@@ -14,10 +14,10 @@
   <!-- Navigation -->
   <nav class="nav" id="nav">
     <div class="nav-inner">
-      <a href="#" class="nav-logo">SJ</a>
+      <a href="#" class="nav-logo">Sarah Jeon</a>
       <div class="nav-links">
         <a href="#about">About</a>
-        <a href="#work">Work</a>
+        <a href="#projects">Projects</a>
         <a href="#approach">Approach</a>
         <a href="#contact">Contact</a>
       </div>
@@ -27,7 +27,7 @@
     </div>
     <div class="nav-mobile" id="navMobile">
       <a href="#about">About</a>
-      <a href="#work">Work</a>
+      <a href="#projects">Projects</a>
       <a href="#approach">Approach</a>
       <a href="#contact">Contact</a>
     </div>
@@ -36,11 +36,13 @@
   <!-- Hero -->
   <section class="hero" id="hero">
     <div class="hero-content">
+      <div class="hero-photo reveal">
+        <img src="images/headshot.png" alt="Sarah Jeon" width="380" height="480">
+      </div>
       <div class="hero-text">
-        <div class="hero-label reveal">Research Operations</div>
+        <p class="hero-label reveal">Research Operations</p>
         <h1 class="hero-title reveal">
-          I build the systems that help<br>
-          <span class="highlight">research teams scale.</span>
+          I build the systems that help research teams scale.
         </h1>
         <p class="hero-subtitle reveal">
           Framework thinking, governance, and tooling — so researchers
@@ -51,16 +53,8 @@
           <span class="dot"></span>
           <span>McGill &rarr; Getty Images &rarr; Autodesk</span>
         </div>
-        <a href="#work" class="hero-cta reveal">View my work &darr;</a>
+        <a href="#projects" class="hero-cta reveal">View my work &darr;</a>
       </div>
-      <div class="hero-photo reveal">
-        <img src="images/headshot.png" alt="Sarah Jeon" width="380" height="480">
-      </div>
-    </div>
-    <div class="hero-bg-shapes">
-      <div class="shape shape-1"></div>
-      <div class="shape shape-2"></div>
-      <div class="shape shape-3"></div>
     </div>
   </section>
 
@@ -68,8 +62,7 @@
   <section class="section about" id="about">
     <div class="container">
       <div class="section-header reveal">
-        <span class="section-label">About</span>
-        <h2 class="section-title">Turning research chaos<br>into scalable systems</h2>
+        <h2 class="section-title">Turning research chaos into scalable systems</h2>
       </div>
       <div class="about-grid">
         <div class="about-text reveal">
@@ -145,16 +138,44 @@
     </div>
   </section>
 
+  <!-- Project Selector -->
+  <section class="section project-selector" id="projects">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2 class="section-title">Selected work</h2>
+        <p class="section-subtitle">Click a project to explore the full case study.</p>
+      </div>
+      <div class="project-cards">
+        <button class="project-card reveal" data-project="impact-hq">
+          <span class="project-card-num">01</span>
+          <h3 class="project-card-title">Impact HQ</h3>
+          <p class="project-card-desc">KPI framework &amp; visibility system for 50+ contributors across 22 reporting cycles.</p>
+          <span class="project-card-tag">Autodesk</span>
+        </button>
+        <button class="project-card reveal" data-project="research-intake">
+          <span class="project-card-num">02</span>
+          <h3 class="project-card-title">Research Intake Pipeline</h3>
+          <p class="project-card-desc">Self-governing intake system where the requestor makes the case and the system prioritizes.</p>
+          <span class="project-card-tag">Autodesk</span>
+        </button>
+        <button class="project-card reveal" data-project="ask-me-anything">
+          <span class="project-card-num">03</span>
+          <h3 class="project-card-title">Ask Me Anything</h3>
+          <p class="project-card-desc">AI-powered research intelligence platform — 2,450+ items across 5 connected sources.</p>
+          <span class="project-card-tag">Autodesk</span>
+        </button>
+      </div>
+      <div class="project-filter-bar reveal">
+        <button class="filter-btn active" data-filter="all">View All Projects</button>
+      </div>
+    </div>
+  </section>
+
   <!-- Work -->
   <section class="section work" id="work">
     <div class="container">
-      <div class="section-header reveal">
-        <span class="section-label">Selected Work</span>
-        <h2 class="section-title">Case studies in<br>research operations</h2>
-      </div>
-
       <!-- Case Study 1: Impact HQ -->
-      <article class="case-study" id="impact-hq">
+      <article class="case-study" id="impact-hq" data-case="impact-hq">
         <div class="cs-header reveal">
           <div class="cs-number">01</div>
           <div class="cs-meta">
@@ -170,7 +191,6 @@
         </div>
 
         <div class="cs-body">
-          <!-- Problem -->
           <div class="cs-block reveal">
             <div class="cs-block-label">The Problem</div>
             <div class="cs-block-content">
@@ -194,13 +214,12 @@
                 </div>
               </div>
               <figure class="cs-image reveal">
-                <img src="images/slide-why-ihq-matters.png" alt="Why Impact HQ Matters — from scattered processes to unified collaboration" loading="lazy">
+                <img src="images/slide-why-ihq-matters.png" alt="Why Impact HQ Matters" loading="lazy">
                 <figcaption>The transformation: from scattered processes and duplicate tools to strategic alignment and a single source of truth.</figcaption>
               </figure>
             </div>
           </div>
 
-          <!-- Solution -->
           <div class="cs-block reveal">
             <div class="cs-block-label">What I Built</div>
             <div class="cs-block-content">
@@ -210,54 +229,53 @@
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
                   </div>
                   <h5>Submission Framework</h5>
-                  <p>Structured into Impact, Highlight, and Challenge — each with clear purpose and golden examples. "No pressure" messaging throughout.</p>
+                  <p>Structured into Impact, Highlight, and Challenge — each with clear purpose and golden examples.</p>
                 </div>
                 <div class="solution-card">
                   <div class="solution-icon">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
                   </div>
                   <h5>AI Writing Coach</h5>
-                  <p>Stage-aware prompts that move from activity to outcome framing. Validates strong submissions without over-coaching. Polish, not inflation.</p>
+                  <p>Stage-aware prompts that move from activity to outcome framing. Polish, not inflation.</p>
                 </div>
                 <div class="solution-card">
                   <div class="solution-icon">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
                   </div>
                   <h5>KPI Framework</h5>
-                  <p>Airtable + shared schema for 50+ people. Monthly leadership digests. One source of truth — governance, not evaluation.</p>
+                  <p>Airtable + shared schema for 50+ people. Monthly leadership digests. One source of truth.</p>
                 </div>
                 <div class="solution-card">
                   <div class="solution-icon">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
                   </div>
                   <h5>Dashboard Redesign</h5>
-                  <p>Removed per-person charts and averages. Added Blockers, Top Highlights, Impact by Theme, and AI-generated executive summaries.</p>
+                  <p>Removed per-person charts. Added Blockers, Top Highlights, and AI-generated summaries.</p>
                 </div>
               </div>
               <div class="cs-gallery reveal">
                 <figure class="gallery-item">
-                  <img src="images/ihq-form.png" alt="Impact HQ submission form in Airtable" loading="lazy">
-                  <figcaption>The submission form — structured with Highlights, Challenges, and Details fields</figcaption>
+                  <img src="images/ihq-form.png" alt="Impact HQ submission form" loading="lazy">
+                  <figcaption>The submission form — Highlights, Challenges, and Details fields</figcaption>
                 </figure>
                 <figure class="gallery-item">
-                  <img src="images/ai-coach-prompt.png" alt="AI Writing Coach prompt design" loading="lazy">
-                  <figcaption>AI coach prompt — stage-aware assessment with clear guardrails against over-coaching</figcaption>
+                  <img src="images/ai-coach-prompt.png" alt="AI Writing Coach prompt" loading="lazy">
+                  <figcaption>AI coach prompt — stage-aware assessment with guardrails</figcaption>
                 </figure>
               </div>
               <div class="cs-gallery reveal">
                 <figure class="gallery-item">
-                  <img src="images/slide-solution-experience.png" alt="Solution experience — submission types and current Airtable form" loading="lazy">
-                  <figcaption>Submission types mapped to the Airtable form — Impact, Highlight, and Challenge</figcaption>
+                  <img src="images/slide-solution-experience.png" alt="Solution experience" loading="lazy">
+                  <figcaption>Submission types mapped to the Airtable form</figcaption>
                 </figure>
                 <figure class="gallery-item">
-                  <img src="images/ihq-reports.png" alt="Impact HQ reports across 22 reporting cycles" loading="lazy">
-                  <figcaption>All reports view — 22+ bi-weekly reporting cycles in the PSET XD Impact HQ system</figcaption>
+                  <img src="images/ihq-reports.png" alt="Impact HQ reports" loading="lazy">
+                  <figcaption>22+ bi-weekly reporting cycles in the system</figcaption>
                 </figure>
               </div>
             </div>
           </div>
 
-          <!-- Process -->
           <div class="cs-block reveal">
             <div class="cs-block-label">Process</div>
             <div class="cs-block-content">
@@ -266,45 +284,44 @@
                   <span class="process-num">1</span>
                   <div>
                     <h5>Discovery</h5>
-                    <p>Usability survey (70% response). Interviews with 5 leaders, researchers, power users. Mapped pain points across timing, impact clarity, and feedback loops.</p>
+                    <p>Usability survey (70% response). Interviews with 5 leaders, researchers, power users.</p>
                   </div>
                 </div>
                 <div class="process-step">
                   <span class="process-num">2</span>
                   <div>
                     <h5>Stakeholder Input</h5>
-                    <p>Leadership wanted a digest, not a dashboard. Connie pushed for AI rewrite + summarize. Valerie and Michelle shaped stage-awareness and calibration.</p>
+                    <p>Leadership wanted a digest, not a dashboard. AI rewrite + summarize shaped by Connie, Valerie, Michelle.</p>
                   </div>
                 </div>
                 <div class="process-step">
                   <span class="process-num">3</span>
                   <div>
                     <h5>Audit &amp; Build</h5>
-                    <p>Full system audit — submission flow, report design, dashboard, schema. Structured submission types, AI coach prompt, automation design.</p>
+                    <p>Full system audit — submission flow, report design, dashboard, schema.</p>
                   </div>
                 </div>
                 <div class="process-step">
                   <span class="process-num">4</span>
                   <div>
                     <h5>Phased Rollout</h5>
-                    <p>Phase 1: submission + AI coach + reports. Phase 2: leadership dashboard + impact categorization. Get comfort right before adding complexity.</p>
+                    <p>Phase 1: submission + AI coach + reports. Phase 2: leadership dashboard + impact categorization.</p>
                   </div>
                 </div>
               </div>
               <div class="cs-gallery reveal">
                 <figure class="gallery-item">
-                  <img src="images/slide-how-we-got-here.png" alt="How We Got Here — 4-phase discovery to build timeline" loading="lazy">
-                  <figcaption>The four-phase process: Discovery, Stakeholder Input, Refinement, Audit &amp; Build</figcaption>
+                  <img src="images/slide-how-we-got-here.png" alt="4-phase timeline" loading="lazy">
+                  <figcaption>Discovery, Stakeholder Input, Refinement, Audit &amp; Build</figcaption>
                 </figure>
                 <figure class="gallery-item">
-                  <img src="images/interview-guide.png" alt="Interview guide for Impact HQ usability and process research" loading="lazy">
-                  <figcaption>Semi-structured interview guide for power users — covering usability, process, communication, and impact clarity</figcaption>
+                  <img src="images/interview-guide.png" alt="Interview guide" loading="lazy">
+                  <figcaption>Semi-structured interview guide for power users</figcaption>
                 </figure>
               </div>
             </div>
           </div>
 
-          <!-- Impact -->
           <div class="cs-block reveal">
             <div class="cs-block-label">Impact</div>
             <div class="cs-block-content">
@@ -335,10 +352,11 @@
             </div>
           </div>
         </div>
+        <a href="#projects" class="back-to-projects">&larr; Back to all projects</a>
       </article>
 
       <!-- Case Study 2: Research Intake Pipeline -->
-      <article class="case-study" id="research-intake">
+      <article class="case-study" id="research-intake" data-case="research-intake">
         <div class="cs-header reveal">
           <div class="cs-number">02</div>
           <div class="cs-meta">
@@ -354,15 +372,13 @@
         </div>
 
         <div class="cs-body">
-          <!-- Problem -->
           <div class="cs-block reveal">
             <div class="cs-block-label">The Problem</div>
             <div class="cs-block-content">
               <p>
                 No front door for research. PMs and designers submitted requests through
                 Slack DMs, emails, or copy-pasted Confluence templates. Requests got lost,
-                duplicated, or forgotten. Every request felt "urgent" and researchers had no
-                framework to prioritize or push back.
+                duplicated, or forgotten.
               </p>
               <div class="quote-cards">
                 <blockquote>
@@ -379,13 +395,12 @@
                 </blockquote>
               </div>
               <figure class="cs-image reveal">
-                <img src="images/confluence-form.png" alt="Old Confluence research request template" loading="lazy">
-                <figcaption>The old way: a Confluence template with manual copy-pasting, metadata tables, and page labels. Tedious for requestors, hard to parse for researchers.</figcaption>
+                <img src="images/confluence-form.png" alt="Old Confluence form" loading="lazy">
+                <figcaption>The old way: Confluence template with manual copy-pasting and page labels</figcaption>
               </figure>
             </div>
           </div>
 
-          <!-- v1 -->
           <div class="cs-block reveal">
             <div class="cs-block-label">v1 — One Front Door</div>
             <div class="cs-block-content">
@@ -397,20 +412,19 @@
                 </div>
                 <p>
                   Built a simple Airtable intake form that auto-populates the team backlog.
-                  Strong adoption after all-hands launch. Requests stopped getting lost in Slack.
+                  Strong adoption after all-hands launch.
                 </p>
                 <div class="version-but">
                   But researchers were still overwhelmed. Solved submission — not prioritization.
                 </div>
               </div>
               <figure class="cs-image reveal">
-                <img src="images/v1-form.png" alt="v1 Airtable intake form — PSET Research & Architecture Request" loading="lazy">
-                <figcaption>v1: Airtable intake form with project name, description, research type, timeline, and priority fields</figcaption>
+                <img src="images/v1-form.png" alt="v1 intake form" loading="lazy">
+                <figcaption>v1: Airtable intake form with project name, research type, timeline, and priority</figcaption>
               </figure>
             </div>
           </div>
 
-          <!-- v2 -->
           <div class="cs-block reveal">
             <div class="cs-block-label">v2 — The Requestor Makes the Case</div>
             <div class="cs-block-content">
@@ -450,22 +464,21 @@
               </p>
               <div class="cs-gallery reveal">
                 <figure class="gallery-item">
-                  <img src="images/v2-form-2.png" alt="v2 intake form with scoring dimensions" loading="lazy">
-                  <figcaption>v2: Requestor scores their own request — Business Impact, User Impact, Risk, and Urgency with rationale</figcaption>
+                  <img src="images/v2-form-2.png" alt="v2 intake form with scoring" loading="lazy">
+                  <figcaption>v2: Requestor scores Business Impact, User Impact, Risk, and Urgency</figcaption>
                 </figure>
                 <figure class="gallery-item">
-                  <img src="images/backlog-kanban.png" alt="Research backlog kanban board with project cards across stages" loading="lazy">
-                  <figcaption>The auto-sorted research backlog — Kanban view with Triage, Prioritization, Backlog, In Progress, and Completed</figcaption>
+                  <img src="images/backlog-kanban.png" alt="Kanban backlog" loading="lazy">
+                  <figcaption>Auto-sorted backlog — Triage, Prioritization, In Progress, Completed</figcaption>
                 </figure>
               </div>
               <figure class="cs-image reveal">
-                <img src="images/backlog-stats.png" alt="Research backlog stats dashboard with project counts and charts" loading="lazy">
-                <figcaption>Platform Research &amp; Architecture dashboard — 348 completed projects across FY24–FY26, broken down by priority and quarter</figcaption>
+                <img src="images/backlog-stats.png" alt="Backlog stats" loading="lazy">
+                <figcaption>348 completed projects across FY24–FY26, broken down by priority and quarter</figcaption>
               </figure>
             </div>
           </div>
 
-          <!-- Impact -->
           <div class="cs-block reveal">
             <div class="cs-block-label">Impact</div>
             <div class="cs-block-content">
@@ -513,10 +526,11 @@
             </div>
           </div>
         </div>
+        <a href="#projects" class="back-to-projects">&larr; Back to all projects</a>
       </article>
 
       <!-- Case Study 3: Ask Me Anything -->
-      <article class="case-study" id="ask-me-anything">
+      <article class="case-study" id="ask-me-anything" data-case="ask-me-anything">
         <div class="cs-header reveal">
           <div class="cs-number">03</div>
           <div class="cs-meta">
@@ -533,7 +547,6 @@
         </div>
 
         <div class="cs-body">
-          <!-- Problem -->
           <div class="cs-block reveal">
             <div class="cs-block-label">The Problem</div>
             <div class="cs-block-content">
@@ -563,7 +576,6 @@
             </div>
           </div>
 
-          <!-- Solution overview -->
           <div class="cs-block reveal">
             <div class="cs-block-label">What I Built</div>
             <div class="cs-block-content">
@@ -574,13 +586,12 @@
                 sources, searchable in seconds.
               </p>
               <figure class="cs-image reveal">
-                <img src="images/ama-home.png" alt="Ask Me Anything home page — search across all research with role-based quick starts" loading="lazy">
-                <figcaption>The home page: natural language search across all of Autodesk's research, role-based quick-start cards, and platform-wide stats</figcaption>
+                <img src="images/ama-home.png" alt="Ask Me Anything home page" loading="lazy">
+                <figcaption>Natural language search across all research, role-based quick-start cards, platform-wide stats</figcaption>
               </figure>
             </div>
           </div>
 
-          <!-- Platform features with screenshots -->
           <div class="cs-block reveal">
             <div class="cs-block-label">Platform Features</div>
             <div class="cs-block-content">
@@ -590,147 +601,132 @@
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                     <h5>Cross-source Search</h5>
                   </div>
-                  <p>AI-generated summaries from Dovetail, Analytics, UPF Hub, and Prism with numbered citations and links to original sources.</p>
+                  <p>AI-generated summaries from Dovetail, Analytics, UPF Hub, and Prism with citations.</p>
                 </div>
                 <div class="ama-feature">
                   <div class="ama-feature-header">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
                     <h5>Research Library</h5>
                   </div>
-                  <p>342 projects browsable by type, product, audience, and source. View counts, highlights, and tags for quick discovery.</p>
+                  <p>342 projects browsable by type, product, audience, and source.</p>
                 </div>
                 <div class="ama-feature">
                   <div class="ama-feature-header">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
                     <h5>Quote Library</h5>
                   </div>
-                  <p>124 searchable customer quotes across 38 studies. Copy, share to Slack, or cite — with source, segment, and sentiment filters.</p>
+                  <p>124 searchable customer quotes across 38 studies with sentiment filters.</p>
                 </div>
               </div>
 
-              <!-- Search + Library -->
               <div class="cs-gallery reveal">
                 <figure class="gallery-item">
-                  <img src="images/ama-search.png" alt="AI-powered search with cross-source summary and citations" loading="lazy">
-                  <figcaption>Search results with AI summary — 5 numbered findings across Dovetail, Analytics, and UPF Hub with source citations</figcaption>
+                  <img src="images/ama-search.png" alt="AI-powered search" loading="lazy">
+                  <figcaption>Search results with AI summary and source citations</figcaption>
                 </figure>
                 <figure class="gallery-item">
-                  <img src="images/ama-library.png" alt="Research Library showing 342 projects across all sources" loading="lazy">
-                  <figcaption>Research Library — 342 projects with collection chips, view counts, product labels, and full-text search</figcaption>
+                  <img src="images/ama-library.png" alt="Research Library" loading="lazy">
+                  <figcaption>Research Library — 342 projects with filters and search</figcaption>
                 </figure>
               </div>
 
-              <!-- Quotes + Pain Points -->
               <div class="cs-gallery reveal">
                 <figure class="gallery-item">
-                  <img src="images/ama-quotes.png" alt="Quote Library with 124 searchable customer quotes" loading="lazy">
-                  <figcaption>Quote Library — 124 customer quotes with copy, share, and cite actions. Filterable by topic, product, and sentiment.</figcaption>
+                  <img src="images/ama-quotes.png" alt="Quote Library" loading="lazy">
+                  <figcaption>Quote Library — 124 quotes with copy, share, and cite</figcaption>
                 </figure>
                 <figure class="gallery-item">
-                  <img src="images/ama-pain-points.png" alt="Pain Points view showing customer issues sorted by severity" loading="lazy">
-                  <figcaption>Pain Points — 32 customer issues aggregated across 18 studies, sorted by severity with source indicators</figcaption>
+                  <img src="images/ama-pain-points.png" alt="Pain Points" loading="lazy">
+                  <figcaption>Pain Points — 32 issues sorted by severity</figcaption>
                 </figure>
               </div>
 
-              <!-- Feature Requests + Dashboard -->
               <div class="cs-gallery reveal">
                 <figure class="gallery-item">
-                  <img src="images/ama-requests.png" alt="Feature Requests ranked by mention frequency across sources" loading="lazy">
-                  <figcaption>Feature Requests — top requests ranked by mention frequency across NPS, usability studies, and customer councils</figcaption>
+                  <img src="images/ama-requests.png" alt="Feature Requests" loading="lazy">
+                  <figcaption>Feature Requests ranked by mention frequency</figcaption>
                 </figure>
                 <figure class="gallery-item">
-                  <img src="images/ama-dashboard-top.png" alt="Research Dashboard with themes, sentiment trends, and coverage" loading="lazy">
-                  <figcaption>Research Dashboard — themes, sentiment trends via UPF Hub, coverage by product, and identified research gaps</figcaption>
+                  <img src="images/ama-dashboard-top.png" alt="Research Dashboard" loading="lazy">
+                  <figcaption>Research Dashboard — themes, sentiment, coverage</figcaption>
                 </figure>
               </div>
 
-              <!-- Dashboard bottom + Executive Brief -->
               <figure class="cs-image reveal">
-                <img src="images/ama-dashboard-bottom.png" alt="Executive Brief with AI-generated quarterly research summary" loading="lazy">
-                <figcaption>Executive Brief — AI-generated Q1 2026 summary with 3 strategic themes, coverage gaps, and one-click sharing to Slack and leadership</figcaption>
+                <img src="images/ama-dashboard-bottom.png" alt="Executive Brief" loading="lazy">
+                <figcaption>Executive Brief — AI-generated quarterly summary with strategic themes</figcaption>
               </figure>
             </div>
           </div>
 
-          <!-- Integrations -->
           <div class="cs-block reveal">
-            <div class="cs-block-label">Integrations — Meeting People Where They Work</div>
+            <div class="cs-block-label">Integrations</div>
             <div class="cs-block-content">
               <p>
-                The platform extends beyond the web app into the tools teams use every day.
-                Slack bot for instant answers, topic alerts with semantic matching, a Confluence
-                sidebar for contextual research, and a Chrome extension that surfaces related
-                studies on any internal page.
+                The platform extends into the tools teams use every day.
+                Slack bot, topic alerts, Confluence sidebar, and Chrome extension.
               </p>
 
-              <!-- Slack -->
               <div class="cs-gallery reveal">
                 <figure class="gallery-item">
-                  <img src="images/ama-slack.png" alt="Slack bot returning research results with citations" loading="lazy">
-                  <figcaption>Slack bot — type /ama in any channel to search research. Returns numbered findings with source links from Dovetail, Analytics, and Prism.</figcaption>
+                  <img src="images/ama-slack.png" alt="Slack bot" loading="lazy">
+                  <figcaption>Slack bot — /ama returns findings with source links</figcaption>
                 </figure>
                 <figure class="gallery-item">
-                  <img src="images/ama-alerts.png" alt="Topic alerts with semantic matching and watch configuration" loading="lazy">
-                  <figcaption>Topic Alerts — watch any topic and get Slack notifications when new research matches. Uses semantic matching, not just keywords.</figcaption>
+                  <img src="images/ama-alerts.png" alt="Topic alerts" loading="lazy">
+                  <figcaption>Topic Alerts — semantic matching notifications</figcaption>
                 </figure>
               </div>
 
-              <!-- Alert notifications + Confluence -->
               <div class="cs-gallery reveal">
                 <figure class="gallery-item">
-                  <img src="images/ama-alerts-2.png" alt="Alert notifications in Slack channels with matched research" loading="lazy">
-                  <figcaption>Alert notifications — real-time Slack messages when watched topics match new research. Shows semantic similarity confidence scores.</figcaption>
+                  <img src="images/ama-alerts-2.png" alt="Alert notifications" loading="lazy">
+                  <figcaption>Slack notifications with confidence scores</figcaption>
                 </figure>
                 <figure class="gallery-item">
-                  <img src="images/ama-confluence.png" alt="Confluence embed with contextual research sidebar" loading="lazy">
-                  <figcaption>Confluence integration — contextual research sidebar with quick links, project brief, technical reference, and rollout plan</figcaption>
+                  <img src="images/ama-confluence.png" alt="Confluence integration" loading="lazy">
+                  <figcaption>Confluence sidebar with contextual research</figcaption>
                 </figure>
               </div>
 
-              <!-- Extension + Confluence detail -->
               <div class="cs-gallery reveal">
                 <figure class="gallery-item">
-                  <img src="images/ama-extension.png" alt="Chrome extension showing research sidebar on any internal page" loading="lazy">
-                  <figcaption>Chrome Extension — auto-detects page context and surfaces related research. Works on Jira, Confluence, and Google Docs.</figcaption>
+                  <img src="images/ama-extension.png" alt="Chrome extension" loading="lazy">
+                  <figcaption>Chrome Extension — auto-surfaces related research</figcaption>
                 </figure>
                 <figure class="gallery-item">
-                  <img src="images/ama-confluence-3.png" alt="Confluence page with problem statement and platform details" loading="lazy">
-                  <figcaption>Confluence project page — why we're building this, the problem today, and what Ask Me Anything does</figcaption>
+                  <img src="images/ama-confluence-3.png" alt="Confluence project page" loading="lazy">
+                  <figcaption>Problem statement and platform documentation</figcaption>
                 </figure>
               </div>
 
-              <!-- Changelog -->
               <figure class="cs-image reveal">
-                <img src="images/ama-changelog.png" alt="Release notes showing v0.3.0 and v0.2.0 feature changelog" loading="lazy">
-                <figcaption>Release Notes — v0.3.0 with role quick-starts, collection chips, and cross-source summaries. Active iteration across 3 versions.</figcaption>
+                <img src="images/ama-changelog.png" alt="Release notes" loading="lazy">
+                <figcaption>Release Notes — active iteration across 3 versions</figcaption>
               </figure>
             </div>
           </div>
 
-          <!-- Home page detail -->
           <div class="cs-block reveal">
             <div class="cs-block-label">Discovery Experience</div>
             <div class="cs-block-content">
               <p>
-                The home page is designed for browsing, not just searching. Latest insights from
-                across all sources, trending themes, recently added studies, and "most searched
-                this week" — so teams can discover relevant research without knowing exactly what
-                to ask for.
+                The home page is designed for browsing, not just searching. Latest insights,
+                trending themes, recently added studies, and "most searched this week."
               </p>
               <div class="cs-gallery reveal">
                 <figure class="gallery-item">
-                  <img src="images/ama-home-2.png" alt="Home page with latest insights, trending themes, and browse by source" loading="lazy">
-                  <figcaption>Home — latest insights with source indicators, trending themes, recently added studies, and browse by source (Dovetail, Prism, PDMS, Analytics, UPF Hub)</figcaption>
+                  <img src="images/ama-home-2.png" alt="Home page details" loading="lazy">
+                  <figcaption>Trending themes, recently added, browse by source</figcaption>
                 </figure>
                 <figure class="gallery-item">
-                  <img src="images/ama-confluence-2.png" alt="Confluence release notes and platform documentation" loading="lazy">
-                  <figcaption>Platform documentation in Confluence — release notes, feature changelog, and version history</figcaption>
+                  <img src="images/ama-confluence-2.png" alt="Platform documentation" loading="lazy">
+                  <figcaption>Release notes and version history in Confluence</figcaption>
                 </figure>
               </div>
             </div>
           </div>
 
-          <!-- Business Impact -->
           <div class="cs-block reveal">
             <div class="cs-block-label">Expected Impact</div>
             <div class="cs-block-content">
@@ -753,14 +749,15 @@
                 </div>
               </div>
               <div class="impact-quotes">
-                <div class="impact-insight">Democratized access — PMs, engineers, leadership all get research</div>
+                <div class="impact-insight">Democratized access for PMs, engineers, leadership</div>
                 <div class="impact-insight">Eliminated duplicate research across teams</div>
                 <div class="impact-insight">Connected quantitative and qualitative signals</div>
-                <div class="impact-insight">Research-backed decisions in seconds, not hours</div>
+                <div class="impact-insight">Research-backed decisions in seconds</div>
               </div>
             </div>
           </div>
         </div>
+        <a href="#projects" class="back-to-projects">&larr; Back to all projects</a>
       </article>
     </div>
   </section>
@@ -769,8 +766,7 @@
   <section class="section approach" id="approach">
     <div class="container">
       <div class="section-header reveal">
-        <span class="section-label">Approach</span>
-        <h2 class="section-title">How I think about<br>research operations</h2>
+        <h2 class="section-title">How I think about research operations</h2>
       </div>
       <div class="principles-grid">
         <div class="principle reveal">
@@ -786,25 +782,24 @@
         <div class="principle reveal">
           <div class="principle-num">03</div>
           <h4>Standardize the scaffolding</h4>
-          <p>Templates and pipelines, not prescriptive methods. Systems that support different research approaches without forcing one way.</p>
+          <p>Templates and pipelines, not prescriptive methods. Systems that support different research approaches.</p>
         </div>
         <div class="principle reveal">
           <div class="principle-num">04</div>
           <h4>Embed governance in the tool</h4>
-          <p>When you don't have positional authority, design the governance into the system. Let the framework do the work.</p>
+          <p>When you don't have positional authority, design the governance into the system.</p>
         </div>
         <div class="principle reveal">
           <div class="principle-num">05</div>
           <h4>Phase and iterate</h4>
-          <p>Ship v1 fast to build trust. Layer on complexity once you know what people actually need — not what you assume they do.</p>
+          <p>Ship v1 fast to build trust. Layer on complexity once you know what people actually need.</p>
         </div>
         <div class="principle reveal">
           <div class="principle-num">06</div>
           <h4>Measure what matters</h4>
-          <p>Adoption, time-to-insight, whether findings reach decisions. Does the system reduce burden — or just create more work?</p>
+          <p>Adoption, time-to-insight, whether findings reach decisions. Does the system reduce burden?</p>
         </div>
       </div>
-      <!-- Success metrics -->
       <div class="success-metrics reveal">
         <h3>How I measure success</h3>
         <div class="metrics-lenses">
@@ -833,14 +828,12 @@
   <section class="section contact" id="contact">
     <div class="container">
       <div class="contact-content reveal">
-        <span class="section-label">Get in touch</span>
-        <h2 class="section-title">Let's build something<br>that scales.</h2>
+        <h2 class="section-title">Let's build something that scales.</h2>
         <p class="contact-text">
           I'm interested in Research Operations roles where I can build systems that make
-          research teams faster, more visible, and more impactful. If that resonates, I'd
-          love to talk.
+          research teams faster, more visible, and more impactful.
         </p>
-        <a href="mailto:sarahhjeon@gmail.com" class="contact-cta">Say hello &rarr;</a>
+        <a href="mailto:sarahhjeon@gmail.com" class="contact-cta">Get in touch &rarr;</a>
       </div>
     </div>
   </section>
