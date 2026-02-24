@@ -1035,52 +1035,127 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   justify-content: center;
 }
 
-/* Collaboration grid */
-.collab-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin-top: 20px;
-}
-
-.collab-card {
+/* Role & Collaboration layout */
+.role-meta {
+  display: flex;
+  gap: 0;
   background: var(--gray-50);
   border-radius: var(--radius-sm);
-  padding: 18px;
+  overflow: hidden;
+  margin-bottom: 20px;
 }
 
-.collab-card h5 {
-  font-family: var(--font);
-  font-size: 14px;
+.role-meta-item {
+  flex: 1;
+  padding: 14px 18px;
+  font-size: 13px;
+  color: var(--gray-600);
+  border-right: 1px solid var(--gray-200);
+}
+
+.role-meta-item:last-child {
+  border-right: none;
+}
+
+.role-meta-item strong {
+  display: block;
+  font-size: 11px;
   font-weight: 700;
-  margin-bottom: 4px;
-  color: var(--gray-900);
-}
-
-.collab-card h5 span {
-  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   color: var(--gray-400);
+  margin-bottom: 2px;
+}
+
+.role-strategic {
+  font-size: 14px !important;
+  color: var(--gray-500) !important;
+  margin-bottom: 20px !important;
+  padding-left: 14px;
+  border-left: 2px solid var(--gray-200);
+}
+
+.role-collab-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.role-owned h5,
+.role-collab h5 {
+  font-family: var(--font);
   font-size: 12px;
-  margin-left: 6px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--gray-400);
+  margin-bottom: 12px;
 }
 
-.collab-card p {
-  font-size: 13px !important;
+.role-owned ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.role-owned li {
+  font-size: 14px;
+  color: var(--gray-600);
+  padding-left: 16px;
+  position: relative;
+  line-height: 1.5;
+}
+
+.role-owned li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--gray-300);
+}
+
+.collab-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.collab-item {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.collab-item strong {
+  display: block;
+  color: var(--gray-900);
+  font-weight: 600;
+  font-size: 13px;
+  margin-bottom: 1px;
+}
+
+.collab-item span {
   color: var(--gray-500);
-  line-height: 1.5 !important;
-  margin-bottom: 0 !important;
-  max-width: none !important;
-}
-
-@media (max-width: 1024px) {
-  .collab-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  font-size: 13px;
 }
 
 @media (max-width: 768px) {
-  .collab-grid {
+  .role-meta {
+    flex-direction: column;
+  }
+  .role-meta-item {
+    border-right: none;
+    border-bottom: 1px solid var(--gray-200);
+  }
+  .role-meta-item:last-child {
+    border-bottom: none;
+  }
+  .role-collab-split {
     grid-template-columns: 1fr;
+    gap: 32px;
   }
 }
 
