@@ -1035,6 +1035,55 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   justify-content: center;
 }
 
+/* Collaboration grid */
+.collab-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.collab-card {
+  background: var(--gray-50);
+  border-radius: var(--radius-sm);
+  padding: 18px;
+}
+
+.collab-card h5 {
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: var(--gray-900);
+}
+
+.collab-card h5 span {
+  font-weight: 500;
+  color: var(--gray-400);
+  font-size: 12px;
+  margin-left: 6px;
+}
+
+.collab-card p {
+  font-size: 13px !important;
+  color: var(--gray-500);
+  line-height: 1.5 !important;
+  margin-bottom: 0 !important;
+  max-width: none !important;
+}
+
+@media (max-width: 1024px) {
+  .collab-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .collab-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Persona grid */
 .persona-grid {
   display: grid;
