@@ -1010,6 +1010,48 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   justify-content: center;
 }
 
+/* Persona grid */
+.persona-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.persona-card {
+  background: var(--gray-50);
+  border-radius: var(--radius-sm);
+  padding: 20px;
+}
+
+.persona-card h5 {
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: var(--gray-900);
+}
+
+.persona-card p {
+  font-size: 13px !important;
+  color: var(--gray-500);
+  line-height: 1.5 !important;
+  margin-bottom: 0 !important;
+  max-width: none !important;
+}
+
+@media (max-width: 768px) {
+  .persona-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 1024px) {
+  .persona-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 /* AMA Features */
 .ama-features {
   display: grid;

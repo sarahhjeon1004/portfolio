@@ -545,186 +545,176 @@
         </div>
 
         <div class="cs-body">
+          <!-- Why This Exists -->
           <div class="cs-block reveal">
-            <div class="cs-block-label">The Problem</div>
+            <div class="cs-block-label">Why This Exists</div>
             <div class="cs-block-content">
               <p>
                 Autodesk has decades of deep, valuable research — and almost nobody can find it.
-                Usability studies in Dovetail, archived research in Prism, customer data in PDMS,
+                Usability studies live in Dovetail, archived research in Prism, customer data in PDMS,
                 sentiment in UPF Hub. Each holds part of the picture, but they don't talk to each other.
+              </p>
+              <p>
+                The research practice has been trying to unlock these repositories for years. Not everyone
+                has Dovetail access. PMs, designers, engineers, and leadership are locked out of qualitative
+                data entirely. Teams regularly commission new studies on topics that have already been studied
+                — because there's no way to know what already exists.
               </p>
               <div class="problem-list">
                 <div class="problem-item">
                   <span class="problem-icon">&times;</span>
-                  <span>Research locked behind tool access — not everyone has Dovetail</span>
+                  <span>Research locked behind tool access — PMs, engineers, leadership can't search qualitative data</span>
                 </div>
                 <div class="problem-item">
                   <span class="problem-icon">&times;</span>
-                  <span>Hours spent manually searching and cross-referencing</span>
+                  <span>Researchers spend hours manually searching and cross-referencing across 5 disconnected systems</span>
                 </div>
                 <div class="problem-item">
                   <span class="problem-icon">&times;</span>
-                  <span>Teams commissioning new research on already-studied topics</span>
+                  <span>Teams commissioning new research on already-studied topics — wasting time and budget</span>
                 </div>
                 <div class="problem-item">
                   <span class="problem-icon">&times;</span>
-                  <span>Quantitative and qualitative signals completely disconnected</span>
+                  <span>Quantitative signals (UPF Hub) and qualitative signals (Dovetail/Prism) completely disconnected</span>
+                </div>
+                <div class="problem-item">
+                  <span class="problem-icon">&times;</span>
+                  <span>AI makes this solvable now — semantic search and LLMs can unify what manual effort never could</span>
                 </div>
               </div>
             </div>
           </div>
 
+          <!-- Who It's For -->
+          <div class="cs-block reveal">
+            <div class="cs-block-label">Who It's For</div>
+            <div class="cs-block-content">
+              <p>
+                The platform is designed for every role that touches research — not just researchers.
+                Each persona has different questions, different access levels, and different workflows.
+                The system adapts to all of them.
+              </p>
+              <div class="persona-grid">
+                <div class="persona-card">
+                  <h5>Researcher</h5>
+                  <p>Find existing studies before starting new research. Avoid duplication and build on prior work.</p>
+                </div>
+                <div class="persona-card">
+                  <h5>Product Manager</h5>
+                  <p>Validate decisions with research evidence. Track feature requests and customer sentiment.</p>
+                </div>
+                <div class="persona-card">
+                  <h5>Designer</h5>
+                  <p>Find customer quotes and usability findings to ground design decisions in real feedback.</p>
+                </div>
+                <div class="persona-card">
+                  <h5>Engineer</h5>
+                  <p>See customer pain points and bug feedback for your area. Understand the "why" behind priorities.</p>
+                </div>
+                <div class="persona-card">
+                  <h5>Leadership</h5>
+                  <p>Get high-level themes, sentiment trends, and research ROI without digging through tools.</p>
+                </div>
+                <div class="persona-card">
+                  <h5>Strategy &amp; Ops</h5>
+                  <p>Cross-reference quantitative and qualitative signals to spot patterns across products.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- What I Built -->
           <div class="cs-block reveal">
             <div class="cs-block-label">What I Built</div>
             <div class="cs-block-content">
               <p>
-                A full research intelligence platform that brings search, quotes, pain points,
-                feature requests, dashboards, and alerts into the tools people already use —
+                A research intelligence platform that brings search, quotes, pain points,
+                feature requests, and dashboards into the tools people already use —
                 Slack, Confluence, and a Chrome extension. 2,450+ research items across 5 connected
                 sources, searchable in seconds.
               </p>
               <figure class="cs-image reveal">
                 <img src="images/ama-home.png" alt="Ask Me Anything home page" loading="lazy">
-                <figcaption>Natural language search across all research, role-based quick-start cards, platform-wide stats</figcaption>
+                <figcaption>Home page with natural language search, role-based quick-start cards, and platform-wide stats</figcaption>
               </figure>
-            </div>
-          </div>
-
-          <div class="cs-block reveal">
-            <div class="cs-block-label">Platform Features</div>
-            <div class="cs-block-content">
               <div class="ama-features">
                 <div class="ama-feature">
                   <div class="ama-feature-header">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                     <h5>Cross-source Search</h5>
                   </div>
-                  <p>AI-generated summaries from Dovetail, Analytics, UPF Hub, and Prism with citations.</p>
+                  <p>AI-generated summaries from Dovetail, Analytics, UPF Hub, and Prism with numbered citations and links to original sources.</p>
                 </div>
                 <div class="ama-feature">
                   <div class="ama-feature-header">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-                    <h5>Research Library</h5>
+                    <h5>Research Library &amp; Quote Library</h5>
                   </div>
-                  <p>342 projects browsable by type, product, audience, and source.</p>
+                  <p>342 projects and 124 customer quotes browsable by type, product, audience, sentiment, and source.</p>
                 </div>
                 <div class="ama-feature">
                   <div class="ama-feature-header">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-                    <h5>Quote Library</h5>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+                    <h5>Pain Points &amp; Feature Requests</h5>
                   </div>
-                  <p>124 searchable customer quotes across 38 studies with sentiment filters.</p>
+                  <p>Customer issues aggregated by severity and feature requests ranked by mention frequency across all sources.</p>
                 </div>
               </div>
-
               <div class="cs-gallery reveal">
                 <figure class="gallery-item">
-                  <img src="images/ama-search.png" alt="AI-powered search" loading="lazy">
-                  <figcaption>Search results with AI summary and source citations</figcaption>
+                  <img src="images/ama-search.png" alt="AI-powered search results" loading="lazy">
+                  <figcaption>Search results with AI summary — findings across Dovetail, Analytics, and UPF Hub with source citations</figcaption>
                 </figure>
                 <figure class="gallery-item">
                   <img src="images/ama-library.png" alt="Research Library" loading="lazy">
-                  <figcaption>Research Library — 342 projects with filters and search</figcaption>
+                  <figcaption>Research Library — 342 projects with collection chips, view counts, and full-text search</figcaption>
                 </figure>
               </div>
-
               <div class="cs-gallery reveal">
-                <figure class="gallery-item">
-                  <img src="images/ama-quotes.png" alt="Quote Library" loading="lazy">
-                  <figcaption>Quote Library — 124 quotes with copy, share, and cite</figcaption>
-                </figure>
                 <figure class="gallery-item">
                   <img src="images/ama-pain-points.png" alt="Pain Points" loading="lazy">
-                  <figcaption>Pain Points — 32 issues sorted by severity</figcaption>
-                </figure>
-              </div>
-
-              <div class="cs-gallery reveal">
-                <figure class="gallery-item">
-                  <img src="images/ama-requests.png" alt="Feature Requests" loading="lazy">
-                  <figcaption>Feature Requests ranked by mention frequency</figcaption>
+                  <figcaption>Pain Points — 32 customer issues aggregated across 18 studies, sorted by severity</figcaption>
                 </figure>
                 <figure class="gallery-item">
                   <img src="images/ama-dashboard-top.png" alt="Research Dashboard" loading="lazy">
-                  <figcaption>Research Dashboard — themes, sentiment, coverage</figcaption>
+                  <figcaption>Dashboard — themes, sentiment trends, coverage by product, and identified research gaps</figcaption>
                 </figure>
               </div>
-
-              <figure class="cs-image reveal">
-                <img src="images/ama-dashboard-bottom.png" alt="Executive Brief" loading="lazy">
-                <figcaption>Executive Brief — AI-generated quarterly summary with strategic themes</figcaption>
-              </figure>
             </div>
           </div>
 
+          <!-- Integrations -->
           <div class="cs-block reveal">
-            <div class="cs-block-label">Integrations</div>
+            <div class="cs-block-label">Meeting People Where They Work</div>
             <div class="cs-block-content">
               <p>
-                The platform extends into the tools teams use every day.
-                Slack bot, topic alerts, Confluence sidebar, and Chrome extension.
+                The platform extends beyond the web app into the tools teams use every day —
+                so you don't have to leave your workflow to get answers.
               </p>
-
               <div class="cs-gallery reveal">
                 <figure class="gallery-item">
                   <img src="images/ama-slack.png" alt="Slack bot" loading="lazy">
-                  <figcaption>Slack bot — /ama returns findings with source links</figcaption>
+                  <figcaption>Slack bot — type /ama in any channel to get research findings with source links</figcaption>
                 </figure>
                 <figure class="gallery-item">
                   <img src="images/ama-alerts.png" alt="Topic alerts" loading="lazy">
-                  <figcaption>Topic Alerts — semantic matching notifications</figcaption>
+                  <figcaption>Topic Alerts — watch any topic and get Slack notifications when new research matches</figcaption>
                 </figure>
               </div>
-
               <div class="cs-gallery reveal">
                 <figure class="gallery-item">
-                  <img src="images/ama-alerts-2.png" alt="Alert notifications" loading="lazy">
-                  <figcaption>Slack notifications with confidence scores</figcaption>
+                  <img src="images/ama-confluence.png" alt="Confluence sidebar" loading="lazy">
+                  <figcaption>Confluence sidebar with contextual research, project briefs, and related studies</figcaption>
                 </figure>
-                <figure class="gallery-item">
-                  <img src="images/ama-confluence.png" alt="Confluence integration" loading="lazy">
-                  <figcaption>Confluence sidebar with contextual research</figcaption>
-                </figure>
-              </div>
-
-              <div class="cs-gallery reveal">
                 <figure class="gallery-item">
                   <img src="images/ama-extension.png" alt="Chrome extension" loading="lazy">
-                  <figcaption>Chrome Extension — auto-surfaces related research</figcaption>
-                </figure>
-                <figure class="gallery-item">
-                  <img src="images/ama-confluence-3.png" alt="Confluence project page" loading="lazy">
-                  <figcaption>Problem statement and platform documentation</figcaption>
-                </figure>
-              </div>
-
-              <figure class="cs-image reveal">
-                <img src="images/ama-changelog.png" alt="Release notes" loading="lazy">
-                <figcaption>Release Notes — active iteration across 3 versions</figcaption>
-              </figure>
-            </div>
-          </div>
-
-          <div class="cs-block reveal">
-            <div class="cs-block-label">Discovery Experience</div>
-            <div class="cs-block-content">
-              <p>
-                The home page is designed for browsing, not just searching. Latest insights,
-                trending themes, recently added studies, and "most searched this week."
-              </p>
-              <div class="cs-gallery reveal">
-                <figure class="gallery-item">
-                  <img src="images/ama-home-2.png" alt="Home page details" loading="lazy">
-                  <figcaption>Trending themes, recently added, browse by source</figcaption>
-                </figure>
-                <figure class="gallery-item">
-                  <img src="images/ama-confluence-2.png" alt="Platform documentation" loading="lazy">
-                  <figcaption>Release notes and version history in Confluence</figcaption>
+                  <figcaption>Chrome Extension — auto-detects page context and surfaces related research on Jira, Confluence, and Google Docs</figcaption>
                 </figure>
               </div>
             </div>
           </div>
 
+          <!-- Expected Impact -->
           <div class="cs-block reveal">
             <div class="cs-block-label">Expected Impact</div>
             <div class="cs-block-content">
@@ -747,10 +737,10 @@
                 </div>
               </div>
               <div class="impact-quotes">
-                <div class="impact-insight">Democratized access for PMs, engineers, leadership</div>
+                <div class="impact-insight">Democratized access — PMs, engineers, leadership all get research</div>
                 <div class="impact-insight">Eliminated duplicate research across teams</div>
                 <div class="impact-insight">Connected quantitative and qualitative signals</div>
-                <div class="impact-insight">Research-backed decisions in seconds</div>
+                <div class="impact-insight">Research-backed decisions in seconds, not hours</div>
               </div>
             </div>
           </div>
