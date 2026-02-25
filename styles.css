@@ -665,6 +665,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   object-fit: cover;
   object-position: top center;
   display: block;
+  image-rendering: -webkit-optimize-contrast;
 }
 
 .cs-hero figcaption {
@@ -1491,6 +1492,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   object-fit: cover;
   object-position: top center;
   display: block;
+  image-rendering: -webkit-optimize-contrast;
 }
 
 .cs-image figcaption,
@@ -1526,6 +1528,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   object-fit: cover;
   object-position: top center;
   display: block;
+  image-rendering: -webkit-optimize-contrast;
 }
 
 @media (max-width: 768px) {
@@ -2184,4 +2187,60 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   .impact-quotes { flex-direction: column; }
   .version-flow { flex-direction: column; align-items: flex-start; }
   .flow-connector { transform: rotate(90deg); margin: -4px 0; }
+}
+
+/* Lightbox */
+.lightbox-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(0, 0, 0, 0.92);
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 40px;
+  cursor: zoom-out;
+}
+
+.lightbox-overlay.active {
+  display: flex;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 16px;
+  right: 24px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 36px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.15s;
+  z-index: 1;
+  line-height: 1;
+}
+
+.lightbox-close:hover {
+  opacity: 1;
+}
+
+.lightbox-img {
+  max-width: 90vw;
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: 6px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+  cursor: default;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+.lightbox-caption {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 13px;
+  margin-top: 16px;
+  text-align: center;
+  max-width: 600px;
+  line-height: 1.5;
 }

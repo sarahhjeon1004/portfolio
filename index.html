@@ -487,7 +487,7 @@
         </div>
 
         <figure class="cs-hero reveal">
-          <img src="images/backlog-kanban.png" alt="Research Intake Pipeline Kanban board" loading="lazy">
+          <img src="images/backlog-kanban-redacted.png" alt="Research Intake Pipeline Kanban board — names redacted" loading="lazy">
           <figcaption>The live research backlog — projects flowing through Triage, Prioritization, In Progress, and Completed</figcaption>
         </figure>
 
@@ -1519,6 +1519,42 @@
     </div>
   </footer>
 
+  <!-- Lightbox overlay -->
+  <div class="lightbox-overlay" id="lightbox">
+    <button class="lightbox-close" aria-label="Close">&times;</button>
+    <img class="lightbox-img" id="lightboxImg" alt="">
+    <div class="lightbox-caption" id="lightboxCaption"></div>
+  </div>
+
   <script src="script.js"></script>
+  <script>
+  (function(){
+    var lb = document.getElementById('lightbox');
+    var lbImg = document.getElementById('lightboxImg');
+    var lbCap = document.getElementById('lightboxCaption');
+
+    document.querySelectorAll('.cs-hero img, .cs-image img, .gallery-item img, .ba-image img, .participant-visual img').forEach(function(img){
+      img.style.cursor = 'zoom-in';
+      img.addEventListener('click', function(e){
+        e.stopPropagation();
+        lbImg.src = this.src;
+        var fig = this.closest('figure');
+        var cap = fig ? fig.querySelector('figcaption') : null;
+        lbCap.textContent = cap ? cap.textContent : (this.alt || '');
+        lb.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    lb.addEventListener('click', closeLb);
+    lb.querySelector('.lightbox-close').addEventListener('click', closeLb);
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeLb(); });
+
+    function closeLb(){
+      lb.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  })();
+  </script>
 </body>
 </html>
