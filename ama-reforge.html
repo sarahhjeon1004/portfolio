@@ -1,0 +1,1694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ask Me Anything — Reforge-Style Prototype</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --adsk-black: #000000;
+    --adsk-white: #FFFFFF;
+    --hello-yellow: #FFFF00;
+    --warm-slate: #D5D5CB;
+    --slate: #666666;
+    --twilight: #1D91D0;
+    --morning: #2AD0A9;
+    --dawn: #F09D4F;
+    --dusk: #F2520A;
+    --upfhub: #8B5CF6;
+    --bg-primary: var(--adsk-white);
+    --bg-secondary: #F5F5F2;
+    --bg-ai: linear-gradient(135deg, #EDF6FB 0%, #F0FAF7 100%);
+    --border-ai: #B8DBE9;
+    --text-primary: var(--adsk-black);
+    --text-secondary: var(--slate);
+    --text-tertiary: #999999;
+    --border: #E5E5E0;
+    --border-strong: var(--warm-slate);
+    --shadow-card: 0 2px 8px rgba(0,0,0,0.06);
+    --shadow-hover: 0 4px 16px rgba(0,0,0,0.10);
+    --radius: 8px;
+    --sidebar-w: 240px;
+  }
+
+  body {
+    font-family: 'Artifakt Element', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    line-height: 1.5;
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  /* ============ SIDEBAR ============ */
+  .sidebar {
+    width: var(--sidebar-w);
+    background: var(--bg-primary);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    overflow-y: auto;
+    height: 100vh;
+  }
+
+  .sidebar-brand {
+    padding: 16px 18px 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .sidebar-brand-icon {
+    width: 28px; height: 28px; border-radius: 6px;
+    background: var(--adsk-black); color: var(--hello-yellow);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700; flex-shrink: 0;
+  }
+  .sidebar-brand-text {
+    font-weight: 700; font-size: 14px;
+  }
+  .sidebar-brand-org {
+    font-size: 11px; color: var(--text-secondary);
+  }
+  .sidebar-brand-toggle {
+    margin-left: auto; color: var(--text-tertiary);
+    font-size: 14px; cursor: pointer; background: none; border: none;
+  }
+
+  .sidebar-search {
+    padding: 10px 14px;
+  }
+  .sidebar-search-input {
+    width: 100%;
+    padding: 7px 10px 7px 30px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 13px;
+    color: var(--text-primary);
+    background: var(--bg-secondary);
+    outline: none;
+  }
+  .sidebar-search-input:focus { border-color: var(--twilight); background: var(--bg-primary); }
+  .sidebar-search-wrap {
+    position: relative;
+  }
+  .sidebar-search-icon {
+    position: absolute; left: 9px; top: 50%; transform: translateY(-50%);
+    font-size: 13px; color: var(--text-tertiary); pointer-events: none;
+  }
+
+  .sidebar-nav { flex: 1; padding: 4px 0; overflow-y: auto; }
+
+  .sidebar-section-label {
+    font-size: 10px; font-weight: 600; color: var(--text-tertiary);
+    text-transform: uppercase; letter-spacing: 0.8px;
+    padding: 16px 18px 6px;
+  }
+
+  .sidebar-item {
+    display: flex; align-items: center; gap: 9px;
+    padding: 7px 18px;
+    font-size: 13px; font-weight: 500;
+    color: var(--text-primary);
+    cursor: pointer; border: none; background: none;
+    width: 100%; text-align: left; font-family: inherit;
+    transition: background 0.1s;
+    text-decoration: none;
+  }
+  .sidebar-item:hover { background: var(--bg-secondary); }
+  .sidebar-item.active {
+    background: #EDF6FB;
+    color: var(--twilight);
+    font-weight: 600;
+  }
+  .sidebar-item-icon {
+    width: 18px; text-align: center; font-size: 15px;
+    flex-shrink: 0; color: var(--text-secondary);
+  }
+  .sidebar-item.active .sidebar-item-icon { color: var(--twilight); }
+
+  .sidebar-item-badge {
+    margin-left: auto; font-size: 11px; font-weight: 600;
+    color: var(--text-tertiary);
+  }
+
+  .sidebar-item-arrow {
+    margin-left: auto; font-size: 11px; color: var(--text-tertiary);
+  }
+
+  .sidebar-sub-item {
+    display: flex; align-items: center; gap: 9px;
+    padding: 6px 18px 6px 44px;
+    font-size: 13px; font-weight: 400;
+    color: var(--text-secondary);
+    cursor: pointer; border: none; background: none;
+    width: 100%; text-align: left; font-family: inherit;
+    transition: background 0.1s;
+  }
+  .sidebar-sub-item:hover { background: var(--bg-secondary); color: var(--text-primary); }
+  .sidebar-sub-item.active { color: var(--twilight); font-weight: 600; }
+  .sidebar-sub-icon {
+    width: 16px; text-align: center; font-size: 13px; flex-shrink: 0;
+  }
+
+  .sidebar-footer {
+    border-top: 1px solid var(--border);
+    padding: 10px 14px;
+  }
+  .sidebar-footer-item {
+    display: flex; align-items: center; gap: 8px;
+    padding: 7px 4px; font-size: 13px; font-weight: 500;
+    color: var(--text-secondary); cursor: pointer;
+    text-decoration: none;
+  }
+  .sidebar-footer-item:hover { color: var(--text-primary); }
+  .sidebar-footer-icon { font-size: 15px; width: 18px; text-align: center; }
+  .sidebar-footer-arrow { margin-left: auto; font-size: 12px; }
+
+  /* ============ MAIN ============ */
+  .main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .topbar {
+    height: 48px;
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+  .topbar-breadcrumb {
+    font-size: 13px; color: var(--text-secondary);
+  }
+  .topbar-breadcrumb strong { color: var(--text-primary); font-weight: 600; }
+  .topbar-right {
+    margin-left: auto; display: flex; align-items: center; gap: 12px;
+  }
+  .topbar-avatar {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--twilight); color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700;
+  }
+  .topbar-btn {
+    font-family: inherit; font-size: 12px; font-weight: 500;
+    color: var(--text-secondary); background: none; border: none;
+    cursor: pointer; padding: 4px 8px; border-radius: 4px;
+  }
+  .topbar-btn:hover { background: var(--bg-secondary); color: var(--text-primary); }
+
+  .content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 28px 32px 60px;
+  }
+
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ============ SHARED COMPONENTS ============ */
+  .page-title {
+    font-family: 'Artifakt Legend', Arial, sans-serif;
+    font-size: 22px; font-weight: 700; margin-bottom: 4px;
+  }
+  .page-subtitle {
+    font-size: 13px; color: var(--text-secondary); margin-bottom: 24px;
+  }
+
+  .card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 12px;
+    transition: box-shadow 0.15s;
+  }
+  .card:hover { box-shadow: var(--shadow-card); }
+  .card-title {
+    font-weight: 700; font-size: 15px; margin-bottom: 4px;
+  }
+  .card-meta {
+    font-size: 12px; color: var(--text-secondary); margin-bottom: 8px;
+  }
+  .card-text {
+    font-size: 14px; color: #374151; line-height: 1.6;
+  }
+
+  .badge {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 11px; font-weight: 600; text-transform: uppercase;
+    padding: 3px 8px; border-radius: 6px; letter-spacing: 0.3px;
+  }
+  .badge-dv { background: #E4F2F9; color: var(--twilight); }
+  .badge-pr { background: #E0F7F0; color: #1A9E7F; }
+  .badge-pd { background: #FDF0E0; color: #C47A1A; }
+  .badge-an { background: #FDEBE4; color: var(--dusk); }
+  .badge-uf { background: #F0EAFF; color: var(--upfhub); }
+  .badge-dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
+  .badge-dv .badge-dot { background: var(--twilight); }
+  .badge-pr .badge-dot { background: var(--morning); }
+  .badge-pd .badge-dot { background: var(--dawn); }
+  .badge-an .badge-dot { background: var(--dusk); }
+  .badge-uf .badge-dot { background: var(--upfhub); }
+
+  .tag {
+    background: #EEEEE8; color: #495057;
+    font-size: 12px; padding: 3px 10px; border-radius: 16px; font-weight: 500;
+  }
+  .tags-row { display: flex; gap: 6px; flex-wrap: wrap; }
+
+  .filter-row {
+    display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap;
+  }
+  .filter-btn {
+    font-family: inherit; font-size: 12px; font-weight: 500;
+    padding: 6px 12px; border: 1px solid var(--border);
+    border-radius: 6px; background: var(--bg-primary);
+    color: var(--text-primary); cursor: pointer;
+  }
+  .filter-btn:hover { border-color: var(--twilight); color: var(--twilight); }
+  .filter-btn.active {
+    border-color: var(--twilight); background: #E4F2F9; color: var(--twilight); font-weight: 600;
+  }
+
+  .search-bar-lg {
+    width: 100%; height: 48px;
+    border-radius: 24px; border: 2px solid var(--border);
+    padding: 0 20px 0 44px;
+    font-size: 15px; font-family: inherit;
+    color: var(--text-primary); background: var(--bg-primary);
+    outline: none;
+  }
+  .search-bar-lg:focus { border-color: var(--twilight); }
+  .search-bar-lg::placeholder { color: var(--text-tertiary); }
+  .search-wrap-lg { position: relative; margin-bottom: 24px; }
+  .search-icon-lg {
+    position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+    color: var(--text-tertiary); font-size: 16px;
+  }
+
+  .stats-bar {
+    display: flex; background: var(--adsk-black); border-radius: var(--radius);
+    overflow: hidden; margin-bottom: 24px;
+  }
+  .stat-item {
+    flex: 1; padding: 16px; text-align: center; border-right: 1px solid #222;
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-number {
+    font-family: 'Artifakt Legend', Arial, sans-serif;
+    font-size: 20px; font-weight: 700; color: var(--hello-yellow);
+  }
+  .stat-label { font-size: 11px; color: #AAA; margin-top: 2px; }
+
+  .ai-summary {
+    background: var(--bg-ai);
+    border: 1px solid var(--border-ai);
+    border-radius: 12px; padding: 24px; margin-bottom: 20px;
+  }
+  .ai-header {
+    display: flex; align-items: center; gap: 8px;
+    font-weight: 700; font-size: 14px; margin-bottom: 14px;
+  }
+  .ai-finding {
+    font-size: 14px; line-height: 1.7; margin-bottom: 10px; padding-left: 8px;
+  }
+  .ai-finding .num { font-weight: 700; color: var(--twilight); margin-right: 4px; }
+
+  .sev-high { background: #FDEBE4; color: #C0392B; }
+  .sev-med { background: #FDF0E0; color: #C47A1A; }
+  .sev-low { background: #E0F7F0; color: #1A9E7F; }
+  .sev-badge {
+    font-size: 10px; font-weight: 700; padding: 3px 7px; border-radius: 4px;
+    text-transform: uppercase;
+  }
+
+  .table-header {
+    display: flex; padding: 8px 16px; font-size: 11px; font-weight: 600;
+    color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-label {
+    font-size: 13px; font-weight: 700; margin-bottom: 14px;
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+
+  .empty-dot {
+    width: 8px; height: 8px; border-radius: 50%; display: inline-block;
+  }
+
+  .sentiment-positive { color: #1A9E7F; }
+  .sentiment-negative { color: #C0392B; }
+  .sentiment-neutral { color: var(--slate); }
+
+  .progress-bar {
+    height: 6px; background: var(--bg-secondary); border-radius: 3px; overflow: hidden;
+  }
+  .progress-fill { height: 100%; border-radius: 3px; }
+
+  .quote-text {
+    font-size: 14px; font-style: italic; line-height: 1.7;
+    color: var(--text-primary); margin-bottom: 8px;
+  }
+
+  .list-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 0; border-bottom: 1px solid var(--border);
+  }
+  .list-row:last-child { border-bottom: none; }
+
+  .workflow-step {
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px 16px; background: var(--bg-primary);
+    border: 1px solid var(--border); border-radius: var(--radius);
+    margin-bottom: 8px;
+  }
+  .workflow-step-num {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--adsk-black); color: var(--hello-yellow);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; flex-shrink: 0;
+  }
+  .workflow-arrow {
+    text-align: center; color: var(--text-tertiary); font-size: 16px;
+    padding: 4px 0;
+  }
+
+  .contact-avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700; color: white; flex-shrink: 0;
+  }
+
+  .chip-group { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 14px; border-radius: 20px; font-size: 13px;
+    font-weight: 500; border: 1px solid var(--border);
+    background: var(--bg-primary); cursor: pointer;
+    transition: all 0.15s;
+  }
+  .chip:hover { border-color: var(--twilight); color: var(--twilight); }
+  .chip-count {
+    font-size: 11px; background: var(--bg-secondary);
+    padding: 1px 6px; border-radius: 10px; color: var(--text-secondary);
+  }
+
+  .sentiment-meter {
+    display: flex; height: 20px; border-radius: 10px; overflow: hidden;
+    background: var(--bg-secondary);
+  }
+  .sentiment-fill { height: 100%; }
+
+  .action-btn {
+    font-family: inherit; font-size: 12px; font-weight: 600;
+    color: var(--slate); background: var(--bg-secondary);
+    border: 1px solid var(--border); padding: 6px 12px;
+    border-radius: 6px; cursor: pointer;
+  }
+  .action-btn:hover {
+    background: var(--adsk-black); color: var(--adsk-white); border-color: var(--adsk-black);
+  }
+
+  .trend-up { color: #1A9E7F; font-weight: 600; }
+  .trend-down { color: #C0392B; font-weight: 600; }
+  .trend-flat { color: var(--slate); }
+</style>
+</head>
+<body>
+
+<!-- ============ SIDEBAR ============ -->
+<aside class="sidebar">
+
+  <div class="sidebar-brand">
+    <div class="sidebar-brand-icon">&#x2726;</div>
+    <div>
+      <div class="sidebar-brand-text">Autodesk</div>
+      <div class="sidebar-brand-org">Research Intelligence</div>
+    </div>
+    <button class="sidebar-brand-toggle">&#x25BE;</button>
+  </div>
+
+  <div class="sidebar-search">
+    <div class="sidebar-search-wrap">
+      <span class="sidebar-search-icon">&#x1F50D;</span>
+      <input class="sidebar-search-input" placeholder="Search" readonly>
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <button class="sidebar-item active" onclick="showPage('home')">
+      <span class="sidebar-item-icon">&#x2302;</span>
+      Home
+    </button>
+
+    <button class="sidebar-item" onclick="showPage('ask')">
+      <span class="sidebar-item-icon">&#x2728;</span>
+      Ask Me Anything
+    </button>
+
+    <!-- INSIGHTS -->
+    <div class="sidebar-section-label">Insights</div>
+
+    <button class="sidebar-item" onclick="toggleSub('reports-sub'); showPage('reports')">
+      <span class="sidebar-item-icon">&#x1F4C4;</span>
+      Reports
+      <span class="sidebar-item-arrow">&#x25B8;</span>
+    </button>
+    <div id="reports-sub" class="sidebar-sub-group" style="display:none;">
+      <button class="sidebar-sub-item active" onclick="showPage('reports')">
+        <span class="sidebar-sub-icon">&#x25CB;</span> All
+      </button>
+      <button class="sidebar-sub-item" onclick="showPage('myreports')">
+        <span class="sidebar-sub-icon">&#x1F464;</span> My reports
+      </button>
+      <button class="sidebar-sub-item" onclick="showPage('reports')">
+        <span class="sidebar-sub-icon">&#x2694;</span> Competitor reports
+      </button>
+      <button class="sidebar-sub-item" onclick="showPage('reports')">
+        <span class="sidebar-sub-icon">&#x1F4C1;</span> Fusion
+      </button>
+      <button class="sidebar-sub-item" onclick="showPage('reports')">
+        <span class="sidebar-sub-icon">&#x1F4C1;</span> Revit
+      </button>
+      <button class="sidebar-sub-item" style="color:var(--text-tertiary); font-size:12px;">
+        <span class="sidebar-sub-icon">+</span> Create folder
+      </button>
+    </div>
+
+    <button class="sidebar-item" onclick="showPage('themes')">
+      <span class="sidebar-item-icon">&#x2B1A;</span>
+      Themes
+    </button>
+
+    <button class="sidebar-item" onclick="showPage('snippets')">
+      <span class="sidebar-item-icon">&#x1F4DD;</span>
+      Snippets
+      <span class="sidebar-item-arrow">&#x25B8;</span>
+    </button>
+
+    <button class="sidebar-item" onclick="showPage('contacts')">
+      <span class="sidebar-item-icon">&#x1F465;</span>
+      Contacts
+    </button>
+
+    <!-- RESEARCH -->
+    <div class="sidebar-section-label">Research</div>
+
+    <button class="sidebar-item" onclick="showPage('surveys')">
+      <span class="sidebar-item-icon">&#x1F4CB;</span>
+      Surveys
+    </button>
+
+    <button class="sidebar-item" onclick="showPage('sentiment')">
+      <span class="sidebar-item-icon">&#x1F4CA;</span>
+      Sentiment
+    </button>
+
+    <!-- TOOLS -->
+    <div class="sidebar-section-label">Tools</div>
+
+    <button class="sidebar-item" onclick="showPage('tags')">
+      <span class="sidebar-item-icon">&#x1F3F7;</span>
+      Tags
+    </button>
+
+    <button class="sidebar-item" onclick="showPage('workflows')">
+      <span class="sidebar-item-icon">&#x2728;</span>
+      Workflows
+      <span class="sidebar-item-arrow">&#x25B8;</span>
+    </button>
+  </nav>
+
+  <div class="sidebar-footer">
+    <a class="sidebar-footer-item" href="#">
+      <span class="sidebar-footer-icon">&#x2699;</span>
+      Settings
+    </a>
+    <a class="sidebar-footer-item" href="#">
+      <span class="sidebar-footer-icon">&#x2753;</span>
+      Get started
+      <span class="sidebar-footer-arrow">&rarr;</span>
+    </a>
+  </div>
+</aside>
+
+<!-- ============ MAIN ============ -->
+<div class="main">
+
+  <div class="topbar">
+    <span class="topbar-breadcrumb" id="breadcrumb"><strong>Home</strong></span>
+    <div class="topbar-right">
+      <button class="topbar-btn">&#x1F514;</button>
+      <button class="topbar-btn">&#x2753;</button>
+      <div class="topbar-avatar">SJ</div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- ============ HOME ============ -->
+    <div id="page-home" class="page active">
+      <div style="text-align:center; padding:20px 0 28px;">
+        <div class="page-title" style="font-size:26px;">What do you want to know?</div>
+        <div class="page-subtitle" style="margin-bottom:20px;">Search across all of Autodesk's research &mdash; studies, insights, analytics, and archives</div>
+        <div class="search-wrap-lg" style="max-width:600px; margin:0 auto 16px;">
+          <span class="search-icon-lg">&#x1F50D;</span>
+          <input class="search-bar-lg" placeholder="Ask anything about our research..." readonly>
+        </div>
+        <div class="chip-group" style="justify-content:center;">
+          <span class="chip" onclick="showPage('ask')">What are enterprise users saying about AI?</span>
+          <span class="chip" onclick="showPage('ask')">Show me onboarding drop-off data</span>
+          <span class="chip" onclick="showPage('ask')">What's the top feature request from NPS?</span>
+        </div>
+      </div>
+
+      <div class="stats-bar">
+        <div class="stat-item">
+          <div class="stat-number">2,450+</div>
+          <div class="stat-label">Research items</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">5</div>
+          <div class="stat-label">Connected sources</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">142</div>
+          <div class="stat-label">Searches this week</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">89%</div>
+          <div class="stat-label">Found what they needed</div>
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-bottom:24px;">
+        <!-- RECENT INSIGHTS -->
+        <div>
+          <div class="section-label">Latest insights</div>
+
+          <div class="card" style="border-left: 4px solid var(--twilight); cursor:pointer;" onclick="showPage('reports')">
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+              <span class="badge badge-dv"><span class="badge-dot"></span> DV</span>
+              <span class="card-title"><span class="empty-dot" style="background:var(--dusk);margin-right:4px;"></span>Enterprise users find global search confusing</span>
+            </div>
+            <div class="card-meta">Usability Study &middot; Q3 2025 &middot; Fusion &middot; Enterprise</div>
+            <div class="card-text"><em>"Users expected product-specific results but got cross-product matches."</em></div>
+            <div class="tags-row" style="margin-top:8px;"><span class="tag">search</span><span class="tag">enterprise</span><span class="tag">navigation</span></div>
+          </div>
+
+          <div class="card" style="border-left: 4px solid var(--dusk); cursor:pointer;">
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+              <span class="badge badge-an"><span class="badge-dot"></span> AN</span>
+              <span class="card-title">Onboarding drop-off highest at step 3</span>
+            </div>
+            <div class="card-meta">Funnel Analysis &middot; Jan 2026 &middot; All Products</div>
+            <div class="card-text">42% of new users abandon at workspace configuration. 3.2x higher 30-day retention if completed.</div>
+          </div>
+
+          <div class="card" style="border-left: 4px solid var(--upfhub); cursor:pointer;">
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+              <span class="badge badge-uf"><span class="badge-dot"></span> UF</span>
+              <span class="card-title"><span class="empty-dot" style="background:var(--dusk);margin-right:4px;"></span>Navigation sentiment dropping in Revit</span>
+            </div>
+            <div class="card-meta">UPF Hub &middot; Trend Alert &middot; Feb 2026</div>
+            <div class="card-text">Negative sentiment around navigation increased 18% in the last 30 days.</div>
+          </div>
+        </div>
+
+        <!-- SIDEBAR -->
+        <div>
+          <div class="card">
+            <div class="section-label" style="margin-bottom:10px;">&#x1F525; Most searched this week</div>
+            <div class="list-row"><span style="font-weight:700;color:var(--warm-slate);width:20px;text-align:center;">1</span> <span style="flex:1;">AI workflows</span> <span style="font-size:11px;color:var(--text-tertiary);">34 searches</span></div>
+            <div class="list-row"><span style="font-weight:700;color:var(--warm-slate);width:20px;text-align:center;">2</span> <span style="flex:1;">Onboarding friction</span> <span style="font-size:11px;color:var(--text-tertiary);">28 searches</span></div>
+            <div class="list-row"><span style="font-weight:700;color:var(--warm-slate);width:20px;text-align:center;">3</span> <span style="flex:1;">Enterprise NPS</span> <span style="font-size:11px;color:var(--text-tertiary);">21 searches</span></div>
+            <div class="list-row"><span style="font-weight:700;color:var(--warm-slate);width:20px;text-align:center;">4</span> <span style="flex:1;">Collaboration features</span> <span style="font-size:11px;color:var(--text-tertiary);">19 searches</span></div>
+            <div class="list-row"><span style="font-weight:700;color:var(--warm-slate);width:20px;text-align:center;">5</span> <span style="flex:1;">Model Derivative API</span> <span style="font-size:11px;color:var(--text-tertiary);">15 searches</span></div>
+          </div>
+
+          <div class="card">
+            <div class="section-label" style="margin-bottom:10px;">&#x1F4CA; Trending themes</div>
+            <div class="chip-group">
+              <span class="chip" onclick="showPage('themes')">AI Features <span class="chip-count">23</span></span>
+              <span class="chip" onclick="showPage('themes')">Trust <span class="chip-count">15</span></span>
+              <span class="chip" onclick="showPage('themes')">Navigation <span class="chip-count">12</span></span>
+              <span class="chip" onclick="showPage('themes')">Search UX <span class="chip-count">11</span></span>
+              <span class="chip" onclick="showPage('themes')">Collaboration <span class="chip-count">9</span></span>
+              <span class="chip" onclick="showPage('themes')">Onboarding <span class="chip-count">8</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ASK ME ANYTHING ============ -->
+    <div id="page-ask" class="page">
+      <div class="page-title">Ask Me Anything</div>
+      <div class="page-subtitle">Ask a question in natural language and get AI-summarized answers from across all research sources.</div>
+
+      <div class="search-wrap-lg">
+        <span class="search-icon-lg">&#x2728;</span>
+        <input class="search-bar-lg" value="What do enterprise users think about AI features?" readonly>
+      </div>
+
+      <div class="filter-row">
+        <button class="filter-btn">Org: All</button>
+        <button class="filter-btn active">Segment: Enterprise</button>
+        <button class="filter-btn">Source: All</button>
+        <button class="filter-btn">Date: Last 12 months</button>
+        <button class="filter-btn">Product: All</button>
+      </div>
+
+      <div class="ai-summary">
+        <div class="ai-header">
+          <span style="font-size:16px;">&#x2728;</span>
+          AI Summary
+        </div>
+        <div style="font-size:13px;color:var(--text-secondary);margin-bottom:14px;">Based on 18 research items across Dovetail, Analytics, and UPF Hub:</div>
+        <div class="ai-finding"><span class="num">(1)</span> Enterprise customers express cautious optimism about AI features but want transparency in how AI-generated outputs are produced.</div>
+        <div class="ai-finding"><span class="num">(2)</span> 67% of enterprise users have tried AI features at least once, but only 23% use them weekly.</div>
+        <div class="ai-finding"><span class="num">(3)</span> Trust is the top barrier &mdash; users want to verify AI outputs before sharing with clients.</div>
+        <div class="ai-finding"><span class="num">(4)</span> The Customer Council identified that workflow integration matters more than feature count.</div>
+        <div class="ai-finding"><span class="num">(5)</span> <strong>UPF Hub sentiment data confirms this:</strong> AI-related feedback sentiment is 32% negative across enterprise accounts, with "lack of explainability" as the top-tagged theme.</div>
+
+        <div style="border-top:1px solid var(--border-ai);margin-top:14px;padding-top:14px;display:flex;gap:8px;">
+          <button class="action-btn">&#x1F4CB; Copy summary</button>
+          <button class="action-btn">&#x1F4AC; Share to Slack</button>
+          <button class="action-btn">&#x1F514; Watch this topic</button>
+        </div>
+      </div>
+
+      <div style="font-size:13px;color:var(--text-secondary);margin-bottom:14px;">All Results (18) &mdash; Dovetail (8), Analytics (4), UPF Hub (4), Prism (2)</div>
+
+      <div class="card" style="border-left:4px solid var(--twilight);cursor:pointer;">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+          <span class="badge badge-dv"><span class="badge-dot"></span> DV</span>
+          <span class="card-title">AI Trust & Transparency Study</span>
+        </div>
+        <div class="card-meta">Usability Study &middot; Q2 2025 &middot; Fusion &middot; Enterprise</div>
+        <div class="card-text"><em>"Enterprise customers expressed concern about not understanding how AI generates design recommendations."</em></div>
+        <div class="tags-row" style="margin-top:8px;"><span class="tag">AI</span><span class="tag">enterprise</span><span class="tag">trust</span></div>
+      </div>
+
+      <div class="card" style="border-left:4px solid var(--dusk);cursor:pointer;">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+          <span class="badge badge-an"><span class="badge-dot"></span> AN</span>
+          <span class="card-title">AI Feature Adoption Dashboard</span>
+        </div>
+        <div class="card-meta">Dashboard &middot; Updated Jan 2026 &middot; All Products</div>
+        <div class="card-text">67% trial rate across enterprise accounts. 23% weekly active usage. Highest adoption in PSET (31%).</div>
+      </div>
+
+      <div class="card" style="border-left:4px solid var(--upfhub);cursor:pointer;">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+          <span class="badge badge-uf"><span class="badge-dot"></span> UF</span>
+          <span class="card-title">AI Sentiment Analysis &mdash; Enterprise</span>
+        </div>
+        <div class="card-meta">UPF Hub &middot; Feb 2026 &middot; Enterprise tier</div>
+        <div class="card-text">32% negative sentiment around AI features. Top themes: "lack of explainability," "trust deficit," "can't verify outputs."</div>
+        <div class="tags-row" style="margin-top:8px;"><span class="tag">sentiment</span><span class="tag">AI</span><span class="tag">enterprise</span></div>
+      </div>
+    </div>
+
+    <!-- ============ REPORTS ============ -->
+    <div id="page-reports" class="page">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+        <div class="page-title">All Reports</div>
+        <span style="font-size:13px;color:var(--text-secondary);">342 reports across 5 sources</span>
+      </div>
+      <div class="page-subtitle">Research reports, studies, and analyses from all connected sources.</div>
+
+      <div class="filter-row">
+        <button class="filter-btn active">All</button>
+        <button class="filter-btn">Usability Studies</button>
+        <button class="filter-btn">Customer Councils</button>
+        <button class="filter-btn">Surveys</button>
+        <button class="filter-btn">Analytics</button>
+        <button class="filter-btn">Archived</button>
+      </div>
+
+      <div class="grid-3">
+        <div class="card" style="cursor:pointer;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+            <span class="badge badge-dv"><span class="badge-dot"></span> DV</span>
+            <span style="font-size:11px;color:var(--text-tertiary);">142 views</span>
+          </div>
+          <div class="card-title">AI Trust & Transparency</div>
+          <div class="card-meta">Usability Study &middot; Q2 2025 &middot; Fusion</div>
+          <div style="font-size:12px;color:var(--text-tertiary);margin-bottom:6px;">12 highlights &middot; 3 notes &middot; 2 insights</div>
+          <div class="tags-row"><span class="tag">AI</span><span class="tag">trust</span><span class="tag">enterprise</span></div>
+        </div>
+
+        <div class="card" style="cursor:pointer;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+            <span class="badge badge-dv"><span class="badge-dot"></span> DV</span>
+            <span style="font-size:11px;color:var(--text-tertiary);">89 views</span>
+          </div>
+          <div class="card-title">Onboarding v2 Usability</div>
+          <div class="card-meta">Usability Study &middot; Q3 2025 &middot; All Products</div>
+          <div style="font-size:12px;color:var(--text-tertiary);margin-bottom:6px;">8 highlights &middot; 5 notes</div>
+          <div class="tags-row"><span class="tag">onboarding</span><span class="tag">activation</span></div>
+        </div>
+
+        <div class="card" style="cursor:pointer;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+            <span class="badge badge-an"><span class="badge-dot"></span> AN</span>
+            <span style="font-size:11px;color:var(--text-tertiary);">234 views</span>
+          </div>
+          <div class="card-title">NPS Analysis Q4 2025</div>
+          <div class="card-meta">Dashboard &middot; Q4 2025 &middot; All Products</div>
+          <div style="font-size:12px;color:var(--text-tertiary);margin-bottom:6px;">4 metrics &middot; 3 segments</div>
+          <div class="tags-row"><span class="tag">NPS</span><span class="tag">sentiment</span></div>
+        </div>
+
+        <div class="card" style="cursor:pointer;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+            <span class="badge badge-dv"><span class="badge-dot"></span> DV</span>
+            <span class="empty-dot" style="background:var(--dusk);"></span>
+          </div>
+          <div class="card-title">PSET AI Workflow Study</div>
+          <div class="card-meta">Contextual Inquiry &middot; Q1 2026 &middot; PSET</div>
+          <div style="font-size:12px;color:var(--text-tertiary);margin-bottom:6px;">6 highlights &middot; in progress</div>
+          <div class="tags-row"><span class="tag">AI</span><span class="tag">PSET</span><span class="tag">workflow</span></div>
+        </div>
+
+        <div class="card" style="cursor:pointer;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+            <span class="badge badge-dv"><span class="badge-dot"></span> DV</span>
+            <span style="font-size:11px;color:var(--text-tertiary);">201 views</span>
+          </div>
+          <div class="card-title">Customer Council &mdash; AI/ML</div>
+          <div class="card-meta">Council &middot; 2024&ndash;2025 &middot; 10 customers</div>
+          <div style="font-size:12px;color:var(--text-tertiary);margin-bottom:6px;">24 highlights &middot; 6 notes</div>
+          <div class="tags-row"><span class="tag">AI/ML</span><span class="tag">trust</span></div>
+        </div>
+
+        <div class="card" style="cursor:pointer;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+            <span class="badge badge-pr"><span class="badge-dot"></span> PR</span>
+            <span style="font-size:11px;color:var(--text-tertiary);">Archived</span>
+          </div>
+          <div class="card-title">API DX Survey 2023</div>
+          <div class="card-meta">Survey &middot; 2023 &middot; n=142 &middot; Platform</div>
+          <div style="font-size:12px;color:var(--text-tertiary);margin-bottom:6px;">Foundational survey</div>
+          <div class="tags-row"><span class="tag">API</span><span class="tag">developer-experience</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ MY REPORTS ============ -->
+    <div id="page-myreports" class="page">
+      <div class="page-title">My Reports</div>
+      <div class="page-subtitle">Reports you've created, contributed to, or saved.</div>
+
+      <div class="filter-row">
+        <button class="filter-btn active">All</button>
+        <button class="filter-btn">Created by me</button>
+        <button class="filter-btn">Saved</button>
+        <button class="filter-btn">Shared with me</button>
+      </div>
+
+      <div class="card" style="border-left:4px solid var(--twilight);cursor:pointer;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <div>
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+              <span class="badge badge-dv"><span class="badge-dot"></span> DV</span>
+              <span class="card-title">AI Trust & Transparency Study</span>
+              <span class="sev-badge" style="background:#E4F2F9;color:var(--twilight);font-size:9px;">OWNER</span>
+            </div>
+            <div class="card-meta">Created by you &middot; Q2 2025 &middot; Fusion &middot; 142 views</div>
+            <div class="tags-row" style="margin-top:6px;"><span class="tag">AI</span><span class="tag">trust</span><span class="tag">enterprise</span></div>
+          </div>
+          <span style="font-size:12px;color:var(--text-tertiary);">Updated 3 days ago</span>
+        </div>
+      </div>
+
+      <div class="card" style="border-left:4px solid var(--twilight);cursor:pointer;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <div>
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+              <span class="badge badge-dv"><span class="badge-dot"></span> DV</span>
+              <span class="card-title">PSET AI Workflow Study</span>
+              <span class="sev-badge" style="background:#E4F2F9;color:var(--twilight);font-size:9px;">OWNER</span>
+            </div>
+            <div class="card-meta">Created by you &middot; Q1 2026 &middot; PSET &middot; In progress</div>
+            <div class="tags-row" style="margin-top:6px;"><span class="tag">AI</span><span class="tag">PSET</span><span class="tag">workflow</span></div>
+          </div>
+          <span style="font-size:12px;color:var(--text-tertiary);">Updated 2 hours ago</span>
+        </div>
+      </div>
+
+      <div class="card" style="border-left:4px solid var(--dawn);cursor:pointer;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <div>
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+              <span class="badge badge-pd"><span class="badge-dot"></span> PD</span>
+              <span class="card-title">Collaboration Features Testing</span>
+              <span class="sev-badge" style="background:#FDF0E0;color:#C47A1A;font-size:9px;">SAVED</span>
+            </div>
+            <div class="card-meta">Saved from PDMS &middot; Q1 2026 &middot; Fusion</div>
+            <div class="tags-row" style="margin-top:6px;"><span class="tag">collaboration</span><span class="tag">real-time</span></div>
+          </div>
+          <span style="font-size:12px;color:var(--text-tertiary);">Saved last week</span>
+        </div>
+      </div>
+
+      <div class="card" style="border-left:4px solid var(--dusk);cursor:pointer;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <div>
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+              <span class="badge badge-an"><span class="badge-dot"></span> AN</span>
+              <span class="card-title">AI Feature Adoption Dashboard</span>
+              <span class="sev-badge" style="background:#E0F7F0;color:#1A9E7F;font-size:9px;">SHARED</span>
+            </div>
+            <div class="card-meta">Shared by Analytics team &middot; Jan 2026</div>
+          </div>
+          <span style="font-size:12px;color:var(--text-tertiary);">Shared 2 weeks ago</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ THEMES ============ -->
+    <div id="page-themes" class="page">
+      <div class="page-title">Themes</div>
+      <div class="page-subtitle">Research themes and patterns emerging across all studies and sources. Auto-detected and curated.</div>
+
+      <div class="filter-row">
+        <button class="filter-btn active">All themes</button>
+        <button class="filter-btn">Trending</button>
+        <button class="filter-btn">New this quarter</button>
+        <button class="filter-btn">Declining</button>
+      </div>
+
+      <div class="grid-2">
+        <div class="card" style="cursor:pointer;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">
+            <div>
+              <div class="card-title" style="font-size:16px;">AI Trust & Explainability</div>
+              <div class="card-meta">23 items &middot; 5 studies &middot; Trending</div>
+            </div>
+            <span class="trend-up" style="font-size:13px;">&#x2191; +38%</span>
+          </div>
+          <div class="card-text" style="margin-bottom:10px;">Enterprise users demand transparency in AI outputs. "Show me why" is the consistent ask across customer councils, usability studies, and NPS verbatims.</div>
+          <div style="display:flex;gap:4px;margin-bottom:10px;">
+            <span class="badge badge-dv"><span class="badge-dot"></span> DV</span>
+            <span class="badge badge-an"><span class="badge-dot"></span> AN</span>
+            <span class="badge badge-uf"><span class="badge-dot"></span> UF</span>
+          </div>
+          <div class="progress-bar" style="margin-bottom:4px;"><div class="progress-fill" style="width:85%;background:var(--twilight);"></div></div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-tertiary);">
+            <span>Strength: High</span><span>23 evidence items</span>
+          </div>
+        </div>
+
+        <div class="card" style="cursor:pointer;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">
+            <div>
+              <div class="card-title" style="font-size:16px;">Navigation & Search Confusion</div>
+              <div class="card-meta">18 items &middot; 4 studies &middot; Persistent</div>
+            </div>
+            <span class="trend-down" style="font-size:13px;">&#x2193; -12%</span>
+          </div>
+          <div class="card-text" style="margin-bottom:10px;">Cross-product search returns unexpected results. 34% zero-result rate. Users abandon to category navigation. Saved filters are #2 feature request.</div>
+          <div style="display:flex;gap:4px;margin-bottom:10px;">
+            <span class="badge badge-dv"><span class="badge-dot"></span> DV</span>
+            <span class="badge badge-an"><span class="badge-dot"></span> AN</span>
+          </div>
+          <div class="progress-bar" style="margin-bottom:4px;"><div class="progress-fill" style="width:72%;background:var(--dawn);"></div></div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-tertiary);">
+            <span>Strength: High</span><span>18 evidence items</span>
+          </div>
+        </div>
+
+        <div class="card" style="cursor:pointer;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">
+            <div>
+              <div class="card-title" style="font-size:16px;">Onboarding & Activation</div>
+              <div class="card-meta">14 items &middot; 3 studies &middot; Stable</div>
+            </div>
+            <span class="trend-flat" style="font-size:13px;">~ Stable</span>
+          </div>
+          <div class="card-text" style="margin-bottom:10px;">42% drop-off at step 3 (workspace config). Users who complete it have 3.2x retention. Progressive setup preferred over all-at-once.</div>
+          <div style="display:flex;gap:4px;margin-bottom:10px;">
+            <span class="badge badge-an"><span class="badge-dot"></span> AN</span>
+            <span class="badge badge-dv"><span class="badge-dot"></span> DV</span>
+          </div>
+          <div class="progress-bar" style="margin-bottom:4px;"><div class="progress-fill" style="width:58%;background:var(--morning);"></div></div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-tertiary);">
+            <span>Strength: Medium</span><span>14 evidence items</span>
+          </div>
+        </div>
+
+        <div class="card" style="cursor:pointer;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">
+            <div>
+              <div class="card-title" style="font-size:16px;">Developer Experience Decline</div>
+              <div class="card-meta">12 items &middot; 3 studies &middot; Worsening</div>
+            </div>
+            <span class="trend-down" style="font-size:13px;">&#x2193; -22%</span>
+          </div>
+          <div class="card-text" style="margin-bottom:10px;">SDK setup time up 50% (2.8h &rarr; 4.2h). API error messages are #1 complaint. Error clarity, debugging time, and doc quality all declining.</div>
+          <div style="display:flex;gap:4px;margin-bottom:10px;">
+            <span class="badge badge-pr"><span class="badge-dot"></span> PR</span>
+            <span class="badge badge-an"><span class="badge-dot"></span> AN</span>
+            <span class="badge badge-dv"><span class="badge-dot"></span> DV</span>
+          </div>
+          <div class="progress-bar" style="margin-bottom:4px;"><div class="progress-fill" style="width:50%;background:var(--dusk);"></div></div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-tertiary);">
+            <span>Strength: Medium</span><span>12 evidence items</span>
+          </div>
+        </div>
+
+        <div class="card" style="cursor:pointer;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">
+            <div>
+              <div class="card-title" style="font-size:16px;">Collaboration & Real-time</div>
+              <div class="card-meta">9 items &middot; 2 studies &middot; Improving</div>
+            </div>
+            <span class="trend-up" style="font-size:13px;">&#x2191; +12%</span>
+          </div>
+          <div class="card-text" style="margin-bottom:10px;">Sentiment improving as features ship. Real-time co-editing in Fusion is resonating. Users still want version history and conflict resolution.</div>
+          <div style="display:flex;gap:4px;margin-bottom:10px;">
+            <span class="badge badge-pd"><span class="badge-dot"></span> PD</span>
+            <span class="badge badge-uf"><span class="badge-dot"></span> UF</span>
+          </div>
+          <div class="progress-bar" style="margin-bottom:4px;"><div class="progress-fill" style="width:38%;background:var(--morning);"></div></div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-tertiary);">
+            <span>Strength: Growing</span><span>9 evidence items</span>
+          </div>
+        </div>
+
+        <div class="card" style="cursor:pointer;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">
+            <div>
+              <div class="card-title" style="font-size:16px;">Mobile Experience Gap</div>
+              <div class="card-meta">3 items &middot; 1 study &middot; Understudied</div>
+            </div>
+            <span class="sev-badge sev-med" style="font-size:10px;">GAP</span>
+          </div>
+          <div class="card-text" style="margin-bottom:10px;">Last studied Q2 2024. No recent mobile UX research. Field workers increasingly requesting mobile access to project data.</div>
+          <div class="progress-bar" style="margin-bottom:4px;"><div class="progress-fill" style="width:12%;background:var(--text-tertiary);"></div></div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-tertiary);">
+            <span>Strength: Low</span><span>3 evidence items</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ SNIPPETS ============ -->
+    <div id="page-snippets" class="page">
+      <div class="page-title">Snippets</div>
+      <div class="page-subtitle">Customer quotes and verbatims from across all research sources. Copy, cite, or share.</div>
+
+      <div class="search-wrap-lg" style="margin-bottom:16px;">
+        <span class="search-icon-lg">&#x1F50D;</span>
+        <input class="search-bar-lg" placeholder="Search quotes... e.g. 'AI trust', 'onboarding', 'search confusing'" readonly>
+      </div>
+
+      <div class="filter-row">
+        <button class="filter-btn active">All</button>
+        <button class="filter-btn">Positive</button>
+        <button class="filter-btn">Negative</button>
+        <button class="filter-btn">Neutral</button>
+      </div>
+
+      <div style="font-size:13px;color:var(--text-secondary);margin-bottom:14px;">124 snippets across 38 studies</div>
+
+      <div class="card" style="border-left:3px solid var(--twilight);">
+        <div class="quote-text">"Users expected product-specific results but got cross-product matches. Most tried 2-3 searches before giving up and using category navigation."</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--text-secondary);">
+          <span><span class="badge badge-dv" style="font-size:9px;padding:2px 5px;"><span class="badge-dot"></span> DV</span> Global Search Usability &middot; Q3 2025 &middot; Enterprise</span>
+          <div style="display:flex;gap:6px;">
+            <span class="sev-badge sev-high" style="font-size:9px;">Negative</span>
+            <button class="action-btn" style="padding:3px 8px;font-size:11px;">&#x1F4CB; Copy</button>
+            <button class="action-btn" style="padding:3px 8px;font-size:11px;">&#x1F517; Cite</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="border-left:3px solid var(--twilight);">
+        <div class="quote-text">"The expectation is that AI should explain itself &mdash; not just give an answer but show why it arrived there."</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--text-secondary);">
+          <span><span class="badge badge-dv" style="font-size:9px;padding:2px 5px;"><span class="badge-dot"></span> DV</span> AI Trust & Transparency &middot; Q2 2025 &middot; Enterprise architect</span>
+          <div style="display:flex;gap:6px;">
+            <span class="sev-badge sev-high" style="font-size:9px;">Negative</span>
+            <button class="action-btn" style="padding:3px 8px;font-size:11px;">&#x1F4CB; Copy</button>
+            <button class="action-btn" style="padding:3px 8px;font-size:11px;">&#x1F517; Cite</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="border-left:3px solid var(--twilight);">
+        <div class="quote-text">"We need AI to be a co-pilot, not an autopilot. I want to trust it, but I need to see the reasoning before I send it to a client."</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--text-secondary);">
+          <span><span class="badge badge-dv" style="font-size:9px;padding:2px 5px;"><span class="badge-dot"></span> DV</span> PSET AI Workflow Study &middot; Q1 2026 &middot; Enterprise</span>
+          <div style="display:flex;gap:6px;">
+            <span class="sev-badge sev-med" style="font-size:9px;">Neutral</span>
+            <button class="action-btn" style="padding:3px 8px;font-size:11px;">&#x1F4CB; Copy</button>
+            <button class="action-btn" style="padding:3px 8px;font-size:11px;">&#x1F517; Cite</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="border-left:3px solid var(--morning);">
+        <div class="quote-text">"I keep searching for the same things every week. Let me save my filters."</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--text-secondary);">
+          <span><span class="badge badge-dv" style="font-size:9px;padding:2px 5px;"><span class="badge-dot"></span> DV</span> NPS Feature Requests &middot; Q4 2025 &middot; Enterprise</span>
+          <div style="display:flex;gap:6px;">
+            <span class="sev-badge sev-high" style="font-size:9px;">Negative</span>
+            <button class="action-btn" style="padding:3px 8px;font-size:11px;">&#x1F4CB; Copy</button>
+            <button class="action-btn" style="padding:3px 8px;font-size:11px;">&#x1F517; Cite</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="border-left:3px solid var(--dawn);">
+        <div class="quote-text">"Workflow integration matters more than feature count. We need AI to fit into how we already work, not force us to change our process."</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--text-secondary);">
+          <span><span class="badge badge-pd" style="font-size:9px;padding:2px 5px;"><span class="badge-dot"></span> PD</span> Customer Council &middot; 2024&ndash;2025 &middot; Enterprise</span>
+          <div style="display:flex;gap:6px;">
+            <span class="sev-badge sev-low" style="font-size:9px;">Positive</span>
+            <button class="action-btn" style="padding:3px 8px;font-size:11px;">&#x1F4CB; Copy</button>
+            <button class="action-btn" style="padding:3px 8px;font-size:11px;">&#x1F517; Cite</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ CONTACTS ============ -->
+    <div id="page-contacts" class="page">
+      <div class="page-title">Contacts</div>
+      <div class="page-subtitle">Research participants, stakeholders, and customer contacts across all studies.</div>
+
+      <div class="search-wrap-lg" style="margin-bottom:16px;">
+        <span class="search-icon-lg">&#x1F50D;</span>
+        <input class="search-bar-lg" placeholder="Search contacts..." readonly>
+      </div>
+
+      <div class="filter-row">
+        <button class="filter-btn active">All</button>
+        <button class="filter-btn">Participants</button>
+        <button class="filter-btn">Stakeholders</button>
+        <button class="filter-btn">Customer Council</button>
+        <button class="filter-btn">Enterprise</button>
+        <button class="filter-btn">SMB</button>
+      </div>
+
+      <div style="font-size:13px;color:var(--text-secondary);margin-bottom:14px;">68 contacts across 22 studies</div>
+
+      <div class="card" style="display:flex;gap:14px;align-items:center;">
+        <div class="contact-avatar" style="background:var(--twilight);">MR</div>
+        <div style="flex:1;">
+          <div class="card-title">Marcus Rodriguez</div>
+          <div class="card-meta" style="margin-bottom:4px;">Senior Architect &middot; Turner Construction &middot; Enterprise</div>
+          <div class="tags-row"><span class="tag">AI Trust Study</span><span class="tag">Customer Council</span><span class="tag">PSET</span></div>
+        </div>
+        <div style="text-align:right;font-size:12px;color:var(--text-tertiary);">
+          <div>3 studies</div>
+          <div>Last: Q1 2026</div>
+        </div>
+      </div>
+
+      <div class="card" style="display:flex;gap:14px;align-items:center;">
+        <div class="contact-avatar" style="background:var(--morning);">AK</div>
+        <div style="flex:1;">
+          <div class="card-title">Aisha Khan</div>
+          <div class="card-meta" style="margin-bottom:4px;">Platform Engineer &middot; Bechtel &middot; Enterprise</div>
+          <div class="tags-row"><span class="tag">API Developer Interviews</span><span class="tag">Platform</span></div>
+        </div>
+        <div style="text-align:right;font-size:12px;color:var(--text-tertiary);">
+          <div>2 studies</div>
+          <div>Last: Feb 2026</div>
+        </div>
+      </div>
+
+      <div class="card" style="display:flex;gap:14px;align-items:center;">
+        <div class="contact-avatar" style="background:var(--dawn);">JL</div>
+        <div style="flex:1;">
+          <div class="card-title">James Liu</div>
+          <div class="card-meta" style="margin-bottom:4px;">BIM Manager &middot; AECOM &middot; Enterprise</div>
+          <div class="tags-row"><span class="tag">Onboarding v2</span><span class="tag">Revit</span><span class="tag">Navigation Study</span></div>
+        </div>
+        <div style="text-align:right;font-size:12px;color:var(--text-tertiary);">
+          <div>2 studies</div>
+          <div>Last: Q3 2025</div>
+        </div>
+      </div>
+
+      <div class="card" style="display:flex;gap:14px;align-items:center;">
+        <div class="contact-avatar" style="background:var(--dusk);">SP</div>
+        <div style="flex:1;">
+          <div class="card-title">Sofia Petrov</div>
+          <div class="card-meta" style="margin-bottom:4px;">Design Lead &middot; Gensler &middot; Enterprise</div>
+          <div class="tags-row"><span class="tag">Customer Council</span><span class="tag">AI/ML Trust</span><span class="tag">Collaboration</span></div>
+        </div>
+        <div style="text-align:right;font-size:12px;color:var(--text-tertiary);">
+          <div>4 studies</div>
+          <div>Last: Q1 2026</div>
+        </div>
+      </div>
+
+      <div class="card" style="display:flex;gap:14px;align-items:center;">
+        <div class="contact-avatar" style="background:var(--upfhub);">DW</div>
+        <div style="flex:1;">
+          <div class="card-title">David Wang</div>
+          <div class="card-meta" style="margin-bottom:4px;">IT Director &middot; Skanska &middot; Enterprise</div>
+          <div class="tags-row"><span class="tag">NPS</span><span class="tag">Search Usability</span></div>
+        </div>
+        <div style="text-align:right;font-size:12px;color:var(--text-tertiary);">
+          <div>1 study</div>
+          <div>Last: Q4 2025</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ SURVEYS ============ -->
+    <div id="page-surveys" class="page">
+      <div class="page-title">Surveys</div>
+      <div class="page-subtitle">Active and past surveys with response data, sentiment analysis, and key findings.</div>
+
+      <div class="filter-row">
+        <button class="filter-btn active">All</button>
+        <button class="filter-btn">Active</button>
+        <button class="filter-btn">Completed</button>
+        <button class="filter-btn">NPS</button>
+        <button class="filter-btn">CSAT</button>
+      </div>
+
+      <div class="grid-2" style="margin-bottom:24px;">
+        <div class="card" style="cursor:pointer;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+            <span class="sev-badge" style="background:#E0F7F0;color:#1A9E7F;font-size:10px;">ACTIVE</span>
+            <span style="font-size:12px;color:var(--text-tertiary);">142 responses</span>
+          </div>
+          <div class="card-title">Enterprise NPS Q1 2026</div>
+          <div class="card-meta">Launched Feb 10, 2026 &middot; Closes Mar 10 &middot; 38% response rate</div>
+          <div style="margin:10px 0;">
+            <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;">
+              <span>Response rate</span><span style="font-weight:600;">38%</span>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" style="width:38%;background:var(--twilight);"></div></div>
+          </div>
+          <div style="display:flex;gap:16px;font-size:13px;">
+            <span><strong style="color:#1A9E7F;font-size:16px;">42</strong> <span style="color:var(--text-secondary);">NPS</span></span>
+            <span class="sentiment-positive">Promoters: 52%</span>
+            <span class="sentiment-negative">Detractors: 10%</span>
+          </div>
+        </div>
+
+        <div class="card" style="cursor:pointer;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+            <span class="sev-badge" style="background:var(--bg-secondary);color:var(--text-secondary);font-size:10px;">COMPLETED</span>
+            <span style="font-size:12px;color:var(--text-tertiary);">n=380</span>
+          </div>
+          <div class="card-title">Enterprise NPS Q4 2025</div>
+          <div class="card-meta">Closed Dec 31, 2025 &middot; 44% response rate</div>
+          <div style="margin:10px 0;">
+            <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;">
+              <span>Response rate</span><span style="font-weight:600;">44%</span>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" style="width:44%;background:var(--morning);"></div></div>
+          </div>
+          <div style="display:flex;gap:16px;font-size:13px;">
+            <span><strong style="color:var(--dawn);font-size:16px;">38</strong> <span style="color:var(--text-secondary);">NPS</span></span>
+            <span class="sentiment-positive">Promoters: 48%</span>
+            <span class="sentiment-negative">Detractors: 10%</span>
+          </div>
+        </div>
+
+        <div class="card" style="cursor:pointer;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+            <span class="sev-badge" style="background:var(--bg-secondary);color:var(--text-secondary);font-size:10px;">COMPLETED</span>
+            <span style="font-size:12px;color:var(--text-tertiary);">n=142</span>
+          </div>
+          <div class="card-title">API Developer Experience 2023</div>
+          <div class="card-meta">Platform &middot; 2023 &middot; Archived in Prism</div>
+          <div style="margin:10px 0;">
+            <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;">
+              <span>Satisfaction</span><span style="font-weight:600;">3.2 / 5</span>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" style="width:64%;background:var(--dawn);"></div></div>
+          </div>
+          <div class="card-text" style="font-size:13px;">Error message clarity was the #1 complaint. Only 12% rated docs as "very helpful."</div>
+        </div>
+
+        <div class="card" style="cursor:pointer;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+            <span class="sev-badge" style="background:#E0F7F0;color:#1A9E7F;font-size:10px;">ACTIVE</span>
+            <span style="font-size:12px;color:var(--text-tertiary);">86 responses</span>
+          </div>
+          <div class="card-title">Fusion CSAT &mdash; AI Features</div>
+          <div class="card-meta">Launched Feb 15, 2026 &middot; In-app survey</div>
+          <div style="margin:10px 0;">
+            <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;">
+              <span>CSAT Score</span><span style="font-weight:600;">3.6 / 5</span>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" style="width:72%;background:var(--twilight);"></div></div>
+          </div>
+          <div class="card-text" style="font-size:13px;">Top feedback: "useful but unpredictable." Trust theme dominant in open-text responses.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ SENTIMENT ============ -->
+    <div id="page-sentiment" class="page">
+      <div class="page-title">Sentiment</div>
+      <div class="page-subtitle">Real-time sentiment analysis from UPF Hub, NPS, in-app feedback, and support tickets across all products.</div>
+
+      <div class="filter-row">
+        <button class="filter-btn active">All Products</button>
+        <button class="filter-btn">Fusion</button>
+        <button class="filter-btn">Revit</button>
+        <button class="filter-btn">AutoCAD</button>
+        <button class="filter-btn">Platform</button>
+      </div>
+
+      <!-- Overall Sentiment -->
+      <div class="card" style="margin-bottom:20px;">
+        <div class="section-label">Overall Sentiment &mdash; Last 30 Days</div>
+        <div style="display:flex;gap:24px;align-items:center;margin-bottom:14px;">
+          <div style="text-align:center;">
+            <div style="font-size:36px;font-weight:700;font-family:'Artifakt Legend',Arial,sans-serif;">62%</div>
+            <div style="font-size:12px;color:var(--text-secondary);">Positive</div>
+          </div>
+          <div style="flex:1;">
+            <div class="sentiment-meter" style="margin-bottom:6px;">
+              <div class="sentiment-fill" style="width:62%;background:#1A9E7F;"></div>
+              <div class="sentiment-fill" style="width:20%;background:#D5D5CB;"></div>
+              <div class="sentiment-fill" style="width:18%;background:#C0392B;"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-tertiary);">
+              <span class="sentiment-positive">Positive 62%</span>
+              <span>Neutral 20%</span>
+              <span class="sentiment-negative">Negative 18%</span>
+            </div>
+          </div>
+        </div>
+        <div style="font-size:13px;color:var(--text-secondary);">Based on 1,847 feedback items from NPS, in-app feedback, UPF Hub, and support tickets.</div>
+      </div>
+
+      <!-- Sentiment by Topic -->
+      <div class="section-label">Sentiment by Topic</div>
+      <div class="grid-2" style="margin-bottom:24px;">
+
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+            <div class="card-title">AI Features</div>
+            <span class="trend-down">&#x2193; -32%</span>
+          </div>
+          <div class="sentiment-meter" style="margin-bottom:6px;">
+            <div class="sentiment-fill" style="width:38%;background:#1A9E7F;"></div>
+            <div class="sentiment-fill" style="width:30%;background:#D5D5CB;"></div>
+            <div class="sentiment-fill" style="width:32%;background:#C0392B;"></div>
+          </div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px;">248 items &middot; Top complaint: "lack of explainability"</div>
+          <div class="tags-row"><span class="tag">transparency</span><span class="tag">trust</span><span class="tag">audit trail</span></div>
+        </div>
+
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+            <div class="card-title">Navigation (Revit)</div>
+            <span class="trend-down">&#x2193; -18%</span>
+          </div>
+          <div class="sentiment-meter" style="margin-bottom:6px;">
+            <div class="sentiment-fill" style="width:42%;background:#1A9E7F;"></div>
+            <div class="sentiment-fill" style="width:22%;background:#D5D5CB;"></div>
+            <div class="sentiment-fill" style="width:36%;background:#C0392B;"></div>
+          </div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px;">156 items &middot; Highest in enterprise PSET</div>
+          <div class="tags-row"><span class="tag">navigation</span><span class="tag">Revit</span><span class="tag">PSET</span></div>
+        </div>
+
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+            <div class="card-title">Collaboration</div>
+            <span class="trend-up">&#x2191; +12%</span>
+          </div>
+          <div class="sentiment-meter" style="margin-bottom:6px;">
+            <div class="sentiment-fill" style="width:71%;background:#1A9E7F;"></div>
+            <div class="sentiment-fill" style="width:18%;background:#D5D5CB;"></div>
+            <div class="sentiment-fill" style="width:11%;background:#C0392B;"></div>
+          </div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px;">89 items &middot; Improving after Fusion co-editing launch</div>
+          <div class="tags-row"><span class="tag">real-time</span><span class="tag">Fusion</span></div>
+        </div>
+
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+            <div class="card-title">Developer Tools</div>
+            <span class="trend-down">&#x2193; -8%</span>
+          </div>
+          <div class="sentiment-meter" style="margin-bottom:6px;">
+            <div class="sentiment-fill" style="width:48%;background:#1A9E7F;"></div>
+            <div class="sentiment-fill" style="width:24%;background:#D5D5CB;"></div>
+            <div class="sentiment-fill" style="width:28%;background:#C0392B;"></div>
+          </div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px;">124 items &middot; SDK setup time a growing complaint</div>
+          <div class="tags-row"><span class="tag">API</span><span class="tag">SDK</span><span class="tag">documentation</span></div>
+        </div>
+
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+            <div class="card-title">Onboarding</div>
+            <span class="trend-flat">~ Stable</span>
+          </div>
+          <div class="sentiment-meter" style="margin-bottom:6px;">
+            <div class="sentiment-fill" style="width:55%;background:#1A9E7F;"></div>
+            <div class="sentiment-fill" style="width:28%;background:#D5D5CB;"></div>
+            <div class="sentiment-fill" style="width:17%;background:#C0392B;"></div>
+          </div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px;">97 items &middot; "Too many steps at once"</div>
+          <div class="tags-row"><span class="tag">setup</span><span class="tag">activation</span></div>
+        </div>
+
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+            <div class="card-title">Search & Discovery</div>
+            <span class="trend-down">&#x2193; -5%</span>
+          </div>
+          <div class="sentiment-meter" style="margin-bottom:6px;">
+            <div class="sentiment-fill" style="width:44%;background:#1A9E7F;"></div>
+            <div class="sentiment-fill" style="width:28%;background:#D5D5CB;"></div>
+            <div class="sentiment-fill" style="width:28%;background:#C0392B;"></div>
+          </div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px;">132 items &middot; "Cross-product results confusing"</div>
+          <div class="tags-row"><span class="tag">search</span><span class="tag">filters</span><span class="tag">zero-results</span></div>
+        </div>
+      </div>
+
+      <!-- AI Sentiment Brief -->
+      <div class="ai-summary">
+        <div class="ai-header">
+          <span style="font-size:16px;">&#x2728;</span>
+          Sentiment Brief &mdash; Feb 2026
+        </div>
+        <div class="ai-finding"><span class="num">(1)</span> AI feature sentiment is the most polarized topic: 32% negative, driven by "lack of explainability" and trust concerns in enterprise accounts.</div>
+        <div class="ai-finding"><span class="num">(2)</span> Navigation in Revit is on a downward trend (&minus;18% in 30 days), concentrated in enterprise PSET users. Correlates with the new ribbon layout release.</div>
+        <div class="ai-finding"><span class="num">(3)</span> Collaboration is the only topic with improving sentiment (+12%), tied to the Fusion co-editing launch.</div>
+        <div class="ai-finding"><span class="num">(4)</span> Developer tools sentiment declining as SDK setup friction grows. "Cryptic error messages" is a recurring phrase.</div>
+      </div>
+    </div>
+
+    <!-- ============ TAGS ============ -->
+    <div id="page-tags" class="page">
+      <div class="page-title">Tags</div>
+      <div class="page-subtitle">Taxonomy and tagging system used to organize research across all sources. Click any tag to see related items.</div>
+
+      <div class="search-wrap-lg" style="margin-bottom:16px;">
+        <span class="search-icon-lg">&#x1F50D;</span>
+        <input class="search-bar-lg" placeholder="Search tags..." readonly>
+      </div>
+
+      <div class="section-label">Product Tags</div>
+      <div class="chip-group" style="margin-bottom:24px;">
+        <span class="chip">Fusion <span class="chip-count">89</span></span>
+        <span class="chip">Revit <span class="chip-count">67</span></span>
+        <span class="chip">AutoCAD <span class="chip-count">54</span></span>
+        <span class="chip">Platform APIs <span class="chip-count">42</span></span>
+        <span class="chip">Civil 3D <span class="chip-count">12</span></span>
+        <span class="chip">Inventor <span class="chip-count">8</span></span>
+      </div>
+
+      <div class="section-label">Topic Tags</div>
+      <div class="chip-group" style="margin-bottom:24px;">
+        <span class="chip" style="border-color:var(--twilight);color:var(--twilight);">AI <span class="chip-count">48</span></span>
+        <span class="chip">trust <span class="chip-count">32</span></span>
+        <span class="chip">enterprise <span class="chip-count">78</span></span>
+        <span class="chip">onboarding <span class="chip-count">22</span></span>
+        <span class="chip">search <span class="chip-count">28</span></span>
+        <span class="chip">navigation <span class="chip-count">24</span></span>
+        <span class="chip">collaboration <span class="chip-count">15</span></span>
+        <span class="chip">feature-request <span class="chip-count">34</span></span>
+        <span class="chip">NPS <span class="chip-count">19</span></span>
+        <span class="chip">sentiment <span class="chip-count">26</span></span>
+        <span class="chip">developer-experience <span class="chip-count">18</span></span>
+        <span class="chip">API <span class="chip-count">16</span></span>
+        <span class="chip">workflow <span class="chip-count">14</span></span>
+        <span class="chip">documentation <span class="chip-count">11</span></span>
+        <span class="chip">accessibility <span class="chip-count">3</span></span>
+        <span class="chip">mobile <span class="chip-count">5</span></span>
+        <span class="chip">performance <span class="chip-count">9</span></span>
+        <span class="chip">retention <span class="chip-count">12</span></span>
+      </div>
+
+      <div class="section-label">Segment Tags</div>
+      <div class="chip-group" style="margin-bottom:24px;">
+        <span class="chip">Enterprise <span class="chip-count">156</span></span>
+        <span class="chip">SMB <span class="chip-count">34</span></span>
+        <span class="chip">Individual <span class="chip-count">28</span></span>
+        <span class="chip">PSET <span class="chip-count">42</span></span>
+        <span class="chip">MFG <span class="chip-count">18</span></span>
+        <span class="chip">AEC <span class="chip-count">56</span></span>
+      </div>
+
+      <div class="section-label">Method Tags</div>
+      <div class="chip-group" style="margin-bottom:24px;">
+        <span class="chip">Usability Study <span class="chip-count">38</span></span>
+        <span class="chip">Survey <span class="chip-count">22</span></span>
+        <span class="chip">Customer Council <span class="chip-count">8</span></span>
+        <span class="chip">Analytics <span class="chip-count">56</span></span>
+        <span class="chip">NPS <span class="chip-count">12</span></span>
+        <span class="chip">Contextual Inquiry <span class="chip-count">6</span></span>
+        <span class="chip">Diary Study <span class="chip-count">3</span></span>
+        <span class="chip">Competitive Analysis <span class="chip-count">4</span></span>
+      </div>
+
+      <!-- Tag Stats -->
+      <div class="card">
+        <div class="section-label" style="margin-bottom:10px;">Tag Usage Stats</div>
+        <div class="list-row">
+          <span style="flex:1;font-size:13px;">Total unique tags</span>
+          <span style="font-weight:700;">86</span>
+        </div>
+        <div class="list-row">
+          <span style="flex:1;font-size:13px;">Average tags per item</span>
+          <span style="font-weight:700;">3.2</span>
+        </div>
+        <div class="list-row">
+          <span style="flex:1;font-size:13px;">Untagged items</span>
+          <span style="font-weight:700;color:#C0392B;">23</span>
+        </div>
+        <div class="list-row">
+          <span style="flex:1;font-size:13px;">Most used tag</span>
+          <span style="font-weight:700;">enterprise (156)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ WORKFLOWS ============ -->
+    <div id="page-workflows" class="page">
+      <div class="page-title">Workflows</div>
+      <div class="page-subtitle">Automated research workflows and integrations. Set up triggers, actions, and routing to keep insights flowing.</div>
+
+      <div class="filter-row">
+        <button class="filter-btn active">All</button>
+        <button class="filter-btn">Active</button>
+        <button class="filter-btn">Paused</button>
+        <button class="filter-btn">Draft</button>
+      </div>
+
+      <!-- Workflow 1 -->
+      <div class="card" style="margin-bottom:16px;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">
+          <div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div class="card-title">New Research Alert</div>
+              <span class="sev-badge" style="background:#E0F7F0;color:#1A9E7F;font-size:9px;">ACTIVE</span>
+            </div>
+            <div class="card-meta">When new research is added to Dovetail, notify matching topic watchers via Slack.</div>
+          </div>
+          <button class="action-btn">Edit</button>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+          <div class="workflow-step">
+            <div class="workflow-step-num">1</div>
+            <div><div style="font-size:12px;font-weight:600;">Trigger</div><div style="font-size:11px;color:var(--text-secondary);">New item in Dovetail</div></div>
+          </div>
+          <span style="color:var(--text-tertiary);">&rarr;</span>
+          <div class="workflow-step">
+            <div class="workflow-step-num">2</div>
+            <div><div style="font-size:12px;font-weight:600;">Match</div><div style="font-size:11px;color:var(--text-secondary);">Semantic topic matching</div></div>
+          </div>
+          <span style="color:var(--text-tertiary);">&rarr;</span>
+          <div class="workflow-step">
+            <div class="workflow-step-num">3</div>
+            <div><div style="font-size:12px;font-weight:600;">Summarize</div><div style="font-size:11px;color:var(--text-secondary);">AI generates summary</div></div>
+          </div>
+          <span style="color:var(--text-tertiary);">&rarr;</span>
+          <div class="workflow-step">
+            <div class="workflow-step-num">4</div>
+            <div><div style="font-size:12px;font-weight:600;">Notify</div><div style="font-size:11px;color:var(--text-secondary);">Post to Slack channel</div></div>
+          </div>
+        </div>
+        <div style="margin-top:10px;font-size:12px;color:var(--text-tertiary);">Triggered 12 times this week &middot; Last run: 2 hours ago</div>
+      </div>
+
+      <!-- Workflow 2 -->
+      <div class="card" style="margin-bottom:16px;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">
+          <div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div class="card-title">Weekly Sentiment Digest</div>
+              <span class="sev-badge" style="background:#E0F7F0;color:#1A9E7F;font-size:9px;">ACTIVE</span>
+            </div>
+            <div class="card-meta">Every Monday, compile sentiment trends from UPF Hub and send executive summary to Slack.</div>
+          </div>
+          <button class="action-btn">Edit</button>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+          <div class="workflow-step">
+            <div class="workflow-step-num">1</div>
+            <div><div style="font-size:12px;font-weight:600;">Schedule</div><div style="font-size:11px;color:var(--text-secondary);">Every Monday 9am</div></div>
+          </div>
+          <span style="color:var(--text-tertiary);">&rarr;</span>
+          <div class="workflow-step">
+            <div class="workflow-step-num">2</div>
+            <div><div style="font-size:12px;font-weight:600;">Aggregate</div><div style="font-size:11px;color:var(--text-secondary);">Pull UPF Hub data</div></div>
+          </div>
+          <span style="color:var(--text-tertiary);">&rarr;</span>
+          <div class="workflow-step">
+            <div class="workflow-step-num">3</div>
+            <div><div style="font-size:12px;font-weight:600;">Analyze</div><div style="font-size:11px;color:var(--text-secondary);">AI sentiment brief</div></div>
+          </div>
+          <span style="color:var(--text-tertiary);">&rarr;</span>
+          <div class="workflow-step">
+            <div class="workflow-step-num">4</div>
+            <div><div style="font-size:12px;font-weight:600;">Deliver</div><div style="font-size:11px;color:var(--text-secondary);">#research-leadership</div></div>
+          </div>
+        </div>
+        <div style="margin-top:10px;font-size:12px;color:var(--text-tertiary);">Runs weekly &middot; Last run: Feb 24, 2026</div>
+      </div>
+
+      <!-- Workflow 3 -->
+      <div class="card" style="margin-bottom:16px;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">
+          <div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div class="card-title">Trend Detection</div>
+              <span class="sev-badge" style="background:#E0F7F0;color:#1A9E7F;font-size:9px;">ACTIVE</span>
+            </div>
+            <div class="card-meta">When 3+ studies mention the same topic within 30 days, flag as emerging trend.</div>
+          </div>
+          <button class="action-btn">Edit</button>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+          <div class="workflow-step">
+            <div class="workflow-step-num">1</div>
+            <div><div style="font-size:12px;font-weight:600;">Monitor</div><div style="font-size:11px;color:var(--text-secondary);">All sources, rolling 30d</div></div>
+          </div>
+          <span style="color:var(--text-tertiary);">&rarr;</span>
+          <div class="workflow-step">
+            <div class="workflow-step-num">2</div>
+            <div><div style="font-size:12px;font-weight:600;">Detect</div><div style="font-size:11px;color:var(--text-secondary);">3+ studies threshold</div></div>
+          </div>
+          <span style="color:var(--text-tertiary);">&rarr;</span>
+          <div class="workflow-step">
+            <div class="workflow-step-num">3</div>
+            <div><div style="font-size:12px;font-weight:600;">Alert</div><div style="font-size:11px;color:var(--text-secondary);">Slack + Dashboard flag</div></div>
+          </div>
+        </div>
+        <div style="margin-top:10px;font-size:12px;color:var(--text-tertiary);">2 trends detected this month &middot; Last: "SDK friction" (3 studies)</div>
+      </div>
+
+      <!-- Workflow 4 -->
+      <div class="card" style="margin-bottom:16px;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">
+          <div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div class="card-title">NPS Verbatim Routing</div>
+              <span class="sev-badge" style="background:#FDF0E0;color:#C47A1A;font-size:9px;">PAUSED</span>
+            </div>
+            <div class="card-meta">Route NPS detractor verbatims to product team Slack channels based on product and topic tags.</div>
+          </div>
+          <button class="action-btn">Resume</button>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+          <div class="workflow-step" style="opacity:0.5;">
+            <div class="workflow-step-num" style="background:var(--slate);">1</div>
+            <div><div style="font-size:12px;font-weight:600;">Trigger</div><div style="font-size:11px;color:var(--text-secondary);">New NPS detractor</div></div>
+          </div>
+          <span style="color:var(--text-tertiary);">&rarr;</span>
+          <div class="workflow-step" style="opacity:0.5;">
+            <div class="workflow-step-num" style="background:var(--slate);">2</div>
+            <div><div style="font-size:12px;font-weight:600;">Classify</div><div style="font-size:11px;color:var(--text-secondary);">AI auto-tag + route</div></div>
+          </div>
+          <span style="color:var(--text-tertiary);">&rarr;</span>
+          <div class="workflow-step" style="opacity:0.5;">
+            <div class="workflow-step-num" style="background:var(--slate);">3</div>
+            <div><div style="font-size:12px;font-weight:600;">Route</div><div style="font-size:11px;color:var(--text-secondary);">Product team Slack</div></div>
+          </div>
+        </div>
+        <div style="margin-top:10px;font-size:12px;color:var(--text-tertiary);">Paused since Feb 15 &middot; 48 items routed before pause</div>
+      </div>
+
+      <div class="card" style="border:2px dashed var(--border);background:var(--bg-secondary);text-align:center;cursor:pointer;padding:28px;">
+        <div style="font-size:24px;margin-bottom:8px;">+</div>
+        <div class="card-title">Create new workflow</div>
+        <div style="font-size:13px;color:var(--text-secondary);">Build custom automations with triggers, conditions, and actions.</div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+
+<script>
+const pageNames = {
+  home: 'Home',
+  ask: 'Ask Me Anything',
+  reports: 'Insights > Reports > All',
+  myreports: 'Insights > Reports > My reports',
+  themes: 'Insights > Themes',
+  snippets: 'Insights > Snippets',
+  contacts: 'Insights > Contacts',
+  surveys: 'Research > Surveys',
+  sentiment: 'Research > Sentiment',
+  tags: 'Tools > Tags',
+  workflows: 'Tools > Workflows'
+};
+
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
+  var el = document.getElementById('page-' + name);
+  if (el) el.classList.add('active');
+
+  document.querySelectorAll('.sidebar-item, .sidebar-sub-item').forEach(function(s) { s.classList.remove('active'); });
+
+  var breadcrumb = document.getElementById('breadcrumb');
+  if (breadcrumb && pageNames[name]) {
+    breadcrumb.innerHTML = '<strong>' + pageNames[name] + '</strong>';
+  }
+
+  var content = document.querySelector('.content');
+  if (content) content.scrollTop = 0;
+}
+
+function toggleSub(id) {
+  var el = document.getElementById(id);
+  if (el) {
+    el.style.display = el.style.display === 'none' ? 'block' : 'block';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  var reportsSub = document.getElementById('reports-sub');
+  if (reportsSub) reportsSub.style.display = 'block';
+});
+</script>
+
+</body>
+</html>
