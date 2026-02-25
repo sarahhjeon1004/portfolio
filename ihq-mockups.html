@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impact HQ — Airtable Mockups</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f5f5f5;
+    color: #333;
+  }
+
+  /* Nav */
+  .tab-nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; gap: 0;
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+    padding: 0 24px;
+  }
+  .tab-btn {
+    padding: 14px 24px;
+    border: none; background: none;
+    font-size: 14px; font-weight: 500;
+    color: #666; cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all .15s;
+  }
+  .tab-btn:hover { color: #333; }
+  .tab-btn.active { color: #166ee1; border-bottom-color: #166ee1; }
+  .tab-page { display: none; }
+  .tab-page.active { display: block; }
+
+  /* ─── Airtable Form ─── */
+  .form-wrapper {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+  }
+  .form-header {
+    text-align: center;
+    margin-bottom: 36px;
+  }
+  .form-header h1 {
+    font-size: 28px; font-weight: 700; color: #1d1d1d;
+  }
+  .form-header p {
+    font-size: 14px; color: #777; margin-top: 8px; line-height: 1.5;
+  }
+  .form-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.08), 0 4px 12px rgba(0,0,0,.04);
+    padding: 32px;
+  }
+  .field-group { margin-bottom: 28px; }
+  .field-group:last-child { margin-bottom: 0; }
+  .field-label {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 13px; font-weight: 600; color: #333;
+    margin-bottom: 6px; text-transform: uppercase; letter-spacing: .3px;
+  }
+  .field-label .icon { font-size: 15px; }
+  .field-label .optional {
+    font-weight: 400; color: #999; text-transform: none;
+    font-size: 12px; letter-spacing: 0;
+  }
+  .field-hint {
+    font-size: 12.5px; color: #888; margin-bottom: 8px; line-height: 1.4;
+  }
+  .field-tip {
+    display: flex; align-items: flex-start; gap: 6px;
+    background: #f0f6ff; border-radius: 8px;
+    padding: 10px 12px; margin-top: 8px;
+    font-size: 12px; color: #3b6fb5; line-height: 1.4;
+  }
+  .field-tip .tip-icon { flex-shrink: 0; font-size: 14px; margin-top: 1px; }
+
+  /* Inputs */
+  .select-field {
+    width: 100%; padding: 10px 14px;
+    border: 1.5px solid #ddd; border-radius: 8px;
+    font-size: 14px; color: #333; background: #fff;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23999' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    cursor: pointer;
+  }
+  .select-field:focus { border-color: #166ee1; outline: none; box-shadow: 0 0 0 2px rgba(22,110,225,.15); }
+  .text-field {
+    width: 100%; padding: 10px 14px;
+    border: 1.5px solid #ddd; border-radius: 8px;
+    font-size: 14px; color: #333; resize: vertical;
+    min-height: 90px; line-height: 1.5;
+    font-family: inherit;
+  }
+  .text-field:focus { border-color: #166ee1; outline: none; box-shadow: 0 0 0 2px rgba(22,110,225,.15); }
+  .text-field.sm { min-height: 70px; }
+  .url-field {
+    width: 100%; padding: 10px 14px;
+    border: 1.5px solid #ddd; border-radius: 8px;
+    font-size: 14px; color: #333;
+  }
+  .url-field:focus { border-color: #166ee1; outline: none; box-shadow: 0 0 0 2px rgba(22,110,225,.15); }
+  .file-upload {
+    border: 2px dashed #ddd; border-radius: 8px;
+    padding: 20px; text-align: center;
+    color: #999; font-size: 13px; cursor: pointer;
+    transition: border-color .15s;
+  }
+  .file-upload:hover { border-color: #aaa; }
+  .file-upload span { color: #166ee1; font-weight: 500; }
+
+  /* Buttons */
+  .form-actions {
+    display: flex; gap: 12px; margin-top: 32px;
+    justify-content: flex-end;
+  }
+  .btn {
+    padding: 10px 24px; border-radius: 8px;
+    font-size: 14px; font-weight: 600; cursor: pointer;
+    border: none; transition: all .15s;
+  }
+  .btn-secondary {
+    background: #f0f6ff; color: #166ee1;
+    border: 1.5px solid #c5dafc;
+  }
+  .btn-secondary:hover { background: #dce9fc; }
+  .btn-primary {
+    background: #166ee1; color: #fff;
+  }
+  .btn-primary:hover { background: #1259b8; }
+
+  .no-pressure-banner {
+    text-align: center; padding: 16px;
+    background: #fafafa; border-radius: 8px;
+    margin-top: 20px; font-size: 13px; color: #888;
+    line-height: 1.5;
+  }
+
+  /* ─── Dashboard ─── */
+  .dash-wrapper {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 32px 24px 80px;
+  }
+  .dash-header {
+    display: flex; justify-content: space-between;
+    align-items: center; margin-bottom: 28px;
+  }
+  .dash-header h1 { font-size: 22px; font-weight: 700; }
+  .dash-header .period {
+    font-size: 13px; color: #777;
+    background: #f0f0f0; padding: 6px 14px;
+    border-radius: 6px;
+  }
+  .dash-section {
+    background: #fff; border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.06);
+    margin-bottom: 20px; overflow: hidden;
+  }
+  .dash-section-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 24px;
+    border-bottom: 1px solid #eee;
+    font-size: 14px; font-weight: 700; color: #333;
+  }
+  .dash-section-header .view-all {
+    font-size: 12px; font-weight: 500; color: #166ee1;
+    cursor: pointer;
+  }
+  .dash-section-body { padding: 20px 24px; }
+
+  /* Exec summary */
+  .exec-summary-text {
+    font-size: 14px; line-height: 1.6; color: #555;
+    font-style: italic; margin-bottom: 16px;
+  }
+  .exec-stats {
+    display: flex; gap: 0;
+  }
+  .stat-card {
+    flex: 1; text-align: center; padding: 14px 8px;
+    border-right: 1px solid #f0f0f0;
+  }
+  .stat-card:last-child { border: none; }
+  .stat-num { font-size: 28px; font-weight: 700; color: #1d1d1d; }
+  .stat-label { font-size: 11px; color: #999; margin-top: 4px; text-transform: uppercase; letter-spacing: .5px; }
+
+  /* Blockers */
+  .blocker-item {
+    display: flex; gap: 14px; padding: 14px 0;
+    border-bottom: 1px solid #f5f5f5;
+  }
+  .blocker-item:last-child { border: none; }
+  .blocker-badge {
+    flex-shrink: 0; width: 10px; height: 10px;
+    border-radius: 50%; margin-top: 5px;
+  }
+  .blocker-badge.critical { background: #ef4444; }
+  .blocker-badge.warning { background: #f59e0b; }
+  .blocker-title { font-size: 14px; font-weight: 600; color: #333; }
+  .blocker-meta { font-size: 12px; color: #888; margin-top: 3px; }
+  .blocker-actions { display: flex; gap: 8px; margin-top: 8px; }
+  .blocker-actions button {
+    font-size: 11px; padding: 4px 10px; border-radius: 4px;
+    border: 1px solid #ddd; background: #fafafa; color: #666;
+    cursor: pointer;
+  }
+  .blocker-actions button:hover { background: #f0f0f0; }
+
+  /* Highlights */
+  .highlight-item {
+    display: flex; gap: 10px; padding: 10px 0;
+    border-bottom: 1px solid #f8f8f8;
+    font-size: 14px; color: #444;
+  }
+  .highlight-item:last-child { border: none; }
+  .hl-star { color: #f59e0b; flex-shrink: 0; }
+  .hl-person { color: #888; font-size: 12px; margin-left: auto; flex-shrink: 0; }
+
+  /* Theme bars */
+  .theme-row {
+    display: flex; align-items: center; gap: 14px;
+    margin-bottom: 14px;
+  }
+  .theme-row:last-child { margin-bottom: 0; }
+  .theme-name { width: 240px; font-size: 13px; color: #555; flex-shrink: 0; }
+  .theme-bar-bg {
+    flex: 1; height: 22px; background: #f0f0f0;
+    border-radius: 4px; overflow: hidden;
+  }
+  .theme-bar {
+    height: 100%; border-radius: 4px;
+    background: linear-gradient(90deg, #166ee1, #4d9cf5);
+  }
+  .theme-count { width: 70px; font-size: 12px; color: #888; text-align: right; flex-shrink: 0; }
+
+  /* Team pills */
+  .team-pills { display: flex; gap: 10px; flex-wrap: wrap; }
+  .team-pill {
+    padding: 10px 18px; border-radius: 8px;
+    background: #f5f5f5; font-size: 13px; color: #555;
+    cursor: pointer; border: 1.5px solid transparent;
+    transition: all .15s;
+  }
+  .team-pill:hover { border-color: #166ee1; color: #166ee1; background: #f0f6ff; }
+
+  /* Trends */
+  .trend-participation {
+    margin-bottom: 20px;
+  }
+  .trend-label { font-size: 13px; color: #555; margin-bottom: 6px; }
+  .trend-bar-bg {
+    height: 18px; background: #f0f0f0; border-radius: 4px; overflow: hidden;
+    position: relative;
+  }
+  .trend-bar {
+    height: 100%; background: linear-gradient(90deg, #22c55e, #4ade80);
+    border-radius: 4px;
+  }
+  .trend-pct {
+    position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+    font-size: 11px; font-weight: 600; color: #555;
+  }
+  .trend-list { list-style: none; padding: 0; }
+  .trend-list li {
+    padding: 6px 0; font-size: 13px; color: #555;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .trend-arrow { font-weight: 700; }
+  .trend-arrow.up { color: #22c55e; }
+  .trend-arrow.stable { color: #999; }
+  .trend-sub { font-size: 12px; color: #888; margin-top: 14px; font-weight: 600; }
+  .trend-list.blockers li { color: #b45309; }
+
+  /* ─── Manager View ─── */
+  .mgr-header-bar {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 24px;
+  }
+  .mgr-header-bar h1 { font-size: 22px; font-weight: 700; }
+  .mgr-summary-cards {
+    display: flex; gap: 14px; margin-bottom: 24px;
+  }
+  .mgr-stat {
+    flex: 1; background: #fff; border-radius: 10px;
+    padding: 18px 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.06);
+  }
+  .mgr-stat .num { font-size: 32px; font-weight: 700; color: #1d1d1d; }
+  .mgr-stat .lbl { font-size: 12px; color: #999; margin-top: 2px; }
+  .person-section {
+    border-bottom: 1px solid #f0f0f0;
+    padding: 16px 24px;
+  }
+  .person-section:last-child { border: none; }
+  .person-name {
+    font-size: 14px; font-weight: 700; color: #333;
+    margin-bottom: 8px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .person-tag {
+    font-size: 10px; padding: 2px 8px; border-radius: 4px;
+    font-weight: 600; text-transform: uppercase;
+  }
+  .tag-impact { background: #e8f4fd; color: #166ee1; }
+  .tag-highlight { background: #fef9ec; color: #b45309; }
+  .tag-challenge { background: #fef2f2; color: #dc2626; }
+  .person-statement { font-size: 13px; color: #555; line-height: 1.5; margin-bottom: 4px; }
+
+  /* ─── Report View ─── */
+  .report-shell {
+    display: flex; min-height: 100vh;
+  }
+  .report-sidebar {
+    width: 240px; background: #1d1d1d; color: #ccc;
+    padding: 24px 0; flex-shrink: 0;
+  }
+  .report-sidebar h3 {
+    padding: 0 20px; font-size: 11px; text-transform: uppercase;
+    letter-spacing: .8px; color: #888; margin-bottom: 12px;
+  }
+  .report-nav-item {
+    padding: 8px 20px; font-size: 13px; cursor: pointer;
+    transition: background .1s;
+  }
+  .report-nav-item:hover { background: #2a2a2a; }
+  .report-nav-item.active { background: #333; color: #fff; border-left: 3px solid #166ee1; }
+  .report-main {
+    flex: 1; padding: 32px 40px; background: #fafafa;
+    max-width: 800px;
+  }
+  .report-title {
+    font-size: 22px; font-weight: 700; margin-bottom: 4px;
+  }
+  .report-dates { font-size: 13px; color: #888; margin-bottom: 28px; }
+  .report-section {
+    background: #fff; border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.05);
+    margin-bottom: 16px; overflow: hidden;
+  }
+  .report-section-head {
+    padding: 14px 20px;
+    font-size: 14px; font-weight: 700;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex; align-items: center; gap: 8px;
+    cursor: pointer;
+  }
+  .report-section-head .count {
+    font-weight: 400; color: #999;
+  }
+  .report-section-head .chevron { margin-left: auto; color: #ccc; }
+  .report-section-body { padding: 16px 20px; }
+  .report-person { margin-bottom: 16px; }
+  .report-person:last-child { margin-bottom: 0; }
+  .report-person-name { font-size: 13px; font-weight: 700; color: #333; margin-bottom: 6px; }
+  .report-person-summary {
+    font-size: 13px; color: #555; line-height: 1.6;
+    background: #f8fafd; padding: 10px 14px; border-radius: 6px;
+    border-left: 3px solid #166ee1;
+  }
+
+  /* ─── AI Coach ─── */
+  .coach-wrapper {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+  }
+  .coach-intro {
+    text-align: center; margin-bottom: 36px;
+  }
+  .coach-intro h1 { font-size: 26px; font-weight: 700; color: #1d1d1d; }
+  .coach-intro p { font-size: 14px; color: #777; margin-top: 8px; line-height: 1.5; max-width: 520px; margin-left: auto; margin-right: auto; }
+
+  .coach-scenario {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.07), 0 6px 20px rgba(0,0,0,.04);
+    margin-bottom: 32px;
+    overflow: hidden;
+  }
+  .coach-scenario-header {
+    padding: 14px 24px;
+    font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .coach-scenario-header.needs-work { background: #fff7ed; color: #c2410c; border-bottom: 1px solid #fed7aa; }
+  .coach-scenario-header.strong { background: #f0fdf4; color: #15803d; border-bottom: 1px solid #bbf7d0; }
+  .coach-scenario-header.good { background: #eff6ff; color: #1d4ed8; border-bottom: 1px solid #bfdbfe; }
+
+  .coach-input-section {
+    padding: 24px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .coach-input-label {
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px;
+    color: #999; margin-bottom: 10px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .coach-input-label .icon { font-size: 13px; }
+  .coach-meta-row {
+    display: flex; gap: 12px; margin-bottom: 14px;
+  }
+  .coach-meta-pill {
+    font-size: 12px; padding: 5px 12px; border-radius: 6px;
+    background: #f5f5f5; color: #666;
+    display: flex; align-items: center; gap: 5px;
+  }
+  .coach-meta-pill .icon { font-size: 12px; }
+  .coach-statement-box {
+    background: #fafafa; border: 1.5px solid #e5e5e5; border-radius: 10px;
+    padding: 16px 18px;
+    font-size: 14px; color: #333; line-height: 1.6;
+    position: relative;
+  }
+  .coach-statement-box .cursor-blink {
+    display: inline-block; width: 2px; height: 16px;
+    background: #166ee1; margin-left: 2px;
+    animation: blink 1s step-end infinite;
+    vertical-align: text-bottom;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .coach-response-section {
+    padding: 24px;
+    background: #fcfcfc;
+  }
+  .coach-response-header {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 16px;
+  }
+  .coach-avatar {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: linear-gradient(135deg, #818cf8, #6366f1);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; color: #fff;
+  }
+  .coach-response-title {
+    font-size: 14px; font-weight: 700; color: #333;
+  }
+  .coach-response-subtitle {
+    font-size: 11px; color: #999;
+  }
+
+  .coach-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 12px; font-weight: 700; padding: 4px 12px;
+    border-radius: 6px; margin-bottom: 14px;
+  }
+  .coach-badge.needs-work { background: #fff7ed; color: #c2410c; }
+  .coach-badge.strong { background: #f0fdf4; color: #15803d; }
+  .coach-badge.good { background: #eff6ff; color: #1d4ed8; }
+
+  .coach-feedback-block {
+    margin-bottom: 14px;
+  }
+  .coach-feedback-block:last-child { margin-bottom: 0; }
+  .coach-feedback-label {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .4px; color: #999; margin-bottom: 5px;
+  }
+  .coach-feedback-text {
+    font-size: 13.5px; color: #444; line-height: 1.6;
+  }
+
+  .coach-rewrite-box {
+    background: #f0fdf4; border: 1px solid #bbf7d0;
+    border-radius: 8px; padding: 14px 16px;
+    font-size: 13.5px; color: #15803d; line-height: 1.6;
+    margin-top: 6px;
+  }
+  .coach-rewrite-box .diff-add {
+    background: #dcfce7; padding: 1px 3px; border-radius: 3px;
+    font-weight: 600;
+  }
+
+  .coach-cta-row {
+    display: flex; gap: 10px; margin-top: 16px; padding-top: 14px;
+    border-top: 1px solid #f0f0f0;
+  }
+  .coach-cta {
+    padding: 8px 18px; border-radius: 7px;
+    font-size: 13px; font-weight: 600; cursor: pointer;
+    border: none; transition: all .15s;
+  }
+  .coach-cta.accept { background: #166ee1; color: #fff; }
+  .coach-cta.accept:hover { background: #1259b8; }
+  .coach-cta.keep { background: #f0f0f0; color: #666; }
+  .coach-cta.keep:hover { background: #e5e5e5; }
+
+  .coach-divider {
+    display: flex; align-items: center; gap: 14px;
+    margin: 8px 0;
+    color: #ccc; font-size: 12px;
+  }
+  .coach-divider::before, .coach-divider::after {
+    content: ''; flex: 1; height: 1px; background: #e5e5e5;
+  }
+</style>
+</head>
+<body>
+
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="switchTab('form')">Submission Form</button>
+  <button class="tab-btn" onclick="switchTab('dashboard')">Leadership Dashboard</button>
+  <button class="tab-btn" onclick="switchTab('manager')">Manager View</button>
+  <button class="tab-btn" onclick="switchTab('report')">Report View</button>
+  <button class="tab-btn" onclick="switchTab('coach')">AI Coach</button>
+</nav>
+
+<!-- ═══════ SUBMISSION FORM ═══════ -->
+<div id="tab-form" class="tab-page active">
+  <div class="form-wrapper">
+    <div class="form-header">
+      <h1>Submit Your Impact</h1>
+      <p>Share what changed because of your work this cycle. No pressure — only submit when you have something meaningful to share.</p>
+    </div>
+
+    <div class="form-card">
+      <!-- Stage of Work -->
+      <div class="field-group">
+        <label class="field-label">
+          <span class="icon">📍</span> Stage of Work <span class="optional">— optional</span>
+        </label>
+        <div class="field-hint">What phase is this work in?</div>
+        <select class="select-field">
+          <option value="">Select a stage...</option>
+          <option>Discovery &amp; Research</option>
+          <option>Alignment &amp; Planning</option>
+          <option>Execution &amp; Delivery</option>
+          <option>Measurement &amp; Learning</option>
+        </select>
+      </div>
+
+      <!-- Impact Statement -->
+      <div class="field-group">
+        <label class="field-label">
+          <span class="icon">🎯</span> Impact Statement
+        </label>
+        <div class="field-hint">What changed because of your work?</div>
+        <textarea class="text-field" placeholder="Describe the action you took, the outcome it produced, and why it matters..."></textarea>
+        <div class="field-tip">
+          <span class="tip-icon">💡</span>
+          <span>Formula: <strong>[What you did]</strong> → <strong>[What changed]</strong> → <strong>[Why it matters]</strong><br>Not all impact is quantifiable — alignment, enablement, and risk mitigation count too.</span>
+        </div>
+      </div>
+
+      <!-- Highlight -->
+      <div class="field-group">
+        <label class="field-label">
+          <span class="icon">⭐</span> Highlight <span class="optional">— optional</span>
+        </label>
+        <div class="field-hint">Anything worth celebrating or calling attention to this cycle?</div>
+        <textarea class="text-field sm" placeholder="A breakthrough, milestone, recognition, or win that deserves visibility..."></textarea>
+      </div>
+
+      <!-- Challenge -->
+      <div class="field-group">
+        <label class="field-label">
+          <span class="icon">🚧</span> Challenge <span class="optional">— optional</span>
+        </label>
+        <div class="field-hint">What's blocking or slowing you down? This helps leadership clear roadblocks.</div>
+        <textarea class="text-field sm" placeholder="Describe the blocker, its impact, and any help you need..."></textarea>
+      </div>
+
+      <!-- Links -->
+      <div class="field-group">
+        <label class="field-label">
+          <span class="icon">🔗</span> Links <span class="optional">— optional</span>
+        </label>
+        <input class="url-field" type="url" placeholder="https://...">
+      </div>
+
+      <!-- Attachments -->
+      <div class="field-group">
+        <label class="field-label">
+          <span class="icon">📎</span> Attachments <span class="optional">— optional</span>
+        </label>
+        <div class="file-upload">
+          <span>Click to upload</span> or drag and drop files here
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="form-actions">
+        <button class="btn btn-secondary">Preview AI Feedback</button>
+        <button class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+
+    <div class="no-pressure-banner">
+      Keep it short — no more than 15 minutes to write.<br>
+      If you don't have anything to share this cycle, that's perfectly fine — there's no expectation to submit every period.
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ LEADERSHIP DASHBOARD ═══════ -->
+<div id="tab-dashboard" class="tab-page">
+  <div class="dash-wrapper">
+    <div class="dash-header">
+      <h1>📊 PSET XD Impact Dashboard</h1>
+      <div class="period">Feb 9 – Feb 20, 2026 ▾</div>
+    </div>
+
+    <!-- Executive Summary -->
+    <div class="dash-section">
+      <div class="dash-section-header">🎯 Executive Summary</div>
+      <div class="dash-section-body">
+        <div class="exec-summary-text">
+          "This cycle saw strong execution on documentation and SDK releases, continued research synthesis, and cross-functional alignment on design system transitions. 3 blockers flagged for leadership attention."
+        </div>
+        <div class="exec-stats">
+          <div class="stat-card"><div class="stat-num">18</div><div class="stat-label">Contributors</div></div>
+          <div class="stat-card"><div class="stat-num">24</div><div class="stat-label">Impacts</div></div>
+          <div class="stat-card"><div class="stat-num">8</div><div class="stat-label">Highlights</div></div>
+          <div class="stat-card"><div class="stat-num" style="color:#ef4444">3</div><div class="stat-label">Blockers</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Blockers -->
+    <div class="dash-section">
+      <div class="dash-section-header">
+        🚧 Blockers Requiring Attention
+        <span class="view-all">View All →</span>
+      </div>
+      <div class="dash-section-body">
+        <div class="blocker-item">
+          <div class="blocker-badge critical"></div>
+          <div>
+            <div class="blocker-title">Legal review queue (3+ weeks)</div>
+            <div class="blocker-meta">Reported by Beyoncé Knowles · Blocking: Checkout redesign launch</div>
+            <div class="blocker-actions">
+              <button>Mark Resolved</button>
+              <button>Add Comment</button>
+            </div>
+          </div>
+        </div>
+        <div class="blocker-item">
+          <div class="blocker-badge warning"></div>
+          <div>
+            <div class="blocker-title">Stakeholder fragmentation</div>
+            <div class="blocker-meta">Reported by Keanu Reeves · Impact: 3 redundant alignment meetings</div>
+            <div class="blocker-actions">
+              <button>Mark Resolved</button>
+              <button>Add Comment</button>
+            </div>
+          </div>
+        </div>
+        <div class="blocker-item">
+          <div class="blocker-badge warning"></div>
+          <div>
+            <div class="blocker-title">Resource constraints across 3 concurrent initiatives</div>
+            <div class="blocker-meta">Reported by Pedro Pascal · Requesting prioritization support</div>
+            <div class="blocker-actions">
+              <button>Mark Resolved</button>
+              <button>Add Comment</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Top Highlights -->
+    <div class="dash-section">
+      <div class="dash-section-header">
+        ⭐ Top Highlights This Cycle
+        <span class="view-all">View All →</span>
+      </div>
+      <div class="dash-section-body">
+        <div class="highlight-item">
+          <span class="hl-star">★</span>
+          DX SDK 7.1.0 documentation shipped on schedule
+          <span class="hl-person">Zendaya Coleman</span>
+        </div>
+        <div class="highlight-item">
+          <span class="hl-star">★</span>
+          Design system transition alignment achieved across 4 product teams
+          <span class="hl-person">Oscar Isaac</span>
+        </div>
+        <div class="highlight-item">
+          <span class="hl-star">★</span>
+          MCP documentation pipeline validated end-to-end
+          <span class="hl-person">Rihanna Fenty</span>
+        </div>
+        <div class="highlight-item">
+          <span class="hl-star">★</span>
+          VP of Product shared competitive analysis deck at board presentation
+          <span class="hl-person">Keanu Reeves</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Impact by Theme -->
+    <div class="dash-section">
+      <div class="dash-section-header">📈 Impact by Theme</div>
+      <div class="dash-section-body">
+        <div class="theme-row">
+          <div class="theme-name">Documentation & Developer Experience</div>
+          <div class="theme-bar-bg"><div class="theme-bar" style="width:100%"></div></div>
+          <div class="theme-count">12 impacts</div>
+        </div>
+        <div class="theme-row">
+          <div class="theme-name">Design Systems</div>
+          <div class="theme-bar-bg"><div class="theme-bar" style="width:58%"></div></div>
+          <div class="theme-count">7 impacts</div>
+        </div>
+        <div class="theme-row">
+          <div class="theme-name">Research & Insights</div>
+          <div class="theme-bar-bg"><div class="theme-bar" style="width:33%"></div></div>
+          <div class="theme-count">4 impacts</div>
+        </div>
+        <div class="theme-row">
+          <div class="theme-name">Cross-functional Alignment</div>
+          <div class="theme-bar-bg"><div class="theme-bar" style="width:25%"></div></div>
+          <div class="theme-count">3 impacts</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Team Views -->
+    <div class="dash-section">
+      <div class="dash-section-header">👥 Team Views</div>
+      <div class="dash-section-body">
+        <div class="team-pills">
+          <div class="team-pill">Oprah Winfrey's Team →</div>
+          <div class="team-pill">Ryan Reynolds' Team →</div>
+          <div class="team-pill">All Contributors →</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Trends -->
+    <div class="dash-section">
+      <div class="dash-section-header">📅 Trends (Last 6 Cycles)</div>
+      <div class="dash-section-body">
+        <div class="trend-participation">
+          <div class="trend-label">Participation Rate</div>
+          <div class="trend-bar-bg">
+            <div class="trend-bar" style="width:78%"></div>
+            <div class="trend-pct">78% (18 of 23)</div>
+          </div>
+        </div>
+        <div class="trend-label" style="margin-top:18px">Common Themes Over Time</div>
+        <ul class="trend-list">
+          <li><span class="trend-arrow up">↑</span> Documentation — trending up</li>
+          <li><span class="trend-arrow stable">→</span> Research — stable</li>
+          <li><span class="trend-arrow up">↑</span> Design Systems — trending up</li>
+        </ul>
+        <div class="trend-sub" style="margin-top:18px">Recurring Blockers</div>
+        <ul class="trend-list blockers">
+          <li>Legal review delays — flagged 3 of last 6 cycles</li>
+          <li>Cross-team alignment overhead — flagged 2 of last 6 cycles</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ MANAGER VIEW ═══════ -->
+<div id="tab-manager" class="tab-page">
+  <div class="dash-wrapper">
+    <div class="mgr-header-bar">
+      <h1>👤 My Team's Impacts</h1>
+      <div class="period" style="font-size:13px;color:#777;background:#f0f0f0;padding:6px 14px;border-radius:6px;">Current Report ▾</div>
+    </div>
+
+    <div class="mgr-summary-cards">
+      <div class="mgr-stat">
+        <div class="num">4</div>
+        <div class="lbl">Direct Reports</div>
+      </div>
+      <div class="mgr-stat">
+        <div class="num" style="color:#22c55e">3</div>
+        <div class="lbl">Contributors This Cycle</div>
+      </div>
+      <div class="mgr-stat">
+        <div class="num">7</div>
+        <div class="lbl">Total Impacts</div>
+      </div>
+      <div class="mgr-stat">
+        <div class="num" style="color:#ef4444">1</div>
+        <div class="lbl">Blockers</div>
+      </div>
+    </div>
+
+    <!-- Team highlights -->
+    <div class="dash-section">
+      <div class="dash-section-header">⭐ Team Highlights</div>
+      <div class="dash-section-body">
+        <div class="highlight-item">
+          <span class="hl-star">★</span>
+          Shipped redesigned account settings flow — 23% reduction in password reset tickets
+          <span class="hl-person">Taylor Swift</span>
+        </div>
+        <div class="highlight-item">
+          <span class="hl-star">★</span>
+          Created reusable research template, already adopted by 2 teams independently
+          <span class="hl-person">Dwayne Johnson</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Team challenges -->
+    <div class="dash-section">
+      <div class="dash-section-header">🚧 Team Challenges</div>
+      <div class="dash-section-body">
+        <div class="blocker-item">
+          <div class="blocker-badge warning"></div>
+          <div>
+            <div class="blocker-title">Repeated scope changes late in design process from Product</div>
+            <div class="blocker-meta">Reported by Pedro Pascal · Added 2 weeks to timeline · Needs escalation?</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- All Impacts by Person -->
+    <div class="dash-section">
+      <div class="dash-section-header">🎯 All Impacts — Grouped by Person</div>
+      <div class="dash-section-body" style="padding:0">
+        <div class="person-section">
+          <div class="person-name">
+            Taylor Swift
+            <span class="person-tag tag-impact">Impact</span>
+            <span class="person-tag tag-highlight">Highlight</span>
+          </div>
+          <div class="person-statement">Shipped the redesigned account settings flow. Early data shows a 23% reduction in password reset support tickets, freeing up approximately 4 hours/week of support team time.</div>
+        </div>
+        <div class="person-section">
+          <div class="person-name">
+            Dwayne Johnson
+            <span class="person-tag tag-impact">Impact</span>
+          </div>
+          <div class="person-statement">Created a reusable research template and trained 3 designers on how to run lightweight usability tests. Two teams have already used it independently, reducing research lead time from 2 weeks to 3 days.</div>
+        </div>
+        <div class="person-section">
+          <div class="person-name">
+            Pedro Pascal
+            <span class="person-tag tag-impact">Impact</span>
+            <span class="person-tag tag-challenge">Challenge</span>
+          </div>
+          <div class="person-statement">Facilitated a cross-functional workshop with Product, Eng, and Legal to resolve a 6-week deadlock on data retention policy. Outcome: aligned direction, documented decision, and clear owners.</div>
+        </div>
+        <div class="person-section">
+          <div class="person-name" style="color:#bbb">
+            Adele Adkins
+            <span style="font-size:11px;font-weight:400;color:#ccc">— No submissions this cycle</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ REPORT VIEW ═══════ -->
+<div id="tab-report" class="tab-page">
+  <div class="report-shell">
+    <aside class="report-sidebar">
+      <h3>Reports</h3>
+      <div class="report-nav-item active">Feb 9 – Feb 20, 2026</div>
+      <div class="report-nav-item">Jan 26 – Feb 6, 2026</div>
+      <div class="report-nav-item">Jan 12 – Jan 23, 2026</div>
+      <div class="report-nav-item">Dec 29 – Jan 9, 2026</div>
+      <div class="report-nav-item">Dec 15 – Dec 26, 2025</div>
+    </aside>
+    <main class="report-main">
+      <div class="report-title">📈 Impact Report</div>
+      <div class="report-dates">February 9 – February 20, 2026 &nbsp;·&nbsp; <span style="background:#dcfce7;color:#16a34a;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600">Published</span></div>
+
+      <!-- Executive Summary -->
+      <div class="report-section">
+        <div class="report-section-head">🎯 Executive Summary</div>
+        <div class="report-section-body">
+          <div class="exec-summary-text" style="margin:0">
+            "This cycle saw strong execution on documentation and SDK releases, continued research synthesis, and cross-functional alignment on design system transitions. 3 blockers flagged for leadership attention. Participation was healthy at 78%."
+          </div>
+        </div>
+      </div>
+
+      <!-- Highlights -->
+      <div class="report-section">
+        <div class="report-section-head">
+          ⭐ Highlights This Period <span class="count">(8)</span>
+          <span class="chevron">▾</span>
+        </div>
+        <div class="report-section-body">
+          <div class="highlight-item"><span class="hl-star">★</span> DX SDK 7.1.0 documentation shipped on schedule <span class="hl-person">Zendaya Coleman</span></div>
+          <div class="highlight-item"><span class="hl-star">★</span> Design system transition alignment achieved <span class="hl-person">Oscar Isaac</span></div>
+          <div class="highlight-item"><span class="hl-star">★</span> MCP documentation pipeline validated <span class="hl-person">Rihanna Fenty</span></div>
+          <div class="highlight-item"><span class="hl-star">★</span> Navigation model cracked for enterprise + SMB <span class="hl-person">Taylor Swift</span></div>
+        </div>
+      </div>
+
+      <!-- Impacts by Type -->
+      <div class="report-section">
+        <div class="report-section-head">
+          🎯 Impacts by Type <span class="count">(24)</span>
+          <span class="chevron">▾</span>
+        </div>
+        <div class="report-section-body">
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+            <span class="person-tag tag-impact" style="font-size:12px;padding:4px 12px">Execution (10)</span>
+            <span class="person-tag" style="font-size:12px;padding:4px 12px;background:#f0fdf4;color:#16a34a">Enablement (5)</span>
+            <span class="person-tag" style="font-size:12px;padding:4px 12px;background:#faf5ff;color:#9333ea">Alignment (4)</span>
+            <span class="person-tag" style="font-size:12px;padding:4px 12px;background:#fefce8;color:#a16207">Risk Mitigation (3)</span>
+            <span class="person-tag" style="font-size:12px;padding:4px 12px;background:#f5f5f5;color:#666">Influence (2)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Challenges -->
+      <div class="report-section">
+        <div class="report-section-head">
+          🚧 Challenges & Blockers <span class="count">(3)</span>
+          <span class="chevron">▾</span>
+        </div>
+        <div class="report-section-body">
+          <div class="blocker-item">
+            <div class="blocker-badge critical"></div>
+            <div>
+              <div class="blocker-title">Legal review queue (3+ weeks)</div>
+              <div class="blocker-meta">Beyoncé Knowles · Blocking checkout redesign launch</div>
+            </div>
+          </div>
+          <div class="blocker-item">
+            <div class="blocker-badge warning"></div>
+            <div>
+              <div class="blocker-title">Stakeholder fragmentation — 3 redundant meetings</div>
+              <div class="blocker-meta">Keanu Reeves · Coordinating across researchers to prevent gaps</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- By Contributor -->
+      <div class="report-section">
+        <div class="report-section-head">
+          👥 By Contributor <span class="count">(18)</span>
+          <span class="chevron">▾</span>
+        </div>
+        <div class="report-section-body" style="padding:0">
+          <div class="report-person" style="padding:16px 20px;border-bottom:1px solid #f0f0f0">
+            <div class="report-person-name">Zendaya Coleman</div>
+            <div class="report-person-summary">
+              Successfully navigated a period of intense, overlapping priorities to deliver all critical documentation for the DX SDK 7.1.0 release on schedule. Showed strong execution in managing dependencies and maintaining quality under timeline pressure.
+            </div>
+          </div>
+          <div class="report-person" style="padding:16px 20px;border-bottom:1px solid #f0f0f0">
+            <div class="report-person-name">Oscar Isaac</div>
+            <div class="report-person-summary">
+              Drove design system transition alignment across 4 product teams. Key outcome: unified component library adoption roadmap agreed upon, reducing duplicated effort across teams.
+            </div>
+          </div>
+          <div class="report-person" style="padding:16px 20px">
+            <div class="report-person-name">Beyoncé Knowles</div>
+            <div class="report-person-summary">
+              Completed 12 customer interviews across 3 segments. Key finding: 70% of churned users cited onboarding complexity — insight now driving the simplified onboarding initiative in Q2. Flagged legal review blocker for checkout redesign.
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ═══════ AI COACH ═══════ -->
+<div id="tab-coach" class="tab-page">
+  <div class="coach-wrapper">
+    <div class="coach-intro">
+      <h1>🤖 AI Impact Coach</h1>
+      <p>After submitting, each contributor sees personalized coaching feedback on <em>their own</em> statement only. This view is private — no one else can see your draft or your coaching results.</p>
+      <div style="display:inline-flex;align-items:center;gap:8px;margin-top:14px;padding:8px 16px;background:#f0f6ff;border-radius:8px;font-size:12px;color:#3b6fb5;">
+        <span style="font-size:15px;">🔒</span> Only visible to you — managers and leadership see final submitted versions, not coaching interactions.
+      </div>
+    </div>
+
+    <div style="background:#fff;border-radius:10px;box-shadow:0 1px 3px rgba(0,0,0,.06);padding:16px 24px;margin-bottom:32px;display:flex;align-items:center;gap:14px;">
+      <div style="width:36px;height:36px;border-radius:50%;background:#e8f4fd;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">👤</div>
+      <div>
+        <div style="font-size:14px;font-weight:700;color:#333;">Zendaya Coleman</div>
+        <div style="font-size:12px;color:#888;">Viewing your coaching feedback &middot; 3 submissions this cycle</div>
+      </div>
+      <div style="margin-left:auto;font-size:12px;color:#999;background:#f5f5f5;padding:5px 12px;border-radius:6px;">My Submissions ▾</div>
+    </div>
+
+    <!-- ── Scenario 1: Needs Work ── -->
+    <div class="coach-scenario">
+      <div class="coach-scenario-header needs-work">
+        <span>⚠️</span> Submission 1 — Before Coaching
+      </div>
+
+      <div class="coach-input-section">
+        <div class="coach-input-label"><span class="icon">📝</span> Your Impact Statement</div>
+        <div class="coach-meta-row">
+          <div class="coach-meta-pill"><span class="icon">📍</span> Execution &amp; Delivery</div>
+          <div class="coach-meta-pill"><span class="icon">📅</span> Feb 9 – Feb 20, 2026</div>
+        </div>
+        <div class="coach-statement-box">
+          Worked on the documentation for the SDK release. Updated several pages and attended meetings with the engineering team to make sure everything was aligned. Also helped review some pull requests.<span class="cursor-blink"></span>
+        </div>
+      </div>
+
+      <div class="coach-response-section">
+        <div class="coach-response-header">
+          <div class="coach-avatar">✨</div>
+          <div>
+            <div class="coach-response-title">Impact Coach Feedback</div>
+            <div class="coach-response-subtitle">Analyzed in context of Execution &amp; Delivery stage</div>
+          </div>
+        </div>
+
+        <div class="coach-badge needs-work">⚠️ Needs Work</div>
+
+        <div class="coach-feedback-block">
+          <div class="coach-feedback-label">What works</div>
+          <div class="coach-feedback-text">You mention real work — documentation, cross-team coordination, and code review. These are meaningful contributions.</div>
+        </div>
+
+        <div class="coach-feedback-block">
+          <div class="coach-feedback-label">What's missing</div>
+          <div class="coach-feedback-text">The statement focuses on <em>activities</em> (worked on, attended, helped) rather than <em>outcomes</em>. The reader doesn't learn what changed because of this work. What shipped? What got unblocked? What would have happened if you hadn't done this?</div>
+        </div>
+
+        <div class="coach-feedback-block">
+          <div class="coach-feedback-label">Suggested rewrite</div>
+          <div class="coach-rewrite-box">
+            <span class="diff-add">Authored all 14 documentation pages for the DX SDK 7.1.0 release, enabling the engineering team to ship on schedule.</span> Coordinated across 3 engineering pods to <span class="diff-add">resolve 6 technical discrepancies before publish</span>, and reviewed 8 PRs to <span class="diff-add">catch 2 breaking-change omissions that would have impacted existing integrations.</span>
+          </div>
+        </div>
+
+        <div class="coach-cta-row">
+          <button class="coach-cta accept">Use Suggested Version</button>
+          <button class="coach-cta keep">Keep My Original</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="coach-divider">another submission</div>
+
+    <!-- ── Scenario 2: Strong (after coaching) ── -->
+    <div class="coach-scenario">
+      <div class="coach-scenario-header strong">
+        <span>✅</span> Submission 2 — Strong
+      </div>
+
+      <div class="coach-input-section">
+        <div class="coach-input-label"><span class="icon">📝</span> Your Impact Statement</div>
+        <div class="coach-meta-row">
+          <div class="coach-meta-pill"><span class="icon">📍</span> Alignment &amp; Planning</div>
+          <div class="coach-meta-pill"><span class="icon">📅</span> Feb 9 – Feb 20, 2026</div>
+        </div>
+        <div class="coach-statement-box">
+          Led design system transition alignment across 4 product teams — resulted in a unified component library adoption roadmap that all teams signed off on. This eliminated 3 parallel efforts that were duplicating work and reduced the projected migration timeline from 8 months to 5. Stakeholder confidence in the transition moved from "skeptical" to "committed" based on post-session survey.
+        </div>
+      </div>
+
+      <div class="coach-response-section">
+        <div class="coach-response-header">
+          <div class="coach-avatar">✨</div>
+          <div>
+            <div class="coach-response-title">Impact Coach Feedback</div>
+            <div class="coach-response-subtitle">Analyzed in context of Alignment &amp; Planning stage</div>
+          </div>
+        </div>
+
+        <div class="coach-badge strong">✅ Strong</div>
+
+        <div class="coach-feedback-block">
+          <div class="coach-feedback-label">What works</div>
+          <div class="coach-feedback-text">This is excellent. You clearly articulate the action (led alignment across 4 teams), the direct outcome (unified roadmap, eliminated duplication), and the broader impact (timeline reduction, stakeholder buy-in). The specifics are credible and concrete without over-claiming.</div>
+        </div>
+
+        <div class="coach-feedback-block">
+          <div class="coach-feedback-label">Suggestion</div>
+          <div class="coach-feedback-text">No changes needed. This statement stands on its own — well-structured, stage-appropriate, and demonstrates clear value at the Alignment level.</div>
+        </div>
+
+        <div class="coach-cta-row">
+          <button class="coach-cta accept">Submit as Written</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Scenario 3: Good (discovery stage) ── -->
+    <div class="coach-scenario">
+      <div class="coach-scenario-header good">
+        <span>💡</span> Submission 3 — Good, with Minor Polish
+      </div>
+
+      <div class="coach-input-section">
+        <div class="coach-input-label"><span class="icon">📝</span> Your Impact Statement</div>
+        <div class="coach-meta-row">
+          <div class="coach-meta-pill"><span class="icon">📍</span> Discovery &amp; Research</div>
+          <div class="coach-meta-pill"><span class="icon">📅</span> Feb 9 – Feb 20, 2026</div>
+        </div>
+        <div class="coach-statement-box">
+          Completed 12 customer interviews across 3 segments (enterprise, mid-market, SMB). Found that 70% of churned users cited onboarding complexity as their primary reason for leaving. This insight is now driving the simplified onboarding initiative planned for Q2.
+        </div>
+      </div>
+
+      <div class="coach-response-section">
+        <div class="coach-response-header">
+          <div class="coach-avatar">✨</div>
+          <div>
+            <div class="coach-response-title">Impact Coach Feedback</div>
+            <div class="coach-response-subtitle">Analyzed in context of Discovery &amp; Research stage</div>
+          </div>
+        </div>
+
+        <div class="coach-badge good">💡 Good</div>
+
+        <div class="coach-feedback-block">
+          <div class="coach-feedback-label">What works</div>
+          <div class="coach-feedback-text">Strong discovery work — you quantified the research effort, surfaced a clear finding, and connected it to an actionable outcome (the Q2 initiative). This is exactly the kind of impact discovery-stage work should show.</div>
+        </div>
+
+        <div class="coach-feedback-block">
+          <div class="coach-feedback-label">Suggestion</div>
+          <div class="coach-feedback-text">Consider adding one sentence about what assumption this validated or invalidated. For example: <em>"This confirmed our hypothesis that feature gaps were not the primary churn driver — it's the initial experience."</em> This frames the finding as a strategic input, not just data.</div>
+        </div>
+
+        <div class="coach-cta-row">
+          <button class="coach-cta accept">Apply Suggestion</button>
+          <button class="coach-cta keep">Keep My Original</button>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:12px;padding:16px;background:#fafafa;border-radius:8px;font-size:13px;color:#888;line-height:1.5;">
+      The AI coach adapts its feedback to the <strong>stage of work</strong> — it won't push for metrics<br>when you're in Discovery or Alignment. It only suggests polish, never inflation.
+    </div>
+  </div>
+</div>
+
+<script>
+function switchTab(id) {
+  document.querySelectorAll('.tab-page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  document.querySelector('[onclick="switchTab(\'' + id + '\')"]').classList.add('active');
+}
+</script>
+</body>
+</html>
