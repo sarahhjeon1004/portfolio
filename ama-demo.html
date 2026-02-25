@@ -1,0 +1,3225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ask Me Anything — Research Intelligence</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    /* Autodesk primary */
+    --adsk-black: #000000;
+    --adsk-white: #FFFFFF;
+    --hello-yellow: #FFFF00;
+
+    /* Autodesk grays */
+    --warm-slate: #D5D5CB;
+    --slate: #666666;
+
+    /* Autodesk accents — mapped to sources */
+    --twilight: #1D91D0;
+    --morning: #2AD0A9;
+    --dawn: #F09D4F;
+    --dusk: #F2520A;
+
+    /* Source colors */
+    --dovetail: var(--twilight);
+    --prism: var(--morning);
+    --pdms: var(--dawn);
+    --analytics: var(--dusk);
+    --upfhub: #8B5CF6;
+
+    /* UI tokens */
+    --bg-primary: var(--adsk-white);
+    --bg-secondary: #F5F5F2;
+    --bg-ai: linear-gradient(135deg, #EDF6FB 0%, #F0FAF7 100%);
+    --border-ai: #B8DBE9;
+    --text-primary: var(--adsk-black);
+    --text-secondary: var(--slate);
+    --text-tertiary: #999999;
+    --border: var(--warm-slate);
+    --shadow-card: 0 2px 8px rgba(0,0,0,0.06);
+    --shadow-hover: 0 4px 16px rgba(0,0,0,0.12);
+    --radius-card: 8px;
+    --radius-pill: 16px;
+    --radius-search: 24px;
+  }
+
+  body {
+    font-family: 'Artifakt Element', Arial, Helvetica, sans-serif;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    line-height: 1.5;
+  }
+
+  /* NAV */
+  nav {
+    background: var(--adsk-black);
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    height: 52px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-logo {
+    font-family: 'Artifakt Legend', Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--adsk-white);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .nav-logo svg { width: 20px; height: 20px; }
+  .nav-links {
+    display: flex;
+    gap: 2px;
+    margin-left: 32px;
+  }
+  .nav-links a {
+    text-decoration: none;
+    color: #AAAAAA;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 10px;
+    border-radius: 6px;
+    transition: all 0.15s;
+    cursor: pointer;
+  }
+  .nav-links a:hover {
+    background: rgba(255,255,255,0.1);
+    color: var(--adsk-white);
+  }
+  .nav-links a.active {
+    background: rgba(255,255,255,0.15);
+    color: var(--adsk-white);
+    font-weight: 600;
+  }
+  .nav-divider {
+    display: inline-block;
+    width: 1px;
+    height: 16px;
+    background: rgba(255,255,255,0.15);
+    margin: 0 6px;
+    vertical-align: middle;
+  }
+
+  /* TABS */
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* CONTAINER */
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 32px 24px;
+  }
+
+  /* SEARCH BAR */
+  .search-wrap {
+    position: relative;
+    margin-bottom: 32px;
+  }
+  .search-bar {
+    width: 100%;
+    height: 56px;
+    border-radius: var(--radius-search);
+    border: 2px solid var(--border);
+    padding: 0 24px 0 52px;
+    font-size: 16px;
+    font-family: inherit;
+    color: var(--text-primary);
+    background: var(--bg-primary);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-bar:focus { border-color: var(--twilight); }
+  .search-bar::placeholder { color: var(--text-tertiary); }
+  .search-icon {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-tertiary);
+    font-size: 18px;
+  }
+
+  /* SECTION HEADERS */
+  .section-header {
+    font-family: 'Artifakt Legend', Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--slate);
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    margin-bottom: 16px;
+  }
+
+  /* TRENDING THEMES */
+  .themes-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 32px;
+    overflow-x: auto;
+  }
+  .theme-card {
+    flex-shrink: 0;
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    padding: 16px 20px;
+    min-width: 140px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .theme-card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-1px);
+  }
+  .theme-title { font-family: 'Artifakt Legend', Arial, Helvetica, sans-serif; font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+  .theme-count { font-size: 12px; color: var(--text-secondary); }
+
+  /* SOURCE BADGES */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 6px;
+    letter-spacing: 0.3px;
+  }
+  .badge-dv { background: #E4F2F9; color: var(--twilight); }
+  .badge-pr { background: #E0F7F0; color: #1A9E7F; }
+  .badge-pd { background: #FDF0E0; color: #C47A1A; }
+  .badge-an { background: #FDEBE4; color: var(--dusk); }
+  .badge-uf { background: #F0EAFF; color: var(--upfhub); }
+  .badge-dot {
+    width: 6px; height: 6px; border-radius: 50%; display: inline-block;
+  }
+  .badge-dv .badge-dot { background: var(--twilight); }
+  .badge-pr .badge-dot { background: var(--morning); }
+  .badge-pd .badge-dot { background: var(--dawn); }
+  .badge-an .badge-dot { background: var(--dusk); }
+  .badge-uf .badge-dot { background: var(--upfhub); }
+
+  /* INSIGHT CARDS */
+  .insight-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    padding: 20px;
+    margin-bottom: 12px;
+    border-left: 4px solid var(--border);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .insight-card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-1px);
+  }
+  .insight-card.src-dv { border-left-color: var(--dovetail); }
+  .insight-card.src-pr { border-left-color: var(--prism); }
+  .insight-card.src-pd { border-left-color: var(--pdms); }
+  .insight-card.src-an { border-left-color: var(--analytics); }
+
+  .insight-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .insight-title { font-family: 'Artifakt Legend', Arial, Helvetica, sans-serif; font-weight: 700; font-size: 15px; }
+  .insight-meta {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+  }
+  .insight-preview {
+    font-size: 14px;
+    color: #374151;
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+  .insight-preview em {
+    font-style: italic;
+    color: #4B5563;
+  }
+  .insight-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+  .tag {
+    background: #E9ECEF;
+    color: #495057;
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: var(--radius-pill);
+    font-weight: 500;
+  }
+  .insight-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .insight-link {
+    font-size: 13px;
+    color: var(--twilight);
+    font-weight: 500;
+    text-decoration: none;
+  }
+  .insight-stats {
+    font-size: 12px;
+    color: var(--text-tertiary);
+  }
+
+  /* SOURCE GRID */
+  .source-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .source-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .source-card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-1px);
+  }
+  .source-name { font-family: 'Artifakt Legend', Arial, Helvetica, sans-serif; font-weight: 700; font-size: 15px; margin-bottom: 4px; }
+  .source-count { font-size: 13px; color: var(--text-secondary); }
+  .source-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 12px;
+    font-size: 18px; font-weight: 700; color: white;
+  }
+
+  /* AI SUMMARY */
+  .ai-summary {
+    background: var(--bg-ai);
+    border: 1px solid var(--border-ai);
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 24px;
+  }
+  .ai-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    font-family: 'Artifakt Legend', Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--adsk-black);
+  }
+  .ai-header svg { width: 18px; height: 18px; }
+  .ai-context {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+  }
+  .ai-finding {
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 12px;
+    padding-left: 8px;
+  }
+  .ai-finding .num {
+    font-weight: 700;
+    color: var(--twilight);
+    margin-right: 4px;
+  }
+  .ai-finding .cite {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--twilight);
+    vertical-align: super;
+    cursor: pointer;
+    margin-left: 2px;
+  }
+  .cite.src-an { color: var(--dusk); }
+  .cite.src-pr { color: var(--morning); }
+  .ai-sources {
+    border-top: 1px solid var(--border-ai);
+    margin-top: 16px;
+    padding-top: 16px;
+  }
+  .ai-sources-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  .ai-source-item {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+    line-height: 1.5;
+  }
+  .ai-source-item a {
+    color: var(--twilight);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .ai-source-item a:hover { text-decoration: underline; }
+  .ai-source-item a.src-an { color: var(--dusk); }
+  .ai-source-item a.src-pr { color: var(--morning); }
+
+  /* FILTERS */
+  .filter-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+  .filter-select {
+    font-family: inherit;
+    font-size: 13px;
+    padding: 8px 14px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    cursor: pointer;
+    font-weight: 500;
+  }
+  .filter-select.is-active {
+    border-color: var(--twilight);
+    background: #E4F2F9;
+    color: var(--twilight);
+  }
+
+  /* PROJECT GRID */
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .project-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .project-card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-1px);
+  }
+  .project-title { font-family: 'Artifakt Legend', Arial, Helvetica, sans-serif; font-weight: 700; font-size: 15px; }
+  .project-meta { font-size: 12px; color: var(--text-secondary); }
+  .project-stats { font-size: 12px; color: var(--text-tertiary); }
+
+  /* SLACK MOCK */
+  .slack-mock {
+    background: #1A1D21;
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    margin-bottom: 32px;
+    font-size: 14px;
+  }
+  .slack-header {
+    background: #19171D;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid #333;
+  }
+  .slack-channel {
+    color: #D1D2D3;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .slack-body { padding: 16px; }
+  .slack-msg {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .slack-avatar {
+    width: 36px; height: 36px; border-radius: 6px;
+    flex-shrink: 0; display: flex; align-items: center;
+    justify-content: center; font-size: 14px; font-weight: 700;
+  }
+  .slack-avatar.user { background: #4A9DF8; color: white; }
+  .slack-avatar.bot { background: var(--adsk-black); color: var(--hello-yellow); }
+  .slack-name {
+    font-weight: 700; font-size: 14px; color: #D1D2D3;
+    margin-bottom: 4px;
+  }
+  .slack-name span { font-weight: 400; font-size: 12px; color: #616061; margin-left: 6px; }
+  .slack-text { color: #D1D2D3; line-height: 1.6; font-size: 14px; }
+  .slack-text .slack-link { color: #1D9BD1; text-decoration: none; }
+  .slack-divider {
+    border: none; border-top: 1px solid #333; margin: 10px 0;
+  }
+  .slack-finding {
+    color: #D1D2D3;
+    margin-bottom: 8px;
+    line-height: 1.5;
+  }
+  .slack-finding .num { color: #E8A838; font-weight: 600; }
+  .slack-finding .link { color: #1D9BD1; font-size: 13px; display: block; margin-top: 2px; }
+  .slack-meta { color: #616061; font-size: 13px; margin: 12px 0; }
+  .slack-btn {
+    display: inline-block;
+    background: #FFFFFF;
+    color: #1A1D21;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 6px;
+    border: 1px solid #D1D2D3;
+    margin-right: 8px;
+    cursor: pointer;
+    font-family: inherit;
+  }
+
+  /* WIKI EMBED */
+  .wiki-demo {
+    display: grid;
+    grid-template-columns: 1fr 260px;
+    gap: 0;
+    background: var(--bg-primary);
+    border-radius: var(--radius-card);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    margin-bottom: 32px;
+  }
+  .wiki-page {
+    padding: 32px;
+    border-right: 1px solid var(--border);
+  }
+  .wiki-page h2 {
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+  .wiki-page p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 12px;
+  }
+  .wiki-sidebar {
+    padding: 20px;
+    background: #FAFBFC;
+  }
+  .wiki-sidebar-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+  }
+  .wiki-result {
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .wiki-result:hover { box-shadow: var(--shadow-card); }
+  .wiki-result-title { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+  .wiki-result-meta { font-size: 11px; color: var(--text-secondary); }
+  .wiki-result-link { font-size: 12px; color: var(--twilight); font-weight: 500; }
+  .wiki-search {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+  .wiki-search-input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 12px;
+    font-family: inherit;
+    outline: none;
+  }
+  .wiki-search-input:focus { border-color: var(--twilight); }
+  .wiki-powered {
+    font-size: 11px;
+    color: var(--text-tertiary);
+    margin-top: 8px;
+    text-align: center;
+  }
+
+  /* CHROME EXTENSION */
+  .chrome-demo {
+    display: flex;
+    gap: 0;
+    background: #F5F5F5;
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    border: 1px solid #CCC;
+  }
+  .chrome-page {
+    flex: 1;
+    background: white;
+  }
+  .chrome-url-bar {
+    background: #DEE1E6;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: #5F6368;
+    border-bottom: 1px solid #CCC;
+  }
+  .chrome-url-pill {
+    background: white;
+    border-radius: 16px;
+    padding: 5px 14px;
+    flex: 1;
+    font-size: 13px;
+    color: #202124;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .chrome-url-lock { color: #5F6368; font-size: 12px; }
+  .chrome-dots { display: flex; gap: 6px; }
+  .chrome-dot {
+    width: 12px; height: 12px; border-radius: 50%;
+  }
+  .chrome-page-body {
+    padding: 32px;
+  }
+  .chrome-page-body h2 {
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+  .chrome-page-body h3 {
+    font-size: 15px;
+    margin: 16px 0 6px;
+    color: #333;
+  }
+  .chrome-page-body p {
+    font-size: 14px;
+    color: #5F6368;
+    line-height: 1.7;
+    margin-bottom: 8px;
+  }
+  .chrome-page-body code {
+    background: #F1F3F4;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 13px;
+    color: #D93025;
+  }
+  .chrome-panel {
+    width: 320px;
+    background: white;
+    border-left: 1px solid #E0E0E0;
+    display: flex;
+    flex-direction: column;
+  }
+  .chrome-panel-header {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .chrome-panel-title {
+    font-family: 'Artifakt Legend', Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--adsk-black);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .chrome-panel-close {
+    color: var(--text-tertiary);
+    cursor: pointer;
+    font-size: 16px;
+    background: none;
+    border: none;
+    font-family: inherit;
+  }
+  .chrome-panel-body {
+    padding: 14px 16px;
+    flex: 1;
+    overflow-y: auto;
+  }
+  .chrome-panel-context {
+    background: #F8F9FA;
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-bottom: 14px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+  .chrome-panel-context strong {
+    color: var(--text-primary);
+  }
+  .chrome-ask-bar {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+  .chrome-ask-input {
+    flex: 1;
+    font-family: inherit;
+    font-size: 12px;
+    padding: 8px 10px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    outline: none;
+  }
+  .chrome-ask-input:focus { border-color: var(--twilight); }
+  .chrome-ask-btn {
+    background: var(--adsk-black);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .chrome-result {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    border-left: 3px solid var(--twilight);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .chrome-result:hover { box-shadow: var(--shadow-card); }
+  .chrome-result.src-an { border-left-color: var(--dusk); }
+  .chrome-result.src-pr { border-left-color: var(--morning); }
+  .chrome-result-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4px;
+  }
+  .chrome-result-title { font-size: 13px; font-weight: 600; }
+  .chrome-result-meta { font-size: 11px; color: var(--text-secondary); margin-bottom: 6px; }
+  .chrome-result-preview { font-size: 12px; color: #4B5563; line-height: 1.5; }
+  .chrome-result-link { font-size: 11px; color: var(--twilight); font-weight: 500; margin-top: 4px; display: block; }
+  .chrome-fab {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--adsk-black);
+    color: var(--adsk-white);
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+  }
+  .chrome-tabs-bar {
+    background: #DEE1E6;
+    padding: 6px 8px 0;
+    display: flex;
+    gap: 2px;
+  }
+  .chrome-tab {
+    background: #F1F3F4;
+    padding: 6px 14px;
+    border-radius: 8px 8px 0 0;
+    font-size: 12px;
+    color: #5F6368;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .chrome-tab.active {
+    background: white;
+    color: #202124;
+  }
+  .chrome-ext-icon {
+    width: 16px; height: 16px; border-radius: 4px;
+    background: var(--adsk-black); color: var(--hello-yellow);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 9px; font-weight: 700;
+  }
+  .chrome-highlight {
+    background: #FFFFCC;
+    padding: 1px 3px;
+    border-radius: 3px;
+  }
+
+  /* DETAIL VIEW */
+  .detail-back {
+    font-size: 13px;
+    color: var(--twilight);
+    font-weight: 500;
+    margin-bottom: 20px;
+    cursor: pointer;
+  }
+  .detail-title {
+    font-family: 'Artifakt Legend', Arial, Helvetica, sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .detail-meta-row {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .detail-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 20px 0;
+  }
+  .detail-section-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .detail-quote {
+    font-size: 14px;
+    font-style: italic;
+    color: var(--slate);
+    line-height: 1.7;
+    padding: 12px 16px;
+    border-left: 3px solid var(--twilight);
+    background: #F5F5F2;
+    border-radius: 0 6px 6px 0;
+    margin-bottom: 12px;
+  }
+  .related-list { list-style: none; }
+  .related-list li {
+    font-size: 13px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .related-list li:last-child { border-bottom: none; }
+  .related-link { color: var(--twilight); font-weight: 500; text-decoration: none; }
+
+  .view-source-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--adsk-black);
+    color: var(--adsk-white);
+    font-family: 'Artifakt Element', Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    margin-top: 8px;
+  }
+  .view-source-btn:hover { opacity: 0.9; }
+
+  .results-count {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+  }
+
+  /* COLLECTION CHIPS */
+  .collection-chip {
+    font-family: 'Artifakt Element', Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-primary);
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    padding: 7px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .collection-chip:hover { border-color: var(--twilight); color: var(--twilight); }
+  .collection-chip.active {
+    background: var(--adsk-black);
+    color: var(--adsk-white);
+    border-color: var(--adsk-black);
+    font-weight: 600;
+  }
+
+  /* AI ACTIONS */
+  .ai-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border-ai);
+  }
+  .ai-action-btn {
+    font-family: 'Artifakt Element', Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--slate);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .ai-action-btn:hover {
+    background: var(--adsk-black);
+    color: var(--adsk-white);
+    border-color: var(--adsk-black);
+  }
+
+  /* HOME HERO */
+  .home-hero {
+    text-align: center;
+    padding: 40px 0 32px;
+  }
+  .home-hero-title {
+    font-family: 'Artifakt Legend', Arial, Helvetica, sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .home-hero-sub {
+    font-size: 14px;
+    color: var(--slate);
+    margin-bottom: 24px;
+  }
+
+  /* SUGGESTED QUERIES */
+  .suggested {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 14px;
+  }
+  .suggested-chip {
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    font-size: 13px;
+    padding: 7px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-decoration: none;
+  }
+  .suggested-chip:hover {
+    border-color: var(--twilight);
+    color: var(--twilight);
+    box-shadow: var(--shadow-card);
+  }
+
+  /* ROLE CARDS */
+  .role-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+  .role-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-align: center;
+  }
+  .role-card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-1px);
+    border-color: var(--twilight);
+  }
+  .role-icon { font-size: 22px; margin-bottom: 6px; }
+  .role-name {
+    font-family: 'Artifakt Legend', Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+  .role-desc {
+    font-size: 11px;
+    color: var(--slate);
+    line-height: 1.4;
+  }
+
+  /* NEW BADGE */
+  .new-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--dusk); display: inline-block;
+    margin-right: 4px; vertical-align: middle;
+  }
+
+  /* STATS BAR */
+  .stats-bar {
+    display: flex;
+    gap: 0;
+    background: var(--adsk-black);
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    margin-bottom: 32px;
+  }
+  .stat-item {
+    flex: 1;
+    padding: 18px 16px;
+    text-align: center;
+    border-right: 1px solid #222;
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-number {
+    font-family: 'Artifakt Legend', Arial, Helvetica, sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--hello-yellow);
+  }
+  .stat-label {
+    font-size: 11px;
+    color: #AAA;
+    margin-top: 2px;
+  }
+
+  /* TWO COL LAYOUT */
+  .home-two-col {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 20px;
+    margin-bottom: 32px;
+  }
+  .home-sidebar-section {
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    padding: 18px;
+    margin-bottom: 12px;
+  }
+  .home-sidebar-title {
+    font-family: 'Artifakt Legend', Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .new-item {
+    display: flex;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid #EEEEE8;
+    align-items: flex-start;
+  }
+  .new-item:last-child { border-bottom: none; }
+  .new-item-title {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+  .new-item-meta {
+    font-size: 11px;
+    color: var(--slate);
+  }
+  .popular-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 0;
+    border-bottom: 1px solid #EEEEE8;
+  }
+  .popular-item:last-child { border-bottom: none; }
+  .popular-rank {
+    font-family: 'Artifakt Legend', Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--warm-slate);
+    width: 20px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .popular-text {
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .popular-views {
+    font-size: 11px;
+    color: var(--slate);
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  /* ALERTS */
+  .alert-create {
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    padding: 24px;
+    margin-bottom: 24px;
+  }
+  .alert-create-title {
+    font-family: 'Artifakt Legend', Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .alert-create-sub {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+  }
+  .alert-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .alert-field-row {
+    display: flex;
+    gap: 10px;
+    align-items: end;
+  }
+  .alert-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+  }
+  .alert-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+  .alert-input {
+    font-family: inherit;
+    font-size: 13px;
+    padding: 9px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    outline: none;
+    width: 100%;
+  }
+  .alert-input:focus { border-color: var(--twilight); }
+  .alert-input::placeholder { color: var(--text-tertiary); }
+  .alert-add-btn {
+    background: var(--adsk-black);
+    color: var(--adsk-white);
+    border: none;
+    border-radius: 8px;
+    padding: 9px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    white-space: nowrap;
+    height: 38px;
+  }
+  .alert-add-btn:hover { opacity: 0.9; }
+  .alert-active-list {
+    margin-bottom: 32px;
+  }
+  .alert-item {
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .alert-item-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    min-width: 0;
+  }
+  .alert-icon {
+    width: 32px; height: 32px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px; flex-shrink: 0;
+    background: #E4F2F9; color: var(--twilight);
+  }
+  .alert-topic { font-family: 'Artifakt Legend', Arial, Helvetica, sans-serif; font-weight: 700; font-size: 14px; }
+  .alert-dest {
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+  .alert-toggle {
+    width: 36px; height: 20px; border-radius: 10px;
+    background: var(--twilight); position: relative;
+    cursor: pointer; flex-shrink: 0; border: none;
+  }
+  .alert-toggle::after {
+    content: ''; position: absolute;
+    width: 16px; height: 16px; border-radius: 50%;
+    background: white; top: 2px; right: 2px;
+    transition: 0.15s;
+  }
+  .alert-toggle.off { background: #CED4DA; }
+  .alert-toggle.off::after { right: auto; left: 2px; }
+  .slack-alert-msg {
+    background: #1A1D21;
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    margin-bottom: 12px;
+  }
+  .slack-alert-header {
+    background: #19171D;
+    padding: 8px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid #333;
+    font-size: 13px;
+  }
+  .slack-alert-channel {
+    color: #D1D2D3;
+    font-weight: 600;
+    font-size: 13px;
+  }
+  .slack-alert-body { padding: 14px; }
+  .alert-badge-new {
+    background: #E74C3C;
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 6px;
+  }
+
+  /* QUOTE LIBRARY */
+  .quote-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    padding: 16px;
+    margin-bottom: 10px;
+    border-left: 3px solid var(--twilight);
+    transition: box-shadow 0.15s;
+  }
+  .quote-card:hover { box-shadow: var(--shadow-card); }
+  .quote-text {
+    font-size: 14px;
+    font-style: italic;
+    line-height: 1.7;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+  }
+  .quote-source {
+    font-size: 12px;
+    color: var(--slate);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .quote-actions {
+    display: flex;
+    gap: 6px;
+  }
+  .quote-action {
+    font-size: 11px;
+    color: var(--slate);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    padding: 3px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .quote-action:hover { background: var(--adsk-black); color: var(--adsk-white); border-color: var(--adsk-black); }
+
+  /* PAIN POINTS */
+  .pain-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    padding: 16px;
+    margin-bottom: 10px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .pain-severity {
+    font-family: 'Artifakt Legend', Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 8px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    text-align: center;
+    min-width: 48px;
+  }
+  .sev-high { background: #FDEBE4; color: #C0392B; }
+  .sev-med { background: #FDF0E0; color: #C47A1A; }
+  .sev-low { background: #E0F7F0; color: #1A9E7F; }
+  .pain-title { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
+  .pain-detail { font-size: 13px; color: var(--slate); line-height: 1.6; }
+  .pain-meta { font-size: 11px; color: var(--text-tertiary); margin-top: 6px; }
+
+  /* FEATURE REQUESTS */
+  .request-row {
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    padding: 14px 16px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .request-rank {
+    font-family: 'Artifakt Legend', Arial, sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--warm-slate);
+    width: 30px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .request-bar {
+    height: 6px;
+    background: var(--bg-secondary);
+    border-radius: 3px;
+    margin-top: 6px;
+    overflow: hidden;
+  }
+  .request-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: var(--twilight);
+  }
+  .request-mentions {
+    font-family: 'Artifakt Legend', Arial, sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--adsk-black);
+    flex-shrink: 0;
+    min-width: 50px;
+    text-align: right;
+  }
+  .request-label { font-size: 11px; color: var(--slate); text-align: right; }
+
+  /* DASHBOARD */
+  .dash-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .dash-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    padding: 20px;
+  }
+  .dash-card-title {
+    font-family: 'Artifakt Legend', Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+  .dash-metric {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 6px 0;
+    border-bottom: 1px solid #EEEEE8;
+  }
+  .dash-metric:last-child { border-bottom: none; }
+  .dash-metric-name { font-size: 13px; }
+  .dash-metric-val {
+    font-family: 'Artifakt Legend', Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .dash-trend-up { color: #1A9E7F; }
+  .dash-trend-down { color: #C0392B; }
+  .dash-trend-flat { color: var(--slate); }
+  .coverage-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 0;
+    border-bottom: 1px solid #EEEEE8;
+  }
+  .coverage-row:last-child { border-bottom: none; }
+  .coverage-label { font-size: 13px; width: 120px; flex-shrink: 0; }
+  .coverage-bar {
+    flex: 1;
+    height: 8px;
+    background: var(--bg-secondary);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .coverage-fill {
+    height: 100%;
+    border-radius: 4px;
+  }
+  .coverage-pct {
+    font-size: 12px;
+    font-weight: 600;
+    width: 36px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .gap-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 0;
+    border-bottom: 1px solid #EEEEE8;
+    font-size: 13px;
+  }
+  .gap-item:last-child { border-bottom: none; }
+  .gap-indicator {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <span style="color:#FFFF00; font-size:18px; margin-right:2px;">&#x2726;</span>
+    Ask Me Anything
+  </div>
+  <div class="nav-links">
+    <a class="active" onclick="showTab('home')">Home</a>
+    <a onclick="showTab('search')">Search</a>
+    <a onclick="showTab('projects')">Library</a>
+    <a onclick="showTab('quotes')">Quotes</a>
+    <a onclick="showTab('painpoints')">Pain Points</a>
+    <a onclick="showTab('requests')">Requests</a>
+    <a onclick="showTab('dashboard')">Dashboard</a>
+    <a onclick="showTab('alerts')">Alerts</a>
+    <span class="nav-divider"></span>
+    <a onclick="showTab('slack')">Slack</a>
+    <a onclick="showTab('wiki')">Confluence</a>
+    <a onclick="showTab('chrome')">Extension</a>
+    <a onclick="showTab('detail')" style="display:none;">Insight</a>
+  </div>
+</nav>
+
+<!-- HOME -->
+<div id="tab-home" class="tab-content active">
+  <div class="container">
+
+    <!-- HERO -->
+    <div class="home-hero">
+      <div class="home-hero-title">What do you want to know?</div>
+      <div class="home-hero-sub">Search across all of Autodesk's research — studies, insights, analytics, and archives</div>
+      <div class="search-wrap" style="max-width:640px; margin:0 auto;">
+        <span class="search-icon">&#x1F50D;</span>
+        <input class="search-bar" placeholder="Ask anything about our research..." readonly>
+      </div>
+      <div class="suggested">
+        <a class="suggested-chip" href="#">What are enterprise users saying about AI?</a>
+        <a class="suggested-chip" href="#">Show me onboarding drop-off data</a>
+        <a class="suggested-chip" href="#">Has anyone studied search usability?</a>
+        <a class="suggested-chip" href="#">What's the top feature request from NPS?</a>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-bar">
+      <div class="stat-item">
+        <div class="stat-number">2,450+</div>
+        <div class="stat-label">Research items</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">5</div>
+        <div class="stat-label">Connected sources</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">142</div>
+        <div class="stat-label">Searches this week</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">89%</div>
+        <div class="stat-label">Found what they needed</div>
+      </div>
+    </div>
+
+    <!-- ROLE QUICK STARTS -->
+    <div class="section-header">What are you looking for?</div>
+    <div class="role-grid">
+      <div class="role-card">
+        <div class="role-icon">&#x1F52C;</div>
+        <div class="role-name">Researcher</div>
+        <div class="role-desc">Find existing studies before starting new research</div>
+      </div>
+      <div class="role-card">
+        <div class="role-icon">&#x1F3A8;</div>
+        <div class="role-name">Designer</div>
+        <div class="role-desc">Find customer quotes and usability findings for your designs</div>
+      </div>
+      <div class="role-card">
+        <div class="role-icon">&#x1F4CB;</div>
+        <div class="role-name">Product Manager</div>
+        <div class="role-desc">Validate decisions with research and track feature requests</div>
+      </div>
+      <div class="role-card">
+        <div class="role-icon">&#x1F6E0;</div>
+        <div class="role-name">Engineer</div>
+        <div class="role-desc">See customer pain points and bug feedback for your area</div>
+      </div>
+      <div class="role-card">
+        <div class="role-icon">&#x1F4C8;</div>
+        <div class="role-name">Leadership</div>
+        <div class="role-desc">Get high-level themes, trends, and research ROI</div>
+      </div>
+    </div>
+
+    <!-- TWO COLUMN: RECENT + SIDEBAR -->
+    <div class="home-two-col">
+
+      <!-- LEFT: RECENT INSIGHTS -->
+      <div>
+        <div class="section-header">Latest insights</div>
+
+        <div class="insight-card src-dv">
+          <div class="insight-header">
+            <span class="badge badge-dv"><span class="badge-dot"></span> DV</span>
+            <span class="insight-title"><span class="new-dot"></span>Enterprise users find global search confusing</span>
+          </div>
+          <div class="insight-meta">Usability Study &middot; Q3 2025 &middot; Fusion &middot; Enterprise</div>
+          <div class="insight-preview"><em>"Users expected product-specific results but got cross-product matches. Most tried 2-3 searches before giving up."</em></div>
+          <div class="insight-tags">
+            <span class="tag">search</span>
+            <span class="tag">enterprise</span>
+            <span class="tag">navigation</span>
+            <span class="tag">Fusion</span>
+          </div>
+          <div class="insight-footer">
+            <a class="insight-link" href="#">View in Dovetail &rarr;</a>
+            <span class="insight-stats">12 highlights &middot; 3 notes</span>
+          </div>
+        </div>
+
+        <div class="insight-card src-an">
+          <div class="insight-header">
+            <span class="badge badge-an"><span class="badge-dot"></span> AN</span>
+            <span class="insight-title"><span class="new-dot"></span>Onboarding drop-off highest at step 3</span>
+          </div>
+          <div class="insight-meta">Funnel Analysis &middot; Jan 2026 &middot; All Products</div>
+          <div class="insight-preview">42% of new users abandon at workspace configuration. Users who complete step 3 have 3.2x higher 30-day retention.</div>
+          <div class="insight-tags">
+            <span class="tag">onboarding</span>
+            <span class="tag">retention</span>
+            <span class="tag">new-users</span>
+          </div>
+          <div class="insight-footer">
+            <a class="insight-link" href="#">View Dashboard &rarr;</a>
+            <span class="insight-stats">4 metrics</span>
+          </div>
+        </div>
+
+        <div class="insight-card src-dv">
+          <div class="insight-header">
+            <span class="badge badge-dv"><span class="badge-dot"></span> DV</span>
+            <span class="insight-title">Customers want saved search filters</span>
+          </div>
+          <div class="insight-meta">NPS Synthesis &middot; Q4 2025 &middot; Feature Requests</div>
+          <div class="insight-preview"><em>"I keep searching for the same things every week. Let me save my filters."</em> — #2 most requested feature in enterprise NPS verbatims.</div>
+          <div class="insight-tags">
+            <span class="tag">search</span>
+            <span class="tag">feature-request</span>
+            <span class="tag">NPS</span>
+          </div>
+          <div class="insight-footer">
+            <a class="insight-link" href="#">View in Dovetail &rarr;</a>
+            <span class="insight-stats">8 highlights &middot; 1 insight</span>
+          </div>
+        </div>
+
+        <div class="insight-card" style="border-left-color:var(--upfhub);">
+          <div class="insight-header">
+            <span class="badge badge-uf"><span class="badge-dot"></span> UF</span>
+            <span class="insight-title"><span class="new-dot"></span>Navigation sentiment dropping in Revit</span>
+          </div>
+          <div class="insight-meta">UPF Hub &middot; Trend Alert &middot; Feb 2026 &middot; Revit &middot; Enterprise</div>
+          <div class="insight-preview">Negative sentiment around navigation increased 18% in the last 30 days across NPS and in-app feedback. Highest volume from enterprise PSET users.</div>
+          <div class="insight-tags">
+            <span class="tag">navigation</span>
+            <span class="tag">sentiment</span>
+            <span class="tag">Revit</span>
+            <span class="tag">trend</span>
+          </div>
+          <div class="insight-footer">
+            <a class="insight-link" href="#">View in UPF Hub &rarr;</a>
+            <span class="insight-stats">Trend &middot; 42 feedback items</span>
+          </div>
+        </div>
+
+        <div class="insight-card src-pr">
+          <div class="insight-header">
+            <span class="badge badge-pr"><span class="badge-dot"></span> PR</span>
+            <span class="insight-title">API developer experience survey 2023</span>
+          </div>
+          <div class="insight-meta">Survey &middot; 2023 &middot; n=142 &middot; Platform</div>
+          <div class="insight-preview">Error message clarity was the #1 developer complaint. 68% rated API docs as "somewhat helpful" — only 12% said "very helpful."</div>
+          <div class="insight-tags">
+            <span class="tag">API</span>
+            <span class="tag">developer-experience</span>
+            <span class="tag">documentation</span>
+          </div>
+          <div class="insight-footer">
+            <a class="insight-link" href="#">View in Prism &rarr;</a>
+            <span class="insight-stats">Archived study</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: SIDEBAR -->
+      <div>
+        <!-- POPULAR -->
+        <div class="home-sidebar-section">
+          <div class="home-sidebar-title">&#x1F525; Most searched this week</div>
+          <div class="popular-item">
+            <div class="popular-rank">1</div>
+            <div class="popular-text">AI workflows</div>
+            <div class="popular-views">34 searches</div>
+          </div>
+          <div class="popular-item">
+            <div class="popular-rank">2</div>
+            <div class="popular-text">Onboarding friction</div>
+            <div class="popular-views">28 searches</div>
+          </div>
+          <div class="popular-item">
+            <div class="popular-rank">3</div>
+            <div class="popular-text">Enterprise NPS</div>
+            <div class="popular-views">21 searches</div>
+          </div>
+          <div class="popular-item">
+            <div class="popular-rank">4</div>
+            <div class="popular-text">Collaboration features</div>
+            <div class="popular-views">19 searches</div>
+          </div>
+          <div class="popular-item">
+            <div class="popular-rank">5</div>
+            <div class="popular-text">Model Derivative API</div>
+            <div class="popular-views">15 searches</div>
+          </div>
+        </div>
+
+        <!-- RECENTLY ADDED -->
+        <div class="home-sidebar-section">
+          <div class="home-sidebar-title">&#x1F4E5; Recently added</div>
+          <div class="new-item">
+            <span class="badge badge-dv" style="font-size:9px;padding:2px 5px;margin-top:2px;"><span class="badge-dot"></span> DV</span>
+            <div>
+              <div class="new-item-title">PSET AI Workflow Study</div>
+              <div class="new-item-meta">Added 2 hours ago &middot; 6 highlights</div>
+            </div>
+          </div>
+          <div class="new-item">
+            <span class="badge badge-an" style="font-size:9px;padding:2px 5px;margin-top:2px;"><span class="badge-dot"></span> AN</span>
+            <div>
+              <div class="new-item-title">Feb 2026 Retention Metrics</div>
+              <div class="new-item-meta">Added yesterday &middot; Dashboard update</div>
+            </div>
+          </div>
+          <div class="new-item">
+            <span class="badge badge-dv" style="font-size:9px;padding:2px 5px;margin-top:2px;"><span class="badge-dot"></span> DV</span>
+            <div>
+              <div class="new-item-title">Platform API Developer Interviews</div>
+              <div class="new-item-meta">Added 3 days ago &middot; 8 highlights</div>
+            </div>
+          </div>
+          <div class="new-item">
+            <span class="badge badge-uf" style="font-size:9px;padding:2px 5px;margin-top:2px;"><span class="badge-dot"></span> UF</span>
+            <div>
+              <div class="new-item-title">Revit Navigation Sentiment Drop</div>
+              <div class="new-item-meta">Added 4 days ago &middot; Trend alert</div>
+            </div>
+          </div>
+          <div class="new-item">
+            <span class="badge badge-pd" style="font-size:9px;padding:2px 5px;margin-top:2px;"><span class="badge-dot"></span> PD</span>
+            <div>
+              <div class="new-item-title">Collaboration Feature Testing</div>
+              <div class="new-item-meta">Added last week &middot; 15 highlights</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TRENDING THEMES -->
+        <div class="home-sidebar-section">
+          <div class="home-sidebar-title">&#x1F4CA; Trending themes</div>
+          <div class="themes-row" style="flex-wrap:wrap;margin-bottom:0;">
+            <div class="theme-card" style="min-width:auto;flex:1;">
+              <div class="theme-title" style="font-size:13px;">AI Features</div>
+              <div class="theme-count">23 items</div>
+            </div>
+            <div class="theme-card" style="min-width:auto;flex:1;">
+              <div class="theme-title" style="font-size:13px;">Trust</div>
+              <div class="theme-count">15 items</div>
+            </div>
+            <div class="theme-card" style="min-width:auto;flex:1;">
+              <div class="theme-title" style="font-size:13px;">Navigation</div>
+              <div class="theme-count">12 items</div>
+            </div>
+            <div class="theme-card" style="min-width:auto;flex:1;">
+              <div class="theme-title" style="font-size:13px;">Search UX</div>
+              <div class="theme-count">11 items</div>
+            </div>
+            <div class="theme-card" style="min-width:auto;flex:1;">
+              <div class="theme-title" style="font-size:13px;">Collaboration</div>
+              <div class="theme-count">9 items</div>
+            </div>
+            <div class="theme-card" style="min-width:auto;flex:1;">
+              <div class="theme-title" style="font-size:13px;">Onboarding</div>
+              <div class="theme-count">8 items</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SOURCES -->
+        <div class="home-sidebar-section">
+          <div class="home-sidebar-title">&#x1F4C1; Browse by source</div>
+          <div class="new-item" style="align-items:center;">
+            <div class="source-icon" style="width:28px;height:28px;font-size:11px;border-radius:6px;background:var(--twilight);">DV</div>
+            <div style="flex:1;">
+              <div class="new-item-title">Dovetail</div>
+              <div class="new-item-meta">342 items</div>
+            </div>
+          </div>
+          <div class="new-item" style="align-items:center;">
+            <div class="source-icon" style="width:28px;height:28px;font-size:11px;border-radius:6px;background:var(--morning);">PR</div>
+            <div style="flex:1;">
+              <div class="new-item-title">Prism</div>
+              <div class="new-item-meta">1,200+ archived studies</div>
+            </div>
+          </div>
+          <div class="new-item" style="align-items:center;">
+            <div class="source-icon" style="width:28px;height:28px;font-size:11px;border-radius:6px;background:var(--dawn);">PD</div>
+            <div style="flex:1;">
+              <div class="new-item-title">PDMS</div>
+              <div class="new-item-meta">89 items</div>
+            </div>
+          </div>
+          <div class="new-item" style="align-items:center;">
+            <div class="source-icon" style="width:28px;height:28px;font-size:11px;border-radius:6px;background:var(--dusk);">AN</div>
+            <div style="flex:1;">
+              <div class="new-item-title">Analytics</div>
+              <div class="new-item-meta">56 dashboards</div>
+            </div>
+          </div>
+          <div class="new-item" style="align-items:center;border-bottom:none;">
+            <div class="source-icon" style="width:28px;height:28px;font-size:11px;border-radius:6px;background:var(--upfhub);">UF</div>
+            <div style="flex:1;">
+              <div class="new-item-title">UPF Hub</div>
+              <div class="new-item-meta">Sentiment &amp; trends</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SEARCH -->
+<div id="tab-search" class="tab-content">
+  <div class="container">
+    <div class="search-wrap">
+      <span class="search-icon">&#x1F50D;</span>
+      <input class="search-bar" value="What do enterprise users think about AI features?" readonly>
+    </div>
+
+    <div class="filter-row">
+      <select class="filter-select"><option>Org: All</option></select>
+      <select class="filter-select is-active"><option>Segment: Enterprise</option></select>
+      <select class="filter-select"><option>Source: All</option></select>
+      <select class="filter-select"><option>Date: Last 12 months</option></select>
+      <select class="filter-select"><option>Type: All</option></select>
+      <select class="filter-select"><option>Product: All</option></select>
+    </div>
+
+    <div class="ai-summary">
+      <div class="ai-header">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2l1.5 4.5H16l-3.5 2.8 1.3 4.4L10 11l-3.8 2.7 1.3-4.4L4 6.5h4.5z"/></svg>
+        AI Summary
+      </div>
+      <div class="ai-context">Based on 18 research items across Dovetail, Analytics, and UPF Hub, here's what we know:</div>
+
+      <div class="ai-finding"><span class="num">(1)</span> Enterprise customers express cautious optimism about AI features but want transparency in how AI-generated outputs are produced.<span class="cite">&#185;</span></div>
+      <div class="ai-finding"><span class="num">(2)</span> 67% of enterprise users have tried AI features at least once, but only 23% use them weekly.<span class="cite src-an">&#178;</span></div>
+      <div class="ai-finding"><span class="num">(3)</span> Trust is the top barrier — users want to verify AI outputs before sharing with clients.<span class="cite">&#179;</span></div>
+      <div class="ai-finding"><span class="num">(4)</span> The Customer Council identified that workflow integration matters more than feature count.<span class="cite">&#8308;</span></div>
+      <div class="ai-finding"><span class="num">(5)</span> <strong>UPF Hub sentiment data confirms this:</strong> AI-related feedback sentiment is 32% negative across enterprise accounts, with "lack of explainability" as the top-tagged theme.<span class="cite" style="background:#F0EAFF;color:var(--upfhub);">&#8309;</span></div>
+
+      <div class="ai-sources">
+        <div class="ai-sources-title">Sources</div>
+        <div class="ai-source-item">&#185; <a href="#">Dovetail: AI Trust & Transparency Study (Q2 2025)</a></div>
+        <div class="ai-source-item">&#178; <a href="#" class="src-an">Analytics: AI Feature Adoption Dashboard</a></div>
+        <div class="ai-source-item">&#179; <a href="#">Dovetail: Enterprise AI Usability Sessions</a></div>
+        <div class="ai-source-item">&#8308; <a href="#">Dovetail: Customer Council — AI/ML Trust</a></div>
+        <div class="ai-source-item">&#8309; <a href="#" style="color:var(--upfhub);">UPF Hub: AI Sentiment Analysis — Enterprise (Feb 2026)</a></div>
+      </div>
+
+      <div class="ai-actions">
+        <button class="ai-action-btn" title="Copy this summary as Slack-ready text">&#x1F4CB; Copy summary</button>
+        <button class="ai-action-btn" title="Share to a Slack channel">&#x1F4AC; Share to Slack</button>
+        <button class="ai-action-btn" title="Watch this topic for new research">&#x1F514; Watch this topic</button>
+      </div>
+    </div>
+
+    <div class="results-count">All Results (18) &mdash; Dovetail (8), Analytics (4), UPF Hub (4), Prism (2)</div>
+
+    <div class="insight-card src-dv">
+      <div class="insight-header">
+        <span class="badge badge-dv"><span class="badge-dot"></span> DV</span>
+        <span class="insight-title">AI Trust & Transparency Study</span>
+      </div>
+      <div class="insight-meta">Usability Study &middot; Q2 2025 &middot; Fusion &middot; Enterprise</div>
+      <div class="insight-preview"><em>"Enterprise customers expressed concern about not understanding how AI generates design recommendations. Several participants said they would not share AI outputs with clients without manual verification."</em></div>
+      <div class="insight-tags">
+        <span class="tag">AI</span>
+        <span class="tag">enterprise</span>
+        <span class="tag">trust</span>
+        <span class="tag">transparency</span>
+      </div>
+      <div class="insight-footer">
+        <a class="insight-link" href="#">View in Dovetail &rarr;</a>
+        <span class="insight-stats">12 highlights &middot; 3 notes</span>
+      </div>
+    </div>
+
+    <div class="insight-card src-an">
+      <div class="insight-header">
+        <span class="badge badge-an"><span class="badge-dot"></span> AN</span>
+        <span class="insight-title">AI Feature Adoption Dashboard</span>
+      </div>
+      <div class="insight-meta">Dashboard &middot; Updated Jan 2026 &middot; All Products</div>
+      <div class="insight-preview">67% trial rate across enterprise accounts. 23% weekly active usage. Highest adoption in PSET (31%), lowest in MFG (14%). Usage correlates with account size.</div>
+      <div class="insight-tags">
+        <span class="tag">AI</span>
+        <span class="tag">adoption</span>
+        <span class="tag">enterprise</span>
+      </div>
+      <div class="insight-footer">
+        <a class="insight-link" href="#">View Dashboard &rarr;</a>
+        <span class="insight-stats">6 metrics &middot; 3 segments</span>
+      </div>
+    </div>
+
+    <div class="insight-card src-dv">
+      <div class="insight-header">
+        <span class="badge badge-dv"><span class="badge-dot"></span> DV</span>
+        <span class="insight-title">Customer Council — AI/ML Trust</span>
+      </div>
+      <div class="insight-meta">Customer Council &middot; 2024–2025 &middot; 6 cycles &middot; 10 customers</div>
+      <div class="insight-preview"><em>"Workflow integration matters more than feature count. We need AI to fit into how we already work, not force us to change our process."</em></div>
+      <div class="insight-tags">
+        <span class="tag">AI/ML</span>
+        <span class="tag">trust</span>
+        <span class="tag">workflow</span>
+      </div>
+      <div class="insight-footer">
+        <a class="insight-link" href="#">View in Dovetail &rarr;</a>
+        <span class="insight-stats">24 highlights &middot; 6 notes &middot; 2 insights</span>
+      </div>
+    </div>
+
+    <!-- RELATED SEARCHES -->
+    <div class="related-searches" style="margin-top:28px; padding:20px; background:var(--bg-primary); border:1px solid var(--border); border-radius:var(--radius-card);">
+      <div style="font-family:'Artifakt Legend',Arial,sans-serif; font-size:14px; font-weight:700; margin-bottom:12px;">People also searched for</div>
+      <div class="suggested" style="justify-content:flex-start;">
+        <a class="suggested-chip" href="#">How does AI adoption vary by industry?</a>
+        <a class="suggested-chip" href="#">What are the main trust barriers for enterprise AI?</a>
+        <a class="suggested-chip" href="#">AI feature requests from NPS</a>
+        <a class="suggested-chip" href="#">How do PSET customers use AI differently?</a>
+      </div>
+    </div>
+
+    <!-- FOLLOW-UP -->
+    <div style="margin-top:16px; display:flex; gap:8px; align-items:center;">
+      <input class="search-bar" style="height:44px; border-radius:22px; font-size:13px; padding-left:18px; flex:1; border:1px solid var(--border);" placeholder="Ask a follow-up question about these results..." readonly>
+      <button class="view-source-btn" style="margin:0; border-radius:22px; padding:10px 22px;">Ask</button>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<div id="tab-projects" class="tab-content">
+  <div class="container">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+      <h2 style="font-family:'Artifakt Legend',Arial,sans-serif; font-size:22px; font-weight:700;">Research Library</h2>
+      <div style="font-size:13px; color:var(--slate);">2,450+ items across 5 sources</div>
+    </div>
+
+    <!-- COLLECTIONS -->
+    <div style="display:flex; gap:8px; margin-bottom:20px; flex-wrap:wrap;">
+      <button class="collection-chip active">All</button>
+      <button class="collection-chip">Usability Studies</button>
+      <button class="collection-chip">Customer Councils</button>
+      <button class="collection-chip">Surveys</button>
+      <button class="collection-chip">Analytics Dashboards</button>
+      <button class="collection-chip">NPS / Sentiment</button>
+      <button class="collection-chip">Archived</button>
+    </div>
+
+    <div class="filter-row">
+      <select class="filter-select"><option>Source: All</option></select>
+      <select class="filter-select"><option>Product: All</option><option>Fusion</option><option>AutoCAD</option><option>Revit</option><option>Platform</option></select>
+      <select class="filter-select"><option>Audience: All</option><option>Enterprise</option><option>SMB</option><option>Individual</option></select>
+      <select class="filter-select"><option>Sort: Most Recent</option><option>Sort: Most Viewed</option><option>Sort: Most Cited</option></select>
+      <input class="search-bar" style="height:40px; border-radius:8px; font-size:13px; padding-left:16px; flex:1;" placeholder="Search the library..." readonly>
+    </div>
+
+    <div class="results-count">Showing 342 projects</div>
+
+    <div class="project-grid">
+      <div class="project-card" style="cursor:pointer;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <span class="badge badge-dv"><span class="badge-dot"></span> DV</span>
+          <span style="font-size:11px;color:var(--slate);">142 views</span>
+        </div>
+        <div class="project-title">AI Trust & Transparency</div>
+        <div class="project-meta">Usability Study &middot; Q2 2025 &middot; Fusion</div>
+        <div class="project-stats">12 highlights &middot; 3 notes &middot; 2 insights</div>
+        <div class="insight-tags"><span class="tag">AI</span><span class="tag">trust</span><span class="tag">enterprise</span></div>
+      </div>
+      <div class="project-card" style="cursor:pointer;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <span class="badge badge-dv"><span class="badge-dot"></span> DV</span>
+          <span style="font-size:11px;color:var(--slate);">89 views</span>
+        </div>
+        <div class="project-title">Onboarding v2 Usability</div>
+        <div class="project-meta">Usability Study &middot; Q3 2025 &middot; All Products</div>
+        <div class="project-stats">8 highlights &middot; 5 notes</div>
+        <div class="insight-tags"><span class="tag">onboarding</span><span class="tag">activation</span></div>
+      </div>
+      <div class="project-card" style="cursor:pointer;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <span class="badge badge-an"><span class="badge-dot"></span> AN</span>
+          <span style="font-size:11px;color:var(--slate);">234 views</span>
+        </div>
+        <div class="project-title">NPS Analysis Q4 2025</div>
+        <div class="project-meta">Dashboard &middot; Q4 2025 &middot; All Products</div>
+        <div class="project-stats">Dashboard &middot; 4 metrics &middot; 3 segments</div>
+        <div class="insight-tags"><span class="tag">NPS</span><span class="tag">sentiment</span><span class="tag">enterprise</span></div>
+      </div>
+      <div class="project-card" style="cursor:pointer;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <span class="badge badge-pr"><span class="badge-dot"></span> PR</span>
+          <span style="font-size:11px;color:var(--slate);">Archived</span>
+        </div>
+        <div class="project-title">Search UX Research 2021</div>
+        <div class="project-meta">Archived Study &middot; 2021 &middot; AutoCAD</div>
+        <div class="project-stats">Foundational &middot; Still cited</div>
+        <div class="insight-tags"><span class="tag">search</span><span class="tag">AutoCAD</span></div>
+      </div>
+      <div class="project-card" style="cursor:pointer;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <span class="badge badge-dv"><span class="badge-dot"></span> DV</span>
+          <span style="font-size:11px;color:var(--slate);">201 views</span>
+        </div>
+        <div class="project-title">Customer Council — AI/ML</div>
+        <div class="project-meta">Council &middot; 2024–2025 &middot; 10 customers</div>
+        <div class="project-stats">24 highlights &middot; 6 notes &middot; 2 insights</div>
+        <div class="insight-tags"><span class="tag">AI/ML</span><span class="tag">trust</span><span class="tag">enterprise</span></div>
+      </div>
+      <div class="project-card" style="cursor:pointer;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <span class="badge badge-pd"><span class="badge-dot"></span> PD</span>
+          <span class="new-dot" style="margin:0;"></span>
+        </div>
+        <div class="project-title">Collaboration Features</div>
+        <div class="project-meta">Research &middot; Q1 2026 &middot; Fusion</div>
+        <div class="project-stats">15 highlights &middot; 2 insights</div>
+        <div class="insight-tags"><span class="tag">collaboration</span><span class="tag">real-time</span></div>
+      </div>
+      <div class="project-card" style="cursor:pointer;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <span class="badge badge-an"><span class="badge-dot"></span> AN</span>
+          <span style="font-size:11px;color:var(--slate);">167 views</span>
+        </div>
+        <div class="project-title">AI Feature Adoption</div>
+        <div class="project-meta">Dashboard &middot; Jan 2026 &middot; All Products</div>
+        <div class="project-stats">6 metrics &middot; 3 segments</div>
+        <div class="insight-tags"><span class="tag">AI</span><span class="tag">adoption</span></div>
+      </div>
+      <div class="project-card" style="cursor:pointer;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <span class="badge badge-dv"><span class="badge-dot"></span> DV</span>
+          <span class="new-dot" style="margin:0;"></span>
+        </div>
+        <div class="project-title">PSET AI Workflow Study</div>
+        <div class="project-meta">Contextual Inquiry &middot; Q1 2026 &middot; PSET</div>
+        <div class="project-stats">6 highlights &middot; in progress</div>
+        <div class="insight-tags"><span class="tag">AI</span><span class="tag">PSET</span><span class="tag">workflow</span></div>
+      </div>
+      <div class="project-card" style="cursor:pointer;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <span class="badge badge-pr"><span class="badge-dot"></span> PR</span>
+          <span style="font-size:11px;color:var(--slate);">Archived</span>
+        </div>
+        <div class="project-title">API DX Survey 2023</div>
+        <div class="project-meta">Survey &middot; 2023 &middot; n=142 &middot; Platform</div>
+        <div class="project-stats">Foundational survey</div>
+        <div class="insight-tags"><span class="tag">API</span><span class="tag">developer-experience</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DETAIL -->
+<div id="tab-detail" class="tab-content">
+  <div class="container">
+    <div class="detail-back" style="cursor:pointer;" onclick="showTab('search')">&larr; Back to results</div>
+
+    <div style="display:flex;align-items:flex-start;justify-content:space-between; margin-bottom:8px;">
+      <div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+          <span class="badge badge-dv"><span class="badge-dot"></span> DV</span>
+          <span style="font-size:11px; color:var(--slate);">142 views this month</span>
+        </div>
+        <div class="detail-title">AI Trust & Transparency Study</div>
+      </div>
+      <div style="display:flex;gap:6px;">
+        <button class="ai-action-btn" title="Copy a formatted citation">&#x1F4CB; Cite</button>
+        <button class="ai-action-btn" title="Share this insight to Slack">&#x1F4AC; Share</button>
+        <button class="ai-action-btn" title="Watch for related research">&#x1F514; Watch</button>
+      </div>
+    </div>
+    <div class="detail-meta-row">
+      <span>Usability Study</span>
+      <span>Q2 2025</span>
+      <span>Fusion</span>
+      <span>Enterprise</span>
+      <span>12 highlights</span>
+      <span>3 notes</span>
+      <span>2 insights</span>
+    </div>
+
+    <!-- AI TLDR -->
+    <div class="ai-summary" style="margin-bottom:20px;">
+      <div class="ai-header">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2l1.5 4.5H16l-3.5 2.8 1.3 4.4L10 11l-3.8 2.7 1.3-4.4L4 6.5h4.5z"/></svg>
+        TL;DR
+      </div>
+      <div style="font-size:14px; line-height:1.7;">Enterprise customers want to trust AI but need transparency to do so. The study found that users will not share AI-generated outputs with clients unless they can verify how the output was produced. The main asks: explainability ("show me why"), audit trails, and the ability to override AI suggestions. Workflow integration matters more than feature sophistication.</div>
+      <div class="ai-actions">
+        <button class="ai-action-btn">&#x1F4CB; Copy TL;DR</button>
+        <button class="ai-action-btn">&#x1F4AC; Share to Slack</button>
+      </div>
+    </div>
+
+    <div class="detail-section-title">Key Findings</div>
+
+    <div class="detail-quote">"Enterprise customers expressed concern about not understanding how AI generates design recommendations. Several participants said they would not share AI outputs with clients without manual verification."</div>
+    <div class="detail-quote">"The expectation is that AI should explain itself — not just give an answer but show why it arrived there."</div>
+    <div class="detail-quote">"Three of five participants mentioned wanting an 'audit trail' for AI suggestions in their design workflow."</div>
+
+    <hr class="detail-divider">
+
+    <!-- WHO MIGHT CARE -->
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:20px;">
+      <div>
+        <div class="detail-section-title">Who should see this</div>
+        <div style="font-size:13px; line-height:1.8;">
+          <div><strong>PMs</strong> — prioritize explainability in AI feature roadmaps</div>
+          <div><strong>Engineers</strong> — add audit trail logging to AI outputs</div>
+          <div><strong>Designers</strong> — design transparent AI result UIs</div>
+          <div><strong>Leadership</strong> — enterprise AI adoption depends on trust</div>
+        </div>
+      </div>
+      <div>
+        <div class="detail-section-title">Study details</div>
+        <div style="font-size:13px; line-height:1.8; color:var(--slate);">
+          <div><strong style="color:var(--adsk-black);">Method:</strong> Moderated usability study</div>
+          <div><strong style="color:var(--adsk-black);">Participants:</strong> 5 enterprise architects (Fusion)</div>
+          <div><strong style="color:var(--adsk-black);">Duration:</strong> 60-min sessions</div>
+          <div><strong style="color:var(--adsk-black);">Researcher:</strong> UX Research Team</div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="detail-divider">
+
+    <div class="insight-tags" style="margin-bottom:20px;">
+      <span class="tag">AI</span>
+      <span class="tag">enterprise</span>
+      <span class="tag">trust</span>
+      <span class="tag">transparency</span>
+      <span class="tag">Fusion</span>
+      <span class="tag">explainability</span>
+    </div>
+
+    <div class="detail-section-title">Related Research</div>
+    <ul class="related-list">
+      <li><span class="badge badge-dv" style="font-size:10px;"><span class="badge-dot"></span> DV</span> <a class="related-link" href="#">Customer Council — AI/ML Trust (2024–2025)</a></li>
+      <li><span class="badge badge-an" style="font-size:10px;"><span class="badge-dot"></span> AN</span> <a class="related-link" href="#">AI Feature Adoption Dashboard (2026)</a></li>
+      <li><span class="badge badge-pr" style="font-size:10px;"><span class="badge-dot"></span> PR</span> <a class="related-link" href="#">AutoCAD AI Usability Study (2022)</a></li>
+      <li><span class="badge badge-dv" style="font-size:10px;"><span class="badge-dot"></span> DV</span> <a class="related-link" href="#">Enterprise AI Usability Sessions (Q3 2025)</a></li>
+    </ul>
+
+    <hr class="detail-divider">
+
+    <div style="display:flex;gap:10px;">
+      <button class="view-source-btn">View full project in Dovetail &rarr;</button>
+      <button class="view-source-btn" style="background:var(--bg-secondary);color:var(--adsk-black);border:1px solid var(--border);">&#x1F4AC; Discuss in Slack</button>
+    </div>
+  </div>
+</div>
+
+<!-- QUOTES -->
+<div id="tab-quotes" class="tab-content">
+  <div class="container">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+      <div>
+        <h2 style="font-family:'Artifakt Legend',Arial,sans-serif; font-size:22px; font-weight:700;">Quote Library</h2>
+        <p style="font-size:13px; color:var(--slate); margin-top:4px;">Searchable customer quotes from across all research sources. Click to copy, cite, or share.</p>
+      </div>
+    </div>
+
+    <div class="search-wrap" style="max-width:100%; margin-bottom:16px;">
+      <span class="search-icon">&#x1F50D;</span>
+      <input class="search-bar" placeholder="Search quotes... e.g. 'AI trust', 'onboarding', 'search confusing'" readonly>
+    </div>
+
+    <div class="filter-row" style="margin-bottom:16px;">
+      <select class="filter-select"><option>Topic: All</option></select>
+      <select class="filter-select"><option>Product: All</option><option>Fusion</option><option>Revit</option><option>AutoCAD</option><option>Platform</option></select>
+      <select class="filter-select"><option>Segment: All</option><option>Enterprise</option><option>SMB</option></select>
+      <select class="filter-select"><option>Source: All</option></select>
+      <select class="filter-select"><option>Sentiment: All</option><option>Positive</option><option>Negative</option><option>Neutral</option></select>
+    </div>
+
+    <div class="results-count">124 quotes across 38 studies</div>
+
+    <div class="quote-card" style="border-left-color:var(--twilight);">
+      <div class="quote-text">"Users expected product-specific results but got cross-product matches. Most tried 2-3 searches before giving up and using category navigation."</div>
+      <div class="quote-source">
+        <span><span class="badge badge-dv" style="font-size:9px;padding:2px 5px;"><span class="badge-dot"></span> DV</span> Global Search Usability &middot; Q3 2025 &middot; Enterprise &middot; Fusion</span>
+        <div class="quote-actions">
+          <button class="quote-action">&#x1F4CB; Copy</button>
+          <button class="quote-action">&#x1F4AC; Share</button>
+          <button class="quote-action">&#x1F517; Cite</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="quote-card" style="border-left-color:var(--twilight);">
+      <div class="quote-text">"The expectation is that AI should explain itself — not just give an answer but show why it arrived there."</div>
+      <div class="quote-source">
+        <span><span class="badge badge-dv" style="font-size:9px;padding:2px 5px;"><span class="badge-dot"></span> DV</span> AI Trust & Transparency &middot; Q2 2025 &middot; Enterprise architect</span>
+        <div class="quote-actions">
+          <button class="quote-action">&#x1F4CB; Copy</button>
+          <button class="quote-action">&#x1F4AC; Share</button>
+          <button class="quote-action">&#x1F517; Cite</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="quote-card" style="border-left-color:var(--twilight);">
+      <div class="quote-text">"I keep searching for the same things every week. Let me save my filters."</div>
+      <div class="quote-source">
+        <span><span class="badge badge-dv" style="font-size:9px;padding:2px 5px;"><span class="badge-dot"></span> DV</span> NPS Feature Requests &middot; Q4 2025 &middot; Enterprise</span>
+        <div class="quote-actions">
+          <button class="quote-action">&#x1F4CB; Copy</button>
+          <button class="quote-action">&#x1F4AC; Share</button>
+          <button class="quote-action">&#x1F517; Cite</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="quote-card" style="border-left-color:var(--twilight);">
+      <div class="quote-text">"Three of five participants mentioned wanting an 'audit trail' for AI suggestions in their design workflow."</div>
+      <div class="quote-source">
+        <span><span class="badge badge-dv" style="font-size:9px;padding:2px 5px;"><span class="badge-dot"></span> DV</span> AI Trust & Transparency &middot; Q2 2025 &middot; Fusion</span>
+        <div class="quote-actions">
+          <button class="quote-action">&#x1F4CB; Copy</button>
+          <button class="quote-action">&#x1F4AC; Share</button>
+          <button class="quote-action">&#x1F517; Cite</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="quote-card" style="border-left-color:var(--morning);">
+      <div class="quote-text">"I spend more time debugging API responses than writing actual integration code."</div>
+      <div class="quote-source">
+        <span><span class="badge badge-pr" style="font-size:9px;padding:2px 5px;"><span class="badge-dot"></span> PR</span> API DX Survey 2023 &middot; Platform developer</span>
+        <div class="quote-actions">
+          <button class="quote-action">&#x1F4CB; Copy</button>
+          <button class="quote-action">&#x1F4AC; Share</button>
+          <button class="quote-action">&#x1F517; Cite</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="quote-card" style="border-left-color:var(--dawn);">
+      <div class="quote-text">"Workflow integration matters more than feature count. We need AI to fit into how we already work, not force us to change our process."</div>
+      <div class="quote-source">
+        <span><span class="badge badge-pd" style="font-size:9px;padding:2px 5px;"><span class="badge-dot"></span> PD</span> Customer Council &middot; 2024–2025 &middot; Enterprise</span>
+        <div class="quote-actions">
+          <button class="quote-action">&#x1F4CB; Copy</button>
+          <button class="quote-action">&#x1F4AC; Share</button>
+          <button class="quote-action">&#x1F517; Cite</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="quote-card" style="border-left-color:var(--dusk);">
+      <div class="quote-text">"The error handling is cryptic — I had to retry 3-4 times before the translation succeeded."</div>
+      <div class="quote-source">
+        <span><span class="badge badge-dv" style="font-size:9px;padding:2px 5px;"><span class="badge-dot"></span> DV</span> Platform API Developer Interviews &middot; Feb 2026</span>
+        <div class="quote-actions">
+          <button class="quote-action">&#x1F4CB; Copy</button>
+          <button class="quote-action">&#x1F4AC; Share</button>
+          <button class="quote-action">&#x1F517; Cite</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="quote-card" style="border-left-color:var(--twilight);">
+      <div class="quote-text">"We need AI to be a co-pilot, not an autopilot. I want to trust it, but I need to see the reasoning before I send it to a client."</div>
+      <div class="quote-source">
+        <span><span class="badge badge-dv" style="font-size:9px;padding:2px 5px;"><span class="badge-dot"></span> DV</span> PSET AI Workflow Study &middot; Q1 2026 &middot; Enterprise</span>
+        <div class="quote-actions">
+          <button class="quote-action">&#x1F4CB; Copy</button>
+          <button class="quote-action">&#x1F4AC; Share</button>
+          <button class="quote-action">&#x1F517; Cite</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAIN POINTS -->
+<div id="tab-painpoints" class="tab-content">
+  <div class="container">
+    <h2 style="font-family:'Artifakt Legend',Arial,sans-serif; font-size:22px; font-weight:700; margin-bottom:4px;">Pain Points</h2>
+    <p style="font-size:13px; color:var(--slate); margin-bottom:20px;">Customer-reported friction, bugs, and usability issues aggregated across all research sources. Sorted by severity and frequency.</p>
+
+    <div class="filter-row" style="margin-bottom:16px;">
+      <select class="filter-select is-active"><option>Product: All</option><option>Fusion</option><option>Revit</option><option>AutoCAD</option><option>Platform APIs</option></select>
+      <select class="filter-select"><option>Severity: All</option><option>High</option><option>Medium</option><option>Low</option></select>
+      <select class="filter-select"><option>Category: All</option><option>Performance</option><option>Usability</option><option>Bugs</option><option>API/SDK</option></select>
+      <select class="filter-select"><option>Segment: All</option></select>
+    </div>
+
+    <div class="results-count">32 pain points identified across 18 studies</div>
+
+    <div class="pain-card">
+      <div class="pain-severity sev-high">HIGH</div>
+      <div style="flex:1;">
+        <div class="pain-title">File translation failures with large Revit models (&gt;500MB)</div>
+        <div class="pain-detail">Enterprise developers report timeout errors and "cryptic" error handling. Average 3-4 retries before success. Translation failure rate: 12.4% for files over 500MB.</div>
+        <div class="pain-meta">
+          <span class="badge badge-dv" style="font-size:9px;padding:2px 5px;"><span class="badge-dot"></span> DV</span>
+          <span class="badge badge-an" style="font-size:9px;padding:2px 5px;"><span class="badge-dot"></span> AN</span>
+          Mentioned in 3 studies &middot; Platform APIs &middot; Enterprise
+        </div>
+      </div>
+    </div>
+
+    <div class="pain-card">
+      <div class="pain-severity sev-high">HIGH</div>
+      <div style="flex:1;">
+        <div class="pain-title">Global search returns cross-product results instead of product-specific</div>
+        <div class="pain-detail">Users expect search scoped to their product but get results from all products. Most try 2-3 searches before giving up and switching to category navigation.</div>
+        <div class="pain-meta">
+          <span class="badge badge-dv" style="font-size:9px;padding:2px 5px;"><span class="badge-dot"></span> DV</span>
+          <span class="badge badge-an" style="font-size:9px;padding:2px 5px;"><span class="badge-dot"></span> AN</span>
+          Mentioned in 4 studies &middot; All Products &middot; Enterprise
+        </div>
+      </div>
+    </div>
+
+    <div class="pain-card">
+      <div class="pain-severity sev-high">HIGH</div>
+      <div style="flex:1;">
+        <div class="pain-title">AI outputs lack explainability — users won't share with clients</div>
+        <div class="pain-detail">Enterprise architects refuse to share AI-generated design recommendations with clients because they can't explain how the output was produced. Demand for "audit trail" functionality.</div>
+        <div class="pain-meta">
+          <span class="badge badge-dv" style="font-size:9px;padding:2px 5px;"><span class="badge-dot"></span> DV</span>
+          <span class="badge badge-uf" style="font-size:9px;padding:2px 5px;"><span class="badge-dot"></span> UF</span>
+          Mentioned in 5 studies &middot; Fusion &middot; Enterprise
+        </div>
+      </div>
+    </div>
+
+    <div class="pain-card">
+      <div class="pain-severity sev-med">MED</div>
+      <div style="flex:1;">
+        <div class="pain-title">Onboarding drop-off at workspace configuration (step 3)</div>
+        <div class="pain-detail">42% of new users abandon setup at workspace configuration. Users who complete step 3 have 3.2x higher 30-day retention.</div>
+        <div class="pain-meta">
+          <span class="badge badge-an" style="font-size:9px;padding:2px 5px;"><span class="badge-dot"></span> AN</span>
+          Mentioned in 2 studies &middot; All Products &middot; New users
+        </div>
+      </div>
+    </div>
+
+    <div class="pain-card">
+      <div class="pain-severity sev-med">MED</div>
+      <div style="flex:1;">
+        <div class="pain-title">API documentation rated "somewhat helpful" by majority</div>
+        <div class="pain-detail">68% of developers rated API docs as "somewhat helpful" — only 12% said "very helpful." Error message clarity was the #1 complaint (n=142).</div>
+        <div class="pain-meta">
+          <span class="badge badge-pr" style="font-size:9px;padding:2px 5px;"><span class="badge-dot"></span> PR</span>
+          Mentioned in 2 studies &middot; Platform APIs &middot; Developers
+        </div>
+      </div>
+    </div>
+
+    <div class="pain-card">
+      <div class="pain-severity sev-med">MED</div>
+      <div style="flex:1;">
+        <div class="pain-title">SDK setup time increasing — now 4.2 hours average</div>
+        <div class="pain-detail">Average onboarding time for new API developers increased from 2.8 hours to 4.2 hours last quarter. SDK friction mentioned in 3 studies in 30 days.</div>
+        <div class="pain-meta">
+          <span class="badge badge-an" style="font-size:9px;padding:2px 5px;"><span class="badge-dot"></span> AN</span>
+          <span class="badge badge-dv" style="font-size:9px;padding:2px 5px;"><span class="badge-dot"></span> DV</span>
+          Trend alert &middot; Platform APIs &middot; Developers
+        </div>
+      </div>
+    </div>
+
+    <div class="pain-card">
+      <div class="pain-severity sev-low">LOW</div>
+      <div style="flex:1;">
+        <div class="pain-title">34% of searches return zero results</div>
+        <div class="pain-detail">Primarily due to terminology mismatches between user vocabulary and system labels. Returning users affected more than new users.</div>
+        <div class="pain-meta">
+          <span class="badge badge-an" style="font-size:9px;padding:2px 5px;"><span class="badge-dot"></span> AN</span>
+          Mentioned in 1 study &middot; All Products
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURE REQUESTS -->
+<div id="tab-requests" class="tab-content">
+  <div class="container">
+    <h2 style="font-family:'Artifakt Legend',Arial,sans-serif; font-size:22px; font-weight:700; margin-bottom:4px;">Feature Requests</h2>
+    <p style="font-size:13px; color:var(--slate); margin-bottom:20px;">Top feature requests aggregated across NPS verbatims, usability studies, customer councils, and UPF Hub. Ranked by mention frequency.</p>
+
+    <div class="filter-row" style="margin-bottom:16px;">
+      <select class="filter-select"><option>Product: All</option></select>
+      <select class="filter-select"><option>Segment: All</option></select>
+      <select class="filter-select"><option>Time: Last 12 months</option></select>
+      <select class="filter-select"><option>Source: All</option></select>
+    </div>
+
+    <div class="request-row">
+      <div class="request-rank">1</div>
+      <div style="flex:1;">
+        <div class="pain-title">Saved search filters</div>
+        <div class="pain-detail">"Let me save my filters" — #2 most requested in enterprise NPS. Users repeat the same searches weekly.</div>
+        <div class="request-bar"><div class="request-bar-fill" style="width:92%;"></div></div>
+        <div class="pain-meta" style="margin-top:4px;">
+          <span class="badge badge-dv" style="font-size:9px;padding:2px 5px;"><span class="badge-dot"></span> DV</span>
+          <span class="badge badge-uf" style="font-size:9px;padding:2px 5px;"><span class="badge-dot"></span> UF</span>
+          NPS Synthesis + UPF Hub &middot; Enterprise
+        </div>
+      </div>
+      <div style="text-align:right;">
+        <div class="request-mentions">47</div>
+        <div class="request-label">mentions</div>
+      </div>
+    </div>
+
+    <div class="request-row">
+      <div class="request-rank">2</div>
+      <div style="flex:1;">
+        <div class="pain-title">AI explainability / audit trail</div>
+        <div class="pain-detail">Users want to see how AI arrived at recommendations. "Show me why" — demanded by enterprise architects before sharing with clients.</div>
+        <div class="request-bar"><div class="request-bar-fill" style="width:85%;"></div></div>
+        <div class="pain-meta" style="margin-top:4px;">
+          <span class="badge badge-dv" style="font-size:9px;padding:2px 5px;"><span class="badge-dot"></span> DV</span>
+          <span class="badge badge-uf" style="font-size:9px;padding:2px 5px;"><span class="badge-dot"></span> UF</span>
+          AI Trust Study + Customer Council &middot; Enterprise
+        </div>
+      </div>
+      <div style="text-align:right;">
+        <div class="request-mentions">41</div>
+        <div class="request-label">mentions</div>
+      </div>
+    </div>
+
+    <div class="request-row">
+      <div class="request-rank">3</div>
+      <div style="flex:1;">
+        <div class="pain-title">Product-scoped search</div>
+        <div class="pain-detail">Search results should be scoped to the user's product by default. Cross-product results are confusing.</div>
+        <div class="request-bar"><div class="request-bar-fill" style="width:72%;"></div></div>
+        <div class="pain-meta" style="margin-top:4px;">
+          <span class="badge badge-dv" style="font-size:9px;padding:2px 5px;"><span class="badge-dot"></span> DV</span>
+          <span class="badge badge-an" style="font-size:9px;padding:2px 5px;"><span class="badge-dot"></span> AN</span>
+          Search Usability + Analytics &middot; All Products
+        </div>
+      </div>
+      <div style="text-align:right;">
+        <div class="request-mentions">34</div>
+        <div class="request-label">mentions</div>
+      </div>
+    </div>
+
+    <div class="request-row">
+      <div class="request-rank">4</div>
+      <div style="flex:1;">
+        <div class="pain-title">Better error messages in API responses</div>
+        <div class="pain-detail">Error message clarity is the #1 developer complaint. Current messages described as "cryptic" and unhelpful for debugging.</div>
+        <div class="request-bar"><div class="request-bar-fill" style="width:64%; background:var(--dawn);"></div></div>
+        <div class="pain-meta" style="margin-top:4px;">
+          <span class="badge badge-pr" style="font-size:9px;padding:2px 5px;"><span class="badge-dot"></span> PR</span>
+          <span class="badge badge-dv" style="font-size:9px;padding:2px 5px;"><span class="badge-dot"></span> DV</span>
+          API DX Survey + Developer Interviews &middot; Platform
+        </div>
+      </div>
+      <div style="text-align:right;">
+        <div class="request-mentions">28</div>
+        <div class="request-label">mentions</div>
+      </div>
+    </div>
+
+    <div class="request-row">
+      <div class="request-rank">5</div>
+      <div style="flex:1;">
+        <div class="pain-title">AI override / manual control</div>
+        <div class="pain-detail">"Trust but verify" — users want to review and override AI suggestions step by step, not accept them wholesale.</div>
+        <div class="request-bar"><div class="request-bar-fill" style="width:55%;"></div></div>
+        <div class="pain-meta" style="margin-top:4px;">
+          <span class="badge badge-dv" style="font-size:9px;padding:2px 5px;"><span class="badge-dot"></span> DV</span>
+          PSET AI Workflow Study + Customer Council &middot; Enterprise
+        </div>
+      </div>
+      <div style="text-align:right;">
+        <div class="request-mentions">22</div>
+        <div class="request-label">mentions</div>
+      </div>
+    </div>
+
+    <div class="request-row">
+      <div class="request-rank">6</div>
+      <div style="flex:1;">
+        <div class="pain-title">Simplified onboarding / setup wizard</div>
+        <div class="pain-detail">Step 3 (workspace config) causes 42% drop-off. Users want a guided, progressive setup — not everything at once.</div>
+        <div class="request-bar"><div class="request-bar-fill" style="width:48%; background:var(--morning);"></div></div>
+        <div class="pain-meta" style="margin-top:4px;">
+          <span class="badge badge-an" style="font-size:9px;padding:2px 5px;"><span class="badge-dot"></span> AN</span>
+          <span class="badge badge-dv" style="font-size:9px;padding:2px 5px;"><span class="badge-dot"></span> DV</span>
+          Funnel Analysis + Onboarding Study &middot; New users
+        </div>
+      </div>
+      <div style="text-align:right;">
+        <div class="request-mentions">19</div>
+        <div class="request-label">mentions</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="tab-dashboard" class="tab-content">
+  <div class="container">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+      <div>
+        <h2 style="font-family:'Artifakt Legend',Arial,sans-serif; font-size:22px; font-weight:700;">Research Dashboard</h2>
+        <p style="font-size:13px; color:var(--slate); margin-top:4px;">High-level themes, trends, research coverage, and gaps across the org.</p>
+      </div>
+      <div style="font-size:12px; color:var(--slate);">Last updated: Feb 24, 2026</div>
+    </div>
+
+    <!-- METRICS -->
+    <div class="stats-bar" style="margin-bottom:24px;">
+      <div class="stat-item">
+        <div class="stat-number">2,450+</div>
+        <div class="stat-label">Total research items</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">38</div>
+        <div class="stat-label">Active studies</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">124</div>
+        <div class="stat-label">Customer quotes</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">32</div>
+        <div class="stat-label">Pain points tracked</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">142</div>
+        <div class="stat-label">Searches this week</div>
+      </div>
+    </div>
+
+    <div class="dash-grid">
+      <!-- TOP THEMES -->
+      <div class="dash-card">
+        <div class="dash-card-title">Top Research Themes — Q1 2026</div>
+        <div class="dash-metric">
+          <span class="dash-metric-name">AI trust & explainability</span>
+          <span class="dash-metric-val">23 <span style="font-size:11px;font-weight:400;color:var(--slate);">items</span></span>
+        </div>
+        <div class="dash-metric">
+          <span class="dash-metric-name">Navigation & search UX</span>
+          <span class="dash-metric-val">18 <span style="font-size:11px;font-weight:400;color:var(--slate);">items</span></span>
+        </div>
+        <div class="dash-metric">
+          <span class="dash-metric-name">Onboarding & activation</span>
+          <span class="dash-metric-val">14 <span style="font-size:11px;font-weight:400;color:var(--slate);">items</span></span>
+        </div>
+        <div class="dash-metric">
+          <span class="dash-metric-name">Developer experience</span>
+          <span class="dash-metric-val">12 <span style="font-size:11px;font-weight:400;color:var(--slate);">items</span></span>
+        </div>
+        <div class="dash-metric">
+          <span class="dash-metric-name">Collaboration features</span>
+          <span class="dash-metric-val">9 <span style="font-size:11px;font-weight:400;color:var(--slate);">items</span></span>
+        </div>
+      </div>
+
+      <!-- SENTIMENT TRENDS -->
+      <div class="dash-card">
+        <div class="dash-card-title">Sentiment Trends (via UPF Hub)</div>
+        <div class="dash-metric">
+          <span class="dash-metric-name">AI features</span>
+          <span class="dash-metric-val dash-trend-down">-32% <span style="font-size:11px;">negative</span></span>
+        </div>
+        <div class="dash-metric">
+          <span class="dash-metric-name">Navigation (Revit)</span>
+          <span class="dash-metric-val dash-trend-down">-18% <span style="font-size:11px;">declining</span></span>
+        </div>
+        <div class="dash-metric">
+          <span class="dash-metric-name">Onboarding</span>
+          <span class="dash-metric-val dash-trend-flat">~ <span style="font-size:11px;">stable</span></span>
+        </div>
+        <div class="dash-metric">
+          <span class="dash-metric-name">Collaboration</span>
+          <span class="dash-metric-val dash-trend-up">+12% <span style="font-size:11px;">improving</span></span>
+        </div>
+        <div class="dash-metric">
+          <span class="dash-metric-name">Developer tools</span>
+          <span class="dash-metric-val dash-trend-down">-8% <span style="font-size:11px;">declining</span></span>
+        </div>
+      </div>
+
+      <!-- RESEARCH COVERAGE -->
+      <div class="dash-card">
+        <div class="dash-card-title">Research Coverage by Product</div>
+        <div class="coverage-row">
+          <div class="coverage-label">Fusion</div>
+          <div class="coverage-bar"><div class="coverage-fill" style="width:78%; background:var(--twilight);"></div></div>
+          <div class="coverage-pct">78%</div>
+        </div>
+        <div class="coverage-row">
+          <div class="coverage-label">Revit</div>
+          <div class="coverage-bar"><div class="coverage-fill" style="width:45%; background:var(--dawn);"></div></div>
+          <div class="coverage-pct">45%</div>
+        </div>
+        <div class="coverage-row">
+          <div class="coverage-label">AutoCAD</div>
+          <div class="coverage-bar"><div class="coverage-fill" style="width:52%; background:var(--morning);"></div></div>
+          <div class="coverage-pct">52%</div>
+        </div>
+        <div class="coverage-row">
+          <div class="coverage-label">Platform APIs</div>
+          <div class="coverage-bar"><div class="coverage-fill" style="width:35%; background:var(--dusk);"></div></div>
+          <div class="coverage-pct">35%</div>
+        </div>
+        <div class="coverage-row">
+          <div class="coverage-label">Civil 3D</div>
+          <div class="coverage-bar"><div class="coverage-fill" style="width:18%; background:var(--upfhub);"></div></div>
+          <div class="coverage-pct">18%</div>
+        </div>
+      </div>
+
+      <!-- RESEARCH GAPS -->
+      <div class="dash-card">
+        <div class="dash-card-title">Research Gaps — Understudied Areas</div>
+        <div class="gap-item">
+          <div class="gap-indicator" style="background:#C0392B;"></div>
+          <span><strong>Civil 3D user experience</strong> — no studies in 18 months</span>
+        </div>
+        <div class="gap-item">
+          <div class="gap-indicator" style="background:#C0392B;"></div>
+          <span><strong>SMB onboarding</strong> — all onboarding research is enterprise-focused</span>
+        </div>
+        <div class="gap-item">
+          <div class="gap-indicator" style="background:#C47A1A;"></div>
+          <span><strong>Mobile experience</strong> — last studied Q2 2024</span>
+        </div>
+        <div class="gap-item">
+          <div class="gap-indicator" style="background:#C47A1A;"></div>
+          <span><strong>International users (EMEA/APAC)</strong> — 90% of research is AMER</span>
+        </div>
+        <div class="gap-item">
+          <div class="gap-indicator" style="background:#C47A1A;"></div>
+          <span><strong>Competitive benchmarking</strong> — no systematic comparison since 2023</span>
+        </div>
+        <div class="gap-item">
+          <div class="gap-indicator" style="background:var(--slate);"></div>
+          <span><strong>Accessibility / inclusive design</strong> — limited to 1 audit in 2024</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXECUTIVE BRIEF -->
+    <div class="ai-summary">
+      <div class="ai-header">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2l1.5 4.5H16l-3.5 2.8 1.3 4.4L10 11l-3.8 2.7 1.3-4.4L4 6.5h4.5z"/></svg>
+        Executive Brief — Q1 2026
+      </div>
+      <div style="font-size:14px; line-height:1.8;">
+        <p style="margin-bottom:10px;">Across 38 active studies and 2,450+ research items, three strategic themes dominate this quarter:</p>
+        <p style="margin-bottom:8px;"><strong>1. AI trust is the adoption bottleneck.</strong> Enterprise users want AI features but won't use them in client-facing work without explainability. This is the #1 barrier to weekly active usage (23% vs. 67% trial rate).</p>
+        <p style="margin-bottom:8px;"><strong>2. Search and navigation need a rethink.</strong> Cross-product search confusion drives users to category browsing. 34% of searches return zero results. Saved filters are the #2 feature request.</p>
+        <p style="margin-bottom:8px;"><strong>3. Developer experience is declining.</strong> SDK setup time increased 50% last quarter. API error messages are the top complaint. Platform team investment needed.</p>
+        <p><strong>Biggest gap:</strong> Civil 3D and SMB segments are significantly understudied. 90% of research is AMER-only — EMEA/APAC perspectives are missing.</p>
+      </div>
+      <div class="ai-actions">
+        <button class="ai-action-btn">&#x1F4CB; Copy brief</button>
+        <button class="ai-action-btn">&#x1F4AC; Share to Slack</button>
+        <button class="ai-action-btn">&#x1F4E7; Email to leadership</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ALERTS -->
+<div id="tab-alerts" class="tab-content">
+  <div class="container">
+
+    <!-- CREATE -->
+    <div class="alert-create">
+      <div class="alert-create-title">Watch a topic</div>
+      <div class="alert-create-sub">Get a Slack notification with a summary when new research matches your topic. Uses semantic matching — it understands related phrasing, not just exact keywords.</div>
+      <div class="alert-form">
+        <div class="alert-field-row">
+          <div class="alert-field">
+            <span class="alert-label">Topic</span>
+            <input class="alert-input" placeholder='e.g. "AI-assisted workflows" or "data extraction challenges"' readonly>
+          </div>
+          <div class="alert-field" style="max-width:200px;">
+            <span class="alert-label">Slack channel</span>
+            <input class="alert-input" placeholder="#uxr-ai-insights" readonly>
+          </div>
+          <button class="alert-add-btn">+ Watch</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACTIVE WATCHES -->
+    <div class="section-header">Active watches</div>
+    <div class="alert-active-list">
+      <div class="alert-item">
+        <div class="alert-item-left">
+          <div class="alert-icon">&#x1F514;</div>
+          <div>
+            <div class="alert-topic">AI-assisted workflows</div>
+            <div class="alert-dest">#uxr-ai-insights &middot; also matches: "machine learning automation," "AI assistants," "AI data parsing"</div>
+          </div>
+        </div>
+        <button class="alert-toggle"></button>
+      </div>
+      <div class="alert-item">
+        <div class="alert-item-left">
+          <div class="alert-icon">&#x1F514;</div>
+          <div>
+            <div class="alert-topic">Model Derivative API pain points</div>
+            <div class="alert-dest">#api-feedback &middot; also matches: "file translation errors," "API scalability," "conversion failures"</div>
+          </div>
+        </div>
+        <button class="alert-toggle"></button>
+      </div>
+      <div class="alert-item">
+        <div class="alert-item-left">
+          <div class="alert-icon">&#x1F514;</div>
+          <div>
+            <div class="alert-topic">Developer productivity</div>
+            <div class="alert-dest">#platform-eng &middot; also matches: "developer efficiency," "SDK friction," "API developer experience"</div>
+          </div>
+        </div>
+        <button class="alert-toggle"></button>
+      </div>
+      <div class="alert-item">
+        <div class="alert-item-left">
+          <div class="alert-icon">&#x1F514;</div>
+          <div>
+            <div class="alert-topic">Enterprise onboarding drop-off</div>
+            <div class="alert-dest">#product-growth &middot; also matches: "setup abandonment," "activation friction," "first-run experience"</div>
+          </div>
+        </div>
+        <button class="alert-toggle"></button>
+      </div>
+      <div class="alert-item">
+        <div class="alert-item-left">
+          <div class="alert-icon" style="color:var(--text-tertiary); background:#F0F0F0;">&#x1F515;</div>
+          <div>
+            <div class="alert-topic" style="color:var(--text-tertiary);">Data visualization feedback</div>
+            <div class="alert-dest">#design-systems &middot; paused</div>
+          </div>
+        </div>
+        <button class="alert-toggle off"></button>
+      </div>
+    </div>
+
+    <!-- RECENT ALERTS -->
+    <div class="section-header">Recent notifications</div>
+
+    <div class="slack-alert-msg">
+      <div class="slack-alert-header">
+        <span style="color:#616061; font-size:14px;">#</span>
+        <span class="slack-alert-channel">uxr-ai-insights</span>
+        <span class="alert-badge-new">NEW</span>
+      </div>
+      <div class="slack-alert-body">
+        <div class="slack-msg" style="margin-bottom:0;">
+          <div class="slack-avatar bot">&#x1F514;</div>
+          <div style="flex:1;">
+            <div class="slack-name">Ask Me Anything <span>Alert &middot; 2:15 PM</span></div>
+            <div class="slack-text" style="margin-bottom:10px;">New research matches your watch: <strong style="color:white;">"AI-assisted workflows"</strong></div>
+            <div class="slack-finding"><span class="num">New insight:</span> Customers in the PSET segment described wanting AI to auto-generate BIM schedules from floor plans — but only if they can review and override each step. Three participants used the phrase "trust but verify."<br><span class="link">&#x1F4CE; Dovetail: PSET AI Workflow Study — Q1 2026</span></div>
+            <hr class="slack-divider">
+            <div class="slack-meta">Matched via semantic similarity (86% confidence) &middot; from project "PSET AI Workflow Study"</div>
+            <button class="slack-btn">View insight</button>
+            <button class="slack-btn">Mute this watch</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slack-alert-msg">
+      <div class="slack-alert-header">
+        <span style="color:#616061; font-size:14px;">#</span>
+        <span class="slack-alert-channel">api-feedback</span>
+      </div>
+      <div class="slack-alert-body">
+        <div class="slack-msg" style="margin-bottom:0;">
+          <div class="slack-avatar bot">&#x1F514;</div>
+          <div style="flex:1;">
+            <div class="slack-name">Ask Me Anything <span>Alert &middot; Yesterday 4:32 PM</span></div>
+            <div class="slack-text" style="margin-bottom:10px;">New research matches your watch: <strong style="color:white;">"Model Derivative API pain points"</strong></div>
+            <div class="slack-finding"><span class="num">New insight:</span> Two enterprise developers reported file translation failures with complex Revit models over 500MB. Both described the error handling as "cryptic" and said they had to retry 3-4 times before success.<br><span class="link">&#x1F4CE; Dovetail: Platform API Developer Interviews — Feb 2026</span></div>
+            <hr class="slack-divider">
+            <div class="slack-meta">Matched via semantic similarity (91% confidence) &middot; Original watch term: "Model Derivative API" &rarr; matched "file translation failures"</div>
+            <button class="slack-btn">View insight</button>
+            <button class="slack-btn">Mute this watch</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slack-alert-msg">
+      <div class="slack-alert-header">
+        <span style="color:#616061; font-size:14px;">#</span>
+        <span class="slack-alert-channel">platform-eng</span>
+      </div>
+      <div class="slack-alert-body">
+        <div class="slack-msg" style="margin-bottom:0;">
+          <div class="slack-avatar bot">&#x1F514;</div>
+          <div style="flex:1;">
+            <div class="slack-name">Ask Me Anything <span>Alert &middot; Feb 21</span></div>
+            <div class="slack-text" style="margin-bottom:10px;">Trending alert for your watch: <strong style="color:white;">"Developer productivity"</strong></div>
+            <div class="slack-finding"><span class="num">Trend detected:</span> 3 studies in the last 30 days mention SDK setup time as a barrier. Average onboarding time for new API developers is 4.2 hours — up from 2.8 hours last quarter.<br><span class="link">&#x1F4CE; Analytics: Developer Onboarding Metrics — Feb 2026</span><br><span class="link">&#x1F4CE; Dovetail: SDK Friction Study — Q4 2025</span></div>
+            <hr class="slack-divider">
+            <div class="slack-meta">Trend alert: 3 matching studies in 30 days (threshold: 2) &middot; Topics: "SDK friction," "developer onboarding," "API setup"</div>
+            <button class="slack-btn">View all 3 studies</button>
+            <button class="slack-btn">Adjust threshold</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SLACK -->
+<div id="tab-slack" class="tab-content">
+  <div class="container">
+    <div class="section-header">Slack Bot Experience</div>
+
+    <div class="slack-mock">
+      <div class="slack-header">
+        <span style="color:#616061; font-size:16px;">#</span>
+        <span class="slack-channel">research-insights</span>
+      </div>
+      <div class="slack-body">
+        <!-- User message -->
+        <div class="slack-msg">
+          <div class="slack-avatar user">CJ</div>
+          <div>
+            <div class="slack-name">You <span>11:42 AM</span></div>
+            <div class="slack-text">/ama What do we know about users struggling with search?</div>
+          </div>
+        </div>
+
+        <!-- Bot response -->
+        <div class="slack-msg">
+          <div class="slack-avatar bot">&#x2728;</div>
+          <div style="flex:1;">
+            <div class="slack-name">Ask Me Anything <span>APP &middot; 11:42 AM</span></div>
+            <div class="slack-text" style="margin-bottom:12px;">Here's what I found across our research repositories:</div>
+
+            <div class="slack-finding"><span class="num">(1)</span> Most users found the global search confusing — they expected product-specific results but got cross-product matches.<br><span class="link">&#x1F4CE; Dovetail: Global Search Usability Study</span></div>
+            <div class="slack-finding"><span class="num">(2)</span> Search is used more frequently than category navigation for returning users, but new users rely on browse.<br><span class="link">&#x1F4CE; Analytics: Search vs. Navigation Dashboard</span></div>
+            <div class="slack-finding"><span class="num">(3)</span> 34% of searches return zero results, primarily due to terminology mismatches.<br><span class="link">&#x1F4CE; Analytics: Zero-Result Query Analysis</span></div>
+            <div class="slack-finding"><span class="num">(4)</span> Enterprise users specifically requested saved search filters — #2 feature request in NPS.<br><span class="link">&#x1F4CE; Dovetail: NPS Feature Requests Synthesis</span></div>
+            <div class="slack-finding"><span class="num">(5)</span> Historical research from 2021 identified the same issue in AutoCAD — partially implemented.<br><span class="link">&#x1F4CE; Prism: AutoCAD Search Research 2021</span></div>
+
+            <div class="slack-finding"><span class="num">(6)</span> UPF Hub sentiment shows search-related feedback is 28% negative — highest in enterprise tier.<br><span class="link" style="color:var(--upfhub);">&#x1F4CE; UPF Hub: Search Sentiment Analysis</span></div>
+
+            <hr class="slack-divider">
+            <div class="slack-meta">Found 18 results across Dovetail (8), Analytics (4), UPF Hub (4), and Prism (2)</div>
+            <button class="slack-btn">View all results</button>
+            <button class="slack-btn">Refine search</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WIKI -->
+<div id="tab-wiki" class="tab-content">
+  <div class="container">
+    <div class="section-header">Confluence Embed — Contextual Research Sidebar</div>
+
+    <div class="wiki-demo" style="grid-template-columns:1fr 260px;">
+      <div class="wiki-page" style="max-height:none;">
+        <h2>Ask Me Anything — Research Intelligence Platform</h2>
+        <p style="color:var(--slate); font-size:13px; margin-bottom:20px;">Unlock Autodesk's research across every team, every tool, every question. Follow along in <a href="#" style="color:var(--twilight);">#upf-hub-users</a></p>
+
+        <!-- WHY -->
+        <div style="background:linear-gradient(135deg, #FFFCE0 0%, #FFF8E0 100%); border:1px solid #E6E3A0; border-radius:8px; padding:20px; margin-bottom:24px;">
+          <h3 style="font-family:'Artifakt Legend',Arial,sans-serif; font-size:16px; margin:0 0 12px;">Why we're building this</h3>
+          <p style="font-size:14px; line-height:1.8; margin-bottom:14px;">Autodesk is a huge company with hundreds of products and decades of deep experience and understanding of our industries — <strong>locked away in silos across the company.</strong></p>
+          <p style="font-size:14px; line-height:1.8; margin-bottom:14px;">The Autodesk-wide research practice core team has been exploring how to unlock our various research repositories for years, so we can ask anything of the data we already have, quickly find out what we know, and invest in researching new things.</p>
+          <p style="font-size:14px; line-height:1.8; margin-bottom:14px;">With tools like Dovetail, we can now search and summarize hundreds of research projects and customer conversations in minutes and jump right to the sources to learn more. <strong>But not everyone or every team has access to Dovetail.</strong></p>
+          <p style="font-size:14px; line-height:1.8; margin-bottom:0;">What if we could bring that experience to common places like Slack and Confluence, and drive business and research intelligence into the hands of each curious person?</p>
+        </div>
+
+        <!-- PAIN POINTS -->
+        <h3 style="font-family:'Artifakt Legend',Arial,sans-serif; font-size:16px; margin:0 0 12px; padding-bottom:6px; border-bottom:1px solid var(--warm-slate);">The problem today</h3>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:24px;">
+          <div style="background:var(--bg-secondary); border-radius:8px; padding:14px;">
+            <div style="font-weight:700; font-size:13px; margin-bottom:6px;">Research is siloed</div>
+            <div style="font-size:13px; color:var(--slate); line-height:1.6;">Dovetail, Prism, PDMS, analytics dashboards, and UPF Hub each hold pieces of the picture. No single place to search across all of them.</div>
+          </div>
+          <div style="background:var(--bg-secondary); border-radius:8px; padding:14px;">
+            <div style="font-weight:700; font-size:13px; margin-bottom:6px;">Access is limited</div>
+            <div style="font-size:13px; color:var(--slate); line-height:1.6;">Only researchers with Dovetail licenses can search qualitative data. PMs, designers, engineers, and leadership are locked out.</div>
+          </div>
+          <div style="background:var(--bg-secondary); border-radius:8px; padding:14px;">
+            <div style="font-weight:700; font-size:13px; margin-bottom:6px;">Duplicate research</div>
+            <div style="font-size:13px; color:var(--slate); line-height:1.6;">Teams commission new studies on topics that have already been researched — because they can't find what already exists.</div>
+          </div>
+          <div style="background:var(--bg-secondary); border-radius:8px; padding:14px;">
+            <div style="font-weight:700; font-size:13px; margin-bottom:6px;">Quantitative + qualitative are disconnected</div>
+            <div style="font-size:13px; color:var(--slate); line-height:1.6;">UPF Hub shows <em>what</em> sentiment looks like. Dovetail and Prism show <em>why</em>. Today you can't connect them.</div>
+          </div>
+        </div>
+
+        <!-- WHAT AMA DOES -->
+        <h3 style="font-family:'Artifakt Legend',Arial,sans-serif; font-size:16px; margin:0 0 12px; padding-bottom:6px; border-bottom:1px solid var(--warm-slate);">What Ask Me Anything does</h3>
+        <p style="font-size:13px; line-height:1.8; margin-bottom:16px;">Ask Me Anything is an AI-powered MCP server that connects to all of Autodesk's research repositories and makes them searchable, summarizable, and accessible through tools people already use.</p>
+        <div style="font-size:13px; line-height:2;">
+          <div><strong>Cross-source search</strong> — Ask a question in natural language, get answers from Dovetail, Prism, PDMS, Analytics, and UPF Hub in one summary</div>
+          <div><strong>Slack bot</strong> — Type <code style="background:#F0F0F0;padding:1px 6px;border-radius:3px;">/ama</code> in any channel to search research without leaving Slack</div>
+          <div><strong>Confluence sidebar</strong> — See related research automatically while reading any Confluence page</div>
+          <div><strong>Topic alerts</strong> — Watch topics and get Slack notifications with AI summaries when new research matches</div>
+          <div><strong>Chrome extension</strong> — Get contextual research on any internal page (Jira, Confluence, Google Docs)</div>
+          <div><strong>UPF Hub integration</strong> — Combine sentiment trends with qualitative research to see the full picture</div>
+        </div>
+
+        <hr style="border:none; border-top:1px solid var(--warm-slate); margin:24px 0;">
+
+        <h3 style="font-family:'Artifakt Legend',Arial,sans-serif; font-size:16px; margin:0 0 12px;">Release Notes</h3>
+
+        <!-- CURRENT VERSION -->
+        <div style="background:#FFFCE0; border:1px solid #E6E3A0; border-radius:8px; padding:16px; margin-bottom:24px;">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+            <span style="background:var(--adsk-black); color:var(--hello-yellow); font-size:11px; font-weight:700; padding:3px 8px; border-radius:4px;">LATEST</span>
+            <span style="font-family:'Artifakt Legend',Arial,sans-serif; font-size:15px; font-weight:700;">v0.3.0</span>
+            <span style="font-size:12px; color:var(--slate);">&middot; Feb 24, 2026</span>
+          </div>
+          <p style="font-size:13px; line-height:1.7; margin-bottom:8px;">Role-based home page, improved library, and interactive search — making it easier for every team to find what they need.</p>
+          <div style="font-size:13px; line-height:1.8;">
+            <div><span style="background:#E0F7F0;color:#1A9E7F;padding:1px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-right:4px;">NEW</span> Role quick-start cards (Researcher, Designer, PM, Engineer, Leadership) on Home</div>
+            <div><span style="background:#E0F7F0;color:#1A9E7F;padding:1px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-right:4px;">NEW</span> Suggested search queries — click to jump straight to results</div>
+            <div><span style="background:#E0F7F0;color:#1A9E7F;padding:1px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-right:4px;">NEW</span> AI summary actions — Copy, Share to Slack, Watch topic</div>
+            <div><span style="background:#E0F7F0;color:#1A9E7F;padding:1px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-right:4px;">NEW</span> "People also searched for" related queries on search results</div>
+            <div><span style="background:#E0F7F0;color:#1A9E7F;padding:1px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-right:4px;">NEW</span> TL;DR summary on individual insight pages</div>
+            <div><span style="background:#E0F7F0;color:#1A9E7F;padding:1px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-right:4px;">NEW</span> "Who should see this" — role-specific takeaways per insight</div>
+            <div><span style="background:#E0F7F0;color:#1A9E7F;padding:1px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-right:4px;">NEW</span> Collection chips in Library (Usability Studies, Surveys, NPS, etc.)</div>
+            <div><span style="background:#E4F2F9;color:var(--twilight);padding:1px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-right:4px;">IMPROVED</span> Library now shows view counts and product labels</div>
+            <div><span style="background:#E4F2F9;color:var(--twilight);padding:1px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-right:4px;">IMPROVED</span> Filters — added Product and Audience dropdowns</div>
+            <div><span style="background:#E4F2F9;color:var(--twilight);padding:1px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-right:4px;">IMPROVED</span> Navigation — cleaner labels, visual grouping</div>
+            <div><span style="background:#E0F7F0;color:#1A9E7F;padding:1px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-right:4px;">NEW</span> Quote Library — searchable customer quotes with copy/cite/share actions</div>
+            <div><span style="background:#E0F7F0;color:#1A9E7F;padding:1px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-right:4px;">NEW</span> Pain Points — customer-reported issues sorted by severity, for engineers</div>
+            <div><span style="background:#E0F7F0;color:#1A9E7F;padding:1px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-right:4px;">NEW</span> Feature Requests — aggregated and ranked by mention frequency, for PMs</div>
+            <div><span style="background:#E0F7F0;color:#1A9E7F;padding:1px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-right:4px;">NEW</span> Research Dashboard — themes, sentiment trends, coverage gaps, executive brief</div>
+            <div><span style="background:#E0F7F0;color:#1A9E7F;padding:1px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-right:4px;">NEW</span> UPF Hub as 5th connected source — sentiment + trend data from product feedback</div>
+            <div><span style="background:#E0F7F0;color:#1A9E7F;padding:1px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-right:4px;">NEW</span> Cross-source AI summaries now blend qualitative research with UPF Hub sentiment</div>
+            <div><span style="background:#E4F2F9;color:var(--twilight);padding:1px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-right:4px;">IMPROVED</span> Stats bar showing platform-wide metrics</div>
+          </div>
+        </div>
+
+        <!-- PREVIOUS VERSIONS -->
+        <h3 style="font-family:'Artifakt Legend',Arial,sans-serif; font-size:16px; margin:20px 0 10px; padding-bottom:6px; border-bottom:1px solid var(--warm-slate);">v0.2.0 <span style="font-weight:400;color:var(--slate);font-size:13px;font-family:'Artifakt Element',Arial,sans-serif;">&middot; Feb 20, 2026</span></h3>
+        <div style="font-size:13px; line-height:1.8;">
+          <div><span style="background:#E0F7F0;color:#1A9E7F;padding:1px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-right:4px;">NEW</span> Topic alerts — watch topics and get Slack notifications with summaries</div>
+          <div><span style="background:#E0F7F0;color:#1A9E7F;padding:1px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-right:4px;">NEW</span> Semantic matching for alerts (understands related phrasing)</div>
+          <div><span style="background:#E0F7F0;color:#1A9E7F;padding:1px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-right:4px;">NEW</span> Trend detection — alerts when multiple studies mention the same theme</div>
+          <div><span style="background:#E0F7F0;color:#1A9E7F;padding:1px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-right:4px;">NEW</span> Chrome extension prototype — sidebar shows research on any page</div>
+          <div><span style="background:#E0F7F0;color:#1A9E7F;padding:1px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-right:4px;">NEW</span> Auto-context detection on web pages</div>
+          <div><span style="background:#E4F2F9;color:var(--twilight);padding:1px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-right:4px;">IMPROVED</span> Autodesk brand applied — Artifakt font, color palette</div>
+          <div><span style="background:#FDF0E0;color:#C47A1A;padding:1px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-right:4px;">CHANGED</span> Wiki references updated to Confluence</div>
+        </div>
+
+        <h3 style="font-family:'Artifakt Legend',Arial,sans-serif; font-size:16px; margin:24px 0 10px; padding-bottom:6px; border-bottom:1px solid var(--warm-slate);">v0.1.0 <span style="font-weight:400;color:var(--slate);font-size:13px;font-family:'Artifakt Element',Arial,sans-serif;">&middot; Feb 17, 2026</span></h3>
+        <div style="font-size:13px; line-height:1.8;">
+          <div><span style="background:#E0F7F0;color:#1A9E7F;padding:1px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-right:4px;">NEW</span> Initial prototype — Home, Search, Library, Insight Detail</div>
+          <div><span style="background:#E0F7F0;color:#1A9E7F;padding:1px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-right:4px;">NEW</span> AI-powered search with cross-source summarization</div>
+          <div><span style="background:#E0F7F0;color:#1A9E7F;padding:1px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-right:4px;">NEW</span> Slack bot experience (/ama command)</div>
+          <div><span style="background:#E0F7F0;color:#1A9E7F;padding:1px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-right:4px;">NEW</span> Confluence embed sidebar with contextual research</div>
+          <div><span style="background:#E0F7F0;color:#1A9E7F;padding:1px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-right:4px;">NEW</span> 4 data sources — Dovetail, Prism, PDMS, Analytics</div>
+          <div><span style="background:#E0F7F0;color:#1A9E7F;padding:1px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-right:4px;">NEW</span> MCP server scaffold with Dovetail API integration</div>
+        </div>
+
+        <!-- WHAT'S NEXT -->
+        <h3 style="font-family:'Artifakt Legend',Arial,sans-serif; font-size:16px; margin:24px 0 10px; padding-bottom:6px; border-bottom:1px solid var(--warm-slate);">What's next</h3>
+        <div style="font-size:13px; line-height:1.8;">
+          <div><span style="background:#F0EAFF;color:var(--upfhub);padding:1px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-right:4px;">IN PROGRESS</span> UPF Hub integration — connect product feedback sentiment and trend data. Prism as the shared qualitative layer between AMA and UPF Hub.</div>
+          <div><span style="background:#F5F5F2;color:var(--slate);padding:1px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-right:4px;">PLANNED</span> Persona-aware search — filter by Autodesk persona profiles</div>
+          <div><span style="background:#F5F5F2;color:var(--slate);padding:1px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-right:4px;">PLANNED</span> Research impact dashboard — track how research influences decisions</div>
+          <div><span style="background:#F5F5F2;color:var(--slate);padding:1px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-right:4px;">PLANNED</span> Automated research briefs — AI-generated summaries for leadership</div>
+          <div><span style="background:#F5F5F2;color:var(--slate);padding:1px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-right:4px;">EXPLORING</span> Qualtrics integration for survey data</div>
+          <div><span style="background:#F5F5F2;color:var(--slate);padding:1px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-right:4px;">EXPLORING</span> Jira integration for linking insights to tickets</div>
+        </div>
+
+        <p style="color:var(--text-tertiary); font-style:italic; margin-top:20px;">Questions or feedback? Drop a note in <a href="#" style="color:var(--twilight);">#upf-hub-users</a> &middot; Last updated Feb 24, 2026</p>
+      </div>
+      <div class="wiki-sidebar">
+        <div class="wiki-sidebar-title">Quick Links</div>
+
+        <div class="wiki-result">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+            <span style="font-size:14px;">&#x1F4AC;</span>
+            <div class="wiki-result-title">#upf-hub-users</div>
+          </div>
+          <div class="wiki-result-meta">Slack channel</div>
+          <div class="wiki-result-link">Open &rarr;</div>
+        </div>
+
+        <div class="wiki-result">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+            <span style="font-size:14px;">&#x1F4D6;</span>
+            <div class="wiki-result-title">Project Brief</div>
+          </div>
+          <div class="wiki-result-meta">Confluence</div>
+          <div class="wiki-result-link">View &rarr;</div>
+        </div>
+
+        <div class="wiki-result">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+            <span style="font-size:14px;">&#x1F527;</span>
+            <div class="wiki-result-title">Technical Reference</div>
+          </div>
+          <div class="wiki-result-meta">MCP Architecture</div>
+          <div class="wiki-result-link">View &rarr;</div>
+        </div>
+
+        <div class="wiki-result">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+            <span style="font-size:14px;">&#x1F3AF;</span>
+            <div class="wiki-result-title">Rollout Plan</div>
+          </div>
+          <div class="wiki-result-meta">Phases &amp; Timeline</div>
+          <div class="wiki-result-link">View &rarr;</div>
+        </div>
+
+        <div class="wiki-result">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+            <span style="font-size:14px;">&#x1F4DD;</span>
+            <div class="wiki-result-title">Request Access</div>
+          </div>
+          <div class="wiki-result-meta">Join the pilot</div>
+          <div class="wiki-result-link">Request &rarr;</div>
+        </div>
+
+        <div class="wiki-search">
+          <input class="wiki-search-input" placeholder="Ask a question..." readonly>
+          <div class="wiki-powered">Powered by Ask Me Anything</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CHROME EXTENSION -->
+<div id="tab-chrome" class="tab-content">
+  <div class="container">
+    <div class="section-header">Chrome Extension — Research Sidebar on Any Page</div>
+
+    <div class="chrome-demo">
+      <!-- Browser chrome -->
+      <div class="chrome-page">
+        <div class="chrome-tabs-bar">
+          <div class="chrome-tab">Jira &middot; PLAT-2847</div>
+          <div class="chrome-tab active">Confluence &middot; Model Derivative API</div>
+          <div class="chrome-tab">Dovetail</div>
+        </div>
+        <div class="chrome-url-bar">
+          <div class="chrome-dots">
+            <div class="chrome-dot" style="background:#ED6A5E;"></div>
+            <div class="chrome-dot" style="background:#F5BF4F;"></div>
+            <div class="chrome-dot" style="background:#62C554;"></div>
+          </div>
+          <div class="chrome-url-pill">
+            <span class="chrome-url-lock">&#x1F512;</span>
+            wiki.autodesk.com/display/PLATFORM/Model+Derivative+API+v2+Migration
+          </div>
+          <div class="chrome-ext-icon">A</div>
+        </div>
+
+        <div class="chrome-page-body">
+          <h2>Model Derivative API — v2 Migration Guide</h2>
+          <p>This page documents the migration path from Model Derivative API v1 to v2. Teams should plan for migration by Q3 2026.</p>
+          <h3>Breaking changes</h3>
+          <p>The <code>POST /modelderivative/v2/designdata/job</code> endpoint replaces the v1 translation workflow. Response format changes include nested <code>manifest</code> objects and new status codes for partial failures.</p>
+          <h3>Known issues</h3>
+          <p>Large Revit models (>500MB) may experience timeout errors during translation. The team is investigating <span class="chrome-highlight">file translation performance</span> for complex assemblies. Error messages for failed translations are being improved based on <span class="chrome-highlight">developer feedback</span>.</p>
+          <h3>Timeline</h3>
+          <p>v1 deprecation: September 2026. All integrations must migrate by this date. See the API changelog for incremental updates.</p>
+        </div>
+      </div>
+
+      <!-- Extension side panel -->
+      <div class="chrome-panel">
+        <div class="chrome-panel-header">
+          <div class="chrome-panel-title">
+            <span class="chrome-ext-icon">A</span>
+            Ask Me Anything
+          </div>
+          <button class="chrome-panel-close">&times;</button>
+        </div>
+        <div class="chrome-panel-body">
+          <div class="chrome-panel-context">
+            <strong>Auto-detected context:</strong><br>
+            Model Derivative API, file translation, Revit, developer experience
+          </div>
+
+          <div class="chrome-ask-bar">
+            <input class="chrome-ask-input" placeholder="Ask about this topic..." value="What do developers say about translation errors?" readonly>
+            <button class="chrome-ask-btn">Ask</button>
+          </div>
+
+          <div class="section-header" style="font-size:11px; margin-bottom:10px;">Related research (4)</div>
+
+          <div class="chrome-result">
+            <div class="chrome-result-header">
+              <span class="badge badge-dv" style="font-size:9px;padding:2px 5px;"><span class="badge-dot"></span> DV</span>
+              <span class="chrome-result-title">Platform API Developer Interviews</span>
+            </div>
+            <div class="chrome-result-meta">Feb 2026 &middot; 8 highlights</div>
+            <div class="chrome-result-preview"><em>"The error handling is cryptic — I had to retry 3-4 times before the translation succeeded."</em></div>
+            <a class="chrome-result-link" href="#">Open in Dovetail &rarr;</a>
+          </div>
+
+          <div class="chrome-result src-an">
+            <div class="chrome-result-header">
+              <span class="badge badge-an" style="font-size:9px;padding:2px 5px;"><span class="badge-dot"></span> AN</span>
+              <span class="chrome-result-title">API Error Rate Dashboard</span>
+            </div>
+            <div class="chrome-result-meta">Updated Feb 2026 &middot; Live metrics</div>
+            <div class="chrome-result-preview">Translation failure rate: 12.4% for files >500MB. Average retry count: 2.7. Timeout errors up 18% since v2 beta.</div>
+            <a class="chrome-result-link" href="#">Open Dashboard &rarr;</a>
+          </div>
+
+          <div class="chrome-result">
+            <div class="chrome-result-header">
+              <span class="badge badge-dv" style="font-size:9px;padding:2px 5px;"><span class="badge-dot"></span> DV</span>
+              <span class="chrome-result-title">Developer Productivity Study</span>
+            </div>
+            <div class="chrome-result-meta">Q4 2025 &middot; 5 highlights</div>
+            <div class="chrome-result-preview"><em>"I spend more time debugging API responses than writing actual integration code."</em></div>
+            <a class="chrome-result-link" href="#">Open in Dovetail &rarr;</a>
+          </div>
+
+          <div class="chrome-result src-pr">
+            <div class="chrome-result-header">
+              <span class="badge badge-pr" style="font-size:9px;padding:2px 5px;"><span class="badge-dot"></span> PR</span>
+              <span class="chrome-result-title">API DX Research 2023</span>
+            </div>
+            <div class="chrome-result-meta">Archived &middot; Foundational study</div>
+            <div class="chrome-result-preview">Error message clarity was the #1 developer complaint in the 2023 API developer experience survey (n=142).</div>
+            <a class="chrome-result-link" href="#">Open in Prism &rarr;</a>
+          </div>
+
+          <div style="border-top:1px solid var(--border); padding-top:10px; margin-top:6px;">
+            <div style="font-size:11px; color:var(--text-tertiary); text-align:center;">
+              Powered by Ask Me Anything &middot; 4 sources
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- How it works -->
+    <div style="margin-top:24px;">
+      <div class="section-header">How the Chrome extension works</div>
+      <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px;">
+        <div class="source-card" style="text-align:left;">
+          <div style="font-size:24px; margin-bottom:8px;">&#x1F310;</div>
+          <div class="source-name" style="text-align:left; font-size:14px;">Works on any page</div>
+          <div class="source-count" style="text-align:left;">Confluence, Jira, Google Docs, internal tools — the sidebar reads the page you're on and surfaces relevant research automatically.</div>
+        </div>
+        <div class="source-card" style="text-align:left;">
+          <div style="font-size:24px; margin-bottom:8px;">&#x1F9E0;</div>
+          <div class="source-name" style="text-align:left; font-size:14px;">Auto-detects context</div>
+          <div class="source-count" style="text-align:left;">Reads the page title, headings, and key terms. Highlights text on the page that matches research topics. No manual search needed.</div>
+        </div>
+        <div class="source-card" style="text-align:left;">
+          <div style="font-size:24px; margin-bottom:8px;">&#x1F4AC;</div>
+          <div class="source-name" style="text-align:left; font-size:14px;">Ask follow-up questions</div>
+          <div class="source-count" style="text-align:left;">Type a question in the sidebar to search across all repositories. Results stay contextual to the page you're viewing.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function showTab(name) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  const links = document.querySelectorAll('.nav-links a');
+  const map = { home:0, search:1, projects:2, quotes:3, painpoints:4, requests:5, dashboard:6, alerts:7, slack:8, wiki:9, chrome:10, detail:11 };
+  if (map[name] !== undefined && links[map[name]]) links[map[name]].classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function searchFor(query) {
+  const searchInput = document.querySelector('#tab-search .search-bar');
+  if (searchInput) searchInput.value = query;
+  showTab('search');
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  const roleTargets = {
+    'Researcher': { tab: 'search', query: 'Has this topic been studied before?' },
+    'Designer': { tab: 'quotes' },
+    'Product Manager': { tab: 'requests' },
+    'Engineer': { tab: 'painpoints' },
+    'Leadership': { tab: 'dashboard' }
+  };
+  document.querySelectorAll('.role-card').forEach(card => {
+    card.addEventListener('click', function() {
+      const name = this.querySelector('.role-name').textContent;
+      const target = roleTargets[name];
+      if (target) {
+        if (target.query) {
+          searchFor(target.query);
+        } else {
+          showTab(target.tab);
+        }
+      }
+    });
+  });
+
+  document.querySelectorAll('.suggested-chip').forEach(chip => {
+    chip.addEventListener('click', function(e) {
+      e.preventDefault();
+      searchFor(this.textContent);
+    });
+  });
+
+  document.querySelectorAll('.theme-card').forEach(card => {
+    card.addEventListener('click', function() {
+      const theme = this.querySelector('.theme-title').textContent;
+      searchFor('Show me all research about ' + theme);
+    });
+  });
+
+  document.querySelectorAll('.popular-item').forEach(item => {
+    item.style.cursor = 'pointer';
+    item.addEventListener('click', function() {
+      searchFor(this.querySelector('.popular-text').textContent);
+    });
+  });
+
+  document.querySelectorAll('.related-searches a').forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      searchFor(this.textContent);
+    });
+  });
+
+  document.querySelectorAll('.collection-chip').forEach(chip => {
+    chip.addEventListener('click', function() {
+      document.querySelectorAll('.collection-chip').forEach(c => c.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+
+  const homeSearch = document.querySelector('#tab-home .search-bar');
+  if (homeSearch) {
+    homeSearch.removeAttribute('readonly');
+    homeSearch.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' && this.value.trim()) {
+        searchFor(this.value.trim());
+      }
+    });
+  }
+
+  document.querySelectorAll('.insight-card').forEach(card => {
+    card.style.cursor = 'pointer';
+    card.addEventListener('click', function(e) {
+      if (e.target.tagName === 'A') return;
+      showTab('detail');
+    });
+  });
+});
+</script>
+
+</body>
+</html>
