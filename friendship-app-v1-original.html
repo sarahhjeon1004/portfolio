@@ -1,0 +1,1723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Friendship App — Prototype (Original)</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAF8F5;
+    --bg-card: #FFFFFF;
+    --bg-grouped: #F5F0EB;
+    --text-primary: #2D2D2D;
+    --text-secondary: #6B6B6B;
+    --text-muted: #9B9B9B;
+    --border: #E8E4DF;
+    --accent: #7C9A5E;
+    --accent-hover: #6B8F4D;
+    --accent-light: rgba(124,154,94,0.08);
+
+    --movement: #7C9A5E;
+    --movement-bg: rgba(124,154,94,0.1);
+    --creative: #9B6B9E;
+    --creative-bg: rgba(155,107,158,0.1);
+    --games: #C4A35A;
+    --games-bg: rgba(196,163,90,0.1);
+    --food: #C17A4A;
+    --food-bg: rgba(193,122,74,0.1);
+    --cultural: #5A7A98;
+    --cultural-bg: rgba(90,122,152,0.1);
+    --learning: #5A9A8A;
+    --learning-bg: rgba(90,154,138,0.1);
+    --social: #C47A7A;
+    --social-bg: rgba(196,122,122,0.1);
+    --calm: #7C9A5E;
+    --calm-bg: rgba(124,154,94,0.1);
+
+    --radius: 16px;
+    --radius-sm: 12px;
+    --radius-xs: 8px;
+    --shadow: 0 2px 8px rgba(0,0,0,0.06);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #E8E4DF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== PHONE FRAME ===== */
+  .phone-frame {
+    width: 390px;
+    height: 844px;
+    background: var(--bg);
+    border-radius: 44px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 0 0 4px #333, 0 20px 60px rgba(0,0,0,0.3);
+  }
+
+  .phone-notch {
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 160px; height: 32px; background: #000;
+    border-radius: 0 0 18px 18px; z-index: 100;
+  }
+
+  .status-bar {
+    position: absolute; top: 0; left: 0; right: 0; height: 50px;
+    display: flex; align-items: flex-end; justify-content: space-between;
+    padding: 0 28px 8px; z-index: 99; pointer-events: none;
+    font-size: 14px; font-weight: 500;
+  }
+  .status-bar .sb-time { letter-spacing: 0.3px; }
+  .status-bar .sb-icons { display: flex; gap: 5px; align-items: center; font-size: 12px; }
+  .status-bar .sb-icons svg { width: 16px; height: 16px; }
+
+  .phone-home-indicator {
+    position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
+    width: 134px; height: 5px; background: var(--text-primary);
+    border-radius: 3px; opacity: 0.2; z-index: 100;
+  }
+
+  /* ===== SCREEN TRANSITIONS ===== */
+  .screen {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.35s ease, transform 0.35s ease;
+    transform: translateX(60px);
+    overflow-y: auto; overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+  .screen::-webkit-scrollbar { display: none; }
+  .screen.active { opacity: 1; pointer-events: auto; transform: translateX(0); }
+  .screen.exit-left { opacity: 0; transform: translateX(-60px); }
+  .screen.exit-right { opacity: 0; transform: translateX(60px); }
+
+  /* ===== SCREEN 1: WELCOME ===== */
+  .screen-welcome {
+    justify-content: flex-end; padding: 0 28px 60px;
+    background: linear-gradient(175deg, #F0EDE7 0%, #FAF8F5 35%, #EDE7F0 70%, #FAF8F5 100%);
+  }
+
+  .welcome-illustration { flex: 1; display: flex; align-items: center; justify-content: center; padding-top: 80px; }
+
+  .welcome-visual { position: relative; width: 240px; height: 240px; }
+
+  .welcome-pin {
+    position: absolute; width: 52px; height: 52px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  }
+  .welcome-pin .pin-icon {
+    font-size: 22px; line-height: 1; display: block;
+  }
+  .welcome-pin:nth-child(1) { background: var(--movement); top: 15px; left: 35px; animation: float 3s ease-in-out infinite; }
+  .welcome-pin:nth-child(2) { background: var(--creative); top: 45px; right: 25px; animation: float 3s ease-in-out 0.5s infinite; }
+  .welcome-pin:nth-child(3) { background: var(--cultural); bottom: 50px; left: 50px; animation: float 3s ease-in-out 1s infinite; }
+  .welcome-pin:nth-child(4) { background: var(--social); bottom: 25px; right: 40px; animation: float 3s ease-in-out 1.5s infinite; }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .welcome-circle {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 150px; height: 150px; border-radius: 50%;
+    border: 1px solid rgba(0,0,0,0.06); opacity: 0.5;
+  }
+  .welcome-circle::after {
+    content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 95px; height: 95px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.05);
+  }
+
+  .welcome-content { text-align: center; }
+  .welcome-content h1 { font-size: 26px; font-weight: 700; line-height: 1.3; margin-bottom: 10px; }
+  .welcome-content p { font-size: 16px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 32px; }
+
+  /* ===== BUTTONS ===== */
+  .btn-primary {
+    width: 100%; padding: 15px; background: var(--accent); color: #fff; border: none;
+    border-radius: var(--radius); font-size: 16px; font-weight: 600;
+    font-family: inherit; cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: var(--accent-hover); }
+  .btn-primary:active { transform: scale(0.98); }
+  .btn-primary.saved { background: var(--text-muted); pointer-events: none; }
+
+  .btn-secondary {
+    width: 100%; padding: 15px; background: #fff; color: var(--accent);
+    border: 1px solid var(--border); border-radius: var(--radius);
+    font-size: 16px; font-weight: 600; font-family: inherit; cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-secondary:hover { background: var(--accent-light); }
+  .btn-secondary:active { transform: scale(0.98); }
+  .btn-secondary.saved {
+    background: var(--accent-light);
+    color: var(--accent); pointer-events: none;
+  }
+
+  .btn-text {
+    background: none; border: none; color: var(--accent); font-size: 16px;
+    font-family: inherit; cursor: pointer; padding: 10px;
+  }
+
+  /* ===== SCREEN 2: INTERESTS ===== */
+  .screen-interests { padding: 68px 24px 40px; background: var(--bg); }
+  .screen-header { margin-bottom: 8px; }
+  .screen-header h2 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+  .screen-header p { font-size: 15px; color: var(--text-secondary); line-height: 1.5; }
+
+  .interests-grid { display: flex; flex-direction: column; gap: 10px; margin: 24px 0 20px; flex: 1; }
+
+  .interest-card {
+    display: flex; align-items: center; gap: 14px; padding: 16px;
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); cursor: pointer;
+    transition: transform 0.15s, background 0.2s; user-select: none;
+  }
+  .interest-card:active { transform: scale(0.98); }
+
+  .interest-card .ic-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; flex-shrink: 0;
+  }
+
+  .interest-card[data-cat="movement"] .ic-icon { background: var(--movement-bg); }
+  .interest-card[data-cat="creative"] .ic-icon { background: var(--creative-bg); }
+  .interest-card[data-cat="calm"] .ic-icon { background: var(--calm-bg); }
+  .interest-card[data-cat="social"] .ic-icon { background: var(--social-bg); }
+
+  .interest-card.selected[data-cat="movement"] { background: var(--movement-bg); }
+  .interest-card.selected[data-cat="creative"] { background: var(--creative-bg); }
+  .interest-card.selected[data-cat="calm"] { background: var(--calm-bg); }
+  .interest-card.selected[data-cat="social"] { background: var(--social-bg); }
+
+  .ic-text h3 { font-size: 17px; font-weight: 600; margin-bottom: 2px; }
+  .ic-text span { font-size: 13px; color: var(--text-muted); }
+
+  .interest-check {
+    margin-left: auto; width: 24px; height: 24px; border-radius: 50%;
+    border: 2px solid var(--border); display: flex; align-items: center;
+    justify-content: center; flex-shrink: 0; transition: background 0.2s, border-color 0.2s;
+  }
+  .interest-card.selected .interest-check { background: var(--accent); border-color: var(--accent); }
+  .interest-check svg { opacity: 0; transition: opacity 0.2s; }
+  .interest-card.selected .interest-check svg { opacity: 1; }
+
+  .reassurance { font-size: 13px; color: var(--text-muted); text-align: center; margin-bottom: 16px; }
+  .screen-footer { padding-top: 8px; padding-bottom: 20px; }
+
+  /* ===== SCREEN 3: LOCATION ===== */
+  .screen-location { padding: 68px 28px 40px; background: var(--bg); justify-content: center; }
+  .location-icon { width: 80px; height: 80px; background: var(--accent-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 28px; font-size: 32px; }
+  .location-content { text-align: center; }
+  .location-content h2 { font-size: 24px; font-weight: 700; margin-bottom: 14px; }
+  .location-content p { font-size: 15px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 36px; max-width: 320px; margin-inline: auto; }
+  .location-content .highlight { color: var(--text-primary); font-weight: 600; }
+  .btn-group { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+
+  /* ===== SCREEN 4: MAP (EXPLORE) ===== */
+  .screen-map { padding: 0; background: var(--bg); overflow: hidden !important; }
+
+  .map-area {
+    position: relative; height: 400px; flex-shrink: 0; overflow: hidden;
+  }
+
+  .map-header {
+    position: absolute; top: 0; left: 0; right: 0; z-index: 10;
+    padding: 54px 16px 12px;
+    background: linear-gradient(to bottom, rgba(250,248,245,0.98) 60%, rgba(250,248,245,0) 100%);
+  }
+  .map-top-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .map-title { font-size: 20px; font-weight: 700; }
+  .map-avatar {
+    width: 34px; height: 34px; border-radius: 50%;
+    background: var(--accent-light);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 600; color: var(--text-primary);
+    cursor: pointer; transition: transform 0.15s;
+  }
+  .map-avatar:active { transform: scale(0.9); }
+
+  .map-filters { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; }
+  .map-filters::-webkit-scrollbar { display: none; }
+
+  .filter-chip {
+    padding: 8px 14px; border-radius: 20px; font-size: 13px; font-weight: 500;
+    border: 1px solid var(--border); background: var(--bg-card);
+    cursor: pointer; white-space: nowrap; transition: all 0.2s;
+    font-family: inherit; color: var(--text-primary); flex-shrink: 0;
+  }
+  .filter-chip.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .filter-chip:active:not(.active) { transform: scale(0.95); }
+
+  .map-canvas {
+    position: absolute; top: 0; left: 0; right: 0; height: 900px;
+    background:
+      radial-gradient(circle at 30% 40%, rgba(124,154,94,0.08) 0%, transparent 55%),
+      radial-gradient(circle at 75% 25%, rgba(90,122,152,0.06) 0%, transparent 45%),
+      #E8E4DF;
+    transform-origin: 195px 230px;
+  }
+
+  .map-road { position: absolute; background: rgba(255,255,255,0.55); border-radius: 1px; }
+  .map-road.queen    { top: 180px; left: 0; right: 0; height: 2px; }
+  .map-road.dundas   { top: 130px; left: 0; right: 0; height: 2px; }
+  .map-road.king     { top: 280px; left: 0; right: 0; height: 2px; }
+  .map-road.front    { top: 350px; left: 0; right: 0; height: 2px; }
+  .map-road.spadina   { left: 100px; top: 100px; height: 300px; width: 2px; }
+  .map-road.university{ left: 195px; top: 100px; height: 300px; width: 2px; }
+  .map-road.yonge     { left: 280px; top: 100px; height: 300px; width: 2px; background: rgba(255,255,255,0.65); }
+  .map-road.bay       { left: 340px; top: 100px; height: 300px; width: 2px; }
+
+  .map-street-label {
+    position: absolute; font-size: 9px; font-weight: 500;
+    color: rgba(60,60,67,0.3); letter-spacing: 0.3px;
+    white-space: nowrap; pointer-events: none;
+  }
+  .map-street-label.vertical { writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg); }
+  .map-neighbourhood {
+    position: absolute; font-size: 8px; font-weight: 700;
+    color: rgba(60,60,67,0.2); letter-spacing: 1.5px;
+    text-transform: uppercase; white-space: nowrap; pointer-events: none;
+  }
+  .map-block { position: absolute; background: rgba(255,255,255,0.18); border-radius: 4px; }
+  .map-park { position: absolute; border-radius: 40%; background: rgba(48,209,88,0.1); }
+
+  /* User location dot */
+  .user-dot { position: absolute; z-index: 8; pointer-events: none; }
+  .user-dot-inner {
+    width: 14px; height: 14px; border-radius: 50%;
+    background: #4A90D9; border: 3px solid #fff;
+    box-shadow: 0 1px 6px rgba(74,144,217,0.4);
+  }
+  .user-dot-pulse {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 40px; height: 40px; border-radius: 50%;
+    background: rgba(74,144,217,0.12);
+    animation: loc-pulse 2.5s ease-out infinite;
+  }
+  @keyframes loc-pulse {
+    0% { transform: translate(-50%,-50%) scale(0.5); opacity: 1; }
+    100% { transform: translate(-50%,-50%) scale(1.4); opacity: 0; }
+  }
+
+  /* Map pins */
+  .map-pin {
+    position: absolute; cursor: pointer; z-index: 5;
+    transition: transform 0.2s ease; opacity: 0;
+    animation: pin-drop 0.4s ease forwards;
+    padding: 6px;
+  }
+  .map-pin:nth-child(n+12) { animation-delay: 0.04s; }
+  .map-pin:nth-child(n+13) { animation-delay: 0.08s; }
+  .map-pin:nth-child(n+14) { animation-delay: 0.12s; }
+  .map-pin:nth-child(n+15) { animation-delay: 0.16s; }
+  .map-pin:nth-child(n+16) { animation-delay: 0.20s; }
+  .map-pin:nth-child(n+17) { animation-delay: 0.24s; }
+  .map-pin:nth-child(n+18) { animation-delay: 0.28s; }
+  .map-pin:nth-child(n+19) { animation-delay: 0.32s; }
+  .map-pin:nth-child(n+20) { animation-delay: 0.36s; }
+  .map-pin:nth-child(n+21) { animation-delay: 0.40s; }
+  @keyframes pin-drop {
+    0% { opacity: 0; transform: translateY(-14px) scale(0.5); }
+    70% { transform: translateY(2px) scale(1.05); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  .map-pin:hover { transform: scale(1.18); z-index: 6; }
+  .map-pin:active { transform: scale(1.05); }
+  .map-pin.active { z-index: 7; transform: scale(1.18); }
+  .map-pin.active .pin-marker { box-shadow: 0 0 0 4px rgba(124,154,94,0.3), 0 4px 12px rgba(0,0,0,0.15); }
+  .map-pin.dimmed { opacity: 0.1 !important; pointer-events: none; }
+
+  .pin-marker {
+    width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    transition: box-shadow 0.2s, transform 0.2s ease;
+  }
+  .pin-marker .pm-icon { font-size: 17px; line-height: 1; }
+
+  .pin-marker.movement { background: var(--movement); }
+  .pin-marker.creative { background: var(--creative); }
+  .pin-marker.games    { background: var(--games); }
+  .pin-marker.food     { background: var(--food); }
+  .pin-marker.cultural { background: var(--cultural); }
+  .pin-marker.learning { background: var(--learning); }
+  .pin-marker.social   { background: var(--social); }
+
+  .pin-label {
+    position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+    font-size: 10px; font-weight: 600; color: var(--text-primary); margin-top: 3px;
+    background: #fff; padding: 3px 8px; border-radius: 6px;
+    white-space: nowrap; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    opacity: 0; transition: opacity 0.15s; pointer-events: none;
+  }
+  .map-pin:hover .pin-label,
+  .map-pin.active .pin-label { opacity: 1; }
+
+  /* Map boundary banner */
+  .map-boundary-banner {
+    position: absolute; top: 110px; left: 16px; right: 16px; z-index: 13;
+    background: rgba(45,45,45,0.9);
+    color: #fff; padding: 12px 16px; border-radius: 12px;
+    font-size: 13px; font-weight: 500; text-align: center;
+    opacity: 0; transform: translateY(-8px);
+    transition: opacity 0.25s, transform 0.25s ease;
+    pointer-events: none;
+  }
+  .map-boundary-banner.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+
+  /* ===== EXPLORE SHEET ===== */
+  .explore-sheet {
+    flex: 1; overflow-y: auto; background: var(--bg);
+    border-radius: 16px 16px 0 0; margin-top: -12px;
+    position: relative; z-index: 11;
+    padding: 0 0 60px;
+    box-shadow: 0 -2px 12px rgba(0,0,0,0.06);
+    -webkit-overflow-scrolling: touch;
+  }
+  .sheet-handle {
+    width: 36px; height: 5px; background: rgba(60,60,67,0.15);
+    border-radius: 3px; margin: 8px auto 0;
+  }
+  .sheet-title {
+    padding: 14px 20px 8px; font-size: 20px; font-weight: 700;
+    letter-spacing: -0.3px; color: var(--text-primary);
+  }
+  .activity-list { padding: 0 16px; display: flex; flex-direction: column; gap: 8px; }
+
+  .al-card {
+    display: flex; align-items: center; gap: 12px; padding: 14px 16px;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm);
+    cursor: pointer; transition: background 0.15s;
+  }
+  .al-card:active { background: var(--bg-grouped); }
+  .al-card.dimmed { opacity: 0.25; pointer-events: none; }
+
+  .al-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px; flex-shrink: 0;
+  }
+  .al-icon.movement { background: var(--movement-bg); }
+  .al-icon.creative { background: var(--creative-bg); }
+  .al-icon.games    { background: var(--games-bg); }
+  .al-icon.food     { background: var(--food-bg); }
+  .al-icon.cultural { background: var(--cultural-bg); }
+  .al-icon.learning { background: var(--learning-bg); }
+  .al-icon.social   { background: var(--social-bg); }
+
+  .al-info { flex: 1; min-width: 0; }
+  .al-info h3 { font-size: 15px; font-weight: 600; margin-bottom: 2px; letter-spacing: -0.2px; }
+  .al-info span { font-size: 13px; color: var(--text-muted); }
+
+  .al-right { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; flex-shrink: 0; }
+  .al-people { font-size: 12px; color: var(--accent); font-weight: 600; }
+  .al-energy { font-size: 14px; }
+
+  /* ===== BOTTOM NAV ===== */
+  .bottom-nav {
+    position: absolute; bottom: 0; left: 0; right: 0; z-index: 15;
+    height: 56px; background: var(--bg-card);
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-around;
+    padding-bottom: 4px;
+  }
+  .nav-item {
+    display: flex; flex-direction: column; align-items: center; gap: 2px;
+    background: none; border: none; cursor: pointer;
+    color: var(--text-muted); font-family: inherit; font-size: 10px;
+    font-weight: 500; padding: 4px 20px;
+    transition: color 0.15s, transform 0.15s;
+  }
+  .nav-item:active { transform: scale(0.9); }
+  .nav-item.active { color: var(--accent); }
+  .nav-item svg { width: 22px; height: 22px; }
+
+  /* ===== MINI CARD ===== */
+  .mini-card {
+    position: absolute; bottom: 20px; left: 12px; right: 12px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 16px 18px;
+    box-shadow: var(--shadow-lg);
+    z-index: 20; transform: translateY(16px); opacity: 0;
+    pointer-events: none; transition: opacity 0.25s, transform 0.3s ease;
+  }
+  .mini-card.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+
+  .mini-card-top { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
+
+  .mc-cat-dot {
+    width: 36px; height: 36px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0;
+  }
+  .mc-cat-dot.movement { background: var(--movement-bg); }
+  .mc-cat-dot.creative { background: var(--creative-bg); }
+  .mc-cat-dot.games    { background: var(--games-bg); }
+  .mc-cat-dot.food     { background: var(--food-bg); }
+  .mc-cat-dot.cultural { background: var(--cultural-bg); }
+  .mc-cat-dot.learning { background: var(--learning-bg); }
+  .mc-cat-dot.social   { background: var(--social-bg); }
+
+  .mc-info { flex: 1; }
+  .mc-info h3 { font-size: 15px; font-weight: 600; margin-bottom: 3px; letter-spacing: -0.2px; }
+  .mc-meta { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-muted); flex-wrap: wrap; }
+  .mc-meta-item { display: flex; align-items: center; gap: 3px; }
+
+  .mc-close {
+    position: absolute; top: 12px; right: 14px; background: none; border: none;
+    font-size: 14px; color: var(--text-muted); cursor: pointer; padding: 4px; line-height: 1;
+  }
+
+  .mc-tags { display: flex; gap: 5px; margin-bottom: 10px; flex-wrap: wrap; }
+  .mc-tag { font-size: 10px; padding: 3px 7px; border-radius: 8px; background: var(--bg); color: var(--text-muted); font-weight: 500; }
+
+  .mc-people { font-size: 12px; color: var(--text-secondary); margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+  .mc-people-dots { display: flex; }
+  .mc-people-dot {
+    width: 20px; height: 20px; border-radius: 50%; background: var(--accent-light);
+    border: 2px solid var(--bg-card); display: flex; align-items: center; justify-content: center;
+    font-size: 9px; font-weight: 600; color: var(--accent);
+  }
+  .mc-people-dot + .mc-people-dot { margin-left: -6px; }
+
+  .mc-cta {
+    width: 100%; padding: 12px; background: var(--accent); color: #fff; border: none;
+    border-radius: var(--radius-sm); font-size: 15px; font-weight: 600;
+    font-family: inherit; cursor: pointer;
+    transition: transform 0.15s;
+  }
+  .mc-cta:active { transform: scale(0.97); }
+
+  /* ===== SCREEN 5: ACTIVITY DETAIL ===== */
+  .screen-activity { padding: 0; background: var(--bg); }
+  .activity-back {
+    position: absolute; top: 54px; left: 16px; z-index: 10;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 50%;
+    width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 18px;
+    transition: transform 0.15s;
+  }
+  .activity-back:active { transform: scale(0.88); }
+
+  .activity-hero {
+    height: 220px; display: flex; align-items: center; justify-content: center;
+    font-size: 64px; position: relative;
+    background: linear-gradient(135deg, var(--social-bg) 0%, #f0dde3 100%);
+  }
+  .activity-hero::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 40px;
+    background: linear-gradient(to top, var(--bg), transparent);
+  }
+
+  .activity-body { padding: 20px 28px 40px; }
+
+  .activity-cat-badge {
+    display: inline-flex; align-items: center; gap: 5px; padding: 5px 12px;
+    border-radius: 14px; font-size: 12px; font-weight: 500; margin-bottom: 12px;
+  }
+  .activity-cat-badge.social { background: var(--social-bg); color: var(--social); }
+  .activity-cat-badge.movement { background: var(--movement-bg); color: var(--movement); }
+  .activity-cat-badge.creative { background: var(--creative-bg); color: var(--creative); }
+  .activity-cat-badge.games { background: var(--games-bg); color: var(--games); }
+  .activity-cat-badge.food { background: var(--food-bg); color: var(--food); }
+  .activity-cat-badge.cultural { background: var(--cultural-bg); color: var(--cultural); }
+  .activity-cat-badge.learning { background: var(--learning-bg); color: var(--learning); }
+
+  .activity-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+  .activity-tag {
+    font-size: 12px; padding: 4px 10px; border-radius: 12px;
+    background: var(--bg); color: var(--text-muted); font-weight: 500; border: 1px solid var(--border);
+  }
+
+  .activity-body h2 { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+  .activity-body .activity-desc { font-size: 15px; color: var(--text-secondary); margin-bottom: 20px; line-height: 1.5; }
+  .activity-match {
+    display: flex; align-items: center; gap: 8px; padding: 12px 14px;
+    background: var(--accent-light); border-radius: var(--radius-xs);
+    margin-bottom: 20px; font-size: 13px; color: var(--accent); font-weight: 500;
+  }
+  .activity-details { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+  .detail-item { padding: 12px 14px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-xs); }
+  .detail-item .di-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .detail-item .di-value { font-size: 14px; font-weight: 500; }
+
+  .social-signal {
+    display: flex; align-items: center; gap: 10px; padding: 14px;
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius-xs); margin-bottom: 28px;
+  }
+  .signal-dots { display: flex; }
+  .signal-dot {
+    width: 28px; height: 28px; border-radius: 50%; background: var(--accent-light);
+    border: 2px solid var(--bg-card); display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 600; color: var(--accent);
+  }
+  .signal-dot + .signal-dot { margin-left: -8px; }
+  .signal-text { font-size: 13px; color: var(--text-secondary); }
+  .activity-ctas { display: flex; flex-direction: column; gap: 10px; }
+
+  /* ===== SCREEN 6: PEOPLE ===== */
+  .screen-people { padding: 0; background: var(--bg); }
+  .people-header { padding: 56px 28px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; }
+  .people-back-btn { background: none; border: none; font-size: 20px; cursor: pointer; padding: 4px; color: var(--text-primary); }
+  .people-header-text h2 { font-size: 17px; font-weight: 700; }
+  .people-header-text span { font-size: 13px; color: var(--text-muted); }
+  .people-list { padding: 16px 28px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+  .person-card {
+    display: flex; align-items: center; gap: 14px; padding: 16px;
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); cursor: pointer;
+    transition: transform 0.15s;
+  }
+  .person-card:active { transform: scale(0.98); }
+  .person-avatar {
+    width: 44px; height: 44px; border-radius: 50%; background: var(--accent-light);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 600; color: var(--accent); flex-shrink: 0;
+  }
+  .person-info { flex: 1; }
+  .person-info h3 { font-size: 15px; font-weight: 500; margin-bottom: 3px; }
+  .person-meta { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-muted); }
+  .person-interests { display: flex; gap: 4px; }
+  .person-interest-dot { width: 8px; height: 8px; border-radius: 50%; }
+  .person-cta {
+    font-size: 13px; color: var(--accent); font-weight: 600; padding: 7px 14px;
+    border: none; border-radius: 16px; background: var(--accent-light);
+    cursor: pointer; white-space: nowrap; font-family: inherit;
+    transition: transform 0.15s;
+  }
+  .person-cta:active { transform: scale(0.92); }
+  .people-footer { padding: 16px 28px 40px; text-align: center; }
+  .people-footer p { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+  /* ===== SCREEN 7: COORDINATE ===== */
+  .screen-coordinate { padding: 0; background: var(--bg); }
+  .coord-header { padding: 56px 28px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; }
+  .coord-body { padding: 24px 28px; flex: 1; }
+  .coord-person { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+  .coord-label { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+  .time-options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
+  .time-option {
+    padding: 14px 16px; border: 1px solid var(--border); border-radius: var(--radius-xs);
+    background: var(--bg-card); cursor: pointer;
+    transition: transform 0.15s, background 0.15s;
+    display: flex; align-items: center; gap: 10px;
+    font-family: inherit; font-size: 15px; color: var(--text-primary); text-align: left;
+  }
+  .time-option:active { transform: scale(0.98); }
+  .time-option.selected { background: var(--accent-light); }
+  .time-option .to-icon { font-size: 16px; }
+  .or-divider { text-align: center; font-size: 12px; color: var(--text-muted); margin: 16px 0; position: relative; }
+  .or-divider::before, .or-divider::after { content: ''; position: absolute; top: 50%; width: 40%; height: 1px; background: var(--border); }
+  .or-divider::before { left: 0; }
+  .or-divider::after { right: 0; }
+  .coord-input {
+    width: 100%; padding: 14px 16px; border: 1px solid var(--border);
+    border-radius: var(--radius-xs); font-size: 16px; font-family: inherit;
+    color: var(--text-primary); background: var(--bg-card); outline: none;
+    margin-bottom: 28px;
+  }
+  .coord-input::placeholder { color: var(--text-muted); }
+  .coord-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-light); }
+  .coord-footer { padding: 16px 28px 40px; }
+
+  /* ===== SCREEN 8: POST-ACTIVITY ===== */
+  .screen-post { padding: 72px 28px 40px; background: var(--bg); justify-content: center; }
+  .post-icon { width: 80px; height: 80px; background: var(--accent-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; font-size: 36px; }
+  .post-content { text-align: center; margin-bottom: 32px; }
+  .post-content h2 { font-size: 24px; font-weight: 600; margin-bottom: 8px; }
+  .post-content p { font-size: 14px; color: var(--text-secondary); line-height: 1.5; }
+  .post-options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+  .post-option {
+    display: flex; align-items: center; gap: 14px; padding: 16px;
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); cursor: pointer;
+    transition: transform 0.15s, background 0.15s;
+    text-align: left; font-family: inherit;
+  }
+  .post-option:active { transform: scale(0.97); }
+  .post-option.selected { background: var(--accent-light); }
+  .post-option .po-icon { width: 40px; height: 40px; border-radius: 10px; background: var(--accent-light); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+  .post-option .po-text h3 { font-size: 15px; font-weight: 500; margin-bottom: 2px; }
+  .post-option .po-text span { font-size: 12px; color: var(--text-muted); }
+
+  /* ===== SCREEN 9: SAVED ===== */
+  .screen-saved { padding: 0; background: var(--bg); }
+  .saved-header { padding: 56px 24px 16px; }
+  .saved-header h2 { font-size: 24px; font-weight: 700; }
+  .saved-body { padding: 0 24px 80px; overflow-y: auto; flex: 1; }
+  .saved-section-label {
+    font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
+    color: var(--text-muted); margin: 20px 0 10px; display: flex; align-items: center; gap: 8px;
+  }
+  .saved-section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  .saved-card {
+    display: flex; align-items: center; gap: 14px; padding: 14px 16px;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm);
+    margin-bottom: 8px; cursor: pointer;
+    transition: transform 0.15s;
+  }
+  .saved-card:active { transform: scale(0.98); }
+
+  .saved-card-icon {
+    width: 42px; height: 42px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0;
+  }
+  .saved-card-icon.movement { background: var(--movement-bg); }
+  .saved-card-icon.creative { background: var(--creative-bg); }
+  .saved-card-icon.games    { background: var(--games-bg); }
+  .saved-card-icon.food     { background: var(--food-bg); }
+  .saved-card-icon.cultural { background: var(--cultural-bg); }
+  .saved-card-icon.learning { background: var(--learning-bg); }
+  .saved-card-icon.social   { background: var(--social-bg); }
+
+  .saved-card-info { flex: 1; min-width: 0; }
+  .saved-card-info h3 { font-size: 14px; font-weight: 600; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .saved-card-meta { font-size: 12px; color: var(--text-muted); display: flex; gap: 6px; align-items: center; }
+
+  .saved-card-badge {
+    font-size: 10px; font-weight: 600; padding: 3px 8px; border-radius: 8px; white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .saved-card-badge.intent { background: var(--accent-light); color: var(--accent); }
+  .saved-card-badge.saved-state { background: var(--bg); color: var(--text-muted); border: 1px solid var(--border); }
+
+  .saved-card-people {
+    display: flex; align-items: center; gap: 4px; flex-shrink: 0;
+  }
+  .saved-card-people .scp-dot {
+    width: 18px; height: 18px; border-radius: 50%; background: var(--accent-light);
+    border: 2px solid var(--bg-card); font-size: 8px; font-weight: 600; color: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .saved-card-people .scp-dot + .scp-dot { margin-left: -5px; }
+  .saved-card-people span { font-size: 11px; color: var(--text-muted); }
+
+  .saved-empty {
+    text-align: center; padding: 40px 20px; color: var(--text-muted); font-size: 14px; line-height: 1.6;
+  }
+
+  /* ===== SCREEN 10: PROFILE ===== */
+  .screen-profile { padding: 0; background: var(--bg); }
+  .profile-header { padding: 56px 24px 0; text-align: center; }
+
+  .profile-avatar-lg {
+    width: 72px; height: 72px; border-radius: 50%; background: var(--accent-light);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px; font-weight: 600; color: var(--accent); margin: 0 auto 12px;
+  }
+  .profile-header h2 { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+  .profile-header .profile-loc { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
+
+  .profile-stats {
+    display: flex; justify-content: center; gap: 0; padding: 0;
+    margin: 0 24px; background: var(--bg-card); border-radius: var(--radius-sm);
+    border: 1px solid var(--border); overflow: hidden;
+  }
+  .profile-stat { text-align: center; flex: 1; padding: 16px 0; }
+  .profile-stat + .profile-stat { border-left: 1px solid var(--border); }
+  .profile-stat .ps-num { font-size: 20px; font-weight: 700; color: var(--accent); }
+  .profile-stat .ps-label { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+  .profile-body { padding: 20px 24px 80px; }
+
+  .profile-section {
+    margin-bottom: 24px;
+  }
+  .profile-section-title {
+    font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
+    color: var(--text-muted); margin-bottom: 12px;
+  }
+
+  .profile-interests {
+    display: flex; flex-wrap: wrap; gap: 8px;
+  }
+  .profile-interest-chip {
+    display: flex; align-items: center; gap: 6px; padding: 8px 14px;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px;
+    font-size: 15px; font-weight: 500; color: var(--text-primary); cursor: default;
+  }
+  .profile-interest-chip .pic-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+  .profile-setting-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 16px; background: var(--bg-card);
+    cursor: pointer; transition: background 0.1s;
+    border: 1px solid var(--border); border-radius: var(--radius-xs);
+    margin-bottom: 6px;
+  }
+  .profile-setting-row:active { background: var(--bg-grouped); }
+  .profile-setting-label { font-size: 16px; font-weight: 400; }
+  .profile-setting-value { font-size: 15px; color: var(--text-muted); display: flex; align-items: center; gap: 4px; }
+
+  .profile-progress {
+    padding: 16px; background: var(--accent-light); border-radius: var(--radius-sm);
+    display: flex; align-items: center; gap: 14px;
+  }
+  .profile-progress-icon { font-size: 28px; flex-shrink: 0; }
+  .profile-progress-text h3 { font-size: 14px; font-weight: 600; color: var(--accent); margin-bottom: 2px; }
+  .profile-progress-text span { font-size: 12px; color: var(--text-secondary); }
+
+  /* ===== MAP ZOOM CONTROLS ===== */
+  .map-zoom {
+    position: absolute; bottom: 16px; right: 12px; z-index: 12;
+    display: flex; flex-direction: column; gap: 1px;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  .map-zoom button {
+    width: 38px; height: 38px;
+    background: transparent; border: none;
+    font-size: 20px; font-weight: 300; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-primary); font-family: inherit; line-height: 1;
+    transition: background 0.1s;
+  }
+  .map-zoom button + button { border-top: 1px solid var(--border); }
+  .map-zoom button:active { background: var(--bg-grouped); }
+  .map-area { cursor: grab; }
+  .map-area.dragging { cursor: grabbing; }
+
+  /* ===== PROFILE DETAIL OVERLAY ===== */
+  .profile-detail-overlay {
+    position: absolute; inset: 0; z-index: 30;
+    background: var(--bg);
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+    display: flex; flex-direction: column;
+    overflow-y: auto;
+  }
+  .profile-detail-overlay.visible { transform: translateY(0); }
+
+  .pdo-header {
+    padding: 56px 20px 14px; display: flex; align-items: center; gap: 12px;
+    border-bottom: 1px solid var(--border); flex-shrink: 0;
+  }
+  .pdo-back {
+    background: none; border: none; font-size: 20px; cursor: pointer;
+    padding: 4px; color: var(--text-primary); line-height: 1;
+  }
+  .pdo-title { font-size: 17px; font-weight: 600; }
+
+  .pdo-body { padding: 16px 20px 80px; flex: 1; }
+
+  .pdo-card {
+    display: flex; align-items: center; gap: 12px; padding: 14px 16px;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm);
+    margin-bottom: 8px;
+  }
+  .pdo-card-icon {
+    width: 38px; height: 38px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0;
+  }
+  .pdo-card-info { flex: 1; }
+  .pdo-card-info h3 { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+  .pdo-card-info span { font-size: 12px; color: var(--text-muted); }
+
+  .pdo-card-badge {
+    font-size: 10px; font-weight: 600; padding: 3px 8px; border-radius: 8px;
+    flex-shrink: 0;
+  }
+  .pdo-card-badge.went { background: var(--accent-light); color: var(--accent); }
+  .pdo-card-badge.coord { background: #F3EEF8; color: var(--creative); }
+
+  .profile-stat { cursor: pointer; transition: opacity 0.15s; }
+  .profile-stat:hover { opacity: 0.7; }
+
+  /* ===== TOAST ===== */
+  .toast {
+    position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(16px);
+    background: rgba(45,45,45,0.92);
+    color: #fff; padding: 12px 20px; border-radius: var(--radius-sm);
+    font-size: 14px; font-weight: 500; opacity: 0; pointer-events: none;
+    transition: opacity 0.25s, transform 0.3s ease; z-index: 50; white-space: nowrap;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* ===== PROGRESS DOTS ===== */
+  .progress-dots { display: flex; justify-content: center; gap: 6px; padding: 8px 0 4px; }
+  .progress-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); transition: background 0.3s, width 0.3s; }
+  .progress-dot.active { background: var(--accent); width: 16px; border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<div class="phone-frame">
+  <div class="phone-notch"></div>
+  <div class="status-bar">
+    <span class="sb-time">9:41</span>
+    <span class="sb-icons">
+      <svg viewBox="0 0 16 16" fill="currentColor"><path d="M1 10h2v4H1zM4.5 7h2v7h-2zM8 4h2v10H8zM11.5 1h2v13h-2z"/></svg>
+      <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 2C4.7 2 1.8 3.6.3 6l1.4 1C3 5.3 5.3 4 8 4s5 1.3 6.3 3l1.4-1C14.2 3.6 11.3 2 8 2zM8 6C5.8 6 3.8 7 2.5 8.5L3.9 10C4.9 8.8 6.4 8 8 8s3.1.8 4.1 2l1.4-1.5C12.2 7 10.2 6 8 6zm0 4c-1.1 0-2.1.5-2.8 1.3L8 14l2.8-2.7C10.1 10.5 9.1 10 8 10z"/></svg>
+      <svg viewBox="0 0 24 16" fill="currentColor"><rect x="1" y="3" width="18" height="10" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/><rect x="20" y="6" width="2.5" height="4" rx="1"/><rect x="3" y="5" width="12" height="6" rx="1"/></svg>
+    </span>
+  </div>
+  <div class="phone-home-indicator"></div>
+
+  <!-- SCREEN 1: WELCOME -->
+  <div class="screen screen-welcome active" id="screen-1">
+    <div class="welcome-illustration">
+      <div class="welcome-visual">
+        <div class="welcome-circle"></div>
+        <div class="welcome-pin"><span class="pin-icon">🏃</span></div>
+        <div class="welcome-pin"><span class="pin-icon">🎨</span></div>
+        <div class="welcome-pin"><span class="pin-icon">🎵</span></div>
+        <div class="welcome-pin"><span class="pin-icon">🐕</span></div>
+      </div>
+    </div>
+    <div class="welcome-content">
+      <h1>Find things you want to do—and people who want to do them too.</h1>
+      <p>Do what you already love. Meet people there.</p>
+      <div class="progress-dots">
+        <div class="progress-dot active"></div>
+        <div class="progress-dot"></div>
+        <div class="progress-dot"></div>
+      </div>
+      <div style="height:16px"></div>
+      <button class="btn-primary" onclick="goTo(2)">Get started</button>
+    </div>
+  </div>
+
+  <!-- SCREEN 2: INTERESTS -->
+  <div class="screen screen-interests" id="screen-2">
+    <div class="screen-header">
+      <h2>What do you like to do?</h2>
+      <p>Pick what sounds good. You can change this anytime.</p>
+    </div>
+    <div class="interests-grid">
+      <div class="interest-card" data-cat="movement" onclick="toggleInterest(this)">
+        <div class="ic-icon">🏃</div>
+        <div class="ic-text"><h3>Movement</h3><span>Run, walk, gym, sports, dance, hike</span></div>
+        <div class="interest-check"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5L4.5 8.5L11 1.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </div>
+      <div class="interest-card" data-cat="creative" onclick="toggleInterest(this)">
+        <div class="ic-icon">🎨</div>
+        <div class="ic-text"><h3>Creative</h3><span>Art, music, writing, crafts, make something</span></div>
+        <div class="interest-check"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5L4.5 8.5L11 1.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </div>
+      <div class="interest-card" data-cat="calm" onclick="toggleInterest(this)">
+        <div class="ic-icon">☕</div>
+        <div class="ic-text"><h3>Calm</h3><span>Coffee, read, yoga, nature, low-key hang</span></div>
+        <div class="interest-check"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5L4.5 8.5L11 1.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </div>
+      <div class="interest-card" data-cat="social" onclick="toggleInterest(this)">
+        <div class="ic-icon">🎲</div>
+        <div class="ic-text"><h3>Social</h3><span>Food, drinks, games, events, explore</span></div>
+        <div class="interest-check"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5L4.5 8.5L11 1.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </div>
+    </div>
+    <div class="reassurance">You can change this anytime.</div>
+    <div class="progress-dots"><div class="progress-dot"></div><div class="progress-dot active"></div><div class="progress-dot"></div></div>
+    <div class="screen-footer"><button class="btn-primary" onclick="goTo(3)">See what's near me</button></div>
+  </div>
+
+  <!-- SCREEN 3: LOCATION -->
+  <div class="screen screen-location" id="screen-3">
+    <div class="location-icon">📍</div>
+    <div class="location-content">
+      <h2>See what's near you</h2>
+      <p><span class="highlight">We show you activities near you—not random matches.</span><br><br>So you see things you can actually do this week, with people nearby. We don't share your exact location with others.</p>
+      <div class="progress-dots"><div class="progress-dot"></div><div class="progress-dot"></div><div class="progress-dot active"></div></div>
+      <div class="btn-group">
+        <button class="btn-primary" onclick="goTo(4)">Allow location</button>
+        <button class="btn-text" onclick="goTo(4)">Maybe later</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 4: MAP (EXPLORE) -->
+  <div class="screen screen-map" id="screen-4">
+    <div class="map-area">
+      <div class="map-canvas">
+        <div class="map-road dundas"></div><div class="map-road queen"></div>
+        <div class="map-road king"></div><div class="map-road front"></div>
+        <div class="map-road spadina"></div><div class="map-road university"></div>
+        <div class="map-road yonge"></div><div class="map-road bay"></div>
+
+        <div class="map-street-label" style="top:118px;left:300px">Dundas</div>
+        <div class="map-street-label" style="top:168px;left:8px">Queen W</div>
+        <div class="map-street-label" style="top:268px;left:300px">King W</div>
+        <div class="map-street-label vertical" style="top:200px;left:284px">Yonge</div>
+        <div class="map-street-label vertical" style="top:195px;left:104px">Spadina</div>
+
+        <div class="map-neighbourhood" style="top:115px;left:290px">Yonge-Dundas</div>
+        <div class="map-neighbourhood" style="top:165px;left:110px">Fashion Dist.</div>
+        <div class="map-neighbourhood" style="top:300px;left:280px">Financial</div>
+
+        <div class="map-block" style="top:145px;left:110px;width:70px;height:30px"></div>
+        <div class="map-block" style="top:145px;left:200px;width:65px;height:30px"></div>
+        <div class="map-block" style="top:200px;left:110px;width:70px;height:60px"></div>
+        <div class="map-block" style="top:200px;left:200px;width:65px;height:60px"></div>
+        <div class="map-block" style="top:200px;left:295px;width:40px;height:60px"></div>
+        <div class="map-block" style="top:295px;left:110px;width:70px;height:40px"></div>
+        <div class="map-block" style="top:295px;left:200px;width:65px;height:40px"></div>
+
+        <div class="map-park" style="top:145px;left:15px;width:70px;height:80px;border-radius:30%"></div>
+        <div class="map-park" style="top:195px;left:155px;width:25px;height:25px"></div>
+
+        <!-- User location -->
+        <div class="user-dot" style="top:230px;left:170px">
+          <div class="user-dot-pulse"></div>
+          <div class="user-dot-inner"></div>
+        </div>
+
+        <!-- Activity Pins — spread across the map -->
+        <div class="map-pin" style="top:135px;left:30px" onclick="showMiniCard(this)" data-name="Dog Bowl Social" data-loc="Trinity Bellwoods" data-dist="~5 min walk" data-energy="Calm" data-social="Medium" data-people="4" data-cat="social" data-icon="🐕" data-cadence="Daily" data-cost="Free" data-walkin="Yes" data-setting="Outdoor" data-tags="Pet-friendly, Casual">
+          <div class="pin-marker social"><span class="pm-icon">🐕</span></div><div class="pin-label">Dog Bowl</div>
+        </div>
+        <div class="map-pin" style="top:115px;left:260px" onclick="showMiniCard(this)" data-name="Snakes & Lattes" data-loc="Yonge-Dundas" data-dist="~15 min" data-energy="Moderate" data-social="High" data-people="6" data-cat="games" data-icon="🎲" data-cadence="Daily · open play" data-cost="$" data-walkin="Yes" data-setting="Indoor" data-tags="Board games, Social, Drop-in">
+          <div class="pin-marker games"><span class="pm-icon">🎲</span></div><div class="pin-label">Snakes & Lattes</div>
+        </div>
+        <div class="map-pin" style="top:185px;left:25px" onclick="showMiniCard(this)" data-name="Artscape Open Studio" data-loc="Queen W · Youngplace" data-dist="~10 min walk" data-energy="Calm" data-social="Low" data-people="2" data-cat="creative" data-icon="🎨" data-cadence="Weekly" data-cost="Free" data-walkin="Yes" data-setting="Indoor" data-tags="Quiet activity, Beginner-friendly">
+          <div class="pin-marker creative"><span class="pm-icon">🎨</span></div><div class="pin-label">Open Studio</div>
+        </div>
+        <div class="map-pin" style="top:165px;left:145px" onclick="showMiniCard(this)" data-name="Drake Live Music" data-loc="Queen West" data-dist="~8 min walk" data-energy="Moderate" data-social="High" data-people="3" data-cat="cultural" data-icon="🎵" data-cadence="Weekly" data-cost="$" data-walkin="Yes" data-setting="Indoor" data-tags="Live music, Evening">
+          <div class="pin-marker cultural"><span class="pm-icon">🎵</span></div><div class="pin-label">Drake Music</div>
+        </div>
+        <div class="map-pin" style="top:120px;left:155px" onclick="showMiniCard(this)" data-name="Community Art Workshop" data-loc="Artscape · Queen W" data-dist="~10 min walk" data-energy="Calm" data-social="Medium" data-people="2" data-cat="learning" data-icon="🖌️" data-cadence="Weekly / Monthly" data-cost="$" data-walkin="Yes" data-setting="Indoor" data-tags="Structured, Painting, Crafts">
+          <div class="pin-marker learning"><span class="pm-icon">🖌️</span></div><div class="pin-label">Art Workshop</div>
+        </div>
+        <div class="map-pin" style="top:215px;left:80px" onclick="showMiniCard(this)" data-name="Bellwoods Pickup Courts" data-loc="Trinity Bellwoods" data-dist="~6 min walk" data-energy="Active" data-social="Medium" data-people="3" data-cat="movement" data-icon="🏐" data-cadence="Daily · warm months" data-cost="Free" data-walkin="Yes" data-setting="Outdoor" data-tags="Recreational, Casual">
+          <div class="pin-marker movement"><span class="pm-icon">🏐</span></div><div class="pin-label">Pickup Courts</div>
+        </div>
+        <div class="map-pin" style="top:200px;left:300px" onclick="showMiniCard(this)" data-name="Gallery Opening Walk" data-loc="Queen West" data-dist="~8 min walk" data-energy="Calm" data-social="Low" data-people="2" data-cat="cultural" data-icon="🖼️" data-cadence="Thursdays" data-cost="Free" data-walkin="Yes" data-setting="Indoor" data-tags="Free entry, Art, Social">
+          <div class="pin-marker cultural"><span class="pm-icon">🖼️</span></div><div class="pin-label">Gallery Walk</div>
+        </div>
+        <div class="map-pin" style="top:260px;left:40px" onclick="showMiniCard(this)" data-name="Farmers Market" data-loc="Trinity Bellwoods" data-dist="~5 min walk" data-energy="Calm" data-social="Medium" data-people="5" data-cat="food" data-icon="🥬" data-cadence="Tuesdays · May–Oct" data-cost="$" data-walkin="Yes" data-setting="Outdoor" data-tags="Community, Local vendors">
+          <div class="pin-marker food"><span class="pm-icon">🥬</span></div><div class="pin-label">Farmers Mkt</div>
+        </div>
+        <div class="map-pin" style="top:270px;left:200px" onclick="showMiniCard(this)" data-name="Ossington Trivia Night" data-loc="Ossington Ave" data-dist="~12 min walk" data-energy="Moderate" data-social="High" data-people="4" data-cat="games" data-icon="🧠" data-cadence="Weekly" data-cost="$" data-walkin="Yes" data-setting="Indoor" data-tags="Group activity, Casual">
+          <div class="pin-marker games"><span class="pm-icon">🧠</span></div><div class="pin-label">Trivia Night</div>
+        </div>
+        <div class="map-pin" style="top:310px;left:140px" onclick="showMiniCard(this)" data-name="Evening Walk Loop" data-loc="CityPlace · Waterfront" data-dist="~3 min walk" data-energy="Calm" data-social="Medium" data-people="3" data-cat="movement" data-icon="🚶" data-cadence="Daily" data-cost="Free" data-walkin="Yes" data-setting="Outdoor" data-tags="Low-key, Casual">
+          <div class="pin-marker movement"><span class="pm-icon">🚶</span></div><div class="pin-label">Walk Loop</div>
+        </div>
+      </div>
+
+      <div class="map-header">
+        <div class="map-top-row">
+          <div class="map-title">Near you · Toronto</div>
+          <div class="map-avatar" onclick="switchTab(10)">S</div>
+        </div>
+        <div class="map-filters">
+          <button class="filter-chip active" onclick="filterPins('all',this)">All</button>
+          <button class="filter-chip" onclick="filterPins('movement',this)">Movement</button>
+          <button class="filter-chip" onclick="filterPins('creative',this)">Creative</button>
+          <button class="filter-chip" onclick="filterPins('games',this)">Games</button>
+          <button class="filter-chip" onclick="filterPins('food',this)">Food</button>
+          <button class="filter-chip" onclick="filterPins('cultural',this)">Cultural</button>
+          <button class="filter-chip" onclick="filterPins('learning',this)">Learning</button>
+          <button class="filter-chip" onclick="filterPins('social',this)">Social</button>
+        </div>
+      </div>
+
+      <!-- Boundary banner -->
+      <div class="map-boundary-banner" id="map-boundary-banner">
+        Activities beyond Downtown Toronto aren't available yet
+      </div>
+
+      <!-- Zoom controls -->
+      <div class="map-zoom">
+        <button onclick="mapZoom(1)" title="Zoom in">+</button>
+        <button onclick="mapZoom(-1)" title="Zoom out">−</button>
+      </div>
+
+      <!-- Mini Card -->
+      <div class="mini-card" id="mini-card">
+        <button class="mc-close" onclick="hideMiniCard()">✕</button>
+        <div class="mini-card-top">
+          <div class="mc-cat-dot" id="mc-dot"><span id="mc-icon"></span></div>
+          <div class="mc-info">
+            <h3 id="mc-name"></h3>
+            <div class="mc-meta">
+              <span class="mc-meta-item" id="mc-loc"></span>
+              <span class="mc-meta-item" id="mc-dist"></span>
+            </div>
+          </div>
+        </div>
+        <div class="mc-meta" style="margin-bottom:8px">
+          <span class="mc-meta-item" id="mc-energy"></span>
+          <span class="mc-meta-item" id="mc-cadence"></span>
+          <span class="mc-meta-item" id="mc-cost"></span>
+          <span class="mc-meta-item" id="mc-setting"></span>
+        </div>
+        <div class="mc-tags" id="mc-tags"></div>
+        <div class="mc-people" id="mc-people-row">
+          <div class="mc-people-dots" id="mc-people-dots"></div>
+          <span id="mc-people-text"></span>
+        </div>
+        <button class="mc-cta" onclick="goTo(5)">I'm thinking of going</button>
+      </div>
+    </div>
+
+    <!-- Activity List -->
+    <div class="explore-sheet" id="explore-sheet">
+      <div class="sheet-handle"></div>
+      <h3 class="sheet-title">Nearby activities</h3>
+      <div class="activity-list" id="activity-list">
+        <div class="al-card" data-cat="social" onclick="goTo(5)">
+          <div class="al-icon social">🐕</div>
+          <div class="al-info"><h3>Dog Bowl Social</h3><span>Trinity Bellwoods · ~5 min</span></div>
+          <div class="al-right"><span class="al-people">4 interested</span><span class="al-energy">☀️</span></div>
+        </div>
+        <div class="al-card" data-cat="games" onclick="goTo(5)">
+          <div class="al-icon games">🎲</div>
+          <div class="al-info"><h3>Snakes & Lattes</h3><span>Yonge-Dundas · ~15 min</span></div>
+          <div class="al-right"><span class="al-people">6 interested</span><span class="al-energy">⚡</span></div>
+        </div>
+        <div class="al-card" data-cat="creative" onclick="goTo(5)">
+          <div class="al-icon creative">🎨</div>
+          <div class="al-info"><h3>Artscape Open Studio</h3><span>Queen W · ~10 min</span></div>
+          <div class="al-right"><span class="al-people">2 interested</span><span class="al-energy">☀️</span></div>
+        </div>
+        <div class="al-card" data-cat="cultural" onclick="goTo(5)">
+          <div class="al-icon cultural">🎵</div>
+          <div class="al-info"><h3>Drake Live Music</h3><span>Queen West · ~8 min</span></div>
+          <div class="al-right"><span class="al-people">3 interested</span><span class="al-energy">⚡</span></div>
+        </div>
+        <div class="al-card" data-cat="learning" onclick="goTo(5)">
+          <div class="al-icon learning">🖌️</div>
+          <div class="al-info"><h3>Community Art Workshop</h3><span>Artscape · ~10 min</span></div>
+          <div class="al-right"><span class="al-people">2 interested</span><span class="al-energy">☀️</span></div>
+        </div>
+        <div class="al-card" data-cat="movement" onclick="goTo(5)">
+          <div class="al-icon movement">🏐</div>
+          <div class="al-info"><h3>Bellwoods Pickup Courts</h3><span>Trinity Bellwoods · ~6 min</span></div>
+          <div class="al-right"><span class="al-people">3 interested</span><span class="al-energy">🔥</span></div>
+        </div>
+        <div class="al-card" data-cat="cultural" onclick="goTo(5)">
+          <div class="al-icon cultural">🖼️</div>
+          <div class="al-info"><h3>Gallery Opening Walk</h3><span>Queen West · ~8 min</span></div>
+          <div class="al-right"><span class="al-people">2 interested</span><span class="al-energy">☀️</span></div>
+        </div>
+        <div class="al-card" data-cat="food" onclick="goTo(5)">
+          <div class="al-icon food">🥬</div>
+          <div class="al-info"><h3>Farmers Market</h3><span>Trinity Bellwoods · ~5 min</span></div>
+          <div class="al-right"><span class="al-people">5 interested</span><span class="al-energy">☀️</span></div>
+        </div>
+        <div class="al-card" data-cat="games" onclick="goTo(5)">
+          <div class="al-icon games">🧠</div>
+          <div class="al-info"><h3>Ossington Trivia Night</h3><span>Ossington Ave · ~12 min</span></div>
+          <div class="al-right"><span class="al-people">4 interested</span><span class="al-energy">⚡</span></div>
+        </div>
+        <div class="al-card" data-cat="movement" onclick="goTo(5)">
+          <div class="al-icon movement">🚶</div>
+          <div class="al-info"><h3>Evening Walk Loop</h3><span>CityPlace · ~3 min</span></div>
+          <div class="al-right"><span class="al-people">3 interested</span><span class="al-energy">☀️</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Nav -->
+    <div class="bottom-nav">
+      <button class="nav-item active" onclick="switchTab(4)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v4m0 12v4m-10-10h4m12 0h4M5.6 5.6l2.8 2.8m7.2 7.2l2.8 2.8M5.6 18.4l2.8-2.8m7.2-7.2l2.8-2.8"/></svg>
+        Explore
+      </button>
+      <button class="nav-item" onclick="switchTab(9)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+        Saved
+      </button>
+      <button class="nav-item" onclick="switchTab(10)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        You
+      </button>
+    </div>
+  </div>
+
+  <!-- SCREEN 5: ACTIVITY DETAIL -->
+  <div class="screen screen-activity" id="screen-5">
+    <button class="activity-back" onclick="goBack()">←</button>
+    <div class="activity-hero">🐕</div>
+    <div class="activity-body">
+      <div class="activity-cat-badge social">🐕 Social · Outdoor</div>
+      <h2>Dog Bowl Social</h2>
+      <p class="activity-desc">Dog park hangout area in Trinity Bellwoods — an easy, low-pressure way to meet locals. Bring a dog or just come hang out.</p>
+      <div class="activity-match"><span>✦</span> Matches your interests: Social</div>
+      <div class="activity-tags">
+        <span class="activity-tag">Pet-friendly</span><span class="activity-tag">Casual</span>
+        <span class="activity-tag">Walk-in</span><span class="activity-tag">Outdoor</span>
+      </div>
+      <div class="activity-details">
+        <div class="detail-item"><div class="di-label">Energy</div><div class="di-value">☀️ Calm</div></div>
+        <div class="detail-item"><div class="di-label">Social Level</div><div class="di-value">Medium</div></div>
+        <div class="detail-item"><div class="di-label">Cost</div><div class="di-value">Free</div></div>
+        <div class="detail-item"><div class="di-label">Cadence</div><div class="di-value">Daily</div></div>
+        <div class="detail-item"><div class="di-label">Where</div><div class="di-value">Trinity Bellwoods</div></div>
+        <div class="detail-item"><div class="di-label">Walk-in</div><div class="di-value">Yes — just show up</div></div>
+      </div>
+      <div class="social-signal">
+        <div class="signal-dots"><div class="signal-dot">A</div><div class="signal-dot">M</div><div class="signal-dot">K</div><div class="signal-dot">J</div></div>
+        <div class="signal-text">4 people nearby are interested</div>
+      </div>
+      <div class="activity-ctas">
+        <button class="btn-primary" id="intent-btn" onclick="goTo(6)">I'm thinking of going</button>
+        <button class="btn-secondary" id="save-btn" onclick="toggleSave()">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 6: PEOPLE LAYER -->
+  <div class="screen screen-people" id="screen-6">
+    <div class="people-header">
+      <button class="people-back-btn" onclick="goBack()">←</button>
+      <div class="people-header-text"><h2>Dog Bowl Social</h2><span>People interested in this activity</span></div>
+    </div>
+    <div class="people-list">
+      <div class="person-card" onclick="goTo(7)">
+        <div class="person-avatar">A</div>
+        <div class="person-info"><h3>Alex</h3><div class="person-meta"><span>Trinity Bellwoods · ~3 min</span><span>·</span><div class="person-interests"><div class="person-interest-dot" style="background:var(--social)"></div><div class="person-interest-dot" style="background:var(--movement)"></div></div></div></div>
+        <button class="person-cta" onclick="event.stopPropagation();goTo(7)">Coordinate?</button>
+      </div>
+      <div class="person-card" onclick="goTo(7)">
+        <div class="person-avatar">M</div>
+        <div class="person-info"><h3>Maya</h3><div class="person-meta"><span>Queen West · ~8 min</span><span>·</span><div class="person-interests"><div class="person-interest-dot" style="background:var(--social)"></div><div class="person-interest-dot" style="background:var(--food)"></div></div></div></div>
+        <button class="person-cta" onclick="event.stopPropagation();goTo(7)">Coordinate?</button>
+      </div>
+      <div class="person-card">
+        <div class="person-avatar">K</div>
+        <div class="person-info"><h3>Kai</h3><div class="person-meta"><span>Ossington · ~10 min</span><span>·</span><div class="person-interests"><div class="person-interest-dot" style="background:var(--movement)"></div></div></div></div>
+        <button class="person-cta" onclick="event.stopPropagation();goTo(7)">Coordinate?</button>
+      </div>
+    </div>
+    <div class="people-footer"><p>Suggest a time or place, or just show up — it's up to you.</p></div>
+  </div>
+
+  <!-- SCREEN 7: COORDINATION -->
+  <div class="screen screen-coordinate" id="screen-7">
+    <div class="coord-header">
+      <button class="people-back-btn" onclick="goBack()">←</button>
+      <div class="people-header-text"><h2>Coordinate</h2><span>Dog Bowl Social · Trinity Bellwoods</span></div>
+    </div>
+    <div class="coord-body">
+      <div class="coord-person">
+        <div class="person-avatar">A</div>
+        <div class="person-info"><h3>Alex</h3><div class="person-meta"><span>Trinity Bellwoods · ~3 min</span></div></div>
+      </div>
+      <div class="coord-label">Suggest a time</div>
+      <div class="time-options">
+        <button class="time-option" onclick="selectTime(this)"><span class="to-icon">🌅</span> Tomorrow morning · Dog Bowl area</button>
+        <button class="time-option" onclick="selectTime(this)"><span class="to-icon">☀️</span> This Saturday, 10 AM · Bellwoods entrance</button>
+        <button class="time-option" onclick="selectTime(this)"><span class="to-icon">🌤</span> Sunday afternoon · Dog Bowl area</button>
+      </div>
+      <div class="or-divider">or</div>
+      <input class="coord-input" type="text" placeholder="Suggest a different time or place...">
+    </div>
+    <div class="coord-footer"><button class="btn-primary" onclick="sendCoordination()">Send suggestion</button></div>
+  </div>
+
+  <!-- SCREEN 8: POST-ACTIVITY -->
+  <div class="screen screen-post" id="screen-8">
+    <div class="post-icon">✨</div>
+    <div class="post-content"><h2>Did you enjoy this?</h2><p>Dog Bowl Social · Trinity Bellwoods</p></div>
+    <div class="post-options">
+      <button class="post-option" onclick="selectPost(this)"><div class="po-icon">🔄</div><div class="po-text"><h3>Save again</h3><span>I'd do this again</span></div></button>
+      <button class="post-option" onclick="selectPost(this)"><div class="po-icon">🔍</div><div class="po-text"><h3>Try something similar</h3><span>Show me more like this</span></div></button>
+      <button class="post-option" onclick="selectPost(this)"><div class="po-icon">🤝</div><div class="po-text"><h3>Stay connected</h3><span>Keep in touch with people who were there</span></div></button>
+    </div>
+    <button class="btn-text" onclick="goTo(4)">Maybe later</button>
+  </div>
+
+  <!-- SCREEN 9: SAVED -->
+  <div class="screen screen-saved" id="screen-9">
+    <div class="saved-header"><h2>Saved</h2></div>
+    <div class="saved-body">
+
+      <div class="saved-section-label">Thinking of going</div>
+
+      <div class="saved-card" onclick="goTo(5)">
+        <div class="saved-card-icon social">🐕</div>
+        <div class="saved-card-info">
+          <h3>Dog Bowl Social</h3>
+          <div class="saved-card-meta"><span>Trinity Bellwoods</span><span>·</span><span>Daily</span></div>
+        </div>
+        <div class="saved-card-people">
+          <div class="scp-dot">A</div><div class="scp-dot">M</div>
+          <span>+2</span>
+        </div>
+        <div class="saved-card-badge intent">Going</div>
+      </div>
+
+      <div class="saved-card" onclick="goTo(5)">
+        <div class="saved-card-icon games">🎲</div>
+        <div class="saved-card-info">
+          <h3>Snakes & Lattes</h3>
+          <div class="saved-card-meta"><span>Yonge-Dundas</span><span>·</span><span>Open play</span></div>
+        </div>
+        <div class="saved-card-people">
+          <div class="scp-dot">R</div><div class="scp-dot">T</div>
+          <span>+4</span>
+        </div>
+        <div class="saved-card-badge intent">Going</div>
+      </div>
+
+      <div class="saved-section-label">Saved for later</div>
+
+      <div class="saved-card" onclick="goTo(5)">
+        <div class="saved-card-icon cultural">🎵</div>
+        <div class="saved-card-info">
+          <h3>Drake Live Music</h3>
+          <div class="saved-card-meta"><span>Queen West</span><span>·</span><span>Weekly</span></div>
+        </div>
+        <div class="saved-card-badge saved-state">Saved</div>
+      </div>
+
+      <div class="saved-card" onclick="goTo(5)">
+        <div class="saved-card-icon movement">🏐</div>
+        <div class="saved-card-info">
+          <h3>Bellwoods Pickup Courts</h3>
+          <div class="saved-card-meta"><span>Trinity Bellwoods</span><span>·</span><span>Warm months</span></div>
+        </div>
+        <div class="saved-card-badge saved-state">Saved</div>
+      </div>
+
+      <div class="saved-card" onclick="goTo(5)">
+        <div class="saved-card-icon cultural">🖼️</div>
+        <div class="saved-card-info">
+          <h3>Gallery Opening Walk</h3>
+          <div class="saved-card-meta"><span>Queen West</span><span>·</span><span>Thursdays</span></div>
+        </div>
+        <div class="saved-card-badge saved-state">Saved</div>
+      </div>
+
+    </div>
+
+    <div class="bottom-nav">
+      <button class="nav-item" onclick="switchTab(4)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v4m0 12v4m-10-10h4m12 0h4M5.6 5.6l2.8 2.8m7.2 7.2l2.8 2.8M5.6 18.4l2.8-2.8m7.2-7.2l2.8-2.8"/></svg>
+        Explore
+      </button>
+      <button class="nav-item active" onclick="switchTab(9)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+        Saved
+      </button>
+      <button class="nav-item" onclick="switchTab(10)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        You
+      </button>
+    </div>
+  </div>
+
+  <!-- SCREEN 10: PROFILE -->
+  <div class="screen screen-profile" id="screen-10">
+    <div class="profile-header">
+      <div class="profile-avatar-lg">S</div>
+      <h2>Sara</h2>
+      <div class="profile-loc">📍 Downtown Toronto</div>
+    </div>
+
+    <div class="profile-stats">
+      <div class="profile-stat" onclick="showProfileDetail('tried')">
+        <div class="ps-num">3</div>
+        <div class="ps-label">Activities tried</div>
+      </div>
+      <div class="profile-stat" onclick="switchTab(9)">
+        <div class="ps-num">5</div>
+        <div class="ps-label">Saved</div>
+      </div>
+      <div class="profile-stat" onclick="showProfileDetail('coordinated')">
+        <div class="ps-num">2</div>
+        <div class="ps-label">Coordinated</div>
+      </div>
+    </div>
+
+    <!-- Detail Overlay -->
+    <div class="profile-detail-overlay" id="profile-detail-overlay">
+      <div class="pdo-header">
+        <button class="pdo-back" onclick="hideProfileDetail()">←</button>
+        <span class="pdo-title" id="pdo-title"></span>
+      </div>
+      <div class="pdo-body" id="pdo-body"></div>
+    </div>
+
+    <div class="profile-body">
+
+      <div class="profile-section">
+        <div class="profile-progress">
+          <div class="profile-progress-icon">🌱</div>
+          <div class="profile-progress-text">
+            <h3>3 new things this month</h3>
+            <span>You showed up — that's what counts.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-section">
+        <div class="profile-section-title">Your interests</div>
+        <div class="profile-interests">
+          <div class="profile-interest-chip"><div class="pic-dot" style="background:var(--movement)"></div> Movement</div>
+          <div class="profile-interest-chip"><div class="pic-dot" style="background:var(--social)"></div> Social</div>
+          <div class="profile-interest-chip"><div class="pic-dot" style="background:var(--food)"></div> Food</div>
+          <div class="profile-interest-chip"><div class="pic-dot" style="background:var(--cultural)"></div> Cultural</div>
+        </div>
+      </div>
+
+      <div class="profile-section">
+        <div class="profile-section-title">Settings</div>
+        <div class="profile-setting-row" onclick="showToast('Editing interests…')">
+          <span class="profile-setting-label">Edit interests</span>
+          <span class="profile-setting-value">4 selected →</span>
+        </div>
+        <div class="profile-setting-row" onclick="showToast('Visibility controls…')">
+          <span class="profile-setting-label">Visibility</span>
+          <span class="profile-setting-value">Activity only →</span>
+        </div>
+        <div class="profile-setting-row" onclick="showToast('Location settings…')">
+          <span class="profile-setting-label">Location</span>
+          <span class="profile-setting-value">Downtown Toronto →</span>
+        </div>
+        <div class="profile-setting-row" onclick="showToast('Notification preferences…')">
+          <span class="profile-setting-label">Notifications</span>
+          <span class="profile-setting-value">On →</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="bottom-nav">
+      <button class="nav-item" onclick="switchTab(4)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v4m0 12v4m-10-10h4m12 0h4M5.6 5.6l2.8 2.8m7.2 7.2l2.8 2.8M5.6 18.4l2.8-2.8m7.2-7.2l2.8-2.8"/></svg>
+        Explore
+      </button>
+      <button class="nav-item" onclick="switchTab(9)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+        Saved
+      </button>
+      <button class="nav-item active" onclick="switchTab(10)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        You
+      </button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">Saved!</div>
+</div>
+
+<script>
+  let currentScreen = 1;
+  const history = [1];
+  const screenOrder = { 1:0, 2:1, 3:2, 4:3, 5:4, 6:5, 7:6, 8:7, 9:3, 10:3 };
+  const tabScreens = [4, 9, 10];
+
+  function goTo(n) {
+    const current = document.getElementById('screen-' + currentScreen);
+    const next = document.getElementById('screen-' + n);
+    if (!current || !next || currentScreen === n) return;
+
+    const isForward = screenOrder[n] > screenOrder[currentScreen];
+
+    if (currentScreen !== 4) hideMiniCard();
+
+    current.classList.remove('active');
+    current.classList.add(isForward ? 'exit-left' : 'exit-right');
+    setTimeout(() => { current.classList.remove('exit-left', 'exit-right'); }, 350);
+
+    next.style.transition = 'none';
+    next.classList.remove('exit-left', 'exit-right');
+    next.style.transform = isForward ? 'translateX(60px)' : 'translateX(-60px)';
+    next.offsetHeight;
+    next.style.transition = '';
+    next.classList.add('active');
+    next.style.transform = '';
+
+    history.push(n);
+    currentScreen = n;
+  }
+
+  function goBack() {
+    if (history.length > 1) {
+      history.pop();
+      const prev = history[history.length - 1];
+      const current = document.getElementById('screen-' + currentScreen);
+      const next = document.getElementById('screen-' + prev);
+      if (!current || !next) return;
+
+      current.classList.remove('active');
+      current.classList.add('exit-right');
+      setTimeout(() => current.classList.remove('exit-right'), 350);
+
+      next.style.transition = 'none';
+      next.style.transform = 'translateX(-60px)';
+      next.offsetHeight;
+      next.style.transition = '';
+      next.classList.add('active');
+      next.style.transform = '';
+
+      currentScreen = prev;
+    }
+  }
+
+  function toggleInterest(el) { el.classList.toggle('selected'); }
+
+  /* ---- Mini Card ---- */
+  let activePin = null;
+  function showMiniCard(pin) {
+    if (activePin) activePin.classList.remove('active');
+    pin.classList.add('active');
+    activePin = pin;
+
+    const mc = document.getElementById('mini-card');
+    const d = pin.dataset;
+    document.getElementById('mc-name').textContent = d.name;
+    document.getElementById('mc-loc').textContent = d.loc;
+    document.getElementById('mc-dist').textContent = '· ' + d.dist;
+    document.getElementById('mc-icon').textContent = d.icon;
+    document.getElementById('mc-energy').textContent = energyIcon(d.energy) + ' ' + d.energy;
+    document.getElementById('mc-cadence').textContent = '· ' + d.cadence;
+    document.getElementById('mc-cost').textContent = '· ' + d.cost;
+    document.getElementById('mc-setting').textContent = '· ' + d.setting;
+    document.getElementById('mc-dot').className = 'mc-cat-dot ' + d.cat;
+
+    const tagsEl = document.getElementById('mc-tags');
+    tagsEl.innerHTML = '';
+    (d.tags || '').split(', ').forEach(t => {
+      const s = document.createElement('span');
+      s.className = 'mc-tag'; s.textContent = t; tagsEl.appendChild(s);
+    });
+
+    const count = parseInt(d.people) || 0;
+    const dotsEl = document.getElementById('mc-people-dots');
+    dotsEl.innerHTML = '';
+    ['A','M','K','J','R','T'].slice(0, Math.min(count, 4)).forEach(i => {
+      const div = document.createElement('div');
+      div.className = 'mc-people-dot'; div.textContent = i; dotsEl.appendChild(div);
+    });
+    document.getElementById('mc-people-text').textContent =
+      count + (count === 1 ? ' person' : ' people') + ' interested';
+
+    mc.classList.add('visible');
+  }
+
+  function hideMiniCard() {
+    document.getElementById('mini-card').classList.remove('visible');
+    if (activePin) { activePin.classList.remove('active'); activePin = null; }
+  }
+
+  function energyIcon(l) { return l === 'Active' ? '🔥' : l === 'Moderate' ? '⚡' : '☀️'; }
+
+  /* ---- Filters ---- */
+  function filterPins(cat, chip) {
+    document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    document.querySelectorAll('.map-pin').forEach(p => {
+      p.classList.toggle('dimmed', cat !== 'all' && p.dataset.cat !== cat);
+    });
+    document.querySelectorAll('.al-card').forEach(c => {
+      c.classList.toggle('dimmed', cat !== 'all' && c.dataset.cat !== cat);
+    });
+    hideMiniCard();
+  }
+
+  /* ---- Map dismiss ---- */
+  document.addEventListener('DOMContentLoaded', () => {
+    const c = document.querySelector('.map-canvas');
+    if (c) c.addEventListener('click', e => { if (!e.target.closest('.map-pin')) hideMiniCard(); });
+  });
+
+  /* ---- Map Pan & Zoom ---- */
+  let mapPanX = 0, mapPanY = 0, mapScale = 1;
+  let mapDrag = false, mapStartX, mapStartY, mapStartPanX, mapStartPanY;
+
+  let boundaryTimer = null;
+  function applyMapTransform() {
+    const cv = document.querySelector('.map-canvas');
+    if (cv) cv.style.transform = 'translate(' + mapPanX + 'px,' + mapPanY + 'px) scale(' + mapScale + ')';
+    checkMapBoundary();
+  }
+
+  function checkMapBoundary() {
+    const maxPan = 100 / mapScale;
+    const oob = Math.abs(mapPanX) > maxPan || Math.abs(mapPanY) > maxPan;
+    const banner = document.getElementById('map-boundary-banner');
+    if (!banner) return;
+    if (oob) {
+      banner.classList.add('visible');
+      clearTimeout(boundaryTimer);
+      boundaryTimer = setTimeout(() => banner.classList.remove('visible'), 2500);
+    }
+  }
+
+  function mapZoom(dir) {
+    mapScale = Math.max(0.6, Math.min(2.5, mapScale + dir * 0.2));
+    applyMapTransform();
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const area = document.querySelector('.map-area');
+    if (!area) return;
+
+    area.addEventListener('mousedown', e => {
+      if (e.target.closest('.map-pin') || e.target.closest('.mini-card') || e.target.closest('.map-header') || e.target.closest('.map-zoom')) return;
+      mapDrag = true;
+      mapStartX = e.clientX; mapStartY = e.clientY;
+      mapStartPanX = mapPanX; mapStartPanY = mapPanY;
+      area.classList.add('dragging');
+      e.preventDefault();
+    });
+
+    window.addEventListener('mousemove', e => {
+      if (!mapDrag) return;
+      mapPanX = mapStartPanX + (e.clientX - mapStartX);
+      mapPanY = mapStartPanY + (e.clientY - mapStartY);
+      applyMapTransform();
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (mapDrag) { mapDrag = false; area.classList.remove('dragging'); }
+    });
+
+    let lastTouchDist = 0;
+    area.addEventListener('touchstart', e => {
+      if (e.target.closest('.map-pin') || e.target.closest('.mini-card') || e.target.closest('.map-header') || e.target.closest('.map-zoom')) return;
+      if (e.touches.length === 1) {
+        mapDrag = true;
+        mapStartX = e.touches[0].clientX; mapStartY = e.touches[0].clientY;
+        mapStartPanX = mapPanX; mapStartPanY = mapPanY;
+      } else if (e.touches.length === 2) {
+        mapDrag = false;
+        lastTouchDist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+      }
+    }, { passive: true });
+
+    area.addEventListener('touchmove', e => {
+      if (e.touches.length === 1 && mapDrag) {
+        mapPanX = mapStartPanX + (e.touches[0].clientX - mapStartX);
+        mapPanY = mapStartPanY + (e.touches[0].clientY - mapStartY);
+        applyMapTransform();
+      } else if (e.touches.length === 2) {
+        const dist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+        mapScale = Math.max(0.6, Math.min(2.5, mapScale * (dist / lastTouchDist)));
+        lastTouchDist = dist;
+        applyMapTransform();
+      }
+    }, { passive: true });
+
+    area.addEventListener('touchend', () => { mapDrag = false; });
+
+    area.addEventListener('wheel', e => {
+      if (e.target.closest('.map-header') || e.target.closest('.mini-card')) return;
+      e.preventDefault();
+      mapScale = Math.max(0.6, Math.min(2.5, mapScale * (e.deltaY > 0 ? 0.92 : 1.08)));
+      applyMapTransform();
+    }, { passive: false });
+  });
+
+  /* ---- Profile Detail Overlays ---- */
+  const profileData = {
+    tried: {
+      title: 'Activities tried',
+      items: [
+        { icon: '🐕', cat: 'social', name: 'Dog Bowl Social', sub: 'Trinity Bellwoods · Last Saturday', badge: 'Went', badgeClass: 'went' },
+        { icon: '🥬', cat: 'food', name: 'Farmers Market', sub: 'Trinity Bellwoods · 2 weeks ago', badge: 'Went', badgeClass: 'went' },
+        { icon: '🚶', cat: 'movement', name: 'Evening Walk Loop', sub: 'CityPlace · Last Thursday', badge: 'Went', badgeClass: 'went' }
+      ]
+    },
+    coordinated: {
+      title: 'Coordinated',
+      items: [
+        { icon: '🐕', cat: 'social', name: 'Dog Bowl Social', sub: 'with Alex · This Saturday, 10 AM', badge: 'Confirmed', badgeClass: 'coord' },
+        { icon: '🎲', cat: 'games', name: 'Snakes & Lattes', sub: 'with Maya · Next Wednesday, 7 PM', badge: 'Pending', badgeClass: 'coord' }
+      ]
+    }
+  };
+
+  function showProfileDetail(type) {
+    const data = profileData[type];
+    if (!data) return;
+    document.getElementById('pdo-title').textContent = data.title;
+    const body = document.getElementById('pdo-body');
+    body.innerHTML = '';
+    data.items.forEach(item => {
+      const catBg = 'var(--' + item.cat + '-bg)';
+      body.innerHTML +=
+        '<div class="pdo-card">' +
+          '<div class="pdo-card-icon" style="background:' + catBg + '">' + item.icon + '</div>' +
+          '<div class="pdo-card-info"><h3>' + item.name + '</h3><span>' + item.sub + '</span></div>' +
+          '<div class="pdo-card-badge ' + item.badgeClass + '">' + item.badge + '</div>' +
+        '</div>';
+    });
+    document.getElementById('profile-detail-overlay').classList.add('visible');
+  }
+
+  function hideProfileDetail() {
+    document.getElementById('profile-detail-overlay').classList.remove('visible');
+  }
+
+  /* ---- Save button ---- */
+  function toggleSave() {
+    const btn = document.getElementById('save-btn');
+    const saved = btn.classList.toggle('saved');
+    btn.textContent = saved ? 'Saved ✓' : 'Save';
+    showToast(saved ? 'Saved for later' : 'Removed from saved');
+  }
+
+  /* ---- Tab switching (no slide, crossfade) ---- */
+  function switchTab(n) {
+    if (currentScreen === n) return;
+    hideMiniCard();
+
+    const current = document.getElementById('screen-' + currentScreen);
+    const next = document.getElementById('screen-' + n);
+    if (!current || !next) return;
+
+    current.classList.remove('active');
+    current.style.transform = '';
+
+    next.style.transition = 'none';
+    next.style.transform = 'translateX(0)';
+    next.style.opacity = '0';
+    next.offsetHeight;
+    next.style.transition = 'opacity 0.25s ease';
+    next.classList.add('active');
+    next.style.opacity = '';
+
+    history.length = 0;
+    history.push(n);
+    currentScreen = n;
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2000);
+  }
+
+  function selectTime(el) {
+    document.querySelectorAll('.time-option').forEach(t => t.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  function sendCoordination() {
+    showToast('Suggestion sent!');
+    setTimeout(() => goTo(8), 1200);
+  }
+
+  function selectPost(el) {
+    el.classList.toggle('selected');
+    showToast('Got it — thanks!');
+    setTimeout(() => goTo(4), 1500);
+  }
+</script>
+
+</body>
+</html>
