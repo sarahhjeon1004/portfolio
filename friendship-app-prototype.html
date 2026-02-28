@@ -110,84 +110,68 @@
     overflow: hidden;
   }
 
-  .welcome-hero { flex: 1; display: flex; align-items: center; justify-content: center; padding-top: 70px; }
-  .welcome-hero-inner { position: relative; width: 260px; height: 260px; }
+  .welcome-hero { flex: 1; display: flex; align-items: center; justify-content: center; padding-top: 40px; }
+  .welcome-hero-inner { position: relative; width: 240px; height: 240px; }
 
-  /* Logo mark: open door / invitation */
   .oi-logo {
     position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    width: 100px; height: 100px;
+    width: 80px; height: 80px;
+    z-index: 3;
   }
-  .oi-door {
-    width: 72px; height: 88px; border-radius: 36px 36px 0 0;
-    border: 3.5px solid var(--accent); position: absolute;
-    top: 50%; left: 50%; transform: translate(-50%, -52%);
-    background: rgba(52,199,89,0.06);
-  }
-  .oi-door-open {
-    position: absolute; top: 0; right: -6px; width: 30px; height: 100%;
-    border-radius: 0 16px 0 0;
-    border-right: 3.5px solid var(--accent);
-    border-top: 3.5px solid var(--accent);
-    transform-origin: left center;
-    transform: perspective(200px) rotateY(-45deg);
-    background: rgba(52,199,89,0.03);
-  }
-  .oi-door-handle {
-    position: absolute; top: 52%; right: 12px;
-    width: 6px; height: 6px; border-radius: 50%;
-    background: var(--accent);
-  }
+  .oi-logo svg { width: 100%; height: 100%; display: block; }
+
   .oi-glow {
     position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    width: 140px; height: 140px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(52,199,89,0.12) 0%, rgba(52,199,89,0) 70%);
-    animation: glow-pulse 3s ease-in-out infinite;
+    width: 160px; height: 160px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(52,199,89,0.15) 0%, rgba(52,199,89,0.04) 50%, rgba(52,199,89,0) 75%);
+    animation: glow-pulse 4s ease-in-out infinite;
+    z-index: 1;
   }
   @keyframes glow-pulse {
-    0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
-    50% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
+    0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+    50% { opacity: 1; transform: translate(-50%, -50%) scale(1.12); }
   }
 
-  /* Floating activity icons around the logo */
   .oi-float {
-    position: absolute; width: 44px; height: 44px; border-radius: 50%;
+    position: absolute; width: 42px; height: 42px; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    font-size: 18px; box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-    animation: float 3.5s ease-in-out infinite;
+    font-size: 17px; background: #fff;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.03);
+    animation: oi-bob 4s ease-in-out infinite;
+    z-index: 2;
   }
-  .oi-float:nth-child(3) { background: #fff; top: 8px; left: 20px; animation-delay: 0s; }
-  .oi-float:nth-child(4) { background: #fff; top: 30px; right: 10px; animation-delay: 0.7s; }
-  .oi-float:nth-child(5) { background: #fff; bottom: 40px; left: 10px; animation-delay: 1.4s; }
-  .oi-float:nth-child(6) { background: #fff; bottom: 15px; right: 25px; animation-delay: 2.1s; }
-  .oi-float:nth-child(7) { background: #fff; top: 55px; left: 58px; animation-delay: 0.3s; font-size: 16px; width: 38px; height: 38px; }
-  .oi-float:nth-child(8) { background: #fff; bottom: 70px; right: 50px; animation-delay: 1.8s; font-size: 16px; width: 38px; height: 38px; }
+  .oi-float:nth-child(3) { top: 6px;   left: 52px;  animation-delay: 0s; }
+  .oi-float:nth-child(4) { top: 16px;  right: 18px; animation-delay: 0.8s; }
+  .oi-float:nth-child(5) { bottom: 38px; left: 4px; animation-delay: 1.6s; }
+  .oi-float:nth-child(6) { bottom: 8px; right: 32px; animation-delay: 2.4s; }
+  .oi-float:nth-child(7) { top: 66px;  left: 6px;   animation-delay: 0.4s; width: 36px; height: 36px; font-size: 15px; }
+  .oi-float:nth-child(8) { bottom: 72px; right: 2px; animation-delay: 2s;   width: 36px; height: 36px; font-size: 15px; }
 
-  @keyframes float {
+  @keyframes oi-bob {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+    50% { transform: translateY(-8px); }
   }
 
-  /* Ring decorations */
   .oi-ring {
     position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    border-radius: 50%; border: 1px solid rgba(52,199,89,0.1);
+    border-radius: 50%; border: 1.5px solid rgba(52,199,89,0.08);
+    z-index: 0;
   }
-  .oi-ring-1 { width: 170px; height: 170px; }
-  .oi-ring-2 { width: 220px; height: 220px; opacity: 0.5; }
+  .oi-ring-1 { width: 160px; height: 160px; }
+  .oi-ring-2 { width: 210px; height: 210px; opacity: 0.5; }
 
   .welcome-content { text-align: center; }
   .welcome-brand {
-    font-size: 14px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
-    color: var(--accent); margin-bottom: 10px;
+    font-size: 13px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 12px;
   }
   .welcome-content h1 {
-    font-size: 30px; font-weight: 800; line-height: 1.2; margin-bottom: 10px;
-    letter-spacing: -0.8px; color: var(--text-primary);
+    font-size: 28px; font-weight: 800; line-height: 1.25; margin-bottom: 10px;
+    letter-spacing: -0.6px; color: var(--text-primary);
   }
   .welcome-content p {
-    font-size: 16px; color: var(--text-secondary); line-height: 1.55; margin-bottom: 28px;
-    font-weight: 400; padding: 0 8px;
+    font-size: 15px; color: var(--text-secondary); line-height: 1.55; margin-bottom: 28px;
+    font-weight: 400; padding: 0 12px;
   }
 
   /* ===== BUTTONS ===== */
@@ -1518,12 +1502,23 @@
         <div class="oi-float">🎵</div>
         <div class="oi-float">🏃</div>
         <div class="oi-float">🎲</div>
+        <div class="oi-glow"></div>
         <div class="oi-logo">
-          <div class="oi-glow"></div>
-          <div class="oi-door">
-            <div class="oi-door-open"></div>
-            <div class="oi-door-handle"></div>
-          </div>
+          <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="archFill" x1="40" y1="72" x2="40" y2="14" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#34C759" stop-opacity="0.16"/>
+                <stop offset="50%" stop-color="#34C759" stop-opacity="0.06"/>
+                <stop offset="100%" stop-color="#34C759" stop-opacity="0.01"/>
+              </linearGradient>
+            </defs>
+            <!-- Inner glow fill -->
+            <path d="M16 72 V34 C16 18 26.5 8 40 8 C53.5 8 64 18 64 34 V72 Z" fill="url(#archFill)"/>
+            <!-- Arch frame -->
+            <path d="M16 72 V34 C16 18 26.5 8 40 8 C53.5 8 64 18 64 34 V72" stroke="#34C759" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- Floor line -->
+            <line x1="10" y1="72" x2="70" y2="72" stroke="#34C759" stroke-width="4.5" stroke-linecap="round"/>
+          </svg>
         </div>
       </div>
     </div>
