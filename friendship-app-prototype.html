@@ -930,31 +930,57 @@
   .profile-header { padding: 56px 24px 0; text-align: center; }
 
   .profile-avatar-lg {
-    width: 72px; height: 72px; border-radius: 50%; background: var(--accent-light);
+    width: 80px; height: 80px; border-radius: 50%; background: var(--accent-light);
     display: flex; align-items: center; justify-content: center;
-    font-size: 28px; font-weight: 600; color: var(--accent); margin: 0 auto 12px;
+    font-size: 32px; font-weight: 600; color: var(--accent); margin: 0 auto 10px;
+    border: 2.5px solid var(--accent);
   }
-  .profile-header h2 { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
-  .profile-header .profile-loc { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
+  .profile-header h2 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+  .profile-header .profile-meta {
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    font-size: 13px; color: var(--text-secondary); margin-bottom: 4px;
+  }
+  .profile-header .profile-meta .pm-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--text-muted); }
+  .profile-header .profile-loc { font-size: 13px; color: var(--text-muted); margin-bottom: 16px; }
+
+  .profile-prompts {
+    margin: 0 24px 16px; background: var(--bg-card); border-radius: 14px;
+    box-shadow: var(--shadow); padding: 14px 16px; overflow: hidden;
+  }
+  .profile-prompt {
+    padding: 6px 0;
+  }
+  .profile-prompt + .profile-prompt { border-top: 0.5px solid var(--border); padding-top: 10px; }
+  .profile-prompt-label {
+    font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+  .profile-prompt-answer {
+    display: flex; flex-wrap: wrap; gap: 6px;
+  }
+  .profile-prompt-tag {
+    font-size: 13px; font-weight: 500; padding: 5px 12px; border-radius: 16px;
+    background: rgba(120,120,128,0.06); color: var(--text-primary);
+  }
 
   .profile-stats {
     display: flex; justify-content: center; gap: 0; padding: 0;
-    margin: 0 24px; background: var(--bg-card); border-radius: 14px;
+    margin: 0 24px 16px; background: var(--bg-card); border-radius: 14px;
     box-shadow: var(--shadow); overflow: hidden;
   }
-  .profile-stat { text-align: center; flex: 1; padding: 16px 0; }
+  .profile-stat { text-align: center; flex: 1; padding: 14px 0; cursor: pointer; }
   .profile-stat + .profile-stat { border-left: 0.5px solid var(--border); }
-  .profile-stat .ps-num { font-size: 22px; font-weight: 700; color: var(--accent); }
+  .profile-stat .ps-num { font-size: 20px; font-weight: 700; color: var(--accent); }
   .profile-stat .ps-label { font-size: 11px; color: var(--text-muted); margin-top: 2px; font-weight: 500; }
 
-  .profile-body { padding: 20px 24px 80px; }
+  .profile-body { padding: 0 24px 80px; overflow-y: auto; flex: 1; }
 
   .profile-section {
-    margin-bottom: 24px;
+    margin-bottom: 20px;
   }
   .profile-section-title {
     font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
-    color: var(--text-muted); margin-bottom: 12px;
+    color: var(--text-muted); margin-bottom: 10px;
   }
 
   .profile-interests {
@@ -963,10 +989,32 @@
   .profile-interest-chip {
     display: flex; align-items: center; gap: 6px; padding: 8px 14px;
     background: var(--bg-card); border: none; border-radius: 20px;
-    font-size: 15px; font-weight: 500; color: var(--text-primary); cursor: default;
-    box-shadow: var(--shadow);
+    font-size: 14px; font-weight: 500; color: var(--text-primary); cursor: default;
+    box-shadow: var(--shadow); transition: transform 0.15s var(--spring);
   }
+  .profile-interest-chip.top-interest {
+    background: var(--accent); color: #fff; box-shadow: 0 2px 8px rgba(52,199,89,0.2);
+  }
+  .profile-interest-chip.top-interest .pic-dot { background: rgba(255,255,255,0.5) !important; }
   .profile-interest-chip .pic-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+  .profile-recent-activities { display: flex; flex-direction: column; gap: 0; }
+  .profile-recent-row {
+    display: flex; align-items: center; gap: 12px; padding: 12px 0;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .profile-recent-row:last-child { border-bottom: none; }
+  .profile-recent-icon {
+    width: 38px; height: 38px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
+  }
+  .profile-recent-info { flex: 1; }
+  .profile-recent-info h3 { font-size: 14px; font-weight: 600; margin-bottom: 1px; }
+  .profile-recent-info span { font-size: 12px; color: var(--text-muted); }
+  .profile-recent-when {
+    font-size: 11px; color: var(--text-muted); font-weight: 500; flex-shrink: 0;
+  }
 
   .profile-setting-row {
     display: flex; align-items: center; justify-content: space-between;
@@ -1189,6 +1237,9 @@
   .photo-picker-opt:first-child { border-radius: 10px 10px 0 0; }
   .photo-picker-opt .ppo-icon { font-size: 18px; width: 24px; text-align: center; }
 
+  .about-row-inputs { margin-bottom: 8px; }
+  .about-input-group { margin-bottom: 0; }
+
   .about-bio { margin-bottom: 20px; }
   .about-bio-area {
     width: 100%; padding: 14px 16px; border: none; border-radius: 12px;
@@ -1345,6 +1396,29 @@
       </div>
     </div>
 
+    <div class="about-section about-row-inputs">
+      <div class="about-input-group">
+        <div class="about-section-title">Age range</div>
+        <div class="prompt-grid">
+          <button class="prompt-chip" onclick="selectOne(this, '.age-opt')"><span class="pc-emoji">🧑</span> 18–24</button>
+          <button class="prompt-chip" onclick="selectOne(this, '.age-opt')"><span class="pc-emoji">🧑</span> 25–30</button>
+          <button class="prompt-chip" onclick="selectOne(this, '.age-opt')"><span class="pc-emoji">🧑</span> 31–39</button>
+          <button class="prompt-chip" onclick="selectOne(this, '.age-opt')"><span class="pc-emoji">🧑</span> 40+</button>
+        </div>
+      </div>
+      <div class="about-input-group" style="margin-top:16px">
+        <div class="about-section-title">Approximate neighbourhood</div>
+        <div class="prompt-grid">
+          <button class="prompt-chip" onclick="selectOne(this, '.hood-opt')"><span class="pc-emoji">🏙️</span> Downtown Core</button>
+          <button class="prompt-chip" onclick="selectOne(this, '.hood-opt')"><span class="pc-emoji">🌳</span> Liberty Village</button>
+          <button class="prompt-chip" onclick="selectOne(this, '.hood-opt')"><span class="pc-emoji">🎨</span> Queen West</button>
+          <button class="prompt-chip" onclick="selectOne(this, '.hood-opt')"><span class="pc-emoji">💼</span> Financial District</button>
+          <button class="prompt-chip" onclick="selectOne(this, '.hood-opt')"><span class="pc-emoji">🏘️</span> CityPlace</button>
+          <button class="prompt-chip" onclick="selectOne(this, '.hood-opt')"><span class="pc-emoji">👗</span> Fashion District</button>
+        </div>
+      </div>
+    </div>
+
     <div class="about-bio about-section">
       <div class="about-section-title">Write a short bio</div>
       <textarea class="about-bio-area" id="bio-area" maxlength="120" placeholder="E.g. Just moved to Toronto from Vancouver. Love hiking, trying new coffee spots, and board game nights." oninput="updateBioCount()"></textarea>
@@ -1352,7 +1426,7 @@
     </div>
 
     <div class="about-section">
-      <div class="about-section-title">What brings you here?</div>
+      <div class="about-section-title">What brings you to this app?</div>
       <div class="prompt-grid">
         <button class="prompt-chip" onclick="togglePrompt(this)"><span class="pc-emoji">🏙️</span> New to the city</button>
         <button class="prompt-chip" onclick="togglePrompt(this)"><span class="pc-emoji">👋</span> Looking for activity buddies</button>
@@ -1364,14 +1438,16 @@
     </div>
 
     <div class="about-section">
-      <div class="about-section-title">What's your vibe?</div>
+      <div class="about-section-title">What are you hoping to do more of?</div>
       <div class="prompt-grid">
-        <button class="prompt-chip" onclick="togglePrompt(this)"><span class="pc-emoji">🌅</span> Early bird</button>
-        <button class="prompt-chip" onclick="togglePrompt(this)"><span class="pc-emoji">🌙</span> Night owl</button>
-        <button class="prompt-chip" onclick="togglePrompt(this)"><span class="pc-emoji">🎧</span> Chill & low-key</button>
-        <button class="prompt-chip" onclick="togglePrompt(this)"><span class="pc-emoji">⚡</span> Always down for plans</button>
-        <button class="prompt-chip" onclick="togglePrompt(this)"><span class="pc-emoji">🫶</span> Small groups preferred</button>
-        <button class="prompt-chip" onclick="togglePrompt(this)"><span class="pc-emoji">🎉</span> The more the merrier</button>
+        <button class="prompt-chip" onclick="togglePrompt(this)"><span class="pc-emoji">🚶</span> Go on walks</button>
+        <button class="prompt-chip" onclick="togglePrompt(this)"><span class="pc-emoji">☕</span> Coffee & chats</button>
+        <button class="prompt-chip" onclick="togglePrompt(this)"><span class="pc-emoji">🎲</span> Game nights</button>
+        <button class="prompt-chip" onclick="togglePrompt(this)"><span class="pc-emoji">🎨</span> Creative stuff</button>
+        <button class="prompt-chip" onclick="togglePrompt(this)"><span class="pc-emoji">🏃</span> Sports & movement</button>
+        <button class="prompt-chip" onclick="togglePrompt(this)"><span class="pc-emoji">🍽️</span> Food adventures</button>
+        <button class="prompt-chip" onclick="togglePrompt(this)"><span class="pc-emoji">🎵</span> Live music & events</button>
+        <button class="prompt-chip" onclick="togglePrompt(this)"><span class="pc-emoji">📚</span> Learn something new</button>
       </div>
     </div>
 
@@ -1953,7 +2029,30 @@
     <div class="profile-header">
       <div class="profile-avatar-lg">S</div>
       <h2>Sara</h2>
+      <div class="profile-meta">
+        <span>25–30</span>
+        <div class="pm-dot"></div>
+        <span>Queen West</span>
+      </div>
       <div class="profile-loc">📍 Downtown Toronto</div>
+    </div>
+
+    <div class="profile-prompts">
+      <div class="profile-prompt">
+        <div class="profile-prompt-label">What brings me here</div>
+        <div class="profile-prompt-answer">
+          <span class="profile-prompt-tag">🏙️ New to the city</span>
+          <span class="profile-prompt-tag">👋 Activity buddies</span>
+        </div>
+      </div>
+      <div class="profile-prompt">
+        <div class="profile-prompt-label">Hoping to do more of</div>
+        <div class="profile-prompt-answer">
+          <span class="profile-prompt-tag">☕ Coffee & chats</span>
+          <span class="profile-prompt-tag">🚶 Go on walks</span>
+          <span class="profile-prompt-tag">🎲 Game nights</span>
+        </div>
+      </div>
     </div>
 
     <div class="profile-stats">
@@ -1983,30 +2082,47 @@
     <div class="profile-body">
 
       <div class="profile-section">
-        <div class="profile-progress">
-          <div class="profile-progress-icon">🌱</div>
-          <div class="profile-progress-text">
-            <h3>3 new things this month</h3>
-            <span>You showed up — that's what counts.</span>
+        <div class="profile-section-title">Interests</div>
+        <div class="profile-interests">
+          <div class="profile-interest-chip top-interest"><div class="pic-dot" style="background:var(--social)"></div> Social</div>
+          <div class="profile-interest-chip top-interest"><div class="pic-dot" style="background:var(--food)"></div> Food</div>
+          <div class="profile-interest-chip top-interest"><div class="pic-dot" style="background:var(--movement)"></div> Movement</div>
+          <div class="profile-interest-chip"><div class="pic-dot" style="background:var(--cultural)"></div> Cultural</div>
+          <div class="profile-interest-chip"><div class="pic-dot" style="background:var(--games)"></div> Games</div>
+          <div class="profile-interest-chip"><div class="pic-dot" style="background:var(--creative)"></div> Creative</div>
+        </div>
+      </div>
+
+      <div class="profile-section">
+        <div class="profile-section-title">Activities went to recently</div>
+        <div class="profile-recent-activities">
+          <div class="profile-recent-row">
+            <div class="profile-recent-icon" style="background:var(--social-bg)">🐕</div>
+            <div class="profile-recent-info"><h3>Dog Bowl Social</h3><span>Trinity Bellwoods</span></div>
+            <div class="profile-recent-when">2 days ago</div>
+          </div>
+          <div class="profile-recent-row">
+            <div class="profile-recent-icon" style="background:var(--food-bg)">🥬</div>
+            <div class="profile-recent-info"><h3>Farmers Market</h3><span>Trinity Bellwoods</span></div>
+            <div class="profile-recent-when">1 week ago</div>
+          </div>
+          <div class="profile-recent-row">
+            <div class="profile-recent-icon" style="background:var(--movement-bg)">🚶</div>
+            <div class="profile-recent-info"><h3>Evening Walk Loop</h3><span>CityPlace</span></div>
+            <div class="profile-recent-when">2 weeks ago</div>
           </div>
         </div>
       </div>
 
       <div class="profile-section">
-        <div class="profile-section-title">Your interests</div>
-        <div class="profile-interests">
-          <div class="profile-interest-chip"><div class="pic-dot" style="background:var(--movement)"></div> Movement</div>
-          <div class="profile-interest-chip"><div class="pic-dot" style="background:var(--social)"></div> Social</div>
-          <div class="profile-interest-chip"><div class="pic-dot" style="background:var(--food)"></div> Food</div>
-          <div class="profile-interest-chip"><div class="pic-dot" style="background:var(--cultural)"></div> Cultural</div>
-        </div>
-      </div>
-
-      <div class="profile-section">
         <div class="profile-section-title">Settings</div>
+        <div class="profile-setting-row" onclick="showToast('Editing profile…')">
+          <span class="profile-setting-label">Edit profile</span>
+          <span class="profile-setting-value">→</span>
+        </div>
         <div class="profile-setting-row" onclick="showToast('Editing interests…')">
           <span class="profile-setting-label">Edit interests</span>
-          <span class="profile-setting-value">4 selected →</span>
+          <span class="profile-setting-value">6 selected →</span>
         </div>
         <div class="profile-setting-row" onclick="showToast('Visibility controls…')">
           <span class="profile-setting-label">Visibility</span>
@@ -2122,6 +2238,12 @@
   }
 
   function togglePrompt(el) { el.classList.toggle('selected'); }
+
+  function selectOne(el, groupClass) {
+    const siblings = el.closest('.prompt-grid').querySelectorAll('.prompt-chip');
+    siblings.forEach(s => s.classList.remove('selected'));
+    el.classList.add('selected');
+  }
 
   /* ---- Mini Card ---- */
   let activePin = null;
