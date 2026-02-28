@@ -1101,9 +1101,66 @@
 
   /* ===== SCREEN 9: SAVED ===== */
   .screen-saved { padding: 0; background: var(--bg); }
-  .saved-header { padding: 56px 24px 16px; }
+  .saved-header { padding: 56px 24px 10px; }
   .saved-header h2 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
   .saved-body { padding: 0 24px 80px; overflow-y: auto; flex: 1; }
+
+  /* ===== COMING UP STRIP ===== */
+  .coming-up-section { padding: 0 0 4px; }
+  .coming-up-label {
+    font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
+    color: var(--text-muted); margin: 4px 24px 12px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .coming-up-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .coming-up-scroll {
+    display: flex; gap: 12px; overflow-x: auto; padding: 0 24px 16px;
+    scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+  }
+  .coming-up-scroll::-webkit-scrollbar { display: none; }
+  .cu-card {
+    flex-shrink: 0; width: 190px; border-radius: 16px;
+    background: var(--bg-card); box-shadow: var(--shadow);
+    padding: 14px 14px 12px; scroll-snap-align: start;
+    cursor: pointer; transition: transform 0.15s var(--spring);
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .cu-card:active { transform: scale(0.97); }
+  .cu-top { display: flex; align-items: flex-start; gap: 10px; }
+  .cu-icon {
+    width: 38px; height: 38px; border-radius: 11px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center; font-size: 17px;
+  }
+  .cu-info { flex: 1; min-width: 0; }
+  .cu-name {
+    font-size: 13px; font-weight: 600; line-height: 1.3;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 2px;
+  }
+  .cu-loc { font-size: 11px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .cu-when {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 11px; font-weight: 600; color: var(--accent);
+  }
+  .cu-when-dot {
+    width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0;
+  }
+  .cu-people { display: flex; align-items: center; gap: 6px; }
+  .cu-avatars { display: flex; }
+  .cu-av {
+    width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--bg-card);
+    background: var(--social-bg); color: var(--social);
+    font-size: 9px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .cu-av + .cu-av { margin-left: -7px; }
+  .cu-people-label { font-size: 11px; color: var(--text-muted); }
+  .cu-cta {
+    width: 100%; padding: 7px 0; border-radius: 10px; border: none; cursor: pointer;
+    font-size: 12px; font-weight: 600; font-family: inherit;
+    background: var(--accent-light); color: var(--accent);
+    transition: opacity 0.15s;
+  }
+  .cu-cta:active { opacity: 0.7; }
   .saved-section-label {
     font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
     color: var(--text-muted); margin: 20px 0 10px; display: flex; align-items: center; gap: 8px;
@@ -2372,6 +2429,83 @@
     <div class="saved-header"><h2>Saved</h2></div>
     <div class="saved-body">
 
+      <!-- Coming up strip -->
+      <div class="coming-up-section">
+        <div class="coming-up-label">Coming up</div>
+        <div class="coming-up-scroll">
+
+          <!-- Today -->
+          <div class="cu-card" onclick="openPlanChat('Dog Bowl Social')">
+            <div class="cu-top">
+              <div class="cu-icon social">🐕</div>
+              <div class="cu-info">
+                <div class="cu-name">Dog Bowl Social</div>
+                <div class="cu-loc">Trinity Bellwoods</div>
+              </div>
+            </div>
+            <div class="cu-when">
+              <div class="cu-when-dot"></div>
+              Today · 3–5pm
+            </div>
+            <div class="cu-people">
+              <div class="cu-avatars">
+                <div class="cu-av" style="background:var(--social-bg);color:var(--social)">A</div>
+                <div class="cu-av" style="background:var(--creative-bg);color:var(--creative)">M</div>
+                <div class="cu-av" style="background:var(--movement-bg);color:var(--movement)">K</div>
+              </div>
+              <div class="cu-people-label">3 others going</div>
+            </div>
+            <button class="cu-cta">Open group chat</button>
+          </div>
+
+          <!-- This week -->
+          <div class="cu-card" onclick="openPlanChat('Snakes & Lattes')">
+            <div class="cu-top">
+              <div class="cu-icon games">🎲</div>
+              <div class="cu-info">
+                <div class="cu-name">Snakes & Lattes</div>
+                <div class="cu-loc">Yonge-Dundas</div>
+              </div>
+            </div>
+            <div class="cu-when" style="color:var(--games)">
+              <div class="cu-when-dot" style="background:var(--games)"></div>
+              Thu · 7–9pm
+            </div>
+            <div class="cu-people">
+              <div class="cu-avatars">
+                <div class="cu-av" style="background:var(--games-bg);color:var(--games)">R</div>
+                <div class="cu-av" style="background:var(--social-bg);color:var(--social)">T</div>
+              </div>
+              <div class="cu-people-label">2 others going</div>
+            </div>
+            <button class="cu-cta" style="background:var(--games-bg);color:var(--games)">Open group chat</button>
+          </div>
+
+          <!-- Later -->
+          <div class="cu-card" onclick="openPlanChat('Drake Live Music')">
+            <div class="cu-top">
+              <div class="cu-icon cultural">🎵</div>
+              <div class="cu-info">
+                <div class="cu-name">Drake Live Music</div>
+                <div class="cu-loc">Queen West</div>
+              </div>
+            </div>
+            <div class="cu-when" style="color:var(--cultural)">
+              <div class="cu-when-dot" style="background:var(--cultural)"></div>
+              Sat · Evening
+            </div>
+            <div class="cu-people">
+              <div class="cu-avatars">
+                <div class="cu-av" style="background:var(--cultural-bg);color:var(--cultural)">J</div>
+              </div>
+              <div class="cu-people-label">1 other interested</div>
+            </div>
+            <button class="cu-cta" style="background:var(--cultural-bg);color:var(--cultural)">Open group chat</button>
+          </div>
+
+        </div>
+      </div>
+
       <div class="saved-section-label">Thinking of going</div>
 
       <div class="saved-card" onclick="selectActivityByName('Dog Bowl Social')">
@@ -3261,6 +3395,11 @@
 
   function goToGroupChat() {
     document.getElementById('interest-overlay').classList.remove('visible');
+    goTo(8);
+  }
+
+  function openPlanChat(actName) {
+    selectActivityByName(actName);
     goTo(8);
   }
 
