@@ -616,57 +616,189 @@
   .people-footer { padding: 16px 28px 40px; text-align: center; }
   .people-footer p { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
 
-  /* ===== SCREEN 7: COORDINATE ===== */
+  /* ===== SCREEN 7: GROUP COORDINATION ===== */
   .screen-coordinate { padding: 0; background: var(--bg); }
-  .coord-header { padding: 56px 28px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; }
-  .coord-body { padding: 24px 28px; flex: 1; }
-  .coord-person { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
-  .coord-label { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
-  .time-options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
-  .time-option {
-    padding: 14px 16px; border: none; border-radius: var(--radius-xs);
-    background: var(--bg-card); cursor: pointer;
-    transition: transform 0.15s var(--spring), background 0.15s;
-    display: flex; align-items: center; gap: 10px;
-    font-family: inherit; font-size: 15px; color: var(--text-primary); text-align: left;
-    box-shadow: var(--shadow);
-  }
-  .time-option:active { transform: scale(0.98); }
-  .time-option.selected { background: var(--accent-light); }
-  .time-option .to-icon { font-size: 16px; }
-  .or-divider { text-align: center; font-size: 12px; color: var(--text-muted); margin: 16px 0; position: relative; }
-  .or-divider::before, .or-divider::after { content: ''; position: absolute; top: 50%; width: 40%; height: 1px; background: var(--border); }
-  .or-divider::before { left: 0; }
-  .or-divider::after { right: 0; }
-  .coord-input {
-    width: 100%; padding: 14px 16px; border: none;
-    border-radius: var(--radius-xs); font-size: 16px; font-family: inherit;
-    color: var(--text-primary); background: var(--bg-card); outline: none;
-    box-shadow: var(--shadow); margin-bottom: 28px;
-  }
-  .coord-input::placeholder { color: var(--text-muted); }
-  .coord-input:focus { box-shadow: 0 0 0 3px var(--accent-light), var(--shadow); }
-  .coord-footer { padding: 16px 28px 40px; }
+  .coord-header { padding: 56px 20px 12px; border-bottom: 1px solid var(--border); }
+  .coord-header-top { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+  .coord-header h2 { font-size: 17px; font-weight: 700; flex: 1; }
+  .coord-header .coord-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 8px; }
 
-  /* ===== SCREEN 8: POST-ACTIVITY ===== */
-  .screen-post { padding: 72px 28px 40px; background: var(--bg); justify-content: center; }
-  .post-icon { width: 80px; height: 80px; background: var(--accent-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; font-size: 36px; }
-  .post-content { text-align: center; margin-bottom: 32px; }
-  .post-content h2 { font-size: 24px; font-weight: 600; margin-bottom: 8px; }
-  .post-content p { font-size: 14px; color: var(--text-secondary); line-height: 1.5; }
-  .post-options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
-  .post-option {
-    display: flex; align-items: center; gap: 14px; padding: 16px;
-    background: var(--bg-card); border: none;
-    border-radius: var(--radius-sm); cursor: pointer;
-    transition: transform 0.15s var(--spring), background 0.15s;
-    text-align: left; font-family: inherit; box-shadow: var(--shadow);
+  .coord-members {
+    display: flex; align-items: center; gap: -4px; padding: 10px 0 6px;
   }
-  .post-option:active { transform: scale(0.97); }
-  .post-option.selected { background: var(--accent-light); }
-  .post-option .po-icon { width: 40px; height: 40px; border-radius: 10px; background: var(--accent-light); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
-  .post-option .po-text h3 { font-size: 15px; font-weight: 500; margin-bottom: 2px; }
-  .post-option .po-text span { font-size: 12px; color: var(--text-muted); }
+  .coord-member-av {
+    width: 28px; height: 28px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 600; border: 2px solid var(--bg);
+    margin-left: -6px;
+  }
+  .coord-member-av:first-child { margin-left: 0; }
+  .coord-members-label { font-size: 12px; color: var(--text-muted); margin-left: 8px; }
+
+  .coord-body { padding: 0; flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+
+  .coord-section { padding: 16px 20px; }
+  .coord-section + .coord-section { border-top: 0.5px solid var(--border); }
+  .coord-section-title {
+    font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 10px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .coord-section-title .cst-icon { font-size: 14px; }
+
+  .poll-option {
+    display: flex; align-items: center; padding: 12px 14px;
+    background: var(--bg-card); border: none; border-radius: 12px;
+    margin-bottom: 8px; cursor: pointer; width: 100%; text-align: left;
+    font-family: inherit; box-shadow: var(--shadow);
+    transition: transform 0.15s var(--spring), background 0.15s;
+    position: relative; overflow: hidden;
+  }
+  .poll-option:active { transform: scale(0.98); }
+  .poll-option.voted { background: var(--accent-light); }
+  .poll-option .poll-fill {
+    position: absolute; left: 0; top: 0; bottom: 0;
+    background: rgba(52,199,89,0.08); border-radius: 12px;
+    transition: width 0.4s var(--spring);
+  }
+  .poll-option .poll-content { position: relative; z-index: 1; display: flex; align-items: center; gap: 10px; flex: 1; }
+  .poll-option .poll-time { font-size: 14px; font-weight: 500; flex: 1; }
+  .poll-option .poll-voters {
+    display: flex; align-items: center; gap: -2px;
+  }
+  .poll-option .poll-voter {
+    width: 22px; height: 22px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px; font-weight: 600; border: 2px solid var(--bg-card);
+    margin-left: -4px;
+  }
+  .poll-option .poll-voter:first-child { margin-left: 0; }
+  .poll-option .poll-count { font-size: 12px; color: var(--text-muted); font-weight: 600; margin-left: 6px; min-width: 12px; }
+  .poll-option .poll-check {
+    width: 20px; height: 20px; border-radius: 50%;
+    border: 2px solid rgba(60,60,67,0.18);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    transition: background 0.2s, border-color 0.2s;
+    margin-left: 8px;
+  }
+  .poll-option.voted .poll-check { background: var(--accent); border-color: var(--accent); }
+  .poll-add {
+    display: flex; align-items: center; gap: 8px; padding: 10px 14px;
+    background: none; border: 1px dashed rgba(60,60,67,0.15); border-radius: 12px;
+    font-family: inherit; font-size: 14px; color: var(--text-muted); cursor: pointer;
+    width: 100%; transition: background 0.15s;
+  }
+  .poll-add:active { background: rgba(60,60,67,0.04); }
+
+  .chat-messages { display: flex; flex-direction: column; gap: 6px; }
+  .chat-msg { display: flex; gap: 8px; align-items: flex-start; }
+  .chat-msg-av {
+    width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 600; margin-top: 2px;
+  }
+  .chat-msg-body {
+    background: var(--bg-card); border-radius: 16px 16px 16px 4px;
+    padding: 10px 14px; max-width: 75%; box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  }
+  .chat-msg.mine .chat-msg-body {
+    background: var(--accent); color: #fff;
+    border-radius: 16px 16px 4px 16px; margin-left: auto;
+  }
+  .chat-msg .chat-name { font-size: 11px; font-weight: 600; color: var(--text-muted); margin-bottom: 2px; }
+  .chat-msg.mine .chat-name { color: rgba(255,255,255,0.7); }
+  .chat-msg .chat-text { font-size: 14px; line-height: 1.4; }
+  .chat-msg .chat-time { font-size: 10px; color: var(--text-muted); margin-top: 3px; }
+  .chat-msg.mine .chat-time { color: rgba(255,255,255,0.6); }
+
+  .chat-input-bar {
+    display: flex; align-items: center; gap: 8px; padding: 10px 16px 28px;
+    border-top: 0.5px solid var(--border); background: var(--bg);
+  }
+  .chat-input {
+    flex: 1; padding: 10px 14px; border: none; border-radius: 20px;
+    background: rgba(120,120,128,0.08); font-size: 15px; font-family: inherit;
+    color: var(--text-primary); outline: none;
+  }
+  .chat-input::placeholder { color: rgba(60,60,67,0.3); }
+  .chat-send {
+    width: 34px; height: 34px; border-radius: 50%; background: var(--accent);
+    border: none; color: #fff; font-size: 16px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.15s var(--spring);
+  }
+  .chat-send:active { transform: scale(0.9); }
+
+  .coord-confirm-bar {
+    padding: 12px 20px 28px; border-top: 0.5px solid var(--border);
+    background: var(--bg);
+  }
+
+  /* ===== SCREEN 8: POST-MEETUP ===== */
+  .screen-post { padding: 0; background: var(--bg); }
+  .post-notif {
+    margin: 60px 20px 0; padding: 20px; text-align: center;
+    background: linear-gradient(135deg, rgba(52,199,89,0.1) 0%, rgba(175,82,222,0.08) 100%);
+    border-radius: 16px;
+  }
+  .post-notif-icon { font-size: 40px; margin-bottom: 8px; }
+  .post-notif h2 { font-size: 20px; font-weight: 700; letter-spacing: -0.3px; margin-bottom: 4px; }
+  .post-notif p { font-size: 14px; color: var(--text-secondary); }
+
+  .post-section { padding: 16px 20px 0; }
+  .post-section-title {
+    font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 10px;
+  }
+
+  .post-person {
+    display: flex; align-items: center; gap: 12px; padding: 14px 0;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .post-person:last-child { border-bottom: none; }
+  .post-person-av {
+    width: 42px; height: 42px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 600; flex-shrink: 0;
+  }
+  .post-person-info { flex: 1; }
+  .post-person-info h3 { font-size: 15px; font-weight: 600; margin-bottom: 2px; }
+  .post-person-info span { font-size: 12px; color: var(--text-muted); }
+  .post-person-actions { display: flex; gap: 6px; flex-shrink: 0; }
+  .post-add-btn {
+    padding: 7px 14px; border-radius: 16px; font-size: 13px; font-weight: 600;
+    border: none; cursor: pointer; font-family: inherit;
+    transition: transform 0.15s var(--spring), background 0.15s;
+  }
+  .post-add-btn:active { transform: scale(0.92); }
+  .post-add-btn.add { background: var(--accent); color: #fff; }
+  .post-add-btn.added { background: var(--accent-light); color: var(--accent); }
+
+  .post-chat-fate {
+    display: flex; flex-direction: column; gap: 0;
+    background: var(--bg-card); border-radius: 12px; overflow: hidden;
+    box-shadow: var(--shadow); margin-bottom: 16px;
+  }
+  .chat-fate-opt {
+    display: flex; align-items: center; gap: 12px; padding: 14px 16px;
+    border: none; background: none; width: 100%; text-align: left;
+    font-family: inherit; cursor: pointer; transition: background 0.1s;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .chat-fate-opt:last-child { border-bottom: none; }
+  .chat-fate-opt:active { background: rgba(60,60,67,0.05); }
+  .chat-fate-opt.selected { background: var(--accent-light); }
+  .chat-fate-opt .cfo-icon { font-size: 18px; width: 24px; text-align: center; }
+  .chat-fate-opt .cfo-text { flex: 1; }
+  .chat-fate-opt .cfo-text h3 { font-size: 15px; font-weight: 500; margin-bottom: 1px; }
+  .chat-fate-opt .cfo-text span { font-size: 12px; color: var(--text-muted); }
+  .chat-fate-opt .cfo-check {
+    width: 20px; height: 20px; border-radius: 50%;
+    border: 2px solid rgba(60,60,67,0.18); flex-shrink: 0;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .chat-fate-opt.selected .cfo-check { background: var(--accent); border-color: var(--accent); }
+
+  .post-footer { padding: 12px 20px 40px; }
+  .post-footer .btn-primary { margin-bottom: 6px; }
 
   /* ===== SCREEN 9: SAVED ===== */
   .screen-saved { padding: 0; background: var(--bg); }
@@ -942,8 +1074,9 @@
   .about-header h2 { font-size: 28px; font-weight: 700; letter-spacing: -0.6px; margin-bottom: 6px; }
   .about-header p { font-size: 15px; color: var(--text-secondary); line-height: 1.5; }
 
+  .about-photo-wrap { position: relative; width: 110px; margin: 0 auto 24px; }
   .about-photo {
-    width: 100px; height: 100px; border-radius: 50%; margin: 0 auto 28px;
+    width: 110px; height: 110px; border-radius: 50%;
     background: rgba(120,120,128,0.08);
     display: flex; align-items: center; justify-content: center; flex-direction: column;
     cursor: pointer; position: relative; overflow: hidden;
@@ -953,12 +1086,56 @@
   .about-photo:active { transform: scale(0.95); }
   .about-photo.has-photo {
     border: 3px solid var(--accent);
-    background: var(--accent-light);
+    background: linear-gradient(135deg, #E8F5E9 0%, #F3E5F5 100%);
   }
   .about-photo .ap-icon { font-size: 28px; line-height: 1; margin-bottom: 2px; }
   .about-photo .ap-label { font-size: 10px; font-weight: 600; color: var(--text-muted); letter-spacing: 0.3px; }
-  .about-photo.has-photo .ap-icon { font-size: 42px; }
+  .about-photo.has-photo .ap-icon { font-size: 48px; }
   .about-photo.has-photo .ap-label { display: none; }
+  .about-photo-badge {
+    position: absolute; bottom: 2px; right: 2px;
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--accent); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    border: 2.5px solid var(--bg); cursor: pointer;
+  }
+
+  .photo-picker {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.9);
+    background: var(--bg-card); border-radius: 14px; padding: 6px;
+    box-shadow: var(--shadow-lg); z-index: 5;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.2s, transform 0.2s var(--spring);
+    min-width: 180px;
+  }
+  .photo-picker.visible { opacity: 1; pointer-events: auto; transform: translate(-50%, -50%) scale(1); }
+  .photo-picker-opt {
+    display: flex; align-items: center; gap: 10px; padding: 12px 14px;
+    border: none; background: none; width: 100%; text-align: left;
+    font-family: inherit; font-size: 15px; color: var(--text-primary);
+    cursor: pointer; border-radius: 10px; transition: background 0.1s;
+  }
+  .photo-picker-opt:active { background: rgba(60,60,67,0.05); }
+  .photo-picker-opt + .photo-picker-opt { border-top: 0.5px solid var(--border); border-radius: 0 0 10px 10px; }
+  .photo-picker-opt:first-child { border-radius: 10px 10px 0 0; }
+  .photo-picker-opt .ppo-icon { font-size: 18px; width: 24px; text-align: center; }
+
+  .about-bio { margin-bottom: 20px; }
+  .about-bio-area {
+    width: 100%; padding: 14px 16px; border: none; border-radius: 12px;
+    font-size: 15px; font-family: inherit; color: var(--text-primary);
+    background: rgba(120,120,128,0.08); outline: none; resize: none;
+    min-height: 72px; line-height: 1.5;
+    transition: box-shadow 0.2s;
+  }
+  .about-bio-area::placeholder { color: rgba(60,60,67,0.25); }
+  .about-bio-area:focus { box-shadow: 0 0 0 3px var(--accent-light); background: rgba(120,120,128,0.06); }
+  .about-bio-count {
+    text-align: right; font-size: 11px; color: var(--text-muted); margin-top: 4px; font-weight: 500;
+  }
+  .about-bio-count.near-limit { color: var(--food); }
+  .about-bio-count.at-limit { color: #FF3B30; }
 
   .about-section { margin-bottom: 20px; }
   .about-section-title {
@@ -1088,9 +1265,22 @@
       <p>A photo and a few taps — that's it.</p>
     </div>
 
-    <div class="about-photo" onclick="togglePhoto(this)">
-      <span class="ap-icon">📷</span>
-      <span class="ap-label">Add photo</span>
+    <div class="about-photo-wrap">
+      <div class="about-photo" id="about-photo" onclick="showPhotoPicker()">
+        <span class="ap-icon">📷</span>
+        <span class="ap-label">Add photo</span>
+      </div>
+      <div class="about-photo-badge" onclick="showPhotoPicker()">+</div>
+      <div class="photo-picker" id="photo-picker">
+        <button class="photo-picker-opt" onclick="pickPhoto('camera')"><span class="ppo-icon">📸</span> Take a photo</button>
+        <button class="photo-picker-opt" onclick="pickPhoto('library')"><span class="ppo-icon">🖼️</span> Choose from library</button>
+      </div>
+    </div>
+
+    <div class="about-bio about-section">
+      <div class="about-section-title">Write a short bio</div>
+      <textarea class="about-bio-area" id="bio-area" maxlength="120" placeholder="E.g. Just moved to Toronto from Vancouver. Love hiking, trying new coffee spots, and board game nights." oninput="updateBioCount()"></textarea>
+      <div class="about-bio-count" id="bio-count">0 / 120</div>
     </div>
 
     <div class="about-section">
@@ -1436,39 +1626,161 @@
     <div class="people-footer"><p>Suggest a time or place, or just show up — it's up to you.</p></div>
   </div>
 
-  <!-- SCREEN 7: COORDINATION -->
+  <!-- SCREEN 7: GROUP COORDINATION -->
   <div class="screen screen-coordinate" id="screen-9">
     <div class="coord-header">
-      <button class="people-back-btn" onclick="goBack()">←</button>
-      <div class="people-header-text"><h2>Coordinate</h2><span>Dog Bowl Social · Trinity Bellwoods</span></div>
+      <div class="coord-header-top">
+        <button class="people-back-btn" onclick="goBack()">←</button>
+        <h2>🐕 Dog Bowl Social</h2>
+      </div>
+      <div class="coord-sub">Trinity Bellwoods · Group auto-created</div>
+      <div class="coord-members">
+        <div class="coord-member-av" style="background:var(--accent-light);color:var(--accent)">You</div>
+        <div class="coord-member-av" style="background:var(--social-bg);color:var(--social)">A</div>
+        <div class="coord-member-av" style="background:var(--creative-bg);color:var(--creative)">M</div>
+        <div class="coord-member-av" style="background:var(--cultural-bg);color:var(--cultural)">K</div>
+        <span class="coord-members-label">4 people interested</span>
+      </div>
     </div>
+
     <div class="coord-body">
-      <div class="coord-person">
-        <div class="person-avatar">A</div>
-        <div class="person-info"><h3>Alex</h3><div class="person-meta"><span>Trinity Bellwoods · ~3 min</span></div></div>
+      <div class="coord-section">
+        <div class="coord-section-title"><span class="cst-icon">📊</span> When works for everyone?</div>
+        <button class="poll-option voted" onclick="votePoll(this)">
+          <div class="poll-fill" style="width:75%"></div>
+          <div class="poll-content">
+            <span class="poll-time">☀️ Sat, Mar 7 · 10 AM</span>
+            <div class="poll-voters">
+              <div class="poll-voter" style="background:var(--accent-light);color:var(--accent)">You</div>
+              <div class="poll-voter" style="background:var(--social-bg);color:var(--social)">A</div>
+              <div class="poll-voter" style="background:var(--creative-bg);color:var(--creative)">M</div>
+            </div>
+            <span class="poll-count">3</span>
+          </div>
+          <div class="poll-check"><svg width="10" height="8" viewBox="0 0 12 10" fill="none"><path d="M1 5L4.5 8.5L11 1.5" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></div>
+        </button>
+        <button class="poll-option" onclick="votePoll(this)">
+          <div class="poll-fill" style="width:50%"></div>
+          <div class="poll-content">
+            <span class="poll-time">🌅 Sun, Mar 8 · 9 AM</span>
+            <div class="poll-voters">
+              <div class="poll-voter" style="background:var(--social-bg);color:var(--social)">A</div>
+              <div class="poll-voter" style="background:var(--cultural-bg);color:var(--cultural)">K</div>
+            </div>
+            <span class="poll-count">2</span>
+          </div>
+          <div class="poll-check"></div>
+        </button>
+        <button class="poll-option" onclick="votePoll(this)">
+          <div class="poll-fill" style="width:25%"></div>
+          <div class="poll-content">
+            <span class="poll-time">🌙 Fri, Mar 6 · 6 PM</span>
+            <div class="poll-voters">
+              <div class="poll-voter" style="background:var(--creative-bg);color:var(--creative)">M</div>
+            </div>
+            <span class="poll-count">1</span>
+          </div>
+          <div class="poll-check"></div>
+        </button>
+        <button class="poll-add" onclick="showToast('Add a time option')">＋ Suggest another time</button>
       </div>
-      <div class="coord-label">Suggest a time</div>
-      <div class="time-options">
-        <button class="time-option" onclick="selectTime(this)"><span class="to-icon">🌅</span> Tomorrow morning · Dog Bowl area</button>
-        <button class="time-option" onclick="selectTime(this)"><span class="to-icon">☀️</span> This Saturday, 10 AM · Bellwoods entrance</button>
-        <button class="time-option" onclick="selectTime(this)"><span class="to-icon">🌤</span> Sunday afternoon · Dog Bowl area</button>
+
+      <div class="coord-section">
+        <div class="coord-section-title"><span class="cst-icon">💬</span> Group chat</div>
+        <div class="chat-messages">
+          <div class="chat-msg">
+            <div class="chat-msg-av" style="background:var(--social-bg);color:var(--social)">A</div>
+            <div class="chat-msg-body">
+              <div class="chat-name">Alex</div>
+              <div class="chat-text">Hey! Saturday morning works great for me. I'll bring my dog Max 🐕</div>
+              <div class="chat-time">2:30 PM</div>
+            </div>
+          </div>
+          <div class="chat-msg">
+            <div class="chat-msg-av" style="background:var(--creative-bg);color:var(--creative)">M</div>
+            <div class="chat-msg-body">
+              <div class="chat-name">Maya</div>
+              <div class="chat-text">I'm flexible! Saturday or Sunday both work</div>
+              <div class="chat-time">2:45 PM</div>
+            </div>
+          </div>
+          <div class="chat-msg mine">
+            <div class="chat-msg-body">
+              <div class="chat-name">You</div>
+              <div class="chat-text">Saturday 10 AM sounds perfect! See you at the dog bowl entrance?</div>
+              <div class="chat-time">3:01 PM</div>
+            </div>
+          </div>
+          <div class="chat-msg">
+            <div class="chat-msg-av" style="background:var(--cultural-bg);color:var(--cultural)">K</div>
+            <div class="chat-msg-body">
+              <div class="chat-name">Kai</div>
+              <div class="chat-text">Sounds good! 🙌</div>
+              <div class="chat-time">3:15 PM</div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="or-divider">or</div>
-      <input class="coord-input" type="text" placeholder="Suggest a different time or place...">
     </div>
-    <div class="coord-footer"><button class="btn-primary" onclick="sendCoordination()">Send suggestion</button></div>
+
+    <div class="chat-input-bar">
+      <input class="chat-input" type="text" placeholder="Message the group...">
+      <button class="chat-send" onclick="showToast('Message sent')">↑</button>
+    </div>
   </div>
 
-  <!-- SCREEN 8: POST-ACTIVITY -->
+  <!-- SCREEN 8: POST-MEETUP -->
   <div class="screen screen-post" id="screen-10">
-    <div class="post-icon">✨</div>
-    <div class="post-content"><h2>Did you enjoy this?</h2><p>Dog Bowl Social · Trinity Bellwoods</p></div>
-    <div class="post-options">
-      <button class="post-option" onclick="selectPost(this)"><div class="po-icon">🔄</div><div class="po-text"><h3>Save again</h3><span>I'd do this again</span></div></button>
-      <button class="post-option" onclick="selectPost(this)"><div class="po-icon">🔍</div><div class="po-text"><h3>Try something similar</h3><span>Show me more like this</span></div></button>
-      <button class="post-option" onclick="selectPost(this)"><div class="po-icon">🤝</div><div class="po-text"><h3>Stay connected</h3><span>Keep in touch with people who were there</span></div></button>
+    <div class="post-notif">
+      <div class="post-notif-icon">🎉</div>
+      <h2>You went to Dog Bowl Social!</h2>
+      <p>Trinity Bellwoods · Today</p>
     </div>
-    <button class="btn-text" onclick="goTo(6)">Maybe later</button>
+
+    <div class="post-section">
+      <div class="post-section-title">Want to see these people again?</div>
+      <div class="post-person">
+        <div class="post-person-av" style="background:var(--social-bg);color:var(--social)">A</div>
+        <div class="post-person-info"><h3>Alex</h3><span>Shared 2 interests</span></div>
+        <div class="post-person-actions"><button class="post-add-btn add" onclick="addFriend(this)">Add friend</button></div>
+      </div>
+      <div class="post-person">
+        <div class="post-person-av" style="background:var(--creative-bg);color:var(--creative)">M</div>
+        <div class="post-person-info"><h3>Maya</h3><span>Shared 3 interests</span></div>
+        <div class="post-person-actions"><button class="post-add-btn add" onclick="addFriend(this)">Add friend</button></div>
+      </div>
+      <div class="post-person">
+        <div class="post-person-av" style="background:var(--cultural-bg);color:var(--cultural)">K</div>
+        <div class="post-person-info"><h3>Kai</h3><span>Shared 1 interest</span></div>
+        <div class="post-person-actions"><button class="post-add-btn add" onclick="addFriend(this)">Add friend</button></div>
+      </div>
+    </div>
+
+    <div class="post-section">
+      <div class="post-section-title">What happens to the group chat?</div>
+      <div class="post-chat-fate">
+        <button class="chat-fate-opt selected" onclick="selectFate(this)">
+          <span class="cfo-icon">💬</span>
+          <div class="cfo-text"><h3>Keep it open</h3><span>Plan more hangouts together</span></div>
+          <div class="cfo-check"></div>
+        </button>
+        <button class="chat-fate-opt" onclick="selectFate(this)">
+          <span class="cfo-icon">📦</span>
+          <div class="cfo-text"><h3>Archive it</h3><span>Move to archived — reopen anytime</span></div>
+          <div class="cfo-check"></div>
+        </button>
+        <button class="chat-fate-opt" onclick="selectFate(this)">
+          <span class="cfo-icon">👋</span>
+          <div class="cfo-text"><h3>Leave the chat</h3><span>Others can keep chatting without you</span></div>
+          <div class="cfo-check"></div>
+        </button>
+      </div>
+    </div>
+
+    <div class="post-footer">
+      <button class="btn-primary" onclick="finishPost()">Done</button>
+      <button class="btn-text" onclick="goTo(6)">Skip for now</button>
+    </div>
   </div>
 
   <!-- SCREEN 9: SAVED -->
@@ -1702,13 +2014,26 @@
 
   function toggleInterest(el) { el.classList.toggle('selected'); }
 
-  function togglePhoto(el) {
-    el.classList.toggle('has-photo');
-    if (el.classList.contains('has-photo')) {
-      el.querySelector('.ap-icon').textContent = '😊';
-    } else {
-      el.querySelector('.ap-icon').textContent = '📷';
-    }
+  function showPhotoPicker() {
+    const picker = document.getElementById('photo-picker');
+    picker.classList.toggle('visible');
+  }
+
+  function pickPhoto(type) {
+    const photo = document.getElementById('about-photo');
+    photo.classList.add('has-photo');
+    photo.querySelector('.ap-icon').textContent = '😊';
+    document.getElementById('photo-picker').classList.remove('visible');
+    document.querySelector('.about-photo-badge').textContent = '✎';
+    showToast(type === 'camera' ? 'Photo taken!' : 'Photo added!');
+  }
+
+  function updateBioCount() {
+    const area = document.getElementById('bio-area');
+    const count = document.getElementById('bio-count');
+    const len = area.value.length;
+    count.textContent = len + ' / 120';
+    count.className = 'about-bio-count' + (len >= 120 ? ' at-limit' : len >= 100 ? ' near-limit' : '');
   }
 
   function togglePrompt(el) { el.classList.toggle('selected'); }
@@ -1946,20 +2271,31 @@
     setTimeout(() => t.classList.remove('show'), 2000);
   }
 
-  function selectTime(el) {
-    document.querySelectorAll('.time-option').forEach(t => t.classList.remove('selected'));
+  function votePoll(el) {
+    el.classList.toggle('voted');
+    const check = el.querySelector('.poll-check');
+    if (el.classList.contains('voted')) {
+      check.innerHTML = '<svg width="10" height="8" viewBox="0 0 12 10" fill="none"><path d="M1 5L4.5 8.5L11 1.5" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>';
+    } else {
+      check.innerHTML = '';
+    }
+  }
+
+  function addFriend(btn) {
+    btn.classList.remove('add');
+    btn.classList.add('added');
+    btn.textContent = 'Added ✓';
+    showToast('Friend request sent!');
+  }
+
+  function selectFate(el) {
+    document.querySelectorAll('.chat-fate-opt').forEach(o => o.classList.remove('selected'));
     el.classList.add('selected');
   }
 
-  function sendCoordination() {
-    showToast('Suggestion sent!');
-    setTimeout(() => goTo(10), 1200);
-  }
-
-  function selectPost(el) {
-    el.classList.toggle('selected');
-    showToast('Got it — thanks!');
-    setTimeout(() => goTo(6), 1500);
+  function finishPost() {
+    showToast('All set!');
+    setTimeout(() => goTo(6), 1200);
   }
 </script>
 
