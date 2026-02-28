@@ -737,8 +737,15 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   border-top: 1px solid var(--gray-200);
 }
 
+.cs-hero--natural img {
+  height: auto;
+  object-fit: contain;
+  max-width: 100%;
+}
+
 @media (max-width: 768px) {
   .cs-hero img { height: 240px; }
+  .cs-hero--natural img { height: auto; }
 }
 
 /* Brand-specific case study accents — Autodesk */
