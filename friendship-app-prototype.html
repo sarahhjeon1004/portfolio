@@ -1845,7 +1845,7 @@
           <div class="mc-people-dots" id="mc-people-dots"></div>
           <span id="mc-people-text"></span>
         </div>
-        <button class="mc-cta" onclick="goTo(7)">I'm interested</button>
+        <button class="mc-cta" onclick="selectActivityFromPin()">I'm interested</button>
       </div>
     </div>
 
@@ -1859,7 +1859,7 @@
       </div>
 
       <!-- Retention: nudge cards -->
-      <div class="nudge-card" onclick="goTo(7)">
+      <div class="nudge-card" onclick="selectActivityByName('Farmers Market')">
         <div class="nudge-icon">👋</div>
         <div class="nudge-text">
           <h4>Alex is going to Farmers Market</h4>
@@ -1871,7 +1871,7 @@
       <!-- Retention: this week digest -->
       <div class="digest-section">
         <div class="digest-title">New this week</div>
-        <div class="digest-card" onclick="goTo(7)">
+        <div class="digest-card" onclick="showToast('Coming soon — Sunrise Yoga')">
           <div class="digest-card-icon">🧘</div>
           <div class="digest-card-info">
             <h4>Sunrise Yoga in the Park</h4>
@@ -1879,7 +1879,7 @@
           </div>
           <div class="digest-card-cta">New</div>
         </div>
-        <div class="digest-card" onclick="goTo(7)">
+        <div class="digest-card" onclick="showToast('Coming soon — Silent Book Club')">
           <div class="digest-card-icon">📖</div>
           <div class="digest-card-info">
             <h4>Silent Book Club</h4>
@@ -1891,52 +1891,52 @@
 
       <h3 class="sheet-title">Nearby activities</h3>
       <div class="activity-list" id="activity-list">
-        <div class="al-card" data-cat="social" onclick="goTo(7)">
+        <div class="al-card" data-cat="social" data-act="Dog Bowl Social" onclick="selectActivityByName(this.dataset.act)">
           <div class="al-icon social">🐕</div>
           <div class="al-info"><h3>Dog Bowl Social</h3><span>Trinity Bellwoods · ~5 min</span></div>
           <div class="al-right"><span class="al-people">4 interested</span><span class="al-energy">☀️</span></div>
         </div>
-        <div class="al-card" data-cat="games" onclick="goTo(7)">
+        <div class="al-card" data-cat="games" data-act="Snakes & Lattes" onclick="selectActivityByName(this.dataset.act)">
           <div class="al-icon games">🎲</div>
           <div class="al-info"><h3>Snakes & Lattes</h3><span>Yonge-Dundas · ~15 min</span></div>
           <div class="al-right"><span class="al-people">6 interested</span><span class="al-energy">⚡</span></div>
         </div>
-        <div class="al-card" data-cat="creative" onclick="goTo(7)">
+        <div class="al-card" data-cat="creative" data-act="Artscape Open Studio" onclick="selectActivityByName(this.dataset.act)">
           <div class="al-icon creative">🎨</div>
           <div class="al-info"><h3>Artscape Open Studio</h3><span>Queen W · ~10 min</span></div>
           <div class="al-right"><span class="al-people">2 interested</span><span class="al-energy">☀️</span></div>
         </div>
-        <div class="al-card" data-cat="cultural" onclick="goTo(7)">
+        <div class="al-card" data-cat="cultural" data-act="Drake Live Music" onclick="selectActivityByName(this.dataset.act)">
           <div class="al-icon cultural">🎵</div>
           <div class="al-info"><h3>Drake Live Music</h3><span>Queen West · ~8 min</span></div>
           <div class="al-right"><span class="al-people">3 interested</span><span class="al-energy">⚡</span></div>
         </div>
-        <div class="al-card" data-cat="learning" onclick="goTo(7)">
+        <div class="al-card" data-cat="learning" data-act="Community Art Workshop" onclick="selectActivityByName(this.dataset.act)">
           <div class="al-icon learning">🖌️</div>
           <div class="al-info"><h3>Community Art Workshop</h3><span>Artscape · ~10 min</span></div>
           <div class="al-right"><span class="al-people">2 interested</span><span class="al-energy">☀️</span></div>
         </div>
-        <div class="al-card" data-cat="movement" onclick="goTo(7)">
+        <div class="al-card" data-cat="movement" data-act="Bellwoods Pickup Courts" onclick="selectActivityByName(this.dataset.act)">
           <div class="al-icon movement">🏐</div>
           <div class="al-info"><h3>Bellwoods Pickup Courts</h3><span>Trinity Bellwoods · ~6 min</span></div>
           <div class="al-right"><span class="al-people">3 interested</span><span class="al-energy">🔥</span></div>
         </div>
-        <div class="al-card" data-cat="cultural" onclick="goTo(7)">
+        <div class="al-card" data-cat="cultural" data-act="Gallery Opening Walk" onclick="selectActivityByName(this.dataset.act)">
           <div class="al-icon cultural">🖼️</div>
           <div class="al-info"><h3>Gallery Opening Walk</h3><span>Queen West · ~8 min</span></div>
           <div class="al-right"><span class="al-people">2 interested</span><span class="al-energy">☀️</span></div>
         </div>
-        <div class="al-card" data-cat="food" onclick="goTo(7)">
+        <div class="al-card" data-cat="food" data-act="Farmers Market" onclick="selectActivityByName(this.dataset.act)">
           <div class="al-icon food">🥬</div>
           <div class="al-info"><h3>Farmers Market</h3><span>Trinity Bellwoods · ~5 min</span></div>
           <div class="al-right"><span class="al-people">5 interested</span><span class="al-energy">☀️</span></div>
         </div>
-        <div class="al-card" data-cat="games" onclick="goTo(7)">
+        <div class="al-card" data-cat="games" data-act="Ossington Trivia Night" onclick="selectActivityByName(this.dataset.act)">
           <div class="al-icon games">🧠</div>
           <div class="al-info"><h3>Ossington Trivia Night</h3><span>Ossington Ave · ~12 min</span></div>
           <div class="al-right"><span class="al-people">4 interested</span><span class="al-energy">⚡</span></div>
         </div>
-        <div class="al-card" data-cat="movement" onclick="goTo(7)">
+        <div class="al-card" data-cat="movement" data-act="Evening Walk Loop" onclick="selectActivityByName(this.dataset.act)">
           <div class="al-icon movement">🚶</div>
           <div class="al-info"><h3>Evening Walk Loop</h3><span>CityPlace · ~3 min</span></div>
           <div class="al-right"><span class="al-people">3 interested</span><span class="al-energy">☀️</span></div>
@@ -1964,17 +1964,17 @@
   <!-- SCREEN 5: ACTIVITY DETAIL -->
   <div class="screen screen-activity" id="screen-7">
     <button class="activity-back" onclick="goBack()">←</button>
-    <div class="activity-hero">🐕</div>
+    <div class="activity-hero" id="ad-hero">🐕</div>
     <div class="activity-body">
-      <div class="activity-cat-badge social">🐕 Social · Outdoor</div>
-      <h2>Dog Bowl Social</h2>
-      <p class="activity-desc">Dog park hangout area in Trinity Bellwoods — an easy, low-pressure way to meet locals. Bring a dog or just come hang out.</p>
-      <div class="activity-match"><span>✦</span> Lines up with your interests: Social</div>
-      <div class="activity-tags">
+      <div class="activity-cat-badge" id="ad-cat-badge">🐕 Social · Outdoor</div>
+      <h2 id="ad-name">Dog Bowl Social</h2>
+      <p class="activity-desc" id="ad-desc">Dog park hangout area in Trinity Bellwoods — an easy, low-pressure way to meet locals. Bring a dog or just come hang out.</p>
+      <div class="activity-match" id="ad-match"><span>✦</span> Lines up with your interests: Social</div>
+      <div class="activity-tags" id="ad-tags">
         <span class="activity-tag">Pet-friendly</span><span class="activity-tag">Casual</span>
         <span class="activity-tag">Walk-in</span><span class="activity-tag">Outdoor</span>
       </div>
-      <div class="activity-details">
+      <div class="activity-details" id="ad-details">
         <div class="detail-item"><div class="di-label">Energy</div><div class="di-value">☀️ Calm</div></div>
         <div class="detail-item"><div class="di-label">Social Level</div><div class="di-value">Medium</div></div>
         <div class="detail-item"><div class="di-label">Cost</div><div class="di-value">Free</div></div>
@@ -1983,8 +1983,8 @@
         <div class="detail-item"><div class="di-label">Walk-in</div><div class="di-value">Yes — just show up</div></div>
       </div>
       <div class="social-signal">
-        <div class="signal-dots"><div class="signal-dot">A</div><div class="signal-dot">M</div><div class="signal-dot">K</div><div class="signal-dot">J</div></div>
-        <div class="signal-text">4 people nearby are also interested</div>
+        <div class="signal-dots" id="ad-signal-dots"><div class="signal-dot">A</div><div class="signal-dot">M</div><div class="signal-dot">K</div><div class="signal-dot">J</div></div>
+        <div class="signal-text" id="ad-signal-text">4 people nearby are also interested</div>
       </div>
       <div class="safety-banner" style="margin:12px 0 0">
         <div class="safety-banner-icon">🛡️</div>
@@ -2021,9 +2021,9 @@
     <div class="coord-header">
       <div class="coord-header-top">
         <button class="people-back-btn" onclick="goBack()">←</button>
-        <h2>🐕 Dog Bowl Social</h2>
+        <h2 id="coord-title">🐕 Dog Bowl Social</h2>
       </div>
-      <div class="coord-sub">Trinity Bellwoods · You're all interested</div>
+      <div class="coord-sub" id="coord-sub">Trinity Bellwoods · You're all interested</div>
       <div class="coord-members">
         <div class="coord-member-av" style="background:var(--accent-light);color:var(--accent)">You</div>
         <div class="coord-member-av" style="background:var(--social-bg);color:var(--social)">A</div>
@@ -2090,46 +2090,14 @@
         <div class="coord-section-title"><span class="cst-icon">💬</span> Conversation</div>
 
         <!-- Shared context: reduces awkwardness -->
-        <div class="chat-context">
+        <div class="chat-context" id="chat-context">
           <span class="chat-context-icon">✦</span>
-          <span class="chat-context-text">You all share interests in <strong>Social</strong> and <strong>Outdoor</strong> activities. Alex and Maya are also new to the area.</span>
+          <span class="chat-context-text" id="chat-context-text">You all share interests in <strong>Social</strong> and <strong>Outdoor</strong> activities. Alex and Maya are also new to the area.</span>
         </div>
 
         <div class="chat-system-msg">Everyone here is looking forward to this — say hi when you're ready.</div>
 
-        <div class="chat-messages">
-          <div class="chat-msg">
-            <div class="chat-msg-av" style="background:var(--social-bg);color:var(--social)">A</div>
-            <div class="chat-msg-body">
-              <div class="chat-name">Alex</div>
-              <div class="chat-text">Hey! Saturday morning works great for me. I'll bring my dog Max 🐕</div>
-              <div class="chat-time">2:30 PM</div>
-            </div>
-          </div>
-          <div class="chat-msg">
-            <div class="chat-msg-av" style="background:var(--creative-bg);color:var(--creative)">M</div>
-            <div class="chat-msg-body">
-              <div class="chat-name">Maya</div>
-              <div class="chat-text">I'm flexible! Saturday or Sunday both work</div>
-              <div class="chat-time">2:45 PM</div>
-            </div>
-          </div>
-          <div class="chat-msg mine">
-            <div class="chat-msg-body">
-              <div class="chat-name">You</div>
-              <div class="chat-text">Saturday 10 AM sounds perfect! See you at the dog bowl entrance?</div>
-              <div class="chat-time">3:01 PM</div>
-            </div>
-          </div>
-          <div class="chat-msg">
-            <div class="chat-msg-av" style="background:var(--cultural-bg);color:var(--cultural)">K</div>
-            <div class="chat-msg-body">
-              <div class="chat-name">Kai</div>
-              <div class="chat-text">Sounds good! 🙌</div>
-              <div class="chat-time">3:15 PM</div>
-            </div>
-          </div>
-        </div>
+        <div class="chat-messages" id="chat-messages"></div>
 
         <!-- Safety: report link -->
         <button class="coord-safety-link" onclick="showReportSheet()">
@@ -2141,9 +2109,9 @@
     </div>
 
     <!-- Icebreaker quick replies -->
-    <div class="chat-icebreaker">
+    <div class="chat-icebreaker" id="chat-icebreaker">
       <div class="chat-icebreaker-label">Not sure what to say?</div>
-      <div class="chat-quick-replies">
+      <div class="chat-quick-replies" id="chat-quick-replies">
         <button class="chat-quick-reply" onclick="sendQuickReply(this)">Hey everyone! 👋</button>
         <button class="chat-quick-reply" onclick="sendQuickReply(this)">Anyone been here before?</button>
         <button class="chat-quick-reply" onclick="sendQuickReply(this)">How will we find each other?</button>
@@ -2175,8 +2143,8 @@
   <div class="screen screen-post" id="screen-9">
     <div class="post-notif">
       <div class="post-notif-icon">🎉</div>
-      <h2>How was Dog Bowl Social?</h2>
-      <p>Trinity Bellwoods · Earlier today</p>
+      <h2 id="post-title">How was Dog Bowl Social?</h2>
+      <p id="post-sub">Trinity Bellwoods · Earlier today</p>
     </div>
 
     <!-- Step 1: Select who you'd meet again -->
@@ -2249,7 +2217,7 @@
 
       <div class="saved-section-label">Thinking of going</div>
 
-      <div class="saved-card" onclick="goTo(7)">
+      <div class="saved-card" onclick="selectActivityByName('Dog Bowl Social')">
         <div class="saved-card-icon social">🐕</div>
         <div class="saved-card-info">
           <h3>Dog Bowl Social</h3>
@@ -2262,7 +2230,7 @@
         <div class="saved-card-badge intent">Going</div>
       </div>
 
-      <div class="saved-card" onclick="goTo(7)">
+      <div class="saved-card" onclick="selectActivityByName('Snakes & Lattes')">
         <div class="saved-card-icon games">🎲</div>
         <div class="saved-card-info">
           <h3>Snakes & Lattes</h3>
@@ -2277,7 +2245,7 @@
 
       <div class="saved-section-label">Saved for later</div>
 
-      <div class="saved-card" onclick="goTo(7)">
+      <div class="saved-card" onclick="selectActivityByName('Drake Live Music')">
         <div class="saved-card-icon cultural">🎵</div>
         <div class="saved-card-info">
           <h3>Drake Live Music</h3>
@@ -2286,7 +2254,7 @@
         <div class="saved-card-badge saved-state">Saved</div>
       </div>
 
-      <div class="saved-card" onclick="goTo(7)">
+      <div class="saved-card" onclick="selectActivityByName('Bellwoods Pickup Courts')">
         <div class="saved-card-icon movement">🏐</div>
         <div class="saved-card-info">
           <h3>Bellwoods Pickup Courts</h3>
@@ -2295,7 +2263,7 @@
         <div class="saved-card-badge saved-state">Saved</div>
       </div>
 
-      <div class="saved-card" onclick="goTo(7)">
+      <div class="saved-card" onclick="selectActivityByName('Gallery Opening Walk')">
         <div class="saved-card-icon cultural">🖼️</div>
         <div class="saved-card-info">
           <h3>Gallery Opening Walk</h3>
@@ -2568,6 +2536,253 @@
     const siblings = el.closest('.prompt-grid').querySelectorAll('.prompt-chip');
     siblings.forEach(s => s.classList.remove('selected'));
     el.classList.add('selected');
+  }
+
+  /* ---- Activity Data ---- */
+  const activities = {
+    'Dog Bowl Social': {
+      icon: '🐕', cat: 'social', loc: 'Trinity Bellwoods', dist: '~5 min walk',
+      energy: 'Calm', social: 'Medium', cost: 'Free', cadence: 'Daily',
+      setting: 'Outdoor', walkin: 'Yes', people: 4,
+      tags: ['Pet-friendly', 'Casual', 'Walk-in', 'Outdoor'],
+      desc: 'Dog park hangout area in Trinity Bellwoods — an easy, low-pressure way to meet locals. Bring a dog or just come hang out.',
+      interest: 'Social'
+    },
+    'Snakes & Lattes': {
+      icon: '🎲', cat: 'games', loc: 'Yonge-Dundas', dist: '~15 min',
+      energy: 'Moderate', social: 'High', cost: '$', cadence: 'Daily · open play',
+      setting: 'Indoor', walkin: 'Yes', people: 6,
+      tags: ['Board games', 'Social', 'Drop-in', 'Indoor'],
+      desc: 'Popular board game cafe with hundreds of games to choose from. Grab a table, pick a game, and play with whoever shows up.',
+      interest: 'Games'
+    },
+    'Artscape Open Studio': {
+      icon: '🎨', cat: 'creative', loc: 'Queen W · Youngplace', dist: '~10 min walk',
+      energy: 'Calm', social: 'Low', cost: 'Free', cadence: 'Weekly',
+      setting: 'Indoor', walkin: 'Yes', people: 2,
+      tags: ['Quiet activity', 'Beginner-friendly', 'Walk-in', 'Indoor'],
+      desc: 'Shared art spaces open for public exploration. A calm, creative environment where you can make something or just wander through.',
+      interest: 'Creative'
+    },
+    'Drake Live Music': {
+      icon: '🎵', cat: 'cultural', loc: 'Queen West', dist: '~8 min walk',
+      energy: 'Moderate', social: 'High', cost: '$', cadence: 'Weekly',
+      setting: 'Indoor', walkin: 'Yes', people: 3,
+      tags: ['Live music', 'Evening', 'Indoor', 'Social'],
+      desc: 'Regular live music nights at The Drake Hotel. Grab a drink, enjoy the music, and meet people who share your taste.',
+      interest: 'Cultural'
+    },
+    'Community Art Workshop': {
+      icon: '🖌️', cat: 'learning', loc: 'Artscape · Queen W', dist: '~10 min walk',
+      energy: 'Calm', social: 'Medium', cost: '$', cadence: 'Weekly / Monthly',
+      setting: 'Indoor', walkin: 'Yes', people: 2,
+      tags: ['Structured', 'Painting', 'Crafts', 'Indoor'],
+      desc: 'Drop-in creative workshops for painting, craft, and making. Guided activities make it easy to start a conversation.',
+      interest: 'Learning'
+    },
+    'Bellwoods Pickup Courts': {
+      icon: '🏐', cat: 'movement', loc: 'Trinity Bellwoods', dist: '~6 min walk',
+      energy: 'Active', social: 'Medium', cost: 'Free', cadence: 'Daily · warm months',
+      setting: 'Outdoor', walkin: 'Yes', people: 3,
+      tags: ['Recreational', 'Casual', 'Walk-in', 'Outdoor'],
+      desc: 'Public courts where people rotate in for pickup games. Show up, ask to join — everyone\'s welcome regardless of skill level.',
+      interest: 'Movement'
+    },
+    'Gallery Opening Walk': {
+      icon: '🖼️', cat: 'cultural', loc: 'Queen West', dist: '~8 min walk',
+      energy: 'Calm', social: 'Low', cost: 'Free', cadence: 'Thursdays',
+      setting: 'Indoor', walkin: 'Yes', people: 2,
+      tags: ['Free entry', 'Art', 'Social', 'Indoor'],
+      desc: 'Queen West galleries open new exhibits weekly, especially on Thursdays. Walk at your own pace, chat about what you see.',
+      interest: 'Cultural'
+    },
+    'Farmers Market': {
+      icon: '🥬', cat: 'food', loc: 'Trinity Bellwoods', dist: '~5 min walk',
+      energy: 'Calm', social: 'Medium', cost: '$', cadence: 'Tuesdays · May–Oct',
+      setting: 'Outdoor', walkin: 'Yes', people: 5,
+      tags: ['Community', 'Local vendors', 'Outdoor', 'Walk-in'],
+      desc: 'Local vendors, food stalls, and social browsing. A relaxed way to explore the neighbourhood and bump into friendly people.',
+      interest: 'Food'
+    },
+    'Ossington Trivia Night': {
+      icon: '🧠', cat: 'games', loc: 'Ossington Ave', dist: '~12 min walk',
+      energy: 'Moderate', social: 'High', cost: '$', cadence: 'Weekly',
+      setting: 'Indoor', walkin: 'Yes', people: 4,
+      tags: ['Group activity', 'Casual', 'Indoor', 'Social'],
+      desc: 'Multiple Ossington bars host weekly trivia nights. Join a team or form one with people there — it\'s a built-in icebreaker.',
+      interest: 'Games'
+    },
+    'Evening Walk Loop': {
+      icon: '🚶', cat: 'movement', loc: 'CityPlace · Waterfront', dist: '~3 min walk',
+      energy: 'Calm', social: 'Medium', cost: 'Free', cadence: 'Daily',
+      setting: 'Outdoor', walkin: 'Yes', people: 3,
+      tags: ['Low-key', 'Casual', 'Outdoor', 'Walk-in'],
+      desc: 'A casual evening walk along the waterfront. No agenda, just fresh air and good company. People come and go as they please.',
+      interest: 'Movement'
+    }
+  };
+
+  let selectedActivity = null;
+
+  function selectActivityByName(name) {
+    const act = activities[name];
+    if (!act) return;
+    selectedActivity = { name: name, ...act };
+    populateAllScreens();
+    goTo(7);
+  }
+
+  function selectActivityFromPin() {
+    if (!activePin) return;
+    const d = activePin.dataset;
+    selectActivityByName(d.name);
+  }
+
+  function populateAllScreens() {
+    const a = selectedActivity;
+    if (!a) return;
+
+    document.getElementById('ad-hero').textContent = a.icon;
+    document.getElementById('ad-name').textContent = a.name;
+    document.getElementById('ad-desc').textContent = a.desc;
+
+    const badge = document.getElementById('ad-cat-badge');
+    badge.textContent = a.icon + ' ' + a.interest + ' · ' + a.setting;
+    badge.className = 'activity-cat-badge ' + a.cat;
+
+    document.getElementById('ad-match').innerHTML = '<span>✦</span> Lines up with your interests: ' + a.interest;
+
+    const tagsEl = document.getElementById('ad-tags');
+    tagsEl.innerHTML = '';
+    a.tags.forEach(t => { tagsEl.innerHTML += '<span class="activity-tag">' + t + '</span>'; });
+
+    const detailsEl = document.getElementById('ad-details');
+    detailsEl.innerHTML =
+      '<div class="detail-item"><div class="di-label">Energy</div><div class="di-value">' + energyIcon(a.energy) + ' ' + a.energy + '</div></div>' +
+      '<div class="detail-item"><div class="di-label">Social Level</div><div class="di-value">' + a.social + '</div></div>' +
+      '<div class="detail-item"><div class="di-label">Cost</div><div class="di-value">' + a.cost + '</div></div>' +
+      '<div class="detail-item"><div class="di-label">Cadence</div><div class="di-value">' + a.cadence + '</div></div>' +
+      '<div class="detail-item"><div class="di-label">Where</div><div class="di-value">' + a.loc + '</div></div>' +
+      '<div class="detail-item"><div class="di-label">Walk-in</div><div class="di-value">' + (a.walkin === 'Yes' ? 'Yes — just show up' : a.walkin) + '</div></div>';
+
+    const sigDots = document.getElementById('ad-signal-dots');
+    sigDots.innerHTML = '';
+    const initials = ['A','M','K','J','R','T'];
+    for (let i = 0; i < Math.min(a.people, 4); i++) {
+      sigDots.innerHTML += '<div class="signal-dot">' + initials[i] + '</div>';
+    }
+    document.getElementById('ad-signal-text').textContent = a.people + ' people nearby are also interested';
+
+    document.getElementById('coord-title').textContent = a.icon + ' ' + a.name;
+    document.getElementById('coord-sub').textContent = a.loc + ' · You\'re all interested';
+
+    document.getElementById('post-title').textContent = 'How was ' + a.name + '?';
+    document.getElementById('post-sub').textContent = a.loc + ' · Earlier today';
+
+    document.getElementById('chat-context-text').innerHTML =
+      'You all share an interest in <strong>' + a.interest + '</strong> activities. ' +
+      'This is a ' + a.setting.toLowerCase() + ', ' + a.energy.toLowerCase() + ' hangout at ' + a.loc + '.';
+
+    updateIcebreakers(a.name);
+
+    const chatMsgs = getChatMessages(a.name, a.loc);
+    const chatEl = document.getElementById('chat-messages');
+    chatEl.innerHTML = '';
+    chatMsgs.forEach(m => {
+      if (m.mine) {
+        chatEl.innerHTML += '<div class="chat-msg mine"><div class="chat-msg-body">' +
+          '<div class="chat-name">You</div><div class="chat-text">' + m.text + '</div>' +
+          '<div class="chat-time">' + m.time + '</div></div></div>';
+      } else {
+        chatEl.innerHTML += '<div class="chat-msg"><div class="chat-msg-av" style="background:var(--' + m.color + '-bg);color:var(--' + m.color + ')">' + m.initial + '</div>' +
+          '<div class="chat-msg-body"><div class="chat-name">' + m.name + '</div>' +
+          '<div class="chat-text">' + m.text + '</div><div class="chat-time">' + m.time + '</div></div></div>';
+      }
+    });
+  }
+
+  function getChatMessages(actName, loc) {
+    const msgSets = {
+      'Dog Bowl Social': [
+        { name: 'Alex', initial: 'A', color: 'social', text: "Hey! Saturday morning works great for me. I'll bring my dog Max 🐕", time: '2:30 PM' },
+        { name: 'Maya', initial: 'M', color: 'creative', text: "I'm flexible! Saturday or Sunday both work", time: '2:45 PM' },
+        { mine: true, text: 'Saturday 10 AM sounds perfect! See you at the dog bowl entrance?', time: '3:01 PM' },
+        { name: 'Kai', initial: 'K', color: 'cultural', text: 'Sounds good! 🙌', time: '3:15 PM' }
+      ],
+      'Snakes & Lattes': [
+        { name: 'Riley', initial: 'R', color: 'games', text: "Anyone played Wingspan before? It's so good 🎲", time: '5:10 PM' },
+        { name: 'Taylor', initial: 'T', color: 'social', text: 'I love that game! I was thinking Friday evening?', time: '5:22 PM' },
+        { mine: true, text: 'Friday works! Should we get there early to grab a table?', time: '5:35 PM' },
+        { name: 'Riley', initial: 'R', color: 'games', text: 'Good call — gets busy after 7. See you at 6?', time: '5:40 PM' }
+      ],
+      'Artscape Open Studio': [
+        { name: 'Maya', initial: 'M', color: 'creative', text: 'I went last week — it was so peaceful. Highly recommend the ceramics room', time: '11:00 AM' },
+        { mine: true, text: "That sounds lovely! Do they have supplies or should I bring my own?", time: '11:15 AM' },
+        { name: 'Maya', initial: 'M', color: 'creative', text: 'They have everything! Just show up 🎨', time: '11:20 AM' }
+      ],
+      'Drake Live Music': [
+        { name: 'Jordan', initial: 'J', color: 'cultural', text: 'Anyone know who is playing this Friday? 🎵', time: '4:00 PM' },
+        { name: 'Alex', initial: 'A', color: 'social', text: 'Some indie folk band — supposed to be great!', time: '4:12 PM' },
+        { mine: true, text: "I'm in! Want to meet outside at 8?", time: '4:30 PM' },
+        { name: 'Jordan', initial: 'J', color: 'cultural', text: "Perfect, see you there!", time: '4:35 PM' }
+      ],
+      'Community Art Workshop': [
+        { name: 'Maya', initial: 'M', color: 'creative', text: "This Saturday they're doing watercolour! Anyone joining? 🖌️", time: '10:00 AM' },
+        { mine: true, text: "I've never done watercolour but I'm curious. Is it beginner-friendly?", time: '10:15 AM' },
+        { name: 'Maya', initial: 'M', color: 'creative', text: 'Totally — they guide you step by step. It\'s really relaxing', time: '10:20 AM' }
+      ],
+      'Bellwoods Pickup Courts': [
+        { name: 'Alex', initial: 'A', color: 'movement', text: 'Who is coming to the courts tomorrow? 🏐', time: '6:00 PM' },
+        { name: 'Kai', initial: 'K', color: 'cultural', text: "I'll be there around 5! We usually play until sunset", time: '6:10 PM' },
+        { mine: true, text: "Count me in! I'm not great but I can try 😅", time: '6:20 PM' },
+        { name: 'Alex', initial: 'A', color: 'movement', text: "Everyone's welcome — that's the whole point 💪", time: '6:25 PM' }
+      ],
+      'Gallery Opening Walk': [
+        { name: 'Jordan', initial: 'J', color: 'cultural', text: 'Three new exhibits opening this Thursday on Queen W 🖼️', time: '1:00 PM' },
+        { mine: true, text: 'Ooh which galleries? I want to check them out', time: '1:10 PM' },
+        { name: 'Jordan', initial: 'J', color: 'cultural', text: 'Angell Gallery, Clint Roenisch, and the one next to Drake. Meet at 6?', time: '1:15 PM' }
+      ],
+      'Farmers Market': [
+        { name: 'Alex', initial: 'A', color: 'food', text: 'The peach vendor is back this week! 🍑', time: '8:00 AM' },
+        { name: 'Maya', initial: 'M', color: 'creative', text: "Amazing! I'm getting there early before the good stuff is gone", time: '8:15 AM' },
+        { mine: true, text: 'See you around 9? I want to grab coffee first', time: '8:30 AM' },
+        { name: 'Alex', initial: 'A', color: 'food', text: "There's a great coffee stall right at the entrance! ☕", time: '8:35 AM' }
+      ],
+      'Ossington Trivia Night': [
+        { name: 'Taylor', initial: 'T', color: 'games', text: "Wednesday at Sweaty Betty's — we need a team! 🧠", time: '3:00 PM' },
+        { name: 'Riley', initial: 'R', color: 'games', text: 'I\'m in! I\'m decent at pop culture but terrible at geography', time: '3:15 PM' },
+        { mine: true, text: "I've got geography covered 🌍 See you at 7?", time: '3:25 PM' },
+        { name: 'Taylor', initial: 'T', color: 'games', text: 'Dream team! See you there 🎉', time: '3:30 PM' }
+      ],
+      'Evening Walk Loop': [
+        { name: 'Kai', initial: 'K', color: 'movement', text: "Beautiful sunset tonight — anyone want to walk? 🚶", time: '6:30 PM' },
+        { mine: true, text: "I'd love that! Where should we meet?", time: '6:40 PM' },
+        { name: 'Kai', initial: 'K', color: 'movement', text: 'How about the CityPlace entrance near the lake? Around 7:30?', time: '6:45 PM' },
+        { name: 'Alex', initial: 'A', color: 'social', text: "I'll join too! Love the waterfront at that time 🌅", time: '6:50 PM' }
+      ]
+    };
+    return msgSets[actName] || msgSets['Dog Bowl Social'];
+  }
+
+  function updateIcebreakers(actName) {
+    const icebreakers = {
+      'Dog Bowl Social': ['Hey everyone! 👋', 'Anyone bringing their dog?', 'How will we find each other?', "Can't wait!"],
+      'Snakes & Lattes': ['Hey everyone! 👋', 'What games should we play?', 'Anyone been there before?', 'So excited!'],
+      'Artscape Open Studio': ['Hey! 👋', 'What are you planning to work on?', 'Is it beginner-friendly?', 'Sounds so relaxing!'],
+      'Drake Live Music': ['Hey everyone! 👋', 'Anyone know the band playing?', 'What time should we meet?', "Can't wait for this!"],
+      'Community Art Workshop': ['Hey! 👋', 'What are we making this time?', 'Do we need to bring anything?', 'First time — any tips?'],
+      'Bellwoods Pickup Courts': ['Hey! 👋', 'What sport are we playing?', 'All skill levels welcome?', "I'll be there!"],
+      'Gallery Opening Walk': ['Hey everyone! 👋', 'Which galleries are we hitting?', 'Anyone been to these before?', 'Love a good art walk!'],
+      'Farmers Market': ['Hey! 👋', 'Any vendor recommendations?', 'What time should we get there?', "Can't wait to browse!"],
+      'Ossington Trivia Night': ['Hey everyone! 👋', 'What are your best trivia topics?', 'Which bar are we at?', 'Team name ideas?'],
+      'Evening Walk Loop': ['Hey! 👋', 'Where should we meet exactly?', 'What a nice evening for it!', 'Looking forward to this!']
+    };
+    const replies = icebreakers[actName] || icebreakers['Dog Bowl Social'];
+    const el = document.getElementById('chat-quick-replies');
+    el.innerHTML = '';
+    replies.forEach(r => {
+      el.innerHTML += '<button class="chat-quick-reply" onclick="sendQuickReply(this)">' + r + '</button>';
+    });
   }
 
   /* ---- Mini Card ---- */
