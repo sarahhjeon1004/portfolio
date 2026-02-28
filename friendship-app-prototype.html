@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Friendship App — Prototype (Apple Design)</title>
+<title>Open Invite — Prototype</title>
 <style>
   :root {
     --bg: #F2F2F7;
@@ -105,46 +105,90 @@
 
   /* ===== SCREEN 1: WELCOME ===== */
   .screen-welcome {
-    justify-content: flex-end; padding: 0 32px 60px;
-    background: linear-gradient(175deg, #E8F5E9 0%, #F2F2F7 35%, #EDE7F6 70%, #F2F2F7 100%);
+    justify-content: flex-end; padding: 0 32px 56px;
+    background: linear-gradient(170deg, #E8F5E9 0%, #F2F2F7 30%, #FFFFFF 60%, #F2F2F7 100%);
+    overflow: hidden;
   }
 
-  .welcome-illustration { flex: 1; display: flex; align-items: center; justify-content: center; padding-top: 80px; }
+  .welcome-hero { flex: 1; display: flex; align-items: center; justify-content: center; padding-top: 70px; }
+  .welcome-hero-inner { position: relative; width: 260px; height: 260px; }
 
-  .welcome-visual { position: relative; width: 240px; height: 240px; }
+  /* Logo mark: open door / invitation */
+  .oi-logo {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 100px; height: 100px;
+  }
+  .oi-door {
+    width: 72px; height: 88px; border-radius: 36px 36px 0 0;
+    border: 3.5px solid var(--accent); position: absolute;
+    top: 50%; left: 50%; transform: translate(-50%, -52%);
+    background: rgba(52,199,89,0.06);
+  }
+  .oi-door-open {
+    position: absolute; top: 0; right: -6px; width: 30px; height: 100%;
+    border-radius: 0 16px 0 0;
+    border-right: 3.5px solid var(--accent);
+    border-top: 3.5px solid var(--accent);
+    transform-origin: left center;
+    transform: perspective(200px) rotateY(-45deg);
+    background: rgba(52,199,89,0.03);
+  }
+  .oi-door-handle {
+    position: absolute; top: 52%; right: 12px;
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+  }
+  .oi-glow {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 140px; height: 140px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(52,199,89,0.12) 0%, rgba(52,199,89,0) 70%);
+    animation: glow-pulse 3s ease-in-out infinite;
+  }
+  @keyframes glow-pulse {
+    0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+    50% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
+  }
 
-  .welcome-pin {
-    position: absolute; width: 52px; height: 52px;
-    border-radius: 50%;
+  /* Floating activity icons around the logo */
+  .oi-float {
+    position: absolute; width: 44px; height: 44px; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    font-size: 18px; box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    animation: float 3.5s ease-in-out infinite;
   }
-  .welcome-pin .pin-icon {
-    font-size: 22px; line-height: 1; display: block;
-  }
-  .welcome-pin:nth-child(1) { background: var(--movement); top: 15px; left: 35px; animation: float 3s ease-in-out infinite; }
-  .welcome-pin:nth-child(2) { background: var(--creative); top: 45px; right: 25px; animation: float 3s ease-in-out 0.5s infinite; }
-  .welcome-pin:nth-child(3) { background: var(--cultural); bottom: 50px; left: 50px; animation: float 3s ease-in-out 1s infinite; }
-  .welcome-pin:nth-child(4) { background: var(--social); bottom: 25px; right: 40px; animation: float 3s ease-in-out 1.5s infinite; }
+  .oi-float:nth-child(3) { background: #fff; top: 8px; left: 20px; animation-delay: 0s; }
+  .oi-float:nth-child(4) { background: #fff; top: 30px; right: 10px; animation-delay: 0.7s; }
+  .oi-float:nth-child(5) { background: #fff; bottom: 40px; left: 10px; animation-delay: 1.4s; }
+  .oi-float:nth-child(6) { background: #fff; bottom: 15px; right: 25px; animation-delay: 2.1s; }
+  .oi-float:nth-child(7) { background: #fff; top: 55px; left: 58px; animation-delay: 0.3s; font-size: 16px; width: 38px; height: 38px; }
+  .oi-float:nth-child(8) { background: #fff; bottom: 70px; right: 50px; animation-delay: 1.8s; font-size: 16px; width: 38px; height: 38px; }
 
   @keyframes float {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-10px); }
   }
 
-  .welcome-circle {
+  /* Ring decorations */
+  .oi-ring {
     position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    width: 150px; height: 150px; border-radius: 50%;
-    border: 1px solid rgba(0,0,0,0.06); opacity: 0.5;
+    border-radius: 50%; border: 1px solid rgba(52,199,89,0.1);
   }
-  .welcome-circle::after {
-    content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    width: 95px; height: 95px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.05);
-  }
+  .oi-ring-1 { width: 170px; height: 170px; }
+  .oi-ring-2 { width: 220px; height: 220px; opacity: 0.5; }
 
   .welcome-content { text-align: center; }
-  .welcome-content h1 { font-size: 28px; font-weight: 700; line-height: 1.25; margin-bottom: 10px; letter-spacing: -0.6px; }
-  .welcome-content p { font-size: 17px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 32px; font-weight: 400; }
+  .welcome-brand {
+    font-size: 14px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 10px;
+  }
+  .welcome-content h1 {
+    font-size: 30px; font-weight: 800; line-height: 1.2; margin-bottom: 10px;
+    letter-spacing: -0.8px; color: var(--text-primary);
+  }
+  .welcome-content p {
+    font-size: 16px; color: var(--text-secondary); line-height: 1.55; margin-bottom: 28px;
+    font-weight: 400; padding: 0 8px;
+  }
 
   /* ===== BUTTONS ===== */
   .btn-primary {
@@ -1464,18 +1508,29 @@
 
   <!-- SCREEN 1: WELCOME -->
   <div class="screen screen-welcome active" id="screen-1">
-    <div class="welcome-illustration">
-      <div class="welcome-visual">
-        <div class="welcome-circle"></div>
-        <div class="welcome-pin"><span class="pin-icon">🏃</span></div>
-        <div class="welcome-pin"><span class="pin-icon">🎨</span></div>
-        <div class="welcome-pin"><span class="pin-icon">🎵</span></div>
-        <div class="welcome-pin"><span class="pin-icon">🐕</span></div>
+    <div class="welcome-hero">
+      <div class="welcome-hero-inner">
+        <div class="oi-ring oi-ring-2"></div>
+        <div class="oi-ring oi-ring-1"></div>
+        <div class="oi-float">☕</div>
+        <div class="oi-float">🎨</div>
+        <div class="oi-float">🐕</div>
+        <div class="oi-float">🎵</div>
+        <div class="oi-float">🏃</div>
+        <div class="oi-float">🎲</div>
+        <div class="oi-logo">
+          <div class="oi-glow"></div>
+          <div class="oi-door">
+            <div class="oi-door-open"></div>
+            <div class="oi-door-handle"></div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="welcome-content">
-      <h1>Find things you want to do—and people who want to do them too.</h1>
-      <p>Do what you already love. Meet people there.</p>
+      <div class="welcome-brand">Open Invite</div>
+      <h1>The door's open.<br>Come do something.</h1>
+      <p>Find activities near you and meet the people already going. No pressure, no profiles to scroll — just things to do.</p>
       <div class="progress-dots">
         <div class="progress-dot active"></div>
         <div class="progress-dot"></div>
@@ -1483,7 +1538,7 @@
         <div class="progress-dot"></div>
         <div class="progress-dot"></div>
       </div>
-      <div style="height:16px"></div>
+      <div style="height:12px"></div>
       <button class="btn-primary" onclick="goTo(2)">Get started</button>
     </div>
   </div>
@@ -1491,8 +1546,8 @@
   <!-- SCREEN 2: CREATE ACCOUNT -->
   <div class="screen screen-signup" id="screen-2">
     <div class="signup-header">
-      <h2>Jump right in</h2>
-      <p>Create an account so we can save your picks and show you what's nearby.</p>
+      <h2>Join Open Invite</h2>
+      <p>Takes a minute. Then we'll show you what's happening nearby.</p>
     </div>
 
     <div class="signup-social">
@@ -1740,7 +1795,7 @@
 
       <div class="map-header">
         <div class="map-top-row">
-          <div class="map-title">Near you · Toronto</div>
+          <div class="map-title">Open Invite · Toronto</div>
           <div class="map-avatar" onclick="switchTab(11)">S</div>
         </div>
         <div class="map-filters">
