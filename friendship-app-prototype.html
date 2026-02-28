@@ -734,7 +734,7 @@
   }
 
   /* ===== SCREEN 8: POST-MEETUP ===== */
-  .screen-post { padding: 0; background: var(--bg); }
+  .screen-post { padding: 0; background: var(--bg); overflow-y: auto !important; }
   .post-notif {
     margin: 60px 20px 0; padding: 20px; text-align: center;
     background: linear-gradient(135deg, rgba(52,199,89,0.1) 0%, rgba(175,82,222,0.08) 100%);
@@ -748,29 +748,76 @@
   .post-section-title {
     font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 10px;
   }
+  .post-section-hint {
+    font-size: 12px; color: var(--text-muted); margin-bottom: 12px; line-height: 1.5;
+  }
 
-  .post-person {
-    display: flex; align-items: center; gap: 12px; padding: 14px 0;
-    border-bottom: 0.5px solid var(--border);
+  .match-card {
+    display: flex; align-items: center; gap: 12px; padding: 14px 16px;
+    background: var(--bg-card); border-radius: 12px; margin-bottom: 8px;
+    cursor: pointer; box-shadow: var(--shadow);
+    transition: transform 0.15s var(--spring), box-shadow 0.2s;
+    user-select: none; border: 2px solid transparent;
   }
-  .post-person:last-child { border-bottom: none; }
-  .post-person-av {
-    width: 42px; height: 42px; border-radius: 50%;
+  .match-card:active { transform: scale(0.98); }
+  .match-card.selected { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-light), var(--shadow); }
+  .match-card-av {
+    width: 44px; height: 44px; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    font-size: 16px; font-weight: 600; flex-shrink: 0;
+    font-size: 17px; font-weight: 600; flex-shrink: 0;
   }
-  .post-person-info { flex: 1; }
-  .post-person-info h3 { font-size: 15px; font-weight: 600; margin-bottom: 2px; }
-  .post-person-info span { font-size: 12px; color: var(--text-muted); }
-  .post-person-actions { display: flex; gap: 6px; flex-shrink: 0; }
-  .post-add-btn {
-    padding: 7px 14px; border-radius: 16px; font-size: 13px; font-weight: 600;
-    border: none; cursor: pointer; font-family: inherit;
-    transition: transform 0.15s var(--spring), background 0.15s;
+  .match-card-info { flex: 1; }
+  .match-card-info h3 { font-size: 15px; font-weight: 600; margin-bottom: 2px; }
+  .match-card-info span { font-size: 12px; color: var(--text-muted); }
+  .match-card-check {
+    width: 24px; height: 24px; border-radius: 50%;
+    border: 2px solid rgba(60,60,67,0.15);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; transition: background 0.2s var(--spring), border-color 0.2s;
   }
-  .post-add-btn:active { transform: scale(0.92); }
-  .post-add-btn.add { background: var(--accent); color: #fff; }
-  .post-add-btn.added { background: var(--accent-light); color: var(--accent); }
+  .match-card.selected .match-card-check {
+    background: var(--accent); border-color: var(--accent);
+  }
+
+  .match-reveal { display: none; }
+  .match-reveal.visible { display: block; }
+  .match-result {
+    display: flex; align-items: center; gap: 12px; padding: 14px 16px;
+    background: var(--bg-card); border-radius: 12px; margin-bottom: 8px;
+    box-shadow: var(--shadow); animation: match-pop 0.4s var(--spring) both;
+  }
+  .match-result.matched {
+    background: linear-gradient(135deg, rgba(52,199,89,0.08) 0%, rgba(52,199,89,0.04) 100%);
+    border: 1.5px solid rgba(52,199,89,0.2);
+  }
+  .match-result.no-match { opacity: 0.5; }
+  .match-result-av {
+    width: 44px; height: 44px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px; font-weight: 600; flex-shrink: 0;
+  }
+  .match-result-info { flex: 1; }
+  .match-result-info h3 { font-size: 15px; font-weight: 600; margin-bottom: 2px; }
+  .match-result-info span { font-size: 12px; color: var(--text-muted); }
+  .match-result-badge {
+    font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 10px;
+    flex-shrink: 0; white-space: nowrap;
+  }
+  .match-result-badge.yes { background: var(--accent-light); color: var(--accent); }
+  .match-result-badge.no { background: rgba(60,60,67,0.06); color: var(--text-muted); }
+  @keyframes match-pop {
+    0% { opacity: 0; transform: scale(0.9) translateY(8px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  .match-result:nth-child(2) { animation-delay: 0.15s; }
+  .match-result:nth-child(3) { animation-delay: 0.3s; }
+
+  .match-summary {
+    text-align: center; padding: 16px; margin: 4px 0 8px;
+    background: var(--accent-light); border-radius: 12px;
+    font-size: 14px; font-weight: 500; color: var(--accent);
+    animation: match-pop 0.5s var(--spring) 0.4s both;
+  }
 
   .post-chat-fate {
     display: flex; flex-direction: column; gap: 0;
@@ -799,6 +846,27 @@
 
   .post-footer { padding: 12px 20px 40px; }
   .post-footer .btn-primary { margin-bottom: 6px; }
+
+  /* Mutuals on profile */
+  .profile-mutuals { display: flex; flex-direction: column; gap: 0; }
+  .mutual-row {
+    display: flex; align-items: center; gap: 12px; padding: 12px 0;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .mutual-row:last-child { border-bottom: none; }
+  .mutual-av {
+    width: 38px; height: 38px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 600; flex-shrink: 0;
+  }
+  .mutual-info { flex: 1; }
+  .mutual-info h3 { font-size: 14px; font-weight: 600; margin-bottom: 1px; }
+  .mutual-info span { font-size: 12px; color: var(--text-muted); }
+  .mutual-badge {
+    font-size: 11px; font-weight: 500; color: var(--text-muted);
+    padding: 4px 10px; border-radius: 10px; background: var(--bg);
+    flex-shrink: 0;
+  }
 
   /* ===== SCREEN 9: SAVED ===== */
   .screen-saved { padding: 0; background: var(--bg); }
@@ -1737,49 +1805,66 @@
       <p>Trinity Bellwoods · Today</p>
     </div>
 
-    <div class="post-section">
-      <div class="post-section-title">Want to see these people again?</div>
-      <div class="post-person">
-        <div class="post-person-av" style="background:var(--social-bg);color:var(--social)">A</div>
-        <div class="post-person-info"><h3>Alex</h3><span>Shared 2 interests</span></div>
-        <div class="post-person-actions"><button class="post-add-btn add" onclick="addFriend(this)">Add friend</button></div>
+    <!-- Step 1: Select who you'd meet again -->
+    <div id="post-step-select">
+      <div class="post-section">
+        <div class="post-section-title">Who would you hang out with again?</div>
+        <div class="post-section-hint">Tap to select — they'll only know if it's mutual.</div>
+        <div class="match-card" onclick="toggleMatch(this)" data-name="Alex" data-will-match="true">
+          <div class="match-card-av" style="background:var(--social-bg);color:var(--social)">A</div>
+          <div class="match-card-info"><h3>Alex</h3><span>Shared 2 interests</span></div>
+          <div class="match-card-check"></div>
+        </div>
+        <div class="match-card" onclick="toggleMatch(this)" data-name="Maya" data-will-match="true">
+          <div class="match-card-av" style="background:var(--creative-bg);color:var(--creative)">M</div>
+          <div class="match-card-info"><h3>Maya</h3><span>Shared 3 interests</span></div>
+          <div class="match-card-check"></div>
+        </div>
+        <div class="match-card" onclick="toggleMatch(this)" data-name="Kai" data-will-match="false">
+          <div class="match-card-av" style="background:var(--cultural-bg);color:var(--cultural)">K</div>
+          <div class="match-card-info"><h3>Kai</h3><span>Shared 1 interest</span></div>
+          <div class="match-card-check"></div>
+        </div>
       </div>
-      <div class="post-person">
-        <div class="post-person-av" style="background:var(--creative-bg);color:var(--creative)">M</div>
-        <div class="post-person-info"><h3>Maya</h3><span>Shared 3 interests</span></div>
-        <div class="post-person-actions"><button class="post-add-btn add" onclick="addFriend(this)">Add friend</button></div>
-      </div>
-      <div class="post-person">
-        <div class="post-person-av" style="background:var(--cultural-bg);color:var(--cultural)">K</div>
-        <div class="post-person-info"><h3>Kai</h3><span>Shared 1 interest</span></div>
-        <div class="post-person-actions"><button class="post-add-btn add" onclick="addFriend(this)">Add friend</button></div>
+
+      <div class="post-footer">
+        <button class="btn-primary" onclick="submitMatches()">Submit</button>
+        <button class="btn-text" onclick="goTo(6)">Skip for now</button>
       </div>
     </div>
 
-    <div class="post-section">
-      <div class="post-section-title">What happens to the group chat?</div>
-      <div class="post-chat-fate">
-        <button class="chat-fate-opt selected" onclick="selectFate(this)">
-          <span class="cfo-icon">💬</span>
-          <div class="cfo-text"><h3>Keep it open</h3><span>Plan more hangouts together</span></div>
-          <div class="cfo-check"></div>
-        </button>
-        <button class="chat-fate-opt" onclick="selectFate(this)">
-          <span class="cfo-icon">📦</span>
-          <div class="cfo-text"><h3>Archive it</h3><span>Move to archived — reopen anytime</span></div>
-          <div class="cfo-check"></div>
-        </button>
-        <button class="chat-fate-opt" onclick="selectFate(this)">
-          <span class="cfo-icon">👋</span>
-          <div class="cfo-text"><h3>Leave the chat</h3><span>Others can keep chatting without you</span></div>
-          <div class="cfo-check"></div>
-        </button>
+    <!-- Step 2: Match reveal -->
+    <div id="post-step-reveal" class="match-reveal">
+      <div class="post-section">
+        <div class="post-section-title">Your matches</div>
+        <div id="match-results"></div>
+        <div class="match-summary" id="match-summary"></div>
       </div>
-    </div>
 
-    <div class="post-footer">
-      <button class="btn-primary" onclick="finishPost()">Done</button>
-      <button class="btn-text" onclick="goTo(6)">Skip for now</button>
+      <div class="post-section">
+        <div class="post-section-title">What happens to the group chat?</div>
+        <div class="post-chat-fate">
+          <button class="chat-fate-opt selected" onclick="selectFate(this)">
+            <span class="cfo-icon">💬</span>
+            <div class="cfo-text"><h3>Keep it open</h3><span>Plan more hangouts together</span></div>
+            <div class="cfo-check"></div>
+          </button>
+          <button class="chat-fate-opt" onclick="selectFate(this)">
+            <span class="cfo-icon">📦</span>
+            <div class="cfo-text"><h3>Archive it</h3><span>Move to archived — reopen anytime</span></div>
+            <div class="cfo-check"></div>
+          </button>
+          <button class="chat-fate-opt" onclick="selectFate(this)">
+            <span class="cfo-icon">👋</span>
+            <div class="cfo-text"><h3>Leave the chat</h3><span>Others can keep chatting without you</span></div>
+            <div class="cfo-check"></div>
+          </button>
+        </div>
+      </div>
+
+      <div class="post-footer">
+        <button class="btn-primary" onclick="finishPost()">Done</button>
+      </div>
     </div>
   </div>
 
@@ -1880,9 +1965,9 @@
         <div class="ps-num">5</div>
         <div class="ps-label">Saved</div>
       </div>
-      <div class="profile-stat" onclick="showProfileDetail('coordinated')">
+      <div class="profile-stat" onclick="showProfileDetail('mutuals')">
         <div class="ps-num">2</div>
-        <div class="ps-label">Coordinated</div>
+        <div class="ps-label">Mutuals</div>
       </div>
     </div>
 
@@ -2201,11 +2286,11 @@
         { icon: '🚶', cat: 'movement', name: 'Evening Walk Loop', sub: 'CityPlace · Last Thursday', badge: 'Went', badgeClass: 'went' }
       ]
     },
-    coordinated: {
-      title: 'Coordinated',
+    mutuals: {
+      title: 'Mutuals',
       items: [
-        { icon: '🐕', cat: 'social', name: 'Dog Bowl Social', sub: 'with Alex · This Saturday, 10 AM', badge: 'Confirmed', badgeClass: 'coord' },
-        { icon: '🎲', cat: 'games', name: 'Snakes & Lattes', sub: 'with Maya · Next Wednesday, 7 PM', badge: 'Pending', badgeClass: 'coord' }
+        { icon: 'A', cat: 'social', name: 'Alex', sub: 'Matched from Dog Bowl Social', badge: 'Mutual', badgeClass: 'coord' },
+        { icon: 'M', cat: 'creative', name: 'Maya', sub: 'Matched from Board Game Night', badge: 'Mutual', badgeClass: 'coord' }
       ]
     }
   };
@@ -2216,15 +2301,34 @@
     document.getElementById('pdo-title').textContent = data.title;
     const body = document.getElementById('pdo-body');
     body.innerHTML = '';
-    data.items.forEach(item => {
-      const catBg = 'var(--' + item.cat + '-bg)';
-      body.innerHTML +=
-        '<div class="pdo-card">' +
-          '<div class="pdo-card-icon" style="background:' + catBg + '">' + item.icon + '</div>' +
-          '<div class="pdo-card-info"><h3>' + item.name + '</h3><span>' + item.sub + '</span></div>' +
-          '<div class="pdo-card-badge ' + item.badgeClass + '">' + item.badge + '</div>' +
-        '</div>';
-    });
+
+    if (type === 'mutuals') {
+      const desc = document.createElement('div');
+      desc.style.cssText = 'font-size:12px;color:var(--text-muted);padding:0 0 12px;line-height:1.5;';
+      desc.textContent = 'People you matched with after a hangout. Only mutuals can see each other here.';
+      body.appendChild(desc);
+
+      data.items.forEach(item => {
+        const catBg = 'var(--' + item.cat + '-bg)';
+        const catColor = 'var(--' + item.cat + ')';
+        body.innerHTML +=
+          '<div class="mutual-row">' +
+            '<div class="mutual-av" style="background:' + catBg + ';color:' + catColor + '">' + item.icon + '</div>' +
+            '<div class="mutual-info"><h3>' + item.name + '</h3><span>' + item.sub + '</span></div>' +
+            '<div class="mutual-badge">Mutual</div>' +
+          '</div>';
+      });
+    } else {
+      data.items.forEach(item => {
+        const catBg = 'var(--' + item.cat + '-bg)';
+        body.innerHTML +=
+          '<div class="pdo-card">' +
+            '<div class="pdo-card-icon" style="background:' + catBg + '">' + item.icon + '</div>' +
+            '<div class="pdo-card-info"><h3>' + item.name + '</h3><span>' + item.sub + '</span></div>' +
+            '<div class="pdo-card-badge ' + item.badgeClass + '">' + item.badge + '</div>' +
+          '</div>';
+      });
+    }
     document.getElementById('profile-detail-overlay').classList.add('visible');
   }
 
@@ -2281,11 +2385,67 @@
     }
   }
 
-  function addFriend(btn) {
-    btn.classList.remove('add');
-    btn.classList.add('added');
-    btn.textContent = 'Added ✓';
-    showToast('Friend request sent!');
+  function toggleMatch(card) {
+    card.classList.toggle('selected');
+    const check = card.querySelector('.match-card-check');
+    if (card.classList.contains('selected')) {
+      check.innerHTML = '<svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5L4.5 8.5L11 1.5" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>';
+    } else {
+      check.innerHTML = '';
+    }
+  }
+
+  function submitMatches() {
+    const cards = document.querySelectorAll('.match-card');
+    const selected = [];
+    cards.forEach(c => { if (c.classList.contains('selected')) selected.push(c); });
+
+    if (selected.length === 0) {
+      showToast('Select at least one person');
+      return;
+    }
+
+    const resultsEl = document.getElementById('match-results');
+    resultsEl.innerHTML = '';
+    let matchCount = 0;
+
+    cards.forEach(c => {
+      const name = c.dataset.name;
+      const wasSelected = c.classList.contains('selected');
+      const theyChoseYou = c.dataset.willMatch === 'true';
+      const isMatch = wasSelected && theyChoseYou;
+      if (isMatch) matchCount++;
+
+      const avEl = c.querySelector('.match-card-av');
+      const avStyle = avEl.getAttribute('style');
+      const initial = avEl.textContent.trim();
+      const interests = c.querySelector('.match-card-info span').textContent;
+
+      if (wasSelected) {
+        resultsEl.innerHTML +=
+          '<div class="match-result ' + (isMatch ? 'matched' : 'no-match') + '">' +
+            '<div class="match-result-av" style="' + avStyle + '">' + initial + '</div>' +
+            '<div class="match-result-info"><h3>' + name + '</h3><span>' +
+              (isMatch ? 'You both want to meet again!' : 'Not a mutual match this time') +
+            '</span></div>' +
+            '<div class="match-result-badge ' + (isMatch ? 'yes' : 'no') + '">' +
+              (isMatch ? 'Matched' : 'No match') +
+            '</div>' +
+          '</div>';
+      }
+    });
+
+    const summary = document.getElementById('match-summary');
+    if (matchCount > 0) {
+      summary.textContent = matchCount + ' mutual match' + (matchCount > 1 ? 'es' : '') + ' — you can now message each other!';
+    } else {
+      summary.textContent = 'No mutual matches this time. Keep showing up!';
+      summary.style.background = 'rgba(60,60,67,0.05)';
+      summary.style.color = 'var(--text-secondary)';
+    }
+
+    document.getElementById('post-step-select').style.display = 'none';
+    document.getElementById('post-step-reveal').classList.add('visible');
   }
 
   function selectFate(el) {
@@ -2295,6 +2455,12 @@
 
   function finishPost() {
     showToast('All set!');
+    document.getElementById('post-step-select').style.display = '';
+    document.getElementById('post-step-reveal').classList.remove('visible');
+    document.querySelectorAll('.match-card').forEach(c => {
+      c.classList.remove('selected');
+      c.querySelector('.match-card-check').innerHTML = '';
+    });
     setTimeout(() => goTo(6), 1200);
   }
 </script>
