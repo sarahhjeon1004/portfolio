@@ -736,7 +736,161 @@
     background: var(--bg);
   }
 
-  /* ===== SCREEN 8: POST-MEETUP ===== */
+  /* ===== SAFETY & TRUST ===== */
+  .safety-banner {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 12px 14px; margin: 0 20px 12px; border-radius: 12px;
+    background: rgba(10,132,255,0.06); border: 1px solid rgba(10,132,255,0.1);
+  }
+  .safety-banner-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .safety-banner-text { font-size: 13px; color: var(--text-secondary); line-height: 1.45; }
+  .safety-banner-text strong { color: var(--text-primary); font-weight: 600; }
+
+  .safety-card {
+    margin: 0 20px 16px; padding: 16px; border-radius: 14px;
+    background: var(--bg-card); box-shadow: var(--shadow);
+  }
+  .safety-card-title {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 10px;
+  }
+  .safety-card-title span { font-size: 15px; }
+  .safety-checklist { display: flex; flex-direction: column; gap: 8px; }
+  .safety-check {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 13px; color: var(--text-secondary); line-height: 1.4;
+  }
+  .safety-check-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent); flex-shrink: 0;
+  }
+
+  .coord-safety-link {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 14px; margin: 8px 0 0; border-radius: 10px;
+    background: rgba(120,120,128,0.04); border: none;
+    font-family: inherit; font-size: 13px; color: var(--text-muted);
+    cursor: pointer; width: 100%;
+    transition: background 0.15s;
+  }
+  .coord-safety-link:active { background: rgba(120,120,128,0.08); }
+  .coord-safety-link .csl-icon { font-size: 14px; }
+  .coord-safety-link .csl-text { flex: 1; text-align: left; }
+  .coord-safety-link .csl-arrow { font-size: 12px; color: var(--text-muted); }
+
+  .report-sheet {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.4); z-index: 25;
+    display: flex; align-items: flex-end; justify-content: center;
+    opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
+  }
+  .report-sheet.visible { opacity: 1; pointer-events: auto; }
+  .report-sheet-card {
+    background: var(--bg-card); border-radius: 20px 20px 0 0;
+    padding: 24px 24px 40px; width: 100%;
+    transform: translateY(100%); transition: transform 0.35s var(--spring);
+  }
+  .report-sheet.visible .report-sheet-card { transform: translateY(0); }
+  .report-sheet-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 4px; text-align: center; }
+  .report-sheet-card p { font-size: 13px; color: var(--text-muted); text-align: center; margin-bottom: 16px; line-height: 1.4; }
+  .report-option {
+    display: flex; align-items: center; gap: 12px; padding: 14px 16px;
+    background: none; border: none; border-bottom: 0.5px solid var(--border);
+    width: 100%; text-align: left; font-family: inherit; cursor: pointer;
+    font-size: 15px; color: var(--text-primary);
+    transition: background 0.1s;
+  }
+  .report-option:last-child { border-bottom: none; }
+  .report-option:active { background: rgba(60,60,67,0.04); }
+  .report-option .ro-icon { font-size: 16px; width: 22px; text-align: center; }
+  .report-option.danger { color: #FF3B30; }
+
+  /* ===== MESSAGING UX: ICEBREAKERS ===== */
+  .chat-context {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 14px; margin-bottom: 8px; border-radius: 10px;
+    background: rgba(52,199,89,0.06); border: 1px solid rgba(52,199,89,0.08);
+  }
+  .chat-context-icon { font-size: 13px; }
+  .chat-context-text { font-size: 12px; color: var(--text-secondary); line-height: 1.4; }
+
+  .chat-system-msg {
+    text-align: center; padding: 8px 0;
+    font-size: 12px; color: var(--text-muted); font-style: italic;
+  }
+
+  .chat-icebreaker {
+    padding: 12px 16px 8px; border-top: 0.5px solid var(--border);
+    background: rgba(120,120,128,0.02);
+  }
+  .chat-icebreaker-label {
+    font-size: 11px; font-weight: 600; color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;
+  }
+  .chat-quick-replies { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; -webkit-overflow-scrolling: touch; }
+  .chat-quick-reply {
+    padding: 8px 14px; border-radius: 18px; font-size: 13px; font-weight: 500;
+    background: var(--bg-card); border: 1px solid var(--border);
+    color: var(--text-primary); cursor: pointer; font-family: inherit;
+    white-space: nowrap; flex-shrink: 0;
+    transition: transform 0.15s var(--spring), background 0.15s, border-color 0.15s;
+  }
+  .chat-quick-reply:active { transform: scale(0.95); background: var(--accent-light); border-color: var(--accent); }
+
+  /* ===== RETENTION: NUDGES & STREAKS ===== */
+  .nudge-card {
+    margin: 0 20px 12px; padding: 14px 16px; border-radius: 14px;
+    background: linear-gradient(135deg, rgba(52,199,89,0.06) 0%, rgba(175,82,222,0.04) 100%);
+    border: 1px solid rgba(52,199,89,0.08);
+    display: flex; align-items: center; gap: 12px;
+    cursor: pointer; transition: transform 0.15s var(--spring);
+  }
+  .nudge-card:active { transform: scale(0.98); }
+  .nudge-icon { font-size: 28px; flex-shrink: 0; }
+  .nudge-text { flex: 1; }
+  .nudge-text h4 { font-size: 14px; font-weight: 600; margin-bottom: 2px; color: var(--text-primary); }
+  .nudge-text span { font-size: 12px; color: var(--text-secondary); line-height: 1.4; }
+  .nudge-arrow { font-size: 14px; color: var(--text-muted); }
+
+  .streak-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 600;
+    background: linear-gradient(135deg, var(--accent-light) 0%, rgba(255,159,10,0.1) 100%);
+    color: var(--accent); margin-bottom: 12px;
+  }
+  .streak-badge .streak-fire { font-size: 14px; }
+
+  .digest-section { margin: 0 20px 16px; }
+  .digest-title {
+    font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
+    color: var(--text-muted); margin-bottom: 10px;
+  }
+  .digest-card {
+    display: flex; align-items: center; gap: 12px; padding: 12px 14px;
+    background: var(--bg-card); border-radius: 12px; box-shadow: var(--shadow);
+    margin-bottom: 8px; cursor: pointer;
+    transition: transform 0.15s var(--spring);
+  }
+  .digest-card:active { transform: scale(0.98); }
+  .digest-card-icon { font-size: 20px; flex-shrink: 0; }
+  .digest-card-info { flex: 1; }
+  .digest-card-info h4 { font-size: 14px; font-weight: 600; margin-bottom: 1px; }
+  .digest-card-info span { font-size: 12px; color: var(--text-muted); }
+  .digest-card-cta {
+    font-size: 12px; font-weight: 600; color: var(--accent);
+    padding: 5px 12px; border-radius: 14px; background: var(--accent-light);
+    flex-shrink: 0;
+  }
+
+  .milestone-card {
+    margin: 0 20px 16px; padding: 16px; border-radius: 14px; text-align: center;
+    background: var(--bg-card); box-shadow: var(--shadow);
+  }
+  .milestone-emoji { font-size: 32px; margin-bottom: 6px; }
+  .milestone-card h4 { font-size: 15px; font-weight: 600; margin-bottom: 2px; }
+  .milestone-card span { font-size: 13px; color: var(--text-secondary); }
+
+  /* ===== SCREEN 7: POST-MEETUP ===== */
   .screen-post { padding: 0; background: var(--bg); overflow-y: auto !important; }
   .post-notif {
     margin: 60px 20px 0; padding: 20px; text-align: center;
@@ -1643,6 +1797,43 @@
     <!-- Activity List -->
     <div class="explore-sheet" id="explore-sheet">
       <div class="sheet-handle"></div>
+
+      <!-- Retention: streak badge -->
+      <div style="padding:0 20px 4px">
+        <div class="streak-badge"><span class="streak-fire">🔥</span> 3 weeks in a row — keep it going</div>
+      </div>
+
+      <!-- Retention: nudge cards -->
+      <div class="nudge-card" onclick="goTo(7)">
+        <div class="nudge-icon">👋</div>
+        <div class="nudge-text">
+          <h4>Alex is going to Farmers Market</h4>
+          <span>Your mutual is heading out Tuesday — want to join?</span>
+        </div>
+        <div class="nudge-arrow">›</div>
+      </div>
+
+      <!-- Retention: this week digest -->
+      <div class="digest-section">
+        <div class="digest-title">New this week</div>
+        <div class="digest-card" onclick="goTo(7)">
+          <div class="digest-card-icon">🧘</div>
+          <div class="digest-card-info">
+            <h4>Sunrise Yoga in the Park</h4>
+            <span>Bellwoods · Saturdays · Free</span>
+          </div>
+          <div class="digest-card-cta">New</div>
+        </div>
+        <div class="digest-card" onclick="goTo(7)">
+          <div class="digest-card-icon">📖</div>
+          <div class="digest-card-info">
+            <h4>Silent Book Club</h4>
+            <span>Queen West · Wednesdays · Free</span>
+          </div>
+          <div class="digest-card-cta">New</div>
+        </div>
+      </div>
+
       <h3 class="sheet-title">Nearby activities</h3>
       <div class="activity-list" id="activity-list">
         <div class="al-card" data-cat="social" onclick="goTo(7)">
@@ -1740,6 +1931,10 @@
         <div class="signal-dots"><div class="signal-dot">A</div><div class="signal-dot">M</div><div class="signal-dot">K</div><div class="signal-dot">J</div></div>
         <div class="signal-text">4 people nearby are also interested</div>
       </div>
+      <div class="safety-banner" style="margin:12px 0 0">
+        <div class="safety-banner-icon">🛡️</div>
+        <div class="safety-banner-text"><strong>Public meetup spot.</strong> All activities are in public spaces. You choose what to share and when.</div>
+      </div>
       <div class="activity-ctas">
         <button class="btn-primary" id="intent-btn" onclick="expressInterest()">I'm interested</button>
         <button class="btn-secondary" id="save-btn" onclick="toggleSave()">Save for later</button>
@@ -1784,6 +1979,17 @@
     </div>
 
     <div class="coord-body">
+      <!-- Safety: first meetup card -->
+      <div class="safety-card" id="safety-first-meetup">
+        <div class="safety-card-title"><span>🛡️</span> Your first time meeting up?</div>
+        <div class="safety-checklist">
+          <div class="safety-check"><div class="safety-check-dot"></div> All meetups are in public spaces</div>
+          <div class="safety-check"><div class="safety-check-dot"></div> Share your plans with someone you trust</div>
+          <div class="safety-check"><div class="safety-check-dot"></div> You can leave anytime — no explanation needed</div>
+          <div class="safety-check"><div class="safety-check-dot"></div> Report anything that feels off</div>
+        </div>
+      </div>
+
       <div class="coord-section">
         <div class="coord-section-title"><span class="cst-icon">📊</span> When works for everyone?</div>
         <button class="poll-option voted" onclick="votePoll(this)">
@@ -1827,6 +2033,15 @@
 
       <div class="coord-section">
         <div class="coord-section-title"><span class="cst-icon">💬</span> Conversation</div>
+
+        <!-- Shared context: reduces awkwardness -->
+        <div class="chat-context">
+          <span class="chat-context-icon">✦</span>
+          <span class="chat-context-text">You all share interests in <strong>Social</strong> and <strong>Outdoor</strong> activities. Alex and Maya are also new to the area.</span>
+        </div>
+
+        <div class="chat-system-msg">Everyone here is looking forward to this — say hi when you're ready.</div>
+
         <div class="chat-messages">
           <div class="chat-msg">
             <div class="chat-msg-av" style="background:var(--social-bg);color:var(--social)">A</div>
@@ -1860,12 +2075,44 @@
             </div>
           </div>
         </div>
+
+        <!-- Safety: report link -->
+        <button class="coord-safety-link" onclick="showReportSheet()">
+          <span class="csl-icon">🛡️</span>
+          <span class="csl-text">Safety & reporting</span>
+          <span class="csl-arrow">›</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Icebreaker quick replies -->
+    <div class="chat-icebreaker">
+      <div class="chat-icebreaker-label">Not sure what to say?</div>
+      <div class="chat-quick-replies">
+        <button class="chat-quick-reply" onclick="sendQuickReply(this)">Hey everyone! 👋</button>
+        <button class="chat-quick-reply" onclick="sendQuickReply(this)">Anyone been here before?</button>
+        <button class="chat-quick-reply" onclick="sendQuickReply(this)">How will we find each other?</button>
+        <button class="chat-quick-reply" onclick="sendQuickReply(this)">Can't wait!</button>
       </div>
     </div>
 
     <div class="chat-input-bar">
-      <input class="chat-input" type="text" placeholder="Message the group...">
+      <input class="chat-input" type="text" placeholder="Say something...">
       <button class="chat-send" onclick="showToast('Sent')">↑</button>
+    </div>
+
+    <!-- Report/safety sheet -->
+    <div class="report-sheet" id="report-sheet">
+      <div class="report-sheet-card">
+        <h3>Safety & reporting</h3>
+        <p>We take your safety seriously. Everything here is confidential.</p>
+        <button class="report-option" onclick="showToast('Blocking user…');closeReportSheet()"><span class="ro-icon">🚫</span> Block someone in this group</button>
+        <button class="report-option" onclick="showToast('Report submitted');closeReportSheet()"><span class="ro-icon">⚠️</span> Report uncomfortable behavior</button>
+        <button class="report-option" onclick="showToast('Opening safety tips…');closeReportSheet()"><span class="ro-icon">🛡️</span> Meetup safety tips</button>
+        <button class="report-option" onclick="showToast('Contacting support…');closeReportSheet()"><span class="ro-icon">💬</span> Contact support</button>
+        <button class="report-option danger" onclick="showToast('Leaving group…');closeReportSheet()"><span class="ro-icon">🚪</span> Leave this group</button>
+        <button class="report-option" onclick="closeReportSheet()" style="justify-content:center;color:var(--text-muted);font-weight:600;">Cancel</button>
+      </div>
     </div>
   </div>
 
@@ -2077,6 +2324,13 @@
 
     <div class="profile-body">
 
+      <!-- Retention: milestone -->
+      <div class="milestone-card">
+        <div class="milestone-emoji">🌟</div>
+        <h4>3 activities this month</h4>
+        <span>You're building something real — keep showing up.</span>
+      </div>
+
       <div class="profile-section">
         <div class="profile-section-title">Interests</div>
         <div class="profile-interests">
@@ -2131,6 +2385,26 @@
         <div class="profile-setting-row" onclick="showToast('Notification preferences…')">
           <span class="profile-setting-label">Notifications</span>
           <span class="profile-setting-value">On →</span>
+        </div>
+      </div>
+
+      <div class="profile-section">
+        <div class="profile-section-title">Safety & Privacy</div>
+        <div class="profile-setting-row" onclick="showToast('Opening blocked users…')">
+          <span class="profile-setting-label">Blocked users</span>
+          <span class="profile-setting-value">None →</span>
+        </div>
+        <div class="profile-setting-row" onclick="showToast('Emergency contact settings…')">
+          <span class="profile-setting-label">Emergency contact</span>
+          <span class="profile-setting-value">Add →</span>
+        </div>
+        <div class="profile-setting-row" onclick="showToast('Opening safety center…')">
+          <span class="profile-setting-label">Safety center</span>
+          <span class="profile-setting-value">→</span>
+        </div>
+        <div class="profile-setting-row" onclick="showToast('Opening data & privacy…')">
+          <span class="profile-setting-label">Data & privacy</span>
+          <span class="profile-setting-value">→</span>
         </div>
       </div>
 
@@ -2478,6 +2752,21 @@
 
   function closeInterestOverlay() {
     document.getElementById('interest-overlay').classList.remove('visible');
+  }
+
+  function showReportSheet() {
+    document.getElementById('report-sheet').classList.add('visible');
+  }
+
+  function closeReportSheet() {
+    document.getElementById('report-sheet').classList.remove('visible');
+  }
+
+  function sendQuickReply(btn) {
+    const text = btn.textContent;
+    showToast('Sent: ' + text);
+    btn.style.opacity = '0.5';
+    btn.style.pointerEvents = 'none';
   }
 
   /* ---- Tab switching (no slide, crossfade) ---- */
