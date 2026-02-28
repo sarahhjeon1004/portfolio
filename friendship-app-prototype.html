@@ -582,41 +582,44 @@
   .signal-text { font-size: 13px; color: var(--text-secondary); }
   .activity-ctas { display: flex; flex-direction: column; gap: 10px; }
 
-  /* ===== SCREEN 6: PEOPLE ===== */
-  .screen-people { padding: 0; background: var(--bg); }
-  .people-header { padding: 56px 28px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; }
-  .people-back-btn { background: none; border: none; font-size: 20px; cursor: pointer; padding: 4px; color: var(--text-primary); }
-  .people-header-text h2 { font-size: 17px; font-weight: 700; }
-  .people-header-text span { font-size: 13px; color: var(--text-muted); }
-  .people-list { padding: 16px 28px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
-  .person-card {
-    display: flex; align-items: center; gap: 14px; padding: 16px;
-    background: var(--bg-card); border: none;
-    border-radius: var(--radius-sm); cursor: pointer;
-    transition: transform 0.15s var(--spring); box-shadow: var(--shadow);
+  .interest-overlay {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.4); z-index: 20;
+    display: flex; align-items: flex-end; justify-content: center;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.25s ease;
   }
-  .person-card:active { transform: scale(0.98); }
-  .person-avatar {
-    width: 44px; height: 44px; border-radius: 50%; background: var(--accent-light);
+  .interest-overlay.visible { opacity: 1; pointer-events: auto; }
+  .interest-overlay-card {
+    background: var(--bg-card); border-radius: 20px 20px 0 0;
+    padding: 28px 24px 40px; width: 100%; text-align: center;
+    transform: translateY(100%);
+    transition: transform 0.35s var(--spring);
+  }
+  .interest-overlay.visible .interest-overlay-card { transform: translateY(0); }
+  .io-check {
+    width: 52px; height: 52px; border-radius: 50%;
+    background: var(--accent); color: #fff; font-size: 24px; font-weight: 700;
     display: flex; align-items: center; justify-content: center;
-    font-size: 16px; font-weight: 600; color: var(--accent); flex-shrink: 0;
+    margin: 0 auto 12px;
   }
-  .person-info { flex: 1; }
-  .person-info h3 { font-size: 15px; font-weight: 500; margin-bottom: 3px; }
-  .person-meta { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-muted); }
-  .person-interests { display: flex; gap: 4px; }
-  .person-interest-dot { width: 8px; height: 8px; border-radius: 50%; }
-  .person-cta {
-    font-size: 13px; color: var(--accent); font-weight: 600; padding: 7px 14px;
-    border: none; border-radius: 16px; background: var(--accent-light);
-    cursor: pointer; white-space: nowrap; font-family: inherit;
-    transition: transform 0.15s var(--spring);
+  .interest-overlay-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.3px; }
+  .interest-overlay-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 20px; }
+  .io-time-section { text-align: left; }
+  .io-label { font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 10px; }
+  .io-time-options { display: flex; gap: 8px; flex-wrap: wrap; }
+  .io-time-chip {
+    padding: 10px 16px; border-radius: 20px; font-size: 14px; font-weight: 500;
+    background: rgba(120,120,128,0.08); border: 2px solid transparent;
+    color: var(--text-primary); cursor: pointer; font-family: inherit;
+    transition: transform 0.15s var(--spring), border-color 0.2s, background 0.2s;
   }
-  .person-cta:active { transform: scale(0.92); }
-  .people-footer { padding: 16px 28px 40px; text-align: center; }
-  .people-footer p { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+  .io-time-chip:active { transform: scale(0.95); }
+  .io-time-chip.selected { border-color: var(--accent); background: var(--accent-light); }
 
-  /* ===== SCREEN 7: GROUP COORDINATION ===== */
+  .people-back-btn { background: none; border: none; font-size: 20px; cursor: pointer; padding: 4px; color: var(--text-primary); }
+
+  /* ===== SCREEN 6: GROUP COORDINATION ===== */
   .screen-coordinate { padding: 0; background: var(--bg); }
   .coord-header { padding: 56px 20px 12px; border-bottom: 1px solid var(--border); }
   .coord-header-top { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
@@ -1420,8 +1423,8 @@
     </div>
 
     <div class="about-bio about-section">
-      <div class="about-section-title">Write a short bio</div>
-      <textarea class="about-bio-area" id="bio-area" maxlength="120" placeholder="E.g. Just moved to Toronto from Vancouver. Love hiking, trying new coffee spots, and board game nights." oninput="updateBioCount()"></textarea>
+      <div class="about-section-title">A little about why you're here</div>
+      <textarea class="about-bio-area" id="bio-area" maxlength="120" placeholder="E.g. Just moved to Toronto, looking for people to explore the city with. Into walks, coffee, and trying new things." oninput="updateBioCount()"></textarea>
       <div class="about-bio-count" id="bio-count">0 / 120</div>
     </div>
 
@@ -1451,7 +1454,7 @@
       </div>
     </div>
 
-    <div class="about-hint">Pick as many as you want. This helps us match you with the right activities and people.</div>
+    <div class="about-hint">Pick as many as you'd like. This helps us show you the right activities and people nearby.</div>
 
     <div class="progress-dots">
       <div class="progress-dot"></div>
@@ -1503,7 +1506,7 @@
     <div class="location-icon">📍</div>
     <div class="location-content">
       <h2>See what's near you</h2>
-      <p><span class="highlight">We show you activities near you—not random matches.</span><br><br>So you see things you can actually do this week, with people nearby. We don't share your exact location with others.</p>
+      <p><span class="highlight">We show you activities near you — not random people.</span><br><br>So you see things you can actually do this week, with people nearby. We never share your exact location.</p>
       <div class="progress-dots"><div class="progress-dot"></div><div class="progress-dot"></div><div class="progress-dot"></div><div class="progress-dot"></div><div class="progress-dot active"></div></div>
       <div class="btn-group">
         <button class="btn-primary" onclick="goTo(6)">Allow location</button>
@@ -1584,7 +1587,7 @@
       <div class="map-header">
         <div class="map-top-row">
           <div class="map-title">Near you · Toronto</div>
-          <div class="map-avatar" onclick="switchTab(12)">S</div>
+          <div class="map-avatar" onclick="switchTab(11)">S</div>
         </div>
         <div class="map-filters">
           <button class="filter-chip active" onclick="filterPins('all',this)">All</button>
@@ -1633,7 +1636,7 @@
           <div class="mc-people-dots" id="mc-people-dots"></div>
           <span id="mc-people-text"></span>
         </div>
-        <button class="mc-cta" onclick="goTo(7)">I'm thinking of going</button>
+        <button class="mc-cta" onclick="goTo(7)">I'm interested</button>
       </div>
     </div>
 
@@ -1701,11 +1704,11 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v4m0 12v4m-10-10h4m12 0h4M5.6 5.6l2.8 2.8m7.2 7.2l2.8 2.8M5.6 18.4l2.8-2.8m7.2-7.2l2.8-2.8"/></svg>
         Explore
       </button>
-      <button class="nav-item" onclick="switchTab(11)">
+      <button class="nav-item" onclick="switchTab(10)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
         Saved
       </button>
-      <button class="nav-item" onclick="switchTab(12)">
+      <button class="nav-item" onclick="switchTab(11)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         You
       </button>
@@ -1720,7 +1723,7 @@
       <div class="activity-cat-badge social">🐕 Social · Outdoor</div>
       <h2>Dog Bowl Social</h2>
       <p class="activity-desc">Dog park hangout area in Trinity Bellwoods — an easy, low-pressure way to meet locals. Bring a dog or just come hang out.</p>
-      <div class="activity-match"><span>✦</span> Matches your interests: Social</div>
+      <div class="activity-match"><span>✦</span> Lines up with your interests: Social</div>
       <div class="activity-tags">
         <span class="activity-tag">Pet-friendly</span><span class="activity-tag">Casual</span>
         <span class="activity-tag">Walk-in</span><span class="activity-tag">Outdoor</span>
@@ -1735,55 +1738,48 @@
       </div>
       <div class="social-signal">
         <div class="signal-dots"><div class="signal-dot">A</div><div class="signal-dot">M</div><div class="signal-dot">K</div><div class="signal-dot">J</div></div>
-        <div class="signal-text">4 people nearby are interested</div>
+        <div class="signal-text">4 people nearby are also interested</div>
       </div>
       <div class="activity-ctas">
-        <button class="btn-primary" id="intent-btn" onclick="goTo(8)">I'm thinking of going</button>
-        <button class="btn-secondary" id="save-btn" onclick="toggleSave()">Save</button>
+        <button class="btn-primary" id="intent-btn" onclick="expressInterest()">I'm interested</button>
+        <button class="btn-secondary" id="save-btn" onclick="toggleSave()">Save for later</button>
+      </div>
+    </div>
+
+    <!-- Interest confirmation overlay -->
+    <div class="interest-overlay" id="interest-overlay">
+      <div class="interest-overlay-card">
+        <div class="io-check">✓</div>
+        <h3>You're in!</h3>
+        <p>Others who are interested can now see you're thinking of going too.</p>
+        <div class="io-time-section">
+          <div class="io-label">When were you thinking?</div>
+          <div class="io-time-options">
+            <button class="io-time-chip" onclick="pickTime(this)">This weekend</button>
+            <button class="io-time-chip" onclick="pickTime(this)">Next few days</button>
+            <button class="io-time-chip" onclick="pickTime(this)">Flexible</button>
+          </div>
+        </div>
+        <button class="btn-primary" onclick="goToGroupChat()" style="margin-top:16px">See who else is going</button>
+        <button class="btn-text" onclick="closeInterestOverlay()" style="margin-top:4px">I'll just browse for now</button>
       </div>
     </div>
   </div>
 
-  <!-- SCREEN 6: PEOPLE LAYER -->
-  <div class="screen screen-people" id="screen-8">
-    <div class="people-header">
-      <button class="people-back-btn" onclick="goBack()">←</button>
-      <div class="people-header-text"><h2>Dog Bowl Social</h2><span>People interested in this activity</span></div>
-    </div>
-    <div class="people-list">
-      <div class="person-card" onclick="goTo(9)">
-        <div class="person-avatar">A</div>
-        <div class="person-info"><h3>Alex</h3><div class="person-meta"><span>Trinity Bellwoods · ~3 min</span><span>·</span><div class="person-interests"><div class="person-interest-dot" style="background:var(--social)"></div><div class="person-interest-dot" style="background:var(--movement)"></div></div></div></div>
-        <button class="person-cta" onclick="event.stopPropagation();goTo(9)">Coordinate?</button>
-      </div>
-      <div class="person-card" onclick="goTo(9)">
-        <div class="person-avatar">M</div>
-        <div class="person-info"><h3>Maya</h3><div class="person-meta"><span>Queen West · ~8 min</span><span>·</span><div class="person-interests"><div class="person-interest-dot" style="background:var(--social)"></div><div class="person-interest-dot" style="background:var(--food)"></div></div></div></div>
-        <button class="person-cta" onclick="event.stopPropagation();goTo(9)">Coordinate?</button>
-      </div>
-      <div class="person-card">
-        <div class="person-avatar">K</div>
-        <div class="person-info"><h3>Kai</h3><div class="person-meta"><span>Ossington · ~10 min</span><span>·</span><div class="person-interests"><div class="person-interest-dot" style="background:var(--movement)"></div></div></div></div>
-        <button class="person-cta" onclick="event.stopPropagation();goTo(9)">Coordinate?</button>
-      </div>
-    </div>
-    <div class="people-footer"><p>Suggest a time or place, or just show up — it's up to you.</p></div>
-  </div>
-
-  <!-- SCREEN 7: GROUP COORDINATION -->
-  <div class="screen screen-coordinate" id="screen-9">
+  <!-- SCREEN 6: GROUP COORDINATION -->
+  <div class="screen screen-coordinate" id="screen-8">
     <div class="coord-header">
       <div class="coord-header-top">
         <button class="people-back-btn" onclick="goBack()">←</button>
         <h2>🐕 Dog Bowl Social</h2>
       </div>
-      <div class="coord-sub">Trinity Bellwoods · Group auto-created</div>
+      <div class="coord-sub">Trinity Bellwoods · You're all interested</div>
       <div class="coord-members">
         <div class="coord-member-av" style="background:var(--accent-light);color:var(--accent)">You</div>
         <div class="coord-member-av" style="background:var(--social-bg);color:var(--social)">A</div>
         <div class="coord-member-av" style="background:var(--creative-bg);color:var(--creative)">M</div>
         <div class="coord-member-av" style="background:var(--cultural-bg);color:var(--cultural)">K</div>
-        <span class="coord-members-label">4 people interested</span>
+        <span class="coord-members-label">4 people, including you</span>
       </div>
     </div>
 
@@ -1826,11 +1822,11 @@
           </div>
           <div class="poll-check"></div>
         </button>
-        <button class="poll-add" onclick="showToast('Add a time option')">＋ Suggest another time</button>
+        <button class="poll-add" onclick="showToast('Time suggestion added')">＋ Suggest another time</button>
       </div>
 
       <div class="coord-section">
-        <div class="coord-section-title"><span class="cst-icon">💬</span> Group chat</div>
+        <div class="coord-section-title"><span class="cst-icon">💬</span> Conversation</div>
         <div class="chat-messages">
           <div class="chat-msg">
             <div class="chat-msg-av" style="background:var(--social-bg);color:var(--social)">A</div>
@@ -1869,23 +1865,23 @@
 
     <div class="chat-input-bar">
       <input class="chat-input" type="text" placeholder="Message the group...">
-      <button class="chat-send" onclick="showToast('Message sent')">↑</button>
+      <button class="chat-send" onclick="showToast('Sent')">↑</button>
     </div>
   </div>
 
-  <!-- SCREEN 8: POST-MEETUP -->
-  <div class="screen screen-post" id="screen-10">
+  <!-- SCREEN 7: POST-MEETUP -->
+  <div class="screen screen-post" id="screen-9">
     <div class="post-notif">
       <div class="post-notif-icon">🎉</div>
-      <h2>You went to Dog Bowl Social!</h2>
-      <p>Trinity Bellwoods · Today</p>
+      <h2>How was Dog Bowl Social?</h2>
+      <p>Trinity Bellwoods · Earlier today</p>
     </div>
 
     <!-- Step 1: Select who you'd meet again -->
     <div id="post-step-select">
       <div class="post-section">
-        <div class="post-section-title">Who would you hang out with again?</div>
-        <div class="post-section-hint">Tap to select — they'll only know if it's mutual.</div>
+        <div class="post-section-title">Who would you like to see again?</div>
+        <div class="post-section-hint">No pressure — they'll only find out if they felt the same way.</div>
         <div class="match-card" onclick="toggleMatch(this)" data-name="Alex" data-will-match="true">
           <div class="match-card-av" style="background:var(--social-bg);color:var(--social)">A</div>
           <div class="match-card-info"><h3>Alex</h3><span>Shared 2 interests</span></div>
@@ -1904,35 +1900,35 @@
       </div>
 
       <div class="post-footer">
-        <button class="btn-primary" onclick="submitMatches()">Submit</button>
-        <button class="btn-text" onclick="goTo(6)">Skip for now</button>
+        <button class="btn-primary" onclick="submitMatches()">Done</button>
+        <button class="btn-text" onclick="goTo(6)">Not right now</button>
       </div>
     </div>
 
-    <!-- Step 2: Match reveal -->
+    <!-- Step 2: Results -->
     <div id="post-step-reveal" class="match-reveal">
       <div class="post-section">
-        <div class="post-section-title">Your matches</div>
+        <div class="post-section-title">Here's what happened</div>
         <div id="match-results"></div>
         <div class="match-summary" id="match-summary"></div>
       </div>
 
       <div class="post-section">
-        <div class="post-section-title">What happens to the group chat?</div>
+        <div class="post-section-title">What about the conversation?</div>
         <div class="post-chat-fate">
           <button class="chat-fate-opt selected" onclick="selectFate(this)">
             <span class="cfo-icon">💬</span>
-            <div class="cfo-text"><h3>Keep it open</h3><span>Plan more hangouts together</span></div>
+            <div class="cfo-text"><h3>Keep it going</h3><span>Stay connected, plan more things</span></div>
             <div class="cfo-check"></div>
           </button>
           <button class="chat-fate-opt" onclick="selectFate(this)">
             <span class="cfo-icon">📦</span>
-            <div class="cfo-text"><h3>Archive it</h3><span>Move to archived — reopen anytime</span></div>
+            <div class="cfo-text"><h3>Wrap it up for now</h3><span>You can always come back to it</span></div>
             <div class="cfo-check"></div>
           </button>
           <button class="chat-fate-opt" onclick="selectFate(this)">
             <span class="cfo-icon">👋</span>
-            <div class="cfo-text"><h3>Leave the chat</h3><span>Others can keep chatting without you</span></div>
+            <div class="cfo-text"><h3>Quietly step out</h3><span>No one gets notified</span></div>
             <div class="cfo-check"></div>
           </button>
         </div>
@@ -1944,8 +1940,8 @@
     </div>
   </div>
 
-  <!-- SCREEN 9: SAVED -->
-  <div class="screen screen-saved" id="screen-11">
+  <!-- SCREEN 8: SAVED -->
+  <div class="screen screen-saved" id="screen-10">
     <div class="saved-header"><h2>Saved</h2></div>
     <div class="saved-body">
 
@@ -2013,19 +2009,19 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v4m0 12v4m-10-10h4m12 0h4M5.6 5.6l2.8 2.8m7.2 7.2l2.8 2.8M5.6 18.4l2.8-2.8m7.2-7.2l2.8-2.8"/></svg>
         Explore
       </button>
-      <button class="nav-item active" onclick="switchTab(11)">
+      <button class="nav-item active" onclick="switchTab(10)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
         Saved
       </button>
-      <button class="nav-item" onclick="switchTab(12)">
+      <button class="nav-item" onclick="switchTab(11)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         You
       </button>
     </div>
   </div>
 
-  <!-- SCREEN 10: PROFILE -->
-  <div class="screen screen-profile" id="screen-12">
+  <!-- SCREEN 9: PROFILE -->
+  <div class="screen screen-profile" id="screen-11">
     <div class="profile-header">
       <div class="profile-avatar-lg">S</div>
       <h2>Sara</h2>
@@ -2060,7 +2056,7 @@
         <div class="ps-num">3</div>
         <div class="ps-label">Activities tried</div>
       </div>
-      <div class="profile-stat" onclick="switchTab(11)">
+      <div class="profile-stat" onclick="switchTab(10)">
         <div class="ps-num">5</div>
         <div class="ps-label">Saved</div>
       </div>
@@ -2145,11 +2141,11 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v4m0 12v4m-10-10h4m12 0h4M5.6 5.6l2.8 2.8m7.2 7.2l2.8 2.8M5.6 18.4l2.8-2.8m7.2-7.2l2.8-2.8"/></svg>
         Explore
       </button>
-      <button class="nav-item" onclick="switchTab(11)">
+      <button class="nav-item" onclick="switchTab(10)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
         Saved
       </button>
-      <button class="nav-item active" onclick="switchTab(12)">
+      <button class="nav-item active" onclick="switchTab(11)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         You
       </button>
@@ -2162,8 +2158,8 @@
 <script>
   let currentScreen = 1;
   const history = [1];
-  const screenOrder = { 1:0, 2:1, 3:2, 4:3, 5:4, 6:5, 7:6, 8:7, 9:8, 10:9, 11:5, 12:5 };
-  const tabScreens = [6, 11, 12];
+  const screenOrder = { 1:0, 2:1, 3:2, 4:3, 5:4, 6:5, 7:6, 8:7, 9:8, 10:5, 11:5 };
+  const tabScreens = [6, 10, 11];
 
   function goTo(n) {
     const current = document.getElementById('screen-' + currentScreen);
@@ -2411,8 +2407,8 @@
     mutuals: {
       title: 'Mutuals',
       items: [
-        { icon: 'A', cat: 'social', name: 'Alex', sub: 'Matched from Dog Bowl Social', badge: 'Mutual', badgeClass: 'coord' },
-        { icon: 'M', cat: 'creative', name: 'Maya', sub: 'Matched from Board Game Night', badge: 'Mutual', badgeClass: 'coord' }
+        { icon: 'A', cat: 'social', name: 'Alex', sub: 'Met at Dog Bowl Social', badge: 'Mutual', badgeClass: 'coord' },
+        { icon: 'M', cat: 'creative', name: 'Maya', sub: 'Met at Board Game Night', badge: 'Mutual', badgeClass: 'coord' }
       ]
     }
   };
@@ -2427,7 +2423,7 @@
     if (type === 'mutuals') {
       const desc = document.createElement('div');
       desc.style.cssText = 'font-size:12px;color:var(--text-muted);padding:0 0 12px;line-height:1.5;';
-      desc.textContent = 'People you matched with after a hangout. Only mutuals can see each other here.';
+      desc.textContent = 'People who also wanted to stay connected after a hangout. Only mutuals can see each other here.';
       body.appendChild(desc);
 
       data.items.forEach(item => {
@@ -2462,8 +2458,26 @@
   function toggleSave() {
     const btn = document.getElementById('save-btn');
     const saved = btn.classList.toggle('saved');
-    btn.textContent = saved ? 'Saved ✓' : 'Save';
+    btn.textContent = saved ? 'Saved ✓' : 'Save for later';
     showToast(saved ? 'Saved for later' : 'Removed from saved');
+  }
+
+  function expressInterest() {
+    document.getElementById('interest-overlay').classList.add('visible');
+  }
+
+  function pickTime(el) {
+    document.querySelectorAll('.io-time-chip').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  function goToGroupChat() {
+    document.getElementById('interest-overlay').classList.remove('visible');
+    goTo(8);
+  }
+
+  function closeInterestOverlay() {
+    document.getElementById('interest-overlay').classList.remove('visible');
   }
 
   /* ---- Tab switching (no slide, crossfade) ---- */
@@ -2548,10 +2562,10 @@
           '<div class="match-result ' + (isMatch ? 'matched' : 'no-match') + '">' +
             '<div class="match-result-av" style="' + avStyle + '">' + initial + '</div>' +
             '<div class="match-result-info"><h3>' + name + '</h3><span>' +
-              (isMatch ? 'You both want to meet again!' : 'Not a mutual match this time') +
+              (isMatch ? 'You\'re both interested in hanging out again' : 'Not this time — and that\'s okay') +
             '</span></div>' +
             '<div class="match-result-badge ' + (isMatch ? 'yes' : 'no') + '">' +
-              (isMatch ? 'Matched' : 'No match') +
+              (isMatch ? 'It\'s mutual' : 'Maybe next time') +
             '</div>' +
           '</div>';
       }
@@ -2559,9 +2573,9 @@
 
     const summary = document.getElementById('match-summary');
     if (matchCount > 0) {
-      summary.textContent = matchCount + ' mutual match' + (matchCount > 1 ? 'es' : '') + ' — you can now message each other!';
+      summary.textContent = matchCount + ' mutual connection' + (matchCount > 1 ? 's' : '') + ' — you can now coordinate together.';
     } else {
-      summary.textContent = 'No mutual matches this time. Keep showing up!';
+      summary.textContent = 'No mutual connections this time. Keep showing up — good things take time.';
       summary.style.background = 'rgba(60,60,67,0.05)';
       summary.style.color = 'var(--text-secondary)';
     }
@@ -2576,7 +2590,7 @@
   }
 
   function finishPost() {
-    showToast('All set!');
+    showToast('You\'re all set');
     document.getElementById('post-step-select').style.display = '';
     document.getElementById('post-step-reveal').classList.remove('visible');
     document.querySelectorAll('.match-card').forEach(c => {
