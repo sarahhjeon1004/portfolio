@@ -297,48 +297,45 @@
 
   .map-canvas {
     position: absolute; top: 0; left: 0; right: 0; height: 900px;
-    background:
-      radial-gradient(circle at 30% 40%, rgba(48,209,88,0.08) 0%, transparent 55%),
-      radial-gradient(circle at 75% 25%, rgba(10,132,255,0.06) 0%, transparent 45%),
-      #E5E5EA;
+    background: #ECEDF1;
     transform-origin: 195px 230px;
   }
 
-  .map-road { position: absolute; background: rgba(255,255,255,0.55); border-radius: 1px; }
+  .map-road { position: absolute; background: rgba(255,255,255,0.5); border-radius: 1px; }
   .map-road.queen    { top: 180px; left: 0; right: 0; height: 2px; }
   .map-road.dundas   { top: 130px; left: 0; right: 0; height: 2px; }
   .map-road.king     { top: 280px; left: 0; right: 0; height: 2px; }
   .map-road.front    { top: 350px; left: 0; right: 0; height: 2px; }
   .map-road.spadina   { left: 100px; top: 100px; height: 300px; width: 2px; }
   .map-road.university{ left: 195px; top: 100px; height: 300px; width: 2px; }
-  .map-road.yonge     { left: 280px; top: 100px; height: 300px; width: 2px; background: rgba(255,255,255,0.65); }
+  .map-road.yonge     { left: 280px; top: 100px; height: 300px; width: 2px; background: rgba(255,255,255,0.6); }
   .map-road.bay       { left: 340px; top: 100px; height: 300px; width: 2px; }
 
   .map-street-label {
     position: absolute; font-size: 9px; font-weight: 500;
-    color: rgba(60,60,67,0.3); letter-spacing: 0.3px;
+    color: rgba(60,60,67,0.22); letter-spacing: 0.3px;
     white-space: nowrap; pointer-events: none;
   }
   .map-street-label.vertical { writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg); }
   .map-neighbourhood {
     position: absolute; font-size: 8px; font-weight: 700;
-    color: rgba(60,60,67,0.2); letter-spacing: 1.5px;
+    color: rgba(60,60,67,0.15); letter-spacing: 1.5px;
     text-transform: uppercase; white-space: nowrap; pointer-events: none;
   }
-  .map-block { position: absolute; background: rgba(255,255,255,0.18); border-radius: 4px; }
-  .map-park { position: absolute; border-radius: 40%; background: rgba(48,209,88,0.1); }
+  .map-block { position: absolute; background: rgba(255,255,255,0.14); border-radius: 4px; }
+  .map-park { position: absolute; border-radius: 40%; background: rgba(100,180,100,0.06); }
 
   /* User location dot */
   .user-dot { position: absolute; z-index: 8; pointer-events: none; }
   .user-dot-inner {
-    width: 14px; height: 14px; border-radius: 50%;
-    background: #4A90D9; border: 3px solid #fff;
-    box-shadow: 0 1px 6px rgba(74,144,217,0.4);
+    width: 12px; height: 12px; border-radius: 50%;
+    background: #5B8DEF; border: 2.5px solid #fff;
+    box-shadow: 0 1px 4px rgba(91,141,239,0.35);
   }
   .user-dot-pulse {
     position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    width: 40px; height: 40px; border-radius: 50%;
-    background: rgba(74,144,217,0.12);
+    width: 36px; height: 36px; border-radius: 50%;
+    background: rgba(91,141,239,0.10);
     animation: loc-pulse 2.5s ease-out infinite;
   }
   @keyframes loc-pulse {
@@ -346,41 +343,41 @@
     100% { transform: translate(-50%,-50%) scale(1.4); opacity: 0; }
   }
 
-  /* Map pins */
+  /* Map pins — clean circle markers */
   .map-pin {
     position: absolute; cursor: pointer; z-index: 5;
-    transition: transform 0.2s var(--spring); opacity: 0;
-    animation: pin-drop 0.4s var(--spring) forwards;
-    padding: 6px;
+    transition: transform 0.25s var(--spring); opacity: 0;
+    animation: pin-appear 0.5s var(--spring) forwards;
+    padding: 8px;
   }
-  .map-pin:nth-child(n+12) { animation-delay: 0.04s; }
-  .map-pin:nth-child(n+13) { animation-delay: 0.08s; }
-  .map-pin:nth-child(n+14) { animation-delay: 0.12s; }
-  .map-pin:nth-child(n+15) { animation-delay: 0.16s; }
-  .map-pin:nth-child(n+16) { animation-delay: 0.20s; }
-  .map-pin:nth-child(n+17) { animation-delay: 0.24s; }
-  .map-pin:nth-child(n+18) { animation-delay: 0.28s; }
-  .map-pin:nth-child(n+19) { animation-delay: 0.32s; }
-  .map-pin:nth-child(n+20) { animation-delay: 0.36s; }
-  .map-pin:nth-child(n+21) { animation-delay: 0.40s; }
-  @keyframes pin-drop {
-    0% { opacity: 0; transform: translateY(-14px) scale(0.5); }
-    70% { transform: translateY(2px) scale(1.05); }
-    100% { opacity: 1; transform: translateY(0) scale(1); }
+  .map-pin:nth-child(n+12) { animation-delay: 0.03s; }
+  .map-pin:nth-child(n+13) { animation-delay: 0.06s; }
+  .map-pin:nth-child(n+14) { animation-delay: 0.09s; }
+  .map-pin:nth-child(n+15) { animation-delay: 0.12s; }
+  .map-pin:nth-child(n+16) { animation-delay: 0.15s; }
+  .map-pin:nth-child(n+17) { animation-delay: 0.18s; }
+  .map-pin:nth-child(n+18) { animation-delay: 0.21s; }
+  .map-pin:nth-child(n+19) { animation-delay: 0.24s; }
+  .map-pin:nth-child(n+20) { animation-delay: 0.27s; }
+  .map-pin:nth-child(n+21) { animation-delay: 0.30s; }
+  @keyframes pin-appear {
+    0% { opacity: 0; transform: scale(0.4); }
+    60% { transform: scale(1.08); }
+    100% { opacity: 1; transform: scale(1); }
   }
-  .map-pin:hover { transform: scale(1.18); z-index: 6; }
-  .map-pin:active { transform: scale(1.05); }
-  .map-pin.active { z-index: 7; transform: scale(1.18); }
-  .map-pin.active .pin-marker { box-shadow: 0 0 0 4px rgba(52,199,89,0.3), 0 4px 12px rgba(0,0,0,0.15); }
-  .map-pin.dimmed { opacity: 0.1 !important; pointer-events: none; }
+  .map-pin:hover { transform: scale(1.15); z-index: 6; }
+  .map-pin:active { transform: scale(0.95); }
+  .map-pin.active { z-index: 7; transform: scale(1.15); }
+  .map-pin.dimmed { opacity: 0.08 !important; pointer-events: none; }
 
+  /* Default state: solid category-color circle */
   .pin-marker {
-    width: 40px; height: 40px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-    transition: box-shadow 0.2s, transform 0.2s var(--spring);
+    width: 28px; height: 28px; border-radius: 50%;
+    border: 2.5px solid #fff;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.12), 0 0 0 0 transparent;
+    transition: box-shadow 0.3s, border 0.2s, transform 0.25s var(--spring);
+    position: relative;
   }
-  .pin-marker .pm-icon { font-size: 17px; line-height: 1; }
 
   .pin-marker.movement { background: var(--movement); }
   .pin-marker.creative { background: var(--creative); }
@@ -390,13 +387,61 @@
   .pin-marker.learning { background: var(--learning); }
   .pin-marker.social   { background: var(--social); }
 
+  /* State: User tapped / thinking of going — white center + colored ring */
+  .pin-marker.intent {
+    background: #fff;
+    border-width: 3px;
+  }
+  .pin-marker.intent.movement { border-color: var(--movement); }
+  .pin-marker.intent.creative { border-color: var(--creative); }
+  .pin-marker.intent.games    { border-color: var(--games); }
+  .pin-marker.intent.food     { border-color: var(--food); }
+  .pin-marker.intent.cultural { border-color: var(--cultural); }
+  .pin-marker.intent.learning { border-color: var(--learning); }
+  .pin-marker.intent.social   { border-color: var(--social); }
+
+  /* State: Active coordination — glow halo */
+  .pin-marker.coordinating { animation: pin-glow 2.5s ease-in-out infinite; }
+  .pin-marker.coordinating.movement { box-shadow: 0 0 0 5px rgba(48,209,88,0.18), 0 1px 4px rgba(0,0,0,0.10); }
+  .pin-marker.coordinating.creative { box-shadow: 0 0 0 5px rgba(175,82,222,0.18), 0 1px 4px rgba(0,0,0,0.10); }
+  .pin-marker.coordinating.games    { box-shadow: 0 0 0 5px rgba(255,214,10,0.22), 0 1px 4px rgba(0,0,0,0.10); }
+  .pin-marker.coordinating.food     { box-shadow: 0 0 0 5px rgba(255,159,10,0.18), 0 1px 4px rgba(0,0,0,0.10); }
+  .pin-marker.coordinating.cultural { box-shadow: 0 0 0 5px rgba(10,132,255,0.18), 0 1px 4px rgba(0,0,0,0.10); }
+  .pin-marker.coordinating.learning { box-shadow: 0 0 0 5px rgba(100,210,255,0.18), 0 1px 4px rgba(0,0,0,0.10); }
+  .pin-marker.coordinating.social   { box-shadow: 0 0 0 5px rgba(255,100,130,0.18), 0 1px 4px rgba(0,0,0,0.10); }
+  @keyframes pin-glow {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.75; }
+  }
+
+  /* Active (tapped on map) state */
+  .map-pin.active .pin-marker {
+    transform: scale(1.1);
+    box-shadow: 0 0 0 5px rgba(52,199,89,0.2), 0 2px 8px rgba(0,0,0,0.12);
+  }
+  .map-pin.active .pin-marker.movement { box-shadow: 0 0 0 5px rgba(48,209,88,0.2), 0 2px 8px rgba(0,0,0,0.12); }
+  .map-pin.active .pin-marker.creative { box-shadow: 0 0 0 5px rgba(175,82,222,0.2), 0 2px 8px rgba(0,0,0,0.12); }
+  .map-pin.active .pin-marker.games    { box-shadow: 0 0 0 5px rgba(255,214,10,0.25), 0 2px 8px rgba(0,0,0,0.12); }
+  .map-pin.active .pin-marker.food     { box-shadow: 0 0 0 5px rgba(255,159,10,0.2), 0 2px 8px rgba(0,0,0,0.12); }
+  .map-pin.active .pin-marker.cultural { box-shadow: 0 0 0 5px rgba(10,132,255,0.2), 0 2px 8px rgba(0,0,0,0.12); }
+  .map-pin.active .pin-marker.learning { box-shadow: 0 0 0 5px rgba(100,210,255,0.2), 0 2px 8px rgba(0,0,0,0.12); }
+  .map-pin.active .pin-marker.social   { box-shadow: 0 0 0 5px rgba(255,100,130,0.2), 0 2px 8px rgba(0,0,0,0.12); }
+
+  /* People count dot on pin */
+  .pin-count {
+    position: absolute; top: -3px; right: -3px;
+    min-width: 15px; height: 15px; border-radius: 8px;
+    background: var(--text-primary); color: #fff;
+    font-size: 9px; font-weight: 700; line-height: 15px;
+    text-align: center; padding: 0 3px;
+    border: 1.5px solid #fff;
+  }
+
   .pin-label {
     position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
-    font-size: 10px; font-weight: 600; color: var(--text-primary); margin-top: 3px;
-    background: rgba(255,255,255,0.95); padding: 3px 8px; border-radius: 6px;
-    white-space: nowrap; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-    opacity: 0; transition: opacity 0.15s; pointer-events: none;
-    backdrop-filter: blur(8px);
+    font-size: 10px; font-weight: 600; color: var(--text-secondary); margin-top: 4px;
+    white-space: nowrap;
+    opacity: 0; transition: opacity 0.2s; pointer-events: none;
   }
   .map-pin:hover .pin-label,
   .map-pin.active .pin-label { opacity: 1; }
@@ -500,16 +545,17 @@
   .mini-card-top { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
 
   .mc-cat-dot {
-    width: 36px; height: 36px; border-radius: 10px;
-    display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0;
+    width: 32px; height: 32px; border-radius: 50%;
+    flex-shrink: 0; border: 2.5px solid #fff;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
   }
-  .mc-cat-dot.movement { background: var(--movement-bg); }
-  .mc-cat-dot.creative { background: var(--creative-bg); }
-  .mc-cat-dot.games    { background: var(--games-bg); }
-  .mc-cat-dot.food     { background: var(--food-bg); }
-  .mc-cat-dot.cultural { background: var(--cultural-bg); }
-  .mc-cat-dot.learning { background: var(--learning-bg); }
-  .mc-cat-dot.social   { background: var(--social-bg); }
+  .mc-cat-dot.movement { background: var(--movement); }
+  .mc-cat-dot.creative { background: var(--creative); }
+  .mc-cat-dot.games    { background: var(--games); }
+  .mc-cat-dot.food     { background: var(--food); }
+  .mc-cat-dot.cultural { background: var(--cultural); }
+  .mc-cat-dot.learning { background: var(--learning); }
+  .mc-cat-dot.social   { background: var(--social); }
 
   .mc-info { flex: 1; }
   .mc-info h3 { font-size: 15px; font-weight: 600; margin-bottom: 3px; letter-spacing: -0.2px; }
@@ -1755,36 +1801,36 @@
           <div class="user-dot-inner"></div>
         </div>
 
-        <!-- Activity Pins — spread across the map -->
+        <!-- Activity Pins — clean circle markers -->
         <div class="map-pin" style="top:135px;left:30px" onclick="showMiniCard(this)" data-name="Dog Bowl Social" data-loc="Trinity Bellwoods" data-dist="~5 min walk" data-energy="Calm" data-social="Medium" data-people="4" data-cat="social" data-icon="🐕" data-cadence="Daily" data-cost="Free" data-walkin="Yes" data-setting="Outdoor" data-tags="Pet-friendly, Casual">
-          <div class="pin-marker social"><span class="pm-icon">🐕</span></div><div class="pin-label">Dog Bowl</div>
+          <div class="pin-marker social coordinating"><span class="pin-count">4</span></div><div class="pin-label">Dog Bowl</div>
         </div>
         <div class="map-pin" style="top:115px;left:260px" onclick="showMiniCard(this)" data-name="Snakes & Lattes" data-loc="Yonge-Dundas" data-dist="~15 min" data-energy="Moderate" data-social="High" data-people="6" data-cat="games" data-icon="🎲" data-cadence="Daily · open play" data-cost="$" data-walkin="Yes" data-setting="Indoor" data-tags="Board games, Social, Drop-in">
-          <div class="pin-marker games"><span class="pm-icon">🎲</span></div><div class="pin-label">Snakes & Lattes</div>
+          <div class="pin-marker games coordinating"><span class="pin-count">6</span></div><div class="pin-label">Snakes & Lattes</div>
         </div>
         <div class="map-pin" style="top:185px;left:25px" onclick="showMiniCard(this)" data-name="Artscape Open Studio" data-loc="Queen W · Youngplace" data-dist="~10 min walk" data-energy="Calm" data-social="Low" data-people="2" data-cat="creative" data-icon="🎨" data-cadence="Weekly" data-cost="Free" data-walkin="Yes" data-setting="Indoor" data-tags="Quiet activity, Beginner-friendly">
-          <div class="pin-marker creative"><span class="pm-icon">🎨</span></div><div class="pin-label">Open Studio</div>
+          <div class="pin-marker creative"></div><div class="pin-label">Open Studio</div>
         </div>
         <div class="map-pin" style="top:165px;left:145px" onclick="showMiniCard(this)" data-name="Drake Live Music" data-loc="Queen West" data-dist="~8 min walk" data-energy="Moderate" data-social="High" data-people="3" data-cat="cultural" data-icon="🎵" data-cadence="Weekly" data-cost="$" data-walkin="Yes" data-setting="Indoor" data-tags="Live music, Evening">
-          <div class="pin-marker cultural"><span class="pm-icon">🎵</span></div><div class="pin-label">Drake Music</div>
+          <div class="pin-marker cultural intent"><span class="pin-count">3</span></div><div class="pin-label">Drake Music</div>
         </div>
         <div class="map-pin" style="top:120px;left:155px" onclick="showMiniCard(this)" data-name="Community Art Workshop" data-loc="Artscape · Queen W" data-dist="~10 min walk" data-energy="Calm" data-social="Medium" data-people="2" data-cat="learning" data-icon="🖌️" data-cadence="Weekly / Monthly" data-cost="$" data-walkin="Yes" data-setting="Indoor" data-tags="Structured, Painting, Crafts">
-          <div class="pin-marker learning"><span class="pm-icon">🖌️</span></div><div class="pin-label">Art Workshop</div>
+          <div class="pin-marker learning"></div><div class="pin-label">Art Workshop</div>
         </div>
         <div class="map-pin" style="top:215px;left:80px" onclick="showMiniCard(this)" data-name="Bellwoods Pickup Courts" data-loc="Trinity Bellwoods" data-dist="~6 min walk" data-energy="Active" data-social="Medium" data-people="3" data-cat="movement" data-icon="🏐" data-cadence="Daily · warm months" data-cost="Free" data-walkin="Yes" data-setting="Outdoor" data-tags="Recreational, Casual">
-          <div class="pin-marker movement"><span class="pm-icon">🏐</span></div><div class="pin-label">Pickup Courts</div>
+          <div class="pin-marker movement intent"><span class="pin-count">3</span></div><div class="pin-label">Pickup Courts</div>
         </div>
         <div class="map-pin" style="top:200px;left:300px" onclick="showMiniCard(this)" data-name="Gallery Opening Walk" data-loc="Queen West" data-dist="~8 min walk" data-energy="Calm" data-social="Low" data-people="2" data-cat="cultural" data-icon="🖼️" data-cadence="Thursdays" data-cost="Free" data-walkin="Yes" data-setting="Indoor" data-tags="Free entry, Art, Social">
-          <div class="pin-marker cultural"><span class="pm-icon">🖼️</span></div><div class="pin-label">Gallery Walk</div>
+          <div class="pin-marker cultural"></div><div class="pin-label">Gallery Walk</div>
         </div>
         <div class="map-pin" style="top:260px;left:40px" onclick="showMiniCard(this)" data-name="Farmers Market" data-loc="Trinity Bellwoods" data-dist="~5 min walk" data-energy="Calm" data-social="Medium" data-people="5" data-cat="food" data-icon="🥬" data-cadence="Tuesdays · May–Oct" data-cost="$" data-walkin="Yes" data-setting="Outdoor" data-tags="Community, Local vendors">
-          <div class="pin-marker food"><span class="pm-icon">🥬</span></div><div class="pin-label">Farmers Mkt</div>
+          <div class="pin-marker food coordinating"><span class="pin-count">5</span></div><div class="pin-label">Farmers Mkt</div>
         </div>
         <div class="map-pin" style="top:270px;left:200px" onclick="showMiniCard(this)" data-name="Ossington Trivia Night" data-loc="Ossington Ave" data-dist="~12 min walk" data-energy="Moderate" data-social="High" data-people="4" data-cat="games" data-icon="🧠" data-cadence="Weekly" data-cost="$" data-walkin="Yes" data-setting="Indoor" data-tags="Group activity, Casual">
-          <div class="pin-marker games"><span class="pm-icon">🧠</span></div><div class="pin-label">Trivia Night</div>
+          <div class="pin-marker games intent"><span class="pin-count">4</span></div><div class="pin-label">Trivia Night</div>
         </div>
         <div class="map-pin" style="top:310px;left:140px" onclick="showMiniCard(this)" data-name="Evening Walk Loop" data-loc="CityPlace · Waterfront" data-dist="~3 min walk" data-energy="Calm" data-social="Medium" data-people="3" data-cat="movement" data-icon="🚶" data-cadence="Daily" data-cost="Free" data-walkin="Yes" data-setting="Outdoor" data-tags="Low-key, Casual">
-          <div class="pin-marker movement"><span class="pm-icon">🚶</span></div><div class="pin-label">Walk Loop</div>
+          <div class="pin-marker movement"></div><div class="pin-label">Walk Loop</div>
         </div>
       </div>
 
@@ -1820,7 +1866,7 @@
       <div class="mini-card" id="mini-card">
         <button class="mc-close" onclick="hideMiniCard()">✕</button>
         <div class="mini-card-top">
-          <div class="mc-cat-dot" id="mc-dot"><span id="mc-icon"></span></div>
+          <div class="mc-cat-dot" id="mc-dot"></div>
           <div class="mc-info">
             <h3 id="mc-name"></h3>
             <div class="mc-meta">
@@ -2637,7 +2683,9 @@
     const a = selectedActivity;
     if (!a) return;
 
-    document.getElementById('ad-hero').textContent = a.icon;
+    const hero = document.getElementById('ad-hero');
+    hero.textContent = a.icon;
+    hero.style.background = 'linear-gradient(135deg, var(--' + a.cat + '-bg) 0%, var(--bg) 100%)';
     document.getElementById('ad-name').textContent = a.name;
     document.getElementById('ad-desc').textContent = a.desc;
 
@@ -2792,7 +2840,6 @@
     document.getElementById('mc-name').textContent = d.name;
     document.getElementById('mc-loc').textContent = d.loc;
     document.getElementById('mc-dist').textContent = '· ' + d.dist;
-    document.getElementById('mc-icon').textContent = d.icon;
     document.getElementById('mc-energy').textContent = energyIcon(d.energy) + ' ' + d.energy;
     document.getElementById('mc-cadence').textContent = '· ' + d.cadence;
     document.getElementById('mc-cost').textContent = '· ' + d.cost;
