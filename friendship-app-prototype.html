@@ -867,6 +867,74 @@
   }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
+  /* ===== SCREEN 2: CREATE ACCOUNT ===== */
+  .screen-signup { padding: 60px 28px 40px; background: var(--bg); justify-content: center; }
+
+  .signup-header { text-align: center; margin-bottom: 32px; }
+  .signup-header h2 { font-size: 28px; font-weight: 700; letter-spacing: -0.6px; margin-bottom: 8px; }
+  .signup-header p { font-size: 15px; color: var(--text-secondary); line-height: 1.5; }
+
+  .signup-social { display: flex; flex-direction: column; gap: 10px; margin-bottom: 4px; }
+
+  .signup-social-btn {
+    width: 100%; padding: 15px 20px; border-radius: 14px; font-size: 16px; font-weight: 600;
+    font-family: inherit; cursor: pointer; display: flex; align-items: center;
+    justify-content: center; gap: 10px;
+    transition: transform 0.15s var(--spring), filter 0.15s;
+  }
+  .signup-social-btn:active { transform: scale(0.97); }
+
+  .signup-social-btn.apple {
+    background: #000; color: #fff; border: none;
+  }
+  .signup-social-btn.apple:hover { filter: brightness(1.15); }
+  .signup-social-btn.apple svg { width: 18px; height: 18px; }
+
+  .signup-social-btn.google {
+    background: var(--bg-card); color: var(--text-primary); border: 1px solid rgba(60,60,67,0.12);
+  }
+  .signup-social-btn.google:hover { background: rgba(60,60,67,0.04); }
+  .signup-social-btn.google svg { width: 18px; height: 18px; }
+
+  .signup-divider {
+    display: flex; align-items: center; gap: 14px; margin: 20px 0;
+    font-size: 13px; color: var(--text-muted); font-weight: 500;
+  }
+  .signup-divider::before, .signup-divider::after {
+    content: ''; flex: 1; height: 0.5px; background: rgba(60,60,67,0.15);
+  }
+
+  .signup-fields { display: flex; flex-direction: column; gap: 12px; margin-bottom: 8px; }
+
+  .signup-input-group { position: relative; }
+  .signup-input-group label {
+    position: absolute; top: 8px; left: 16px;
+    font-size: 11px; font-weight: 500; color: var(--text-muted);
+    letter-spacing: 0.2px; pointer-events: none;
+  }
+  .signup-input-group input {
+    width: 100%; padding: 26px 16px 10px; border: none; border-radius: 12px;
+    font-size: 17px; font-family: inherit; color: var(--text-primary);
+    background: rgba(120,120,128,0.08); outline: none;
+    transition: box-shadow 0.2s;
+  }
+  .signup-input-group input::placeholder { color: rgba(60,60,67,0.25); }
+  .signup-input-group input:focus {
+    box-shadow: 0 0 0 3px var(--accent-light);
+    background: rgba(120,120,128,0.06);
+  }
+
+  .signup-trust {
+    text-align: center; font-size: 12px; color: var(--text-muted); line-height: 1.5;
+    margin: 12px 0 16px; padding: 0 8px;
+  }
+
+  .signup-terms {
+    text-align: center; font-size: 11px; color: var(--text-muted); line-height: 1.5;
+    margin-top: 12px;
+  }
+  .signup-terms a { color: var(--accent); text-decoration: none; font-weight: 500; }
+
   /* ===== PROGRESS DOTS ===== */
   .progress-dots { display: flex; justify-content: center; gap: 8px; padding: 8px 0 4px; }
   .progress-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(60,60,67,0.15); transition: background 0.3s, width 0.3s var(--spring); }
@@ -905,14 +973,60 @@
         <div class="progress-dot active"></div>
         <div class="progress-dot"></div>
         <div class="progress-dot"></div>
+        <div class="progress-dot"></div>
       </div>
       <div style="height:16px"></div>
       <button class="btn-primary" onclick="goTo(2)">Get started</button>
     </div>
   </div>
 
-  <!-- SCREEN 2: INTERESTS -->
-  <div class="screen screen-interests" id="screen-2">
+  <!-- SCREEN 2: CREATE ACCOUNT -->
+  <div class="screen screen-signup" id="screen-2">
+    <div class="signup-header">
+      <h2>Jump right in</h2>
+      <p>Create an account so we can save your picks and show you what's nearby.</p>
+    </div>
+
+    <div class="signup-social">
+      <button class="signup-social-btn apple" onclick="goTo(3)">
+        <svg viewBox="0 0 18 18" fill="currentColor"><path d="M13.55 9.38c-.02-1.86 1.52-2.76 1.59-2.8a3.45 3.45 0 0 0-2.72-1.47c-1.14-.12-2.25.68-2.84.68-.6 0-1.5-.67-2.48-.65A3.63 3.63 0 0 0 4.04 7.1c-1.32 2.28-.34 5.64.93 7.49.64.91 1.38 1.93 2.36 1.89.96-.04 1.31-.61 2.47-.61 1.15 0 1.47.61 2.47.59.99-.02 1.63-.91 2.25-1.83a7.6 7.6 0 0 0 1.03-2.1 3.15 3.15 0 0 1-1.98-2.9l-.02-.25zM11.8 3.88A3.2 3.2 0 0 0 12.54 1a3.26 3.26 0 0 0-2.1 1.09A3.05 3.05 0 0 0 9.7 4.37a2.7 2.7 0 0 0 2.1-0.49z"/></svg>
+        Continue with Apple
+      </button>
+      <button class="signup-social-btn google" onclick="goTo(3)">
+        <svg viewBox="0 0 18 18"><path d="M17.64 9.2a10.3 10.3 0 0 0-.16-1.84H9v3.48h4.84a4.14 4.14 0 0 1-1.8 2.72v2.26h2.92A8.78 8.78 0 0 0 17.64 9.2z" fill="#4285F4"/><path d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.92-2.26c-.8.54-1.84.86-3.04.86-2.34 0-4.33-1.58-5.04-3.71H.96v2.33A9 9 0 0 0 9 18z" fill="#34A853"/><path d="M3.96 10.71A5.41 5.41 0 0 1 3.68 9c0-.59.1-1.17.28-1.71V4.96H.96A9 9 0 0 0 0 9c0 1.45.35 2.83.96 4.04l3-2.33z" fill="#FBBC05"/><path d="M9 3.58c1.32 0 2.51.45 3.44 1.35l2.58-2.59C13.46.89 11.42 0 9 0A9 9 0 0 0 .96 4.96l3 2.33C4.67 5.16 6.66 3.58 9 3.58z" fill="#EA4335"/></svg>
+        Continue with Google
+      </button>
+    </div>
+
+    <div class="signup-divider">or</div>
+
+    <div class="signup-fields">
+      <div class="signup-input-group">
+        <label>First name</label>
+        <input type="text" placeholder="What should we call you?">
+      </div>
+      <div class="signup-input-group">
+        <label>Email or phone</label>
+        <input type="text" placeholder="yours@email.com">
+      </div>
+    </div>
+
+    <div class="signup-trust">No passwords needed — we'll send a quick code to verify. We never share your info.</div>
+
+    <div class="progress-dots">
+      <div class="progress-dot"></div>
+      <div class="progress-dot active"></div>
+      <div class="progress-dot"></div>
+      <div class="progress-dot"></div>
+    </div>
+    <div style="height:12px"></div>
+    <button class="btn-primary" onclick="goTo(3)">Continue</button>
+
+    <div class="signup-terms">By continuing you agree to our <a href="#">Terms</a> and <a href="#">Privacy Policy</a></div>
+  </div>
+
+  <!-- SCREEN 3: INTERESTS -->
+  <div class="screen screen-interests" id="screen-3">
     <div class="screen-header">
       <h2>What do you like to do?</h2>
       <p>Pick what sounds good. You can change this anytime.</p>
@@ -940,26 +1054,26 @@
       </div>
     </div>
     <div class="reassurance">You can change this anytime.</div>
-    <div class="progress-dots"><div class="progress-dot"></div><div class="progress-dot active"></div><div class="progress-dot"></div></div>
-    <div class="screen-footer"><button class="btn-primary" onclick="goTo(3)">See what's near me</button></div>
+    <div class="progress-dots"><div class="progress-dot"></div><div class="progress-dot"></div><div class="progress-dot active"></div><div class="progress-dot"></div></div>
+    <div class="screen-footer"><button class="btn-primary" onclick="goTo(4)">See what's near me</button></div>
   </div>
 
-  <!-- SCREEN 3: LOCATION -->
-  <div class="screen screen-location" id="screen-3">
+  <!-- SCREEN 4: LOCATION -->
+  <div class="screen screen-location" id="screen-4">
     <div class="location-icon">📍</div>
     <div class="location-content">
       <h2>See what's near you</h2>
       <p><span class="highlight">We show you activities near you—not random matches.</span><br><br>So you see things you can actually do this week, with people nearby. We don't share your exact location with others.</p>
-      <div class="progress-dots"><div class="progress-dot"></div><div class="progress-dot"></div><div class="progress-dot active"></div></div>
+      <div class="progress-dots"><div class="progress-dot"></div><div class="progress-dot"></div><div class="progress-dot"></div><div class="progress-dot active"></div></div>
       <div class="btn-group">
-        <button class="btn-primary" onclick="goTo(4)">Allow location</button>
-        <button class="btn-text" onclick="goTo(4)">Maybe later</button>
+        <button class="btn-primary" onclick="goTo(5)">Allow location</button>
+        <button class="btn-text" onclick="goTo(5)">Maybe later</button>
       </div>
     </div>
   </div>
 
-  <!-- SCREEN 4: MAP (EXPLORE) -->
-  <div class="screen screen-map" id="screen-4">
+  <!-- SCREEN 5: MAP (EXPLORE) -->
+  <div class="screen screen-map" id="screen-5">
     <div class="map-area">
       <div class="map-canvas">
         <div class="map-road dundas"></div><div class="map-road queen"></div>
@@ -1030,7 +1144,7 @@
       <div class="map-header">
         <div class="map-top-row">
           <div class="map-title">Near you · Toronto</div>
-          <div class="map-avatar" onclick="switchTab(10)">S</div>
+          <div class="map-avatar" onclick="switchTab(11)">S</div>
         </div>
         <div class="map-filters">
           <button class="filter-chip active" onclick="filterPins('all',this)">All</button>
@@ -1079,7 +1193,7 @@
           <div class="mc-people-dots" id="mc-people-dots"></div>
           <span id="mc-people-text"></span>
         </div>
-        <button class="mc-cta" onclick="goTo(5)">I'm thinking of going</button>
+        <button class="mc-cta" onclick="goTo(6)">I'm thinking of going</button>
       </div>
     </div>
 
@@ -1088,52 +1202,52 @@
       <div class="sheet-handle"></div>
       <h3 class="sheet-title">Nearby activities</h3>
       <div class="activity-list" id="activity-list">
-        <div class="al-card" data-cat="social" onclick="goTo(5)">
+        <div class="al-card" data-cat="social" onclick="goTo(6)">
           <div class="al-icon social">🐕</div>
           <div class="al-info"><h3>Dog Bowl Social</h3><span>Trinity Bellwoods · ~5 min</span></div>
           <div class="al-right"><span class="al-people">4 interested</span><span class="al-energy">☀️</span></div>
         </div>
-        <div class="al-card" data-cat="games" onclick="goTo(5)">
+        <div class="al-card" data-cat="games" onclick="goTo(6)">
           <div class="al-icon games">🎲</div>
           <div class="al-info"><h3>Snakes & Lattes</h3><span>Yonge-Dundas · ~15 min</span></div>
           <div class="al-right"><span class="al-people">6 interested</span><span class="al-energy">⚡</span></div>
         </div>
-        <div class="al-card" data-cat="creative" onclick="goTo(5)">
+        <div class="al-card" data-cat="creative" onclick="goTo(6)">
           <div class="al-icon creative">🎨</div>
           <div class="al-info"><h3>Artscape Open Studio</h3><span>Queen W · ~10 min</span></div>
           <div class="al-right"><span class="al-people">2 interested</span><span class="al-energy">☀️</span></div>
         </div>
-        <div class="al-card" data-cat="cultural" onclick="goTo(5)">
+        <div class="al-card" data-cat="cultural" onclick="goTo(6)">
           <div class="al-icon cultural">🎵</div>
           <div class="al-info"><h3>Drake Live Music</h3><span>Queen West · ~8 min</span></div>
           <div class="al-right"><span class="al-people">3 interested</span><span class="al-energy">⚡</span></div>
         </div>
-        <div class="al-card" data-cat="learning" onclick="goTo(5)">
+        <div class="al-card" data-cat="learning" onclick="goTo(6)">
           <div class="al-icon learning">🖌️</div>
           <div class="al-info"><h3>Community Art Workshop</h3><span>Artscape · ~10 min</span></div>
           <div class="al-right"><span class="al-people">2 interested</span><span class="al-energy">☀️</span></div>
         </div>
-        <div class="al-card" data-cat="movement" onclick="goTo(5)">
+        <div class="al-card" data-cat="movement" onclick="goTo(6)">
           <div class="al-icon movement">🏐</div>
           <div class="al-info"><h3>Bellwoods Pickup Courts</h3><span>Trinity Bellwoods · ~6 min</span></div>
           <div class="al-right"><span class="al-people">3 interested</span><span class="al-energy">🔥</span></div>
         </div>
-        <div class="al-card" data-cat="cultural" onclick="goTo(5)">
+        <div class="al-card" data-cat="cultural" onclick="goTo(6)">
           <div class="al-icon cultural">🖼️</div>
           <div class="al-info"><h3>Gallery Opening Walk</h3><span>Queen West · ~8 min</span></div>
           <div class="al-right"><span class="al-people">2 interested</span><span class="al-energy">☀️</span></div>
         </div>
-        <div class="al-card" data-cat="food" onclick="goTo(5)">
+        <div class="al-card" data-cat="food" onclick="goTo(6)">
           <div class="al-icon food">🥬</div>
           <div class="al-info"><h3>Farmers Market</h3><span>Trinity Bellwoods · ~5 min</span></div>
           <div class="al-right"><span class="al-people">5 interested</span><span class="al-energy">☀️</span></div>
         </div>
-        <div class="al-card" data-cat="games" onclick="goTo(5)">
+        <div class="al-card" data-cat="games" onclick="goTo(6)">
           <div class="al-icon games">🧠</div>
           <div class="al-info"><h3>Ossington Trivia Night</h3><span>Ossington Ave · ~12 min</span></div>
           <div class="al-right"><span class="al-people">4 interested</span><span class="al-energy">⚡</span></div>
         </div>
-        <div class="al-card" data-cat="movement" onclick="goTo(5)">
+        <div class="al-card" data-cat="movement" onclick="goTo(6)">
           <div class="al-icon movement">🚶</div>
           <div class="al-info"><h3>Evening Walk Loop</h3><span>CityPlace · ~3 min</span></div>
           <div class="al-right"><span class="al-people">3 interested</span><span class="al-energy">☀️</span></div>
@@ -1143,15 +1257,15 @@
 
     <!-- Bottom Nav -->
     <div class="bottom-nav">
-      <button class="nav-item active" onclick="switchTab(4)">
+      <button class="nav-item active" onclick="switchTab(5)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v4m0 12v4m-10-10h4m12 0h4M5.6 5.6l2.8 2.8m7.2 7.2l2.8 2.8M5.6 18.4l2.8-2.8m7.2-7.2l2.8-2.8"/></svg>
         Explore
       </button>
-      <button class="nav-item" onclick="switchTab(9)">
+      <button class="nav-item" onclick="switchTab(10)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
         Saved
       </button>
-      <button class="nav-item" onclick="switchTab(10)">
+      <button class="nav-item" onclick="switchTab(11)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         You
       </button>
@@ -1159,7 +1273,7 @@
   </div>
 
   <!-- SCREEN 5: ACTIVITY DETAIL -->
-  <div class="screen screen-activity" id="screen-5">
+  <div class="screen screen-activity" id="screen-6">
     <button class="activity-back" onclick="goBack()">←</button>
     <div class="activity-hero">🐕</div>
     <div class="activity-body">
@@ -1184,40 +1298,40 @@
         <div class="signal-text">4 people nearby are interested</div>
       </div>
       <div class="activity-ctas">
-        <button class="btn-primary" id="intent-btn" onclick="goTo(6)">I'm thinking of going</button>
+        <button class="btn-primary" id="intent-btn" onclick="goTo(7)">I'm thinking of going</button>
         <button class="btn-secondary" id="save-btn" onclick="toggleSave()">Save</button>
       </div>
     </div>
   </div>
 
   <!-- SCREEN 6: PEOPLE LAYER -->
-  <div class="screen screen-people" id="screen-6">
+  <div class="screen screen-people" id="screen-7">
     <div class="people-header">
       <button class="people-back-btn" onclick="goBack()">←</button>
       <div class="people-header-text"><h2>Dog Bowl Social</h2><span>People interested in this activity</span></div>
     </div>
     <div class="people-list">
-      <div class="person-card" onclick="goTo(7)">
+      <div class="person-card" onclick="goTo(8)">
         <div class="person-avatar">A</div>
         <div class="person-info"><h3>Alex</h3><div class="person-meta"><span>Trinity Bellwoods · ~3 min</span><span>·</span><div class="person-interests"><div class="person-interest-dot" style="background:var(--social)"></div><div class="person-interest-dot" style="background:var(--movement)"></div></div></div></div>
-        <button class="person-cta" onclick="event.stopPropagation();goTo(7)">Coordinate?</button>
+        <button class="person-cta" onclick="event.stopPropagation();goTo(8)">Coordinate?</button>
       </div>
-      <div class="person-card" onclick="goTo(7)">
+      <div class="person-card" onclick="goTo(8)">
         <div class="person-avatar">M</div>
         <div class="person-info"><h3>Maya</h3><div class="person-meta"><span>Queen West · ~8 min</span><span>·</span><div class="person-interests"><div class="person-interest-dot" style="background:var(--social)"></div><div class="person-interest-dot" style="background:var(--food)"></div></div></div></div>
-        <button class="person-cta" onclick="event.stopPropagation();goTo(7)">Coordinate?</button>
+        <button class="person-cta" onclick="event.stopPropagation();goTo(8)">Coordinate?</button>
       </div>
       <div class="person-card">
         <div class="person-avatar">K</div>
         <div class="person-info"><h3>Kai</h3><div class="person-meta"><span>Ossington · ~10 min</span><span>·</span><div class="person-interests"><div class="person-interest-dot" style="background:var(--movement)"></div></div></div></div>
-        <button class="person-cta" onclick="event.stopPropagation();goTo(7)">Coordinate?</button>
+        <button class="person-cta" onclick="event.stopPropagation();goTo(8)">Coordinate?</button>
       </div>
     </div>
     <div class="people-footer"><p>Suggest a time or place, or just show up — it's up to you.</p></div>
   </div>
 
   <!-- SCREEN 7: COORDINATION -->
-  <div class="screen screen-coordinate" id="screen-7">
+  <div class="screen screen-coordinate" id="screen-8">
     <div class="coord-header">
       <button class="people-back-btn" onclick="goBack()">←</button>
       <div class="people-header-text"><h2>Coordinate</h2><span>Dog Bowl Social · Trinity Bellwoods</span></div>
@@ -1240,7 +1354,7 @@
   </div>
 
   <!-- SCREEN 8: POST-ACTIVITY -->
-  <div class="screen screen-post" id="screen-8">
+  <div class="screen screen-post" id="screen-9">
     <div class="post-icon">✨</div>
     <div class="post-content"><h2>Did you enjoy this?</h2><p>Dog Bowl Social · Trinity Bellwoods</p></div>
     <div class="post-options">
@@ -1248,17 +1362,17 @@
       <button class="post-option" onclick="selectPost(this)"><div class="po-icon">🔍</div><div class="po-text"><h3>Try something similar</h3><span>Show me more like this</span></div></button>
       <button class="post-option" onclick="selectPost(this)"><div class="po-icon">🤝</div><div class="po-text"><h3>Stay connected</h3><span>Keep in touch with people who were there</span></div></button>
     </div>
-    <button class="btn-text" onclick="goTo(4)">Maybe later</button>
+    <button class="btn-text" onclick="goTo(5)">Maybe later</button>
   </div>
 
   <!-- SCREEN 9: SAVED -->
-  <div class="screen screen-saved" id="screen-9">
+  <div class="screen screen-saved" id="screen-10">
     <div class="saved-header"><h2>Saved</h2></div>
     <div class="saved-body">
 
       <div class="saved-section-label">Thinking of going</div>
 
-      <div class="saved-card" onclick="goTo(5)">
+      <div class="saved-card" onclick="goTo(6)">
         <div class="saved-card-icon social">🐕</div>
         <div class="saved-card-info">
           <h3>Dog Bowl Social</h3>
@@ -1271,7 +1385,7 @@
         <div class="saved-card-badge intent">Going</div>
       </div>
 
-      <div class="saved-card" onclick="goTo(5)">
+      <div class="saved-card" onclick="goTo(6)">
         <div class="saved-card-icon games">🎲</div>
         <div class="saved-card-info">
           <h3>Snakes & Lattes</h3>
@@ -1286,7 +1400,7 @@
 
       <div class="saved-section-label">Saved for later</div>
 
-      <div class="saved-card" onclick="goTo(5)">
+      <div class="saved-card" onclick="goTo(6)">
         <div class="saved-card-icon cultural">🎵</div>
         <div class="saved-card-info">
           <h3>Drake Live Music</h3>
@@ -1295,7 +1409,7 @@
         <div class="saved-card-badge saved-state">Saved</div>
       </div>
 
-      <div class="saved-card" onclick="goTo(5)">
+      <div class="saved-card" onclick="goTo(6)">
         <div class="saved-card-icon movement">🏐</div>
         <div class="saved-card-info">
           <h3>Bellwoods Pickup Courts</h3>
@@ -1304,7 +1418,7 @@
         <div class="saved-card-badge saved-state">Saved</div>
       </div>
 
-      <div class="saved-card" onclick="goTo(5)">
+      <div class="saved-card" onclick="goTo(6)">
         <div class="saved-card-icon cultural">🖼️</div>
         <div class="saved-card-info">
           <h3>Gallery Opening Walk</h3>
@@ -1316,15 +1430,15 @@
     </div>
 
     <div class="bottom-nav">
-      <button class="nav-item" onclick="switchTab(4)">
+      <button class="nav-item" onclick="switchTab(5)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v4m0 12v4m-10-10h4m12 0h4M5.6 5.6l2.8 2.8m7.2 7.2l2.8 2.8M5.6 18.4l2.8-2.8m7.2-7.2l2.8-2.8"/></svg>
         Explore
       </button>
-      <button class="nav-item active" onclick="switchTab(9)">
+      <button class="nav-item active" onclick="switchTab(10)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
         Saved
       </button>
-      <button class="nav-item" onclick="switchTab(10)">
+      <button class="nav-item" onclick="switchTab(11)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         You
       </button>
@@ -1332,7 +1446,7 @@
   </div>
 
   <!-- SCREEN 10: PROFILE -->
-  <div class="screen screen-profile" id="screen-10">
+  <div class="screen screen-profile" id="screen-11">
     <div class="profile-header">
       <div class="profile-avatar-lg">S</div>
       <h2>Sara</h2>
@@ -1344,7 +1458,7 @@
         <div class="ps-num">3</div>
         <div class="ps-label">Activities tried</div>
       </div>
-      <div class="profile-stat" onclick="switchTab(9)">
+      <div class="profile-stat" onclick="switchTab(10)">
         <div class="ps-num">5</div>
         <div class="ps-label">Saved</div>
       </div>
@@ -1408,15 +1522,15 @@
     </div>
 
     <div class="bottom-nav">
-      <button class="nav-item" onclick="switchTab(4)">
+      <button class="nav-item" onclick="switchTab(5)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v4m0 12v4m-10-10h4m12 0h4M5.6 5.6l2.8 2.8m7.2 7.2l2.8 2.8M5.6 18.4l2.8-2.8m7.2-7.2l2.8-2.8"/></svg>
         Explore
       </button>
-      <button class="nav-item" onclick="switchTab(9)">
+      <button class="nav-item" onclick="switchTab(10)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
         Saved
       </button>
-      <button class="nav-item active" onclick="switchTab(10)">
+      <button class="nav-item active" onclick="switchTab(11)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         You
       </button>
@@ -1429,8 +1543,8 @@
 <script>
   let currentScreen = 1;
   const history = [1];
-  const screenOrder = { 1:0, 2:1, 3:2, 4:3, 5:4, 6:5, 7:6, 8:7, 9:3, 10:3 };
-  const tabScreens = [4, 9, 10];
+  const screenOrder = { 1:0, 2:1, 3:2, 4:3, 5:4, 6:5, 7:6, 8:7, 9:8, 10:4, 11:4 };
+  const tabScreens = [5, 10, 11];
 
   function goTo(n) {
     const current = document.getElementById('screen-' + currentScreen);
@@ -1439,7 +1553,7 @@
 
     const isForward = screenOrder[n] > screenOrder[currentScreen];
 
-    if (currentScreen !== 4) hideMiniCard();
+    if (currentScreen !== 5) hideMiniCard();
 
     current.classList.remove('active');
     current.classList.add(isForward ? 'exit-left' : 'exit-right');
@@ -1722,13 +1836,13 @@
 
   function sendCoordination() {
     showToast('Suggestion sent!');
-    setTimeout(() => goTo(8), 1200);
+    setTimeout(() => goTo(9), 1200);
   }
 
   function selectPost(el) {
     el.classList.toggle('selected');
     showToast('Got it — thanks!');
-    setTimeout(() => goTo(4), 1500);
+    setTimeout(() => goTo(5), 1500);
   }
 </script>
 
