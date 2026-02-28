@@ -1289,6 +1289,105 @@
   .map-area { cursor: grab; }
   .map-area.dragging { cursor: grabbing; }
 
+  /* ===== MAP LEGEND ===== */
+  .map-legend {
+    position: absolute; bottom: 16px; left: 12px; z-index: 12;
+    background: rgba(255,255,255,0.92); backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 10px 12px; display: flex; flex-direction: column; gap: 7px;
+  }
+  .legend-title {
+    font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px;
+    color: var(--text-muted); margin-bottom: 2px;
+  }
+  .legend-row { display: flex; align-items: center; gap: 8px; }
+  .legend-dot {
+    width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0;
+  }
+  .legend-dot.default { background: var(--social); }
+  .legend-dot.intent { background: #fff; border: 2.5px solid var(--cultural); }
+  .legend-dot.coordinating {
+    background: var(--games);
+    box-shadow: 0 0 0 3px rgba(255,204,0,0.3);
+  }
+  .legend-label { font-size: 11px; color: var(--text-secondary); line-height: 1.2; }
+
+  /* ===== FRIEND PROFILE OVERLAY ===== */
+  .friend-profile-overlay {
+    position: absolute; inset: 0; z-index: 40;
+    background: rgba(0,0,0,0.3); backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    display: flex; align-items: flex-end;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+  .friend-profile-overlay.visible { opacity: 1; pointer-events: all; }
+  .fp-sheet {
+    width: 100%; background: var(--bg); border-radius: 20px 20px 0 0;
+    padding-bottom: 32px; max-height: 86%;
+    overflow-y: auto;
+    transform: translateY(30px);
+    transition: transform 0.3s cubic-bezier(0.32,0.72,0,1);
+  }
+  .friend-profile-overlay.visible .fp-sheet { transform: translateY(0); }
+  .fp-handle {
+    width: 36px; height: 4px; border-radius: 2px; background: var(--border);
+    margin: 10px auto 0; display: block;
+  }
+  .fp-header {
+    display: flex; align-items: center; gap: 14px;
+    padding: 20px 20px 0;
+  }
+  .fp-avatar {
+    width: 56px; height: 56px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; font-weight: 700;
+  }
+  .fp-meta { flex: 1; }
+  .fp-name { font-size: 20px; font-weight: 700; letter-spacing: -0.3px; }
+  .fp-sub { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+  .fp-mutual-badge {
+    font-size: 11px; font-weight: 600; padding: 5px 12px; border-radius: 20px;
+    background: var(--accent-light); color: var(--accent); flex-shrink: 0;
+  }
+  .fp-section { padding: 18px 20px 0; }
+  .fp-section-label {
+    font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px;
+    color: var(--text-muted); margin-bottom: 10px;
+  }
+  .fp-met-card {
+    background: var(--bg-card); border-radius: var(--radius-sm);
+    padding: 12px 14px; box-shadow: var(--shadow);
+    display: flex; align-items: center; gap: 12px;
+  }
+  .fp-met-icon {
+    width: 36px; height: 36px; border-radius: 10px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center; font-size: 16px;
+  }
+  .fp-met-info h4 { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+  .fp-met-info p { font-size: 12px; color: var(--text-muted); }
+  .fp-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+  .fp-tag {
+    font-size: 12px; font-weight: 500; padding: 5px 12px; border-radius: 20px;
+    background: var(--bg-card); color: var(--text-secondary); box-shadow: var(--shadow);
+  }
+  .fp-about {
+    font-size: 14px; color: var(--text-secondary); line-height: 1.55;
+    background: var(--bg-card); border-radius: var(--radius-sm);
+    padding: 14px; box-shadow: var(--shadow);
+  }
+  .fp-actions {
+    padding: 20px 20px 0; display: flex; flex-direction: column; gap: 10px;
+  }
+  .fp-close {
+    position: absolute; top: 16px; right: 16px;
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--bg-card); border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; color: var(--text-muted); box-shadow: var(--shadow);
+  }
+
   /* ===== PROFILE DETAIL OVERLAY ===== */
   .profile-detail-overlay {
     position: absolute; inset: 0; z-index: 30;
@@ -1862,6 +1961,23 @@
         <button onclick="mapZoom(-1)" title="Zoom out">−</button>
       </div>
 
+      <!-- Map Legend -->
+      <div class="map-legend">
+        <div class="legend-title">Pin guide</div>
+        <div class="legend-row">
+          <div class="legend-dot default"></div>
+          <div class="legend-label">Activity nearby</div>
+        </div>
+        <div class="legend-row">
+          <div class="legend-dot intent"></div>
+          <div class="legend-label">You're thinking of going</div>
+        </div>
+        <div class="legend-row">
+          <div class="legend-dot coordinating"></div>
+          <div class="legend-label">People are coordinating</div>
+        </div>
+      </div>
+
       <!-- Mini Card -->
       <div class="mini-card" id="mini-card">
         <button class="mc-close" onclick="hideMiniCard()">✕</button>
@@ -2384,6 +2500,48 @@
         <span class="pdo-title" id="pdo-title"></span>
       </div>
       <div class="pdo-body" id="pdo-body"></div>
+    </div>
+
+    <!-- Friend Profile Sheet -->
+    <div class="friend-profile-overlay" id="friend-profile-overlay" onclick="closeFriendProfile(event)">
+      <div class="fp-sheet">
+        <span class="fp-handle"></span>
+        <button class="fp-close" onclick="hideFriendProfile()">✕</button>
+        <div class="fp-header">
+          <div class="fp-avatar" id="fp-avatar"></div>
+          <div class="fp-meta">
+            <div class="fp-name" id="fp-name"></div>
+            <div class="fp-sub" id="fp-sub"></div>
+          </div>
+          <div class="fp-mutual-badge">Mutual</div>
+        </div>
+
+        <div class="fp-section">
+          <div class="fp-section-label">Where you met</div>
+          <div class="fp-met-card">
+            <div class="fp-met-icon" id="fp-met-icon"></div>
+            <div class="fp-met-info">
+              <h4 id="fp-met-name"></h4>
+              <p id="fp-met-detail"></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="fp-section">
+          <div class="fp-section-label">About them</div>
+          <div class="fp-about" id="fp-about"></div>
+        </div>
+
+        <div class="fp-section">
+          <div class="fp-section-label">Into</div>
+          <div class="fp-tags" id="fp-tags"></div>
+        </div>
+
+        <div class="fp-actions">
+          <button class="btn-primary" onclick="showToast('Message feature coming soon')">Say hi again</button>
+          <button class="btn-secondary" onclick="showToast('Activity suggestions coming soon')">Suggest an activity</button>
+        </div>
+      </div>
     </div>
 
     <div class="profile-body">
@@ -2999,6 +3157,50 @@
     }
   };
 
+  const friendProfiles = {
+    'Alex': {
+      initials: 'A', cat: 'social', ageRange: 'Late 20s', neighbourhood: 'West End',
+      metAt: { icon: '🐕', actName: 'Dog Bowl Social', detail: 'Trinity Bellwoods · Last Saturday', cat: 'social' },
+      about: 'New to the city, trying to find my people. Big fan of being outside, spontaneous plans, and good coffee.',
+      tags: ['Outdoor', 'Casual hangouts', 'Coffee', 'Dogs', 'Movement']
+    },
+    'Maya': {
+      initials: 'M', cat: 'creative', ageRange: 'Early 30s', neighbourhood: 'Kensington',
+      metAt: { icon: '🎲', actName: 'Snakes & Lattes Board Game Night', detail: 'Yonge-Dundas · Last Wednesday', cat: 'games' },
+      about: 'Artist and weekend explorer. Looking for people to wander galleries with and occasionally lose at board games.',
+      tags: ['Creative', 'Board games', 'Art', 'Galleries', 'Low-key']
+    }
+  };
+
+  function showFriendProfile(name) {
+    const f = friendProfiles[name];
+    if (!f) return;
+    const catBg = 'var(--' + f.cat + '-bg)';
+    const catColor = 'var(--' + f.cat + ')';
+    const metCatBg = 'var(--' + f.metAt.cat + '-bg)';
+    document.getElementById('fp-avatar').style.cssText = 'background:' + catBg + ';color:' + catColor;
+    document.getElementById('fp-avatar').textContent = f.initials;
+    document.getElementById('fp-name').textContent = name;
+    document.getElementById('fp-sub').textContent = f.ageRange + ' · ' + f.neighbourhood;
+    document.getElementById('fp-met-icon').style.background = metCatBg;
+    document.getElementById('fp-met-icon').textContent = f.metAt.icon;
+    document.getElementById('fp-met-name').textContent = f.metAt.actName;
+    document.getElementById('fp-met-detail').textContent = f.metAt.detail;
+    document.getElementById('fp-about').textContent = f.about;
+    const tagsEl = document.getElementById('fp-tags');
+    tagsEl.innerHTML = '';
+    f.tags.forEach(t => { tagsEl.innerHTML += '<span class="fp-tag">' + t + '</span>'; });
+    document.getElementById('friend-profile-overlay').classList.add('visible');
+  }
+
+  function hideFriendProfile() {
+    document.getElementById('friend-profile-overlay').classList.remove('visible');
+  }
+
+  function closeFriendProfile(e) {
+    if (e.target === document.getElementById('friend-profile-overlay')) hideFriendProfile();
+  }
+
   function showProfileDetail(type) {
     const data = profileData[type];
     if (!data) return;
@@ -3016,10 +3218,10 @@
         const catBg = 'var(--' + item.cat + '-bg)';
         const catColor = 'var(--' + item.cat + ')';
         body.innerHTML +=
-          '<div class="mutual-row">' +
+          '<div class="mutual-row" style="cursor:pointer" onclick="showFriendProfile(\'' + item.name + '\')">' +
             '<div class="mutual-av" style="background:' + catBg + ';color:' + catColor + '">' + item.icon + '</div>' +
             '<div class="mutual-info"><h3>' + item.name + '</h3><span>' + item.sub + '</span></div>' +
-            '<div class="mutual-badge">Mutual</div>' +
+            '<div class="mutual-badge" style="color:var(--accent)">View →</div>' +
           '</div>';
       });
     } else {
