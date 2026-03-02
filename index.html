@@ -9,6 +9,32 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* Workflow comparison cards */
+    .wf-card{border:1px solid #e5e7eb;border-radius:8px;overflow:hidden;margin-top:24px;background:#fff}
+    .wf-header{padding:16px 20px;background:#f9fafb;border-bottom:1px solid #e5e7eb;display:flex;flex-direction:column;gap:6px}
+    .wf-role-badge{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#6b7280}
+    .wf-task{font-size:14px;font-weight:600;color:#111827}
+    .wf-tool-tag{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;background:#ede9fe;color:#6d28d9;width:fit-content;margin-top:2px}
+    .wf-split{display:grid;grid-template-columns:1fr 1px 1fr}
+    .wf-side{padding:20px;display:flex;flex-direction:column;gap:14px}
+    .wf-without{background:#fafafa}
+    .wf-with{background:#f0fdf4}
+    .wf-divider{background:#e5e7eb}
+    .wf-side-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:#6b7280;display:flex;align-items:center;gap:6px}
+    .wf-side-label.ai{color:#16a34a}
+    .wf-steps{display:flex;flex-direction:column;gap:8px;flex:1}
+    .wf-step{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:#374151;line-height:1.4}
+    .wf-step::before{content:'';width:6px;height:6px;border-radius:50%;background:#d1d5db;flex-shrink:0;margin-top:5px}
+    .wf-with .wf-step::before{background:#4ade80}
+    .wf-time{font-size:18px;font-weight:700;padding:10px 14px;border-radius:8px;display:flex;align-items:center;gap:8px;letter-spacing:-.3px}
+    .wf-time-slow{background:#e5e7eb;color:#4b5563}
+    .wf-time-fast{background:#dcfce7;color:#15803d}
+    .wf-time span{font-size:12px;font-weight:500;letter-spacing:0}
+    .wf-quote{display:flex;gap:12px;padding:16px 20px;background:#fffbeb;border-top:1px solid #fde68a;font-size:13px;color:#4b5563;line-height:1.6;font-style:italic;align-items:flex-start}
+    .wf-quote-icon{font-style:normal;font-size:16px;flex-shrink:0;margin-top:1px}
+    @media(max-width:600px){.wf-split{grid-template-columns:1fr}.wf-divider{display:none}}
+  </style>
 </head>
 <body>
   <!-- Navigation -->
