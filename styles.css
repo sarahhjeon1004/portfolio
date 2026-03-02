@@ -42,6 +42,10 @@
   --getty-bg: #FEF2F2;
   --getty-tag-bg: #FEF2F2;
   --getty-tag-text: #CC2A1F;
+
+  /* McGill brand */
+  --mcgill-primary: #ED1B2F;
+  --mcgill-bg: #FEF2F3;
 }
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -526,6 +530,28 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   .timeline-card { padding-right: 0; }
 }
 
+/* Timeline brand colors */
+.timeline-mcgill .timeline-dot {
+  background: var(--mcgill-primary);
+}
+.timeline-mcgill .timeline-period {
+  color: var(--mcgill-primary);
+}
+
+.timeline-getty .timeline-dot {
+  background: var(--getty-primary);
+}
+.timeline-getty .timeline-period {
+  color: var(--getty-primary);
+}
+
+.timeline-autodesk .timeline-dot {
+  background: var(--autodesk-primary);
+}
+.timeline-autodesk .timeline-period {
+  color: var(--autodesk-primary);
+}
+
 /* ============================================
    Project Selector
    ============================================ */
@@ -587,9 +613,11 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 }
 
 .project-card-thumb {
-  height: 160px;
+  height: 180px;
   overflow: hidden;
   background: var(--gray-100);
+  border-bottom: 1px solid var(--gray-200);
+  position: relative;
 }
 
 .project-card-thumb img {
@@ -597,15 +625,15 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   height: 100%;
   object-fit: cover;
   object-position: top center;
-  transition: transform 0.3s;
+  transition: transform 0.4s ease;
 }
 
 .project-card:hover .project-card-thumb img {
-  transform: scale(1.03);
+  transform: scale(1.04);
 }
 
 .project-card-body {
-  padding: 20px 22px;
+  padding: 22px 24px 20px;
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -810,6 +838,100 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   line-height: 1.6;
 }
 
+/* Case study overview box */
+.cs-overview {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--gray-200);
+  border: 1px solid var(--gray-200);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 48px;
+}
+
+.cs-overview-item {
+  background: var(--white);
+  padding: 24px 28px;
+}
+
+.cs-overview-item:first-child {
+  border-radius: 12px 0 0 0;
+}
+
+.cs-overview-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--gray-400);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cs-overview-label .ov-icon {
+  font-size: 13px;
+  opacity: 0.7;
+}
+
+.cs-block-icon {
+  font-size: 14px;
+  opacity: 0.6;
+}
+
+.cs-overview-text {
+  font-size: 14px;
+  color: var(--gray-700);
+  line-height: 1.6;
+}
+
+.cs-overview-text strong {
+  color: var(--gray-900);
+}
+
+.cs-overview-results {
+  grid-column: 1 / -1;
+  background: var(--gray-50);
+  padding: 24px 28px;
+  display: flex;
+  gap: 40px;
+  align-items: center;
+}
+
+.cs-overview-stat {
+  text-align: center;
+}
+
+.cs-overview-stat-num {
+  display: block;
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--gray-900);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.cs-overview-stat-label {
+  display: block;
+  font-size: 11px;
+  color: var(--gray-500);
+  margin-top: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+@media (max-width: 640px) {
+  .cs-overview {
+    grid-template-columns: 1fr;
+  }
+  .cs-overview-results {
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+}
+
 /* Case study hero image */
 .cs-hero {
   margin-bottom: 48px;
@@ -941,6 +1063,9 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   margin-bottom: 16px;
   padding-bottom: 10px;
   border-bottom: 1px solid var(--gray-200);
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .cs-block-content p {
@@ -1248,6 +1373,12 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   justify-content: center;
   margin-bottom: 12px;
   border: 1px solid var(--gray-200);
+}
+
+.solution-icon {
+  font-size: 24px;
+  margin-bottom: 10px;
+  line-height: 1;
 }
 
 .solution-card h5 {
@@ -1821,6 +1952,12 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   background: var(--gray-50);
   border-radius: var(--radius-sm);
   padding: 20px;
+}
+
+.persona-icon {
+  font-size: 22px;
+  margin-bottom: 8px;
+  line-height: 1;
 }
 
 .persona-card h5 {
