@@ -2144,11 +2144,13 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 
 .wf-figure img {
   width: 100%;
-  height: auto;
+  height: 360px;
   display: block;
   border-radius: 8px;
   border: 1px solid var(--gray-200);
   background: #f5f5f5;
+  object-fit: contain;
+  object-position: center;
 }
 
 .wf-figure figcaption {
