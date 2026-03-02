@@ -323,9 +323,8 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 
 .hero-actions {
   display: flex;
-  gap: 12px;
   align-items: center;
-  gap: 4px;
+  gap: 12px;
   margin-bottom: 32px;
 }
 
@@ -1040,7 +1039,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   text-transform: uppercase;
   letter-spacing: 1.5px;
   color: var(--gray-400);
-  margin-bottom: 16px;
+  margin-bottom: 20px;
   padding-bottom: 10px;
   border-bottom: 1px solid var(--gray-200);
   display: flex;
@@ -1229,7 +1228,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 
 /* Survey results */
 .survey-results {
-  margin-top: 8px;
+  margin-top: 24px;
   margin-bottom: 8px;
 }
 
@@ -1328,7 +1327,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 .solution-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: 16px;
 }
 
 .solution-card {
@@ -1343,21 +1342,8 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 }
 
 .solution-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
-  background: var(--white);
-  color: var(--gray-900);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 12px;
-  border: 1px solid var(--gray-200);
-}
-
-.solution-icon {
   font-size: 24px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   line-height: 1;
 }
 
@@ -1420,8 +1406,8 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 .impact-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-  margin-bottom: 16px;
+  gap: 16px;
+  margin-bottom: 20px;
 }
 
 .impact-card {
@@ -1474,8 +1460,8 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 .quote-cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin-top: 16px;
+  gap: 16px;
+  margin-top: 20px;
 }
 
 .quote-cards blockquote {
@@ -1628,8 +1614,8 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 .learnings-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin-top: 16px;
+  gap: 16px;
+  margin-top: 4px;
 }
 
 .learning {
@@ -1754,8 +1740,9 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 .problem-list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-top: 16px;
+  gap: 10px;
+  margin-top: 4px;
+  margin-bottom: 8px;
   list-style: none;
   padding: 0;
 }
@@ -1925,8 +1912,8 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 .persona-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin-top: 16px;
+  gap: 16px;
+  margin-top: 20px;
 }
 
 .persona-card {
@@ -1973,8 +1960,8 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 .ama-features {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin-top: 16px;
+  gap: 16px;
+  margin-top: 20px;
 }
 
 .ama-feature {
@@ -2039,7 +2026,11 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
-  margin-top: 28px;
+  margin-top: 24px;
+}
+
+.cs-gallery + .cs-gallery {
+  margin-top: 16px;
 }
 
 .gallery-item {
@@ -2142,12 +2133,17 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 
 /* Study flow timelines (Getty) */
 .study-flow {
-  margin-top: 28px;
+  margin-top: 20px;
+  margin-bottom: 0;
   background: var(--gray-50);
   border: 1px solid var(--gray-200);
   border-radius: var(--radius-sm);
   padding: 24px;
   overflow-x: auto;
+}
+
+.study-flow + .study-flow {
+  margin-top: 16px;
 }
 
 .flow-header {
@@ -2232,8 +2228,12 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   border: 1px solid var(--gray-200);
   border-radius: var(--radius-sm);
   overflow: hidden;
-  margin-top: 24px;
+  margin-top: 28px;
   background: #fff;
+}
+
+.wf-card + .wf-card {
+  margin-top: 24px;
 }
 
 .wf-header {
@@ -2754,7 +2754,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 16px;
-  margin-top: 12px;
+  margin-top: 4px;
 }
 
 .finding-card {
@@ -2827,7 +2827,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 .principles-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+  gap: 16px;
   margin-bottom: 64px;
 }
 
@@ -2881,8 +2881,8 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 .metrics-lenses {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin-bottom: 24px;
+  gap: 16px;
+  margin-bottom: 28px;
 }
 
 .lens {
@@ -3165,7 +3165,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 .exploring-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
+  gap: 20px;
 }
 
 .exploring-card {
