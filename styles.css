@@ -2145,9 +2145,10 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 
 .wf-figure img {
   width: 100%;
+  height: auto;
+  display: block;
   border-radius: 6px;
   border: 1px solid var(--gray-200);
-  object-fit: contain;
   background: #f5f5f5;
 }
 
