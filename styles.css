@@ -2114,6 +2114,55 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 
 .wf-with .wf-step::before { background: #4ade80; }
 
+.wf-img {
+  width: 100%;
+  border-radius: 6px;
+  object-fit: cover;
+  object-position: top center;
+  border: 1px solid var(--gray-200);
+}
+
+.wf-split-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+}
+
+.wf-step-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.wf-step-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.wf-step-wide {
+  grid-column: 1 / -1;
+}
+
+.wf-step-label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--gray-500);
+}
+
+.wf-side .wf-img {
+  max-height: 280px;
+}
+
+@media (max-width: 640px) {
+  .wf-step-row {
+    grid-template-columns: 1fr;
+  }
+}
+
 .wf-time {
   font-size: 18px;
   font-weight: 700;
@@ -2128,11 +2177,15 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 .wf-time-slow {
   background: var(--gray-200);
   color: var(--gray-600);
+  font-size: 13px;
+  font-weight: 500;
 }
 
 .wf-time-fast {
   background: #dcfce7;
   color: #15803d;
+  font-size: 13px;
+  font-weight: 500;
 }
 
 .wf-time span {

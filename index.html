@@ -1354,259 +1354,69 @@
             </div>
           </div>
 
-          <!-- Workflow Examples -->
+          <!-- What Participants Produced -->
           <div class="cs-block reveal">
-            <div class="cs-block-label">How Participants Actually Worked</div>
+            <div class="cs-block-label">What Participants Produced</div>
             <div class="cs-block-content">
               <p>
-                Participants self-recorded their AI generation workflows during real client projects.
-                Two examples that captured the shift clearly:
+                Participants self-recorded their AI generation workflows for real work projects over the 30-day window.
+                Here are two examples that captured distinct use cases:
               </p>
 
-              <!-- Workflow Card 1: Album Art -->
+              <!-- Participant Example 1: Bourbon Brand Illustration -->
               <div class="wf-card">
                 <div class="wf-header">
-                  <div class="wf-role-badge">Graphic Designer, Freelance</div>
-                  <div class="wf-task">Create stylized album art from a client portrait</div>
-                  <div class="wf-tool-tag">✦ Photoshop Beta · Generative Fill</div>
+                  <div class="wf-role-badge">Illustrator / Designer</div>
+                  <div class="wf-task">Generate character illustrations for a Southern bourbon brand</div>
+                  <div class="wf-tool-tag">✦ Dream Engine &rarr; Photoshop</div>
                 </div>
-                <div class="wf-split">
-                  <div class="wf-side wf-without">
-                    <div class="wf-side-label">Without AI</div>
-                    <!-- Photoshop layers chaos mockup -->
-                    <svg viewBox="0 0 260 180" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;border-radius:6px">
-                      <rect width="260" height="180" fill="#1c1c1e"/>
-                      <rect width="260" height="20" fill="#2c2c2e"/>
-                      <text x="8" y="14" font-size="8" fill="#8e8e93" font-family="system-ui">File  Edit  Image  Layer  Filter  View</text>
-                      <!-- Left toolbar -->
-                      <rect x="0" y="20" width="26" height="160" fill="#242424"/>
-                      <rect x="4" y="28" width="18" height="18" rx="2" fill="#3a3a3c"/><rect x="4" y="50" width="18" height="18" rx="2" fill="#3a3a3c"/>
-                      <rect x="4" y="72" width="18" height="18" rx="2" fill="#3a3a3c"/><rect x="4" y="94" width="18" height="18" rx="2" fill="#3a3a3c"/>
-                      <!-- Canvas with stacked messy layers -->
-                      <rect x="26" y="20" width="152" height="160" fill="#404040"/>
-                      <rect x="36" y="32" width="88" height="60" rx="2" fill="#7c3aed" opacity=".55" transform="rotate(-6 80 62)"/>
-                      <rect x="44" y="38" width="88" height="60" rx="2" fill="#4f46e5" opacity=".55" transform="rotate(3 88 68)"/>
-                      <rect x="38" y="50" width="88" height="60" rx="2" fill="#0ea5e9" opacity=".45" transform="rotate(-2 82 80)"/>
-                      <rect x="52" y="44" width="88" height="60" rx="2" fill="#8b5cf6" opacity=".5" transform="rotate(5 96 74)"/>
-                      <rect x="42" y="55" width="88" height="60" rx="2" fill="#f97316" opacity=".35" transform="rotate(-4 86 85)"/>
-                      <text x="102" y="130" text-anchor="middle" font-size="7" fill="rgba(255,255,255,.35)" font-family="system-ui">Rev 7 of 14…</text>
-                      <!-- Layers panel -->
-                      <rect x="178" y="20" width="82" height="160" fill="#1e1e1e"/>
-                      <rect x="178" y="20" width="82" height="18" fill="#2a2a2a"/>
-                      <text x="219" y="32" text-anchor="middle" font-size="7.5" fill="#ebebf5" font-family="system-ui" font-weight="700">LAYERS</text>
-                      <rect x="182" y="42" width="74" height="15" rx="2" fill="#3a3a3c"/>
-                      <rect x="186" y="45" width="9" height="9" rx="1" fill="#8b5cf6"/><text x="200" y="53" font-size="7" fill="#d1d1d6" font-family="system-ui">Portrait copy</text>
-                      <rect x="182" y="60" width="74" height="15" rx="2" fill="#2c2c2e"/>
-                      <rect x="186" y="63" width="9" height="9" rx="1" fill="#f97316"/><text x="200" y="71" font-size="7" fill="#d1d1d6" font-family="system-ui">BG attempt 3</text>
-                      <rect x="182" y="78" width="74" height="15" rx="2" fill="#2c2c2e"/>
-                      <rect x="186" y="81" width="9" height="9" rx="1" fill="#0ea5e9"/><text x="200" y="89" font-size="7" fill="#d1d1d6" font-family="system-ui">Color grade</text>
-                      <rect x="182" y="96" width="74" height="15" rx="2" fill="#2c2c2e"/>
-                      <rect x="186" y="99" width="9" height="9" rx="1" fill="#4ade80"/><text x="200" y="107" font-size="7" fill="#d1d1d6" font-family="system-ui">Retouch mask</text>
-                      <rect x="182" y="114" width="74" height="15" rx="2" fill="#2c2c2e"/>
-                      <rect x="186" y="117" width="9" height="9" rx="1" fill="#fbbf24"/><text x="200" y="125" font-size="7" fill="#d1d1d6" font-family="system-ui">Levels adj.</text>
-                      <rect x="182" y="132" width="74" height="15" rx="2" fill="#2c2c2e"/>
-                      <rect x="186" y="135" width="9" height="9" rx="1" fill="#f43f5e"/><text x="200" y="143" font-size="7" fill="#d1d1d6" font-family="system-ui">Ref image 1</text>
-                      <rect x="182" y="150" width="74" height="15" rx="2" fill="#2c2c2e"/>
-                      <rect x="186" y="153" width="9" height="9" rx="1" fill="#a78bfa"/><text x="200" y="161" font-size="7" fill="#d1d1d6" font-family="system-ui">Ref image 2</text>
-                    </svg>
-                    <div class="wf-time wf-time-slow">⏱ 4–5 hrs <span>manual compositing</span></div>
+                <div class="wf-split wf-split-vertical">
+                  <div class="wf-step-row">
+                    <div class="wf-step-item">
+                      <div class="wf-step-label">1. Client brief &amp; prompt list</div>
+                      <img src="images/participant-deer-brief.png" alt="Client brief listing illustrated scenes for bourbon brand" loading="lazy" class="wf-img">
+                    </div>
+                    <div class="wf-step-item">
+                      <div class="wf-step-label">2. Initial generation via Dream Engine</div>
+                      <img src="images/participant-deer-dreamengine.png" alt="Deer head mounted on wall generated through Dream Engine" loading="lazy" class="wf-img">
+                    </div>
                   </div>
-                  <div class="wf-divider"></div>
-                  <div class="wf-side wf-with">
-                    <div class="wf-side-label ai">With Generative Fill</div>
-                    <!-- Photoshop Generative Fill panel mockup -->
-                    <svg viewBox="0 0 260 180" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;border-radius:6px">
-                      <rect width="260" height="180" fill="#1c1c1e"/>
-                      <rect width="260" height="20" fill="#2c2c2e"/>
-                      <text x="8" y="14" font-size="8" fill="#8e8e93" font-family="system-ui">File  Edit  Image  Layer  Filter  View</text>
-                      <rect x="0" y="20" width="26" height="160" fill="#242424"/>
-                      <!-- Canvas with portrait + selection -->
-                      <rect x="26" y="20" width="152" height="160" fill="#404040"/>
-                      <!-- Portrait silhouette -->
-                      <rect x="55" y="30" width="92" height="140" rx="3" fill="#52525b"/>
-                      <ellipse cx="101" cy="75" rx="24" ry="27" fill="#71717a"/>
-                      <ellipse cx="101" cy="140" rx="42" ry="35" fill="#71717a"/>
-                      <!-- Dashed selection over background -->
-                      <rect x="55" y="30" width="92" height="140" rx="3" fill="none" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="5,3"/>
-                      <rect x="55" y="30" width="92" height="45" fill="rgba(56,189,248,.18)" rx="3"/>
-                      <!-- Generate Fill panel (right) -->
-                      <rect x="178" y="20" width="82" height="160" fill="#16213e"/>
-                      <rect x="178" y="20" width="82" height="22" fill="#0f3460"/>
-                      <text x="219" y="35" text-anchor="middle" font-size="7.5" fill="#60a5fa" font-family="system-ui" font-weight="700">Generative Fill</text>
-                      <!-- Prompt box -->
-                      <rect x="182" y="46" width="74" height="36" rx="4" fill="#1e3a5f"/>
-                      <text x="219" y="60" text-anchor="middle" font-size="7" fill="#93c5fd" font-family="system-ui">vibrant abstract</text>
-                      <text x="219" y="71" text-anchor="middle" font-size="7" fill="#93c5fd" font-family="system-ui">album art style</text>
-                      <!-- Generate button -->
-                      <rect x="188" y="88" width="62" height="18" rx="9" fill="#3b82f6"/>
-                      <text x="219" y="100" text-anchor="middle" font-size="8" fill="#fff" font-family="system-ui" font-weight="600">Generate</text>
-                      <!-- 3 variation thumbnails -->
-                      <text x="219" y="118" text-anchor="middle" font-size="7" fill="#64748b" font-family="system-ui">Choose a variation</text>
-                      <rect x="182" y="122" width="22" height="18" rx="2" fill="#7c3aed"/>
-                      <rect x="208" y="122" width="22" height="18" rx="2" fill="#c026d3"/>
-                      <rect x="234" y="122" width="22" height="18" rx="2" fill="#f97316"/>
-                      <!-- Tick on first -->
-                      <circle cx="193" cy="131" r="6" fill="rgba(0,0,0,.5)"/>
-                      <text x="193" y="134" text-anchor="middle" font-size="8" fill="#4ade80" font-family="system-ui">✓</text>
-                      <!-- Done indicator -->
-                      <rect x="182" y="148" width="74" height="18" rx="4" fill="#14532d"/>
-                      <text x="219" y="160" text-anchor="middle" font-size="7.5" fill="#4ade80" font-family="system-ui" font-weight="600">Applied ✓</text>
-                    </svg>
-                    <div class="wf-time wf-time-fast">⚡ ~20 min <span>select · prompt · done</span></div>
+                  <div class="wf-step-row">
+                    <div class="wf-step-item wf-step-wide">
+                      <div class="wf-step-label">3. Style tests &amp; variations in Photoshop</div>
+                      <img src="images/participant-deer-styletests.png" alt="Three style variations of deer illustration created in Photoshop" loading="lazy" class="wf-img">
+                    </div>
                   </div>
                 </div>
                 <div class="wf-quote">
-                  <span class="wf-quote-icon">💬</span>
-                  "I used the original photo as a starting point, then let generative fill take it somewhere I wouldn't have gone manually."
+                  <span class="wf-quote-icon">&#x1F4AC;</span>
+                  Participant used AI to rapidly generate the initial concept, then brought it into Photoshop for style exploration &mdash; producing three distinct tonal variations from a single prompt.
                 </div>
               </div>
 
-              <!-- Workflow Card 2: Cyberpunk Concept -->
+              <!-- Participant Example 2: Cyberpunk 3D Reference -->
               <div class="wf-card">
                 <div class="wf-header">
                   <div class="wf-role-badge">Art Director, Agency</div>
-                  <div class="wf-task">Build a mood reference board for a cyberpunk 3D rendering project</div>
-                  <div class="wf-tool-tag">✦ Midjourney</div>
+                  <div class="wf-task">Generate mood reference for a cyberpunk 3D rendering project in Blender</div>
+                  <div class="wf-tool-tag">✦ Dall-E &rarr; Midjourney &rarr; Blender</div>
                 </div>
                 <div class="wf-split">
                   <div class="wf-side wf-without">
-                    <div class="wf-side-label">Without AI</div>
-                    <!-- Stock search results: all wrong -->
-                    <svg viewBox="0 0 260 180" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;border-radius:6px">
-                      <rect width="260" height="180" fill="#f9fafb"/>
-                      <!-- Browser chrome -->
-                      <rect width="260" height="24" fill="#e5e7eb"/>
-                      <rect x="6"  y="4" width="72" height="16" rx="3" fill="#fff"/><text x="14" y="15" font-size="7.5" fill="#374151" font-family="system-ui">Getty Images</text>
-                      <rect x="82" y="5" width="54" height="14" rx="3" fill="#d1d5db"/><text x="90" y="15" font-size="7.5" fill="#9ca3af" font-family="system-ui">Pinterest</text>
-                      <rect x="140" y="5" width="58" height="14" rx="3" fill="#d1d5db"/><text x="148" y="15" font-size="7.5" fill="#9ca3af" font-family="system-ui">Behance</text>
-                      <!-- Search bar -->
-                      <rect x="6" y="28" width="210" height="14" rx="7" fill="#fff" stroke="#d1d5db" stroke-width="1"/>
-                      <text x="14" y="38" font-size="7.5" fill="#9ca3af" font-family="system-ui">🔍  cyberpunk cityscape night neon</text>
-                      <text x="6" y="54" font-size="7" fill="#6b7280" font-family="system-ui">12,840 results — none quite right</text>
-                      <!-- Row 1: 3 wrong results -->
-                      <rect x="6"   y="58" width="76" height="50" rx="3" fill="#bfdbfe"/>
-                      <text x="44"  y="80" text-anchor="middle" font-size="7" fill="#1e40af" font-family="system-ui">Daytime city</text>
-                      <text x="44"  y="90" text-anchor="middle" font-size="7" fill="#1e40af" font-family="system-ui">wrong mood</text>
-                      <rect x="88"  y="58" width="76" height="50" rx="3" fill="#d1fae5"/>
-                      <text x="126" y="80" text-anchor="middle" font-size="7" fill="#065f46" font-family="system-ui">Sunny suburb</text>
-                      <text x="126" y="90" text-anchor="middle" font-size="7" fill="#065f46" font-family="system-ui">not even close</text>
-                      <rect x="170" y="58" width="76" height="50" rx="3" fill="#fef3c7"/>
-                      <text x="208" y="80" text-anchor="middle" font-size="7" fill="#92400e" font-family="system-ui">Sunset skyline</text>
-                      <text x="208" y="90" text-anchor="middle" font-size="7" fill="#92400e" font-family="system-ui">wrong era</text>
-                      <!-- Row 2 -->
-                      <rect x="6"   y="114" width="76" height="50" rx="3" fill="#e0e7ff"/>
-                      <text x="44"  y="136" text-anchor="middle" font-size="7" fill="#3730a3" font-family="system-ui">Sci-fi concept</text>
-                      <text x="44"  y="146" text-anchor="middle" font-size="7" fill="#3730a3" font-family="system-ui">$$$  licensed</text>
-                      <rect x="88"  y="114" width="76" height="50" rx="3" fill="#fce7f3"/>
-                      <text x="126" y="136" text-anchor="middle" font-size="7" fill="#9d174d" font-family="system-ui">Blurry / unusable</text>
-                      <rect x="170" y="114" width="76" height="50" rx="3" fill="#f1f5f9"/>
-                      <text x="208" y="136" text-anchor="middle" font-size="7" fill="#475569" font-family="system-ui">Not cyberpunk</text>
-                      <!-- Red X marks on wrong ones -->
-                      <line x1="6"   y1="58"  x2="82"  y2="108" stroke="rgba(239,68,68,.45)" stroke-width="2"/>
-                      <line x1="82"  y1="58"  x2="6"   y2="108" stroke="rgba(239,68,68,.45)" stroke-width="2"/>
-                      <line x1="88"  y1="58"  x2="164" y2="108" stroke="rgba(239,68,68,.45)" stroke-width="2"/>
-                      <line x1="164" y1="58"  x2="88"  y2="108" stroke="rgba(239,68,68,.45)" stroke-width="2"/>
-                      <line x1="170" y1="58"  x2="246" y2="108" stroke="rgba(239,68,68,.45)" stroke-width="2"/>
-                      <line x1="246" y1="58"  x2="170" y2="108" stroke="rgba(239,68,68,.45)" stroke-width="2"/>
-                      <line x1="88"  y1="114" x2="164" y2="164" stroke="rgba(239,68,68,.45)" stroke-width="2"/>
-                      <line x1="164" y1="114" x2="88"  y2="164" stroke="rgba(239,68,68,.45)" stroke-width="2"/>
-                    </svg>
-                    <div class="wf-time wf-time-slow">⏱ 2–3 hrs <span>searching, nothing fits</span></div>
+                    <div class="wf-side-label">Dall-E attempt (unsatisfied)</div>
+                    <img src="images/participant-cyberpunk-dalle.png" alt="Cyberpunk cityscape generated in Dall-E — aerial view, lacking depth" loading="lazy" class="wf-img">
+                    <div class="wf-time wf-time-slow">Flat composition, couldn't control perspective</div>
                   </div>
                   <div class="wf-divider"></div>
                   <div class="wf-side wf-with">
-                    <div class="wf-side-label ai">With Midjourney</div>
-                    <!-- Midjourney interface mockup -->
-                    <svg viewBox="0 0 260 180" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;border-radius:6px">
-                      <defs>
-                        <radialGradient id="mj1" cx="55%" cy="35%" r="55%"><stop offset="0%" stop-color="rgba(167,139,250,.65)"/><stop offset="100%" stop-color="transparent"/></radialGradient>
-                        <radialGradient id="mj2" cx="35%" cy="65%" r="55%"><stop offset="0%" stop-color="rgba(34,211,238,.5)"/><stop offset="100%" stop-color="transparent"/></radialGradient>
-                        <radialGradient id="mj3" cx="65%" cy="60%" r="50%"><stop offset="0%" stop-color="rgba(251,146,60,.4)"/><stop offset="100%" stop-color="transparent"/></radialGradient>
-                        <radialGradient id="mj4" cx="45%" cy="40%" r="55%"><stop offset="0%" stop-color="rgba(167,139,250,.7)"/><stop offset="100%" stop-color="transparent"/></radialGradient>
-                      </defs>
-                      <rect width="260" height="180" fill="#0a0a10"/>
-                      <!-- Top bar -->
-                      <rect width="260" height="22" fill="#111118"/>
-                      <text x="130" y="15" text-anchor="middle" font-size="8" fill="#6366f1" font-family="system-ui" font-weight="700">Midjourney</text>
-                      <!-- 4 generated images in 2×2 grid -->
-                      <rect x="4"   y="26" width="124" height="70" rx="3" fill="#0d0d1a"/>
-                      <rect x="132" y="26" width="124" height="70" rx="3" fill="#0d0d1a"/>
-                      <rect x="4"   y="100" width="124" height="68" rx="3" fill="#0d0d1a"/>
-                      <rect x="132" y="100" width="124" height="68" rx="3" fill="#0d0d1a"/>
-                      <!-- Neon glows in each quadrant -->
-                      <rect x="4"   y="26"  width="124" height="70" rx="3" fill="url(#mj1)"/>
-                      <rect x="132" y="26"  width="124" height="70" rx="3" fill="url(#mj2)"/>
-                      <rect x="4"   y="100" width="124" height="68" rx="3" fill="url(#mj3)"/>
-                      <rect x="132" y="100" width="124" height="68" rx="3" fill="url(#mj4)"/>
-                      <!-- Neon building silhouettes Q1 -->
-                      <rect x="12"  y="57" width="10" height="39" fill="#0a0010" stroke="#7c3aed" stroke-width=".6"/>
-                      <rect x="25"  y="44" width="8"  height="52" fill="#0a0010" stroke="#06b6d4" stroke-width=".6"/>
-                      <rect x="36"  y="51" width="14" height="45" fill="#0a0010" stroke="#7c3aed" stroke-width=".6"/>
-                      <rect x="53"  y="38" width="10" height="58" fill="#0a0010" stroke="#a855f7" stroke-width=".8"/>
-                      <rect x="66"  y="47" width="18" height="49" fill="#0a0010" stroke="#06b6d4" stroke-width=".6"/>
-                      <rect x="87"  y="34" width="12" height="62" fill="#0a0010" stroke="#7c3aed" stroke-width=".8"/>
-                      <rect x="102" y="44" width="20" height="52" fill="#0a0010" stroke="#a855f7" stroke-width=".6"/>
-                      <!-- Neon buildings Q2 -->
-                      <rect x="140" y="55" width="12" height="41" fill="#0a0a14" stroke="#06b6d4" stroke-width=".6"/>
-                      <rect x="155" y="42" width="9"  height="54" fill="#0a0a14" stroke="#7c3aed" stroke-width=".6"/>
-                      <rect x="167" y="50" width="15" height="46" fill="#0a0a14" stroke="#06b6d4" stroke-width=".8"/>
-                      <rect x="185" y="36" width="11" height="60" fill="#0a0a14" stroke="#a855f7" stroke-width=".8"/>
-                      <rect x="199" y="46" width="20" height="50" fill="#0a0a14" stroke="#06b6d4" stroke-width=".6"/>
-                      <rect x="222" y="32" width="14" height="64" fill="#0a0a14" stroke="#7c3aed" stroke-width=".8"/>
-                      <!-- Ground glow lines -->
-                      <line x1="4"   y1="95"  x2="128" y2="95"  stroke="#7c3aed" stroke-width="1" opacity=".5"/>
-                      <line x1="132" y1="95"  x2="256" y2="95"  stroke="#06b6d4" stroke-width="1" opacity=".5"/>
-                      <!-- Q3 Q4 similar glow (no buildings for brevity) -->
-                      <rect x="4"   y="100" width="124" height="68" fill="url(#mj3)" rx="3"/>
-                      <rect x="132" y="100" width="124" height="68" fill="url(#mj4)" rx="3"/>
-                      <rect x="12"  y="128" width="10" height="40" fill="#07030a" stroke="#f97316" stroke-width=".6"/>
-                      <rect x="25"  y="118" width="8"  height="50" fill="#07030a" stroke="#fb923c" stroke-width=".6"/>
-                      <rect x="38"  y="124" width="14" height="44" fill="#07030a" stroke="#f97316" stroke-width=".6"/>
-                      <rect x="55"  y="112" width="10" height="56" fill="#07030a" stroke="#fbbf24" stroke-width=".8"/>
-                      <rect x="68"  y="120" width="18" height="48" fill="#07030a" stroke="#f97316" stroke-width=".6"/>
-                      <rect x="90"  y="108" width="13" height="60" fill="#07030a" stroke="#fb923c" stroke-width=".8"/>
-                      <rect x="140" y="124" width="12" height="44" fill="#0a0514" stroke="#a855f7" stroke-width=".6"/>
-                      <rect x="155" y="112" width="9"  height="56" fill="#0a0514" stroke="#7c3aed" stroke-width=".6"/>
-                      <rect x="168" y="118" width="15" height="50" fill="#0a0514" stroke="#a855f7" stroke-width=".8"/>
-                      <rect x="186" y="106" width="11" height="62" fill="#0a0514" stroke="#7c3aed" stroke-width=".8"/>
-                      <rect x="200" y="114" width="20" height="54" fill="#0a0514" stroke="#a855f7" stroke-width=".6"/>
-                      <!-- Selected tick on Q1 -->
-                      <circle cx="120" cy="35" r="9" fill="#16a34a"/>
-                      <text x="120" y="39" text-anchor="middle" font-size="11" fill="#fff" font-family="system-ui">✓</text>
-                      <!-- Prompt bar at bottom -->
-                      <rect x="4" y="172" width="252" height="0" fill="transparent"/>
-                    </svg>
-                    <div class="wf-time wf-time-fast">⚡ ~10 min <span>one prompt, 4 perfect results</span></div>
+                    <div class="wf-side-label ai">Midjourney result (selected)</div>
+                    <img src="images/participant-cyberpunk-midjourney.png" alt="Cyberpunk cityscape generated in Midjourney — street-level, rich depth and neon lighting" loading="lazy" class="wf-img">
+                    <div class="wf-time wf-time-fast">Precise mood, lighting, and depth for 3D reference</div>
                   </div>
                 </div>
                 <div class="wf-quote">
-                  <span class="wf-quote-icon">💬</span>
-                  "Stock gets me close, but AI gets me exact. I used this to pre-visualize mood and composition before building anything in Blender."
-                </div>
-              </div>
-
-              <!-- Remaining participant cards -->
-              <div class="participant-grid" style="margin-top:28px;">
-                <div class="participant-card">
-                  <div class="participant-visual">
-                    <img src="images/participant-moodboard.jpg" alt="AI-generated moodboard for client branding" loading="lazy">
-                    <span class="pv-tool">Midjourney</span>
-                  </div>
-                  <div class="participant-info">
-                    <span class="participant-role">Creative Director, Agency</span>
-                    <p>Generated an entire moodboard for client branding — logo ideation in <strong>&lt;10 min</strong> vs. 4–5 hours of manual prototyping</p>
-                  </div>
-                </div>
-
-                <div class="participant-card">
-                  <div class="participant-visual">
-                    <img src="images/participant-social.jpg" alt="AI-generated social media visual" loading="lazy">
-                    <span class="pv-tool">Adobe Firefly</span>
-                  </div>
-                  <div class="participant-info">
-                    <span class="participant-role">Marketing Lead, Corporate</span>
-                    <p>Used ChatGPT for ideation, then prompted in Firefly to generate social media visuals — remixing variations until satisfied</p>
-                  </div>
+                  <span class="wf-quote-icon">&#x1F4AC;</span>
+                  "We're going to be taking those shapes and putting them into Blender. We're not going to be editing that image &mdash; we're going to be making that our reference point, our foundation, just to see what kind of shapes are there, how the lighting is done. We would take that as inspiration and play with different perspectives."
                 </div>
               </div>
             </div>
