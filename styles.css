@@ -1574,7 +1574,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   border-radius: var(--radius-sm);
   overflow: hidden;
   margin-top: 8px;
-  margin-bottom: 32px;
+  margin-bottom: 40px;
   max-width: 420px;
 }
 
@@ -1600,7 +1600,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   font-weight: 500;
 }
 
-.v2-flow { margin-bottom: 12px; }
+.v2-flow { margin-bottom: 32px; }
 
 .v2-insight {
   font-family: var(--font);
