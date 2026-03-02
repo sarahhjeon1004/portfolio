@@ -2129,9 +2129,41 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   padding: 24px;
 }
 
-.wf-split-vertical > .wf-step-item > .wf-img {
-  max-height: 400px;
-  object-position: top center;
+.wf-img-pair {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 16px;
+  align-items: end;
+}
+
+.wf-figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.wf-figure img {
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid var(--gray-200);
+  object-fit: contain;
+  background: #f5f5f5;
+}
+
+.wf-figure figcaption {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gray-500);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .wf-img-pair {
+    grid-template-columns: 1fr;
+  }
 }
 
 .wf-step-row {
