@@ -530,27 +530,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   .timeline-card { padding-right: 0; }
 }
 
-/* Timeline brand colors */
-.timeline-mcgill .timeline-dot {
-  background: var(--mcgill-primary);
-}
-.timeline-mcgill .timeline-period {
-  color: var(--mcgill-primary);
-}
-
-.timeline-getty .timeline-dot {
-  background: var(--getty-primary);
-}
-.timeline-getty .timeline-period {
-  color: var(--getty-primary);
-}
-
-.timeline-autodesk .timeline-dot {
-  background: var(--autodesk-primary);
-}
-.timeline-autodesk .timeline-period {
-  color: var(--autodesk-primary);
-}
+/* Timeline brand colors — using neutral defaults */
 
 /* ============================================
    Project Selector
