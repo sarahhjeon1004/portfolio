@@ -1,7 +1,6 @@
 (() => {
   'use strict';
 
-  // Scroll reveal
   const revealObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -22,18 +21,47 @@
 
   observeReveals();
 
-  // Nav scroll
   const nav = document.getElementById('nav');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const sections = document.querySelectorAll('section[id]');
 
+  function updateActiveNav() {
+    const scrollPos = window.scrollY + nav.offsetHeight + 100;
+    let current = '';
+
+    sections.forEach((section) => {
+      if (section.offsetTop <= scrollPos) {
+        current = section.getAttribute('id');
+      }
+    });
+
+    navLinks.forEach((link) => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + current) {
+        link.classList.add('active');
+      }
+    });
+  }
+
+  let ticking = false;
   window.addEventListener('scroll', () => {
     if (window.scrollY > 40) {
       nav.classList.add('scrolled');
     } else {
       nav.classList.remove('scrolled');
     }
+
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        updateActiveNav();
+        ticking = false;
+      });
+      ticking = true;
+    }
   }, { passive: true });
 
-  // Mobile nav toggle
+  updateActiveNav();
+
   const navToggle = document.getElementById('navToggle');
   const navMobile = document.getElementById('navMobile');
 
@@ -51,7 +79,6 @@
     });
   }
 
-  // Smooth scroll for anchor links
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener('click', (e) => {
       e.preventDefault();
@@ -67,7 +94,6 @@
     });
   });
 
-  // Project selector
   const caseStudies = document.querySelectorAll('.case-study');
   const filterBtn = document.querySelector('.filter-btn[data-filter="all"]');
   const workSection = document.getElementById('work');
@@ -80,7 +106,10 @@
   }
 
   function showAll() {
-    caseStudies.forEach((cs) => cs.classList.remove('hidden'));
+    caseStudies.forEach((cs) => {
+      cs.classList.remove('hidden');
+      cs.style.opacity = '';
+    });
     document.querySelectorAll('.project-card').forEach((c) => c.classList.remove('active'));
     if (filterBtn) filterBtn.classList.add('active');
     observeReveals();
@@ -90,6 +119,11 @@
     caseStudies.forEach((cs) => {
       if (cs.dataset.case === projectId) {
         cs.classList.remove('hidden');
+        cs.style.opacity = '0';
+        requestAnimationFrame(() => {
+          cs.style.transition = 'opacity 0.5s ease';
+          cs.style.opacity = '1';
+        });
       } else {
         cs.classList.add('hidden');
       }
@@ -109,7 +143,6 @@
     }, 50);
   }
 
-  // Attach click handlers to project cards
   document.getElementById('projectCards').addEventListener('click', (e) => {
     const card = e.target.closest('.project-card');
     if (!card) return;
@@ -126,7 +159,6 @@
     });
   }
 
-  // Back to projects links
   document.querySelectorAll('.back-to-projects').forEach((link) => {
     link.addEventListener('click', (e) => {
       e.preventDefault();
@@ -135,17 +167,22 @@
     });
   });
 
-  // Staggered reveal for grouped elements (not project cards)
   const staggerGroups = [
     '.solution-grid .solution-card',
     '.principles-grid .principle',
     '.impact-grid .impact-card',
     '.ama-features .ama-feature',
+    '.project-cards .project-card',
   ];
 
   staggerGroups.forEach((selector) => {
     document.querySelectorAll(selector).forEach((item, index) => {
-      item.style.transitionDelay = `${index * 80}ms`;
+      item.style.transitionDelay = `${index * 100}ms`;
     });
   });
+
+  document.querySelectorAll('.project-card').forEach((card) => {
+    card.classList.add('reveal');
+  });
+  observeReveals();
 })();
