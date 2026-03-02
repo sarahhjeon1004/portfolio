@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Sarah Jeon</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>S</text></svg>">
+  <style>
+    .page-404 {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 24px;
+      background: var(--gray-900);
+    }
+    .page-404-code {
+      font-family: var(--font);
+      font-size: clamp(80px, 15vw, 160px);
+      font-weight: 800;
+      letter-spacing: -0.06em;
+      background: linear-gradient(135deg, #60a5fa, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+    .page-404-title {
+      font-family: var(--font);
+      font-size: clamp(20px, 3vw, 28px);
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .page-404-text {
+      font-size: 16px;
+      color: var(--gray-400);
+      margin-bottom: 36px;
+      max-width: 400px;
+      line-height: 1.6;
+    }
+    .page-404-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gray-900);
+      background: var(--white);
+      padding: 12px 28px;
+      border-radius: 8px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+    }
+    .page-404-link:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(255,255,255,0.15);
+    }
+  </style>
+</head>
+<body>
+  <div class="page-404">
+    <div>
+      <div class="page-404-code">404</div>
+      <h1 class="page-404-title">This page doesn't exist</h1>
+      <p class="page-404-text">Looks like this research led to a dead end. Let's get you back to the portfolio.</p>
+      <a href="index.html" class="page-404-link">&larr; Back to portfolio</a>
+    </div>
+  </div>
+</body>
+</html>
